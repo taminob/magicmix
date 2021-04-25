@@ -1,0 +1,265 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://ui/icons/empty_slot_frame-512.png" type="Texture" id=1]
+[ext_resource path="res://themes/ui_theme.tres" type="Theme" id=2]
+[ext_resource path="res://ui/panels/crafting/crafting_component.gd" type="Script" id=3]
+[ext_resource path="res://ui/panels/crafting/crafting_panel.gd" type="Script" id=4]
+
+[sub_resource type="StyleBoxFlat" id=1]
+
+[node name="crafting_panel" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="crafting_layout" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 0.000244141
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="component_layout" type="HBoxContainer" parent="crafting_layout"]
+margin_right = 3840.0
+margin_bottom = 2023.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="target" type="VBoxContainer" parent="crafting_layout/component_layout"]
+margin_right = 754.0
+margin_bottom = 2023.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 3 )
+
+[node name="item" type="TextureButton" parent="crafting_layout/component_layout/target"]
+margin_right = 754.0
+margin_bottom = 1009.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+
+[node name="label" type="Label" parent="crafting_layout/component_layout/target"]
+margin_top = 1013.0
+margin_right = 754.0
+margin_bottom = 2023.0
+size_flags_vertical = 7
+text = "target"
+align = 1
+
+[node name="list" type="ItemList" parent="crafting_layout/component_layout/target/label"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="type" type="VBoxContainer" parent="crafting_layout/component_layout"]
+margin_left = 758.0
+margin_right = 1512.0
+margin_bottom = 2023.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 3 )
+
+[node name="item" type="TextureButton" parent="crafting_layout/component_layout/type"]
+margin_right = 754.0
+margin_bottom = 1009.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+
+[node name="label" type="Label" parent="crafting_layout/component_layout/type"]
+margin_top = 1013.0
+margin_right = 754.0
+margin_bottom = 2023.0
+size_flags_vertical = 7
+text = "type"
+align = 1
+
+[node name="list" type="ItemList" parent="crafting_layout/component_layout/type/label"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VSeparator" type="VSeparator" parent="crafting_layout/component_layout"]
+margin_left = 1516.0
+margin_right = 1566.0
+margin_bottom = 2023.0
+custom_styles/separator = SubResource( 1 )
+custom_constants/separation = 50
+
+[node name="element_1" type="VBoxContainer" parent="crafting_layout/component_layout"]
+margin_left = 1570.0
+margin_right = 2324.0
+margin_bottom = 2023.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 3 )
+
+[node name="item" type="TextureButton" parent="crafting_layout/component_layout/element_1"]
+margin_right = 754.0
+margin_bottom = 1009.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+
+[node name="label" type="Label" parent="crafting_layout/component_layout/element_1"]
+margin_top = 1013.0
+margin_right = 754.0
+margin_bottom = 2023.0
+size_flags_vertical = 7
+text = "element/item"
+align = 1
+
+[node name="list" type="ItemList" parent="crafting_layout/component_layout/element_1/label"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="element_2" type="VBoxContainer" parent="crafting_layout/component_layout"]
+margin_left = 2328.0
+margin_right = 3082.0
+margin_bottom = 2023.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 3 )
+
+[node name="item" type="TextureButton" parent="crafting_layout/component_layout/element_2"]
+margin_right = 754.0
+margin_bottom = 1009.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+
+[node name="label" type="Label" parent="crafting_layout/component_layout/element_2"]
+margin_top = 1013.0
+margin_right = 754.0
+margin_bottom = 2023.0
+size_flags_vertical = 7
+text = "element/item"
+align = 1
+
+[node name="list" type="ItemList" parent="crafting_layout/component_layout/element_2/label"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="element_3" type="VBoxContainer" parent="crafting_layout/component_layout"]
+margin_left = 3086.0
+margin_right = 3840.0
+margin_bottom = 2023.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 3 )
+
+[node name="item" type="TextureButton" parent="crafting_layout/component_layout/element_3"]
+margin_right = 754.0
+margin_bottom = 1009.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+
+[node name="label" type="Label" parent="crafting_layout/component_layout/element_3"]
+margin_top = 1013.0
+margin_right = 754.0
+margin_bottom = 2023.0
+size_flags_vertical = 7
+text = "element/item"
+align = 1
+
+[node name="list" type="ItemList" parent="crafting_layout/component_layout/element_3/label"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="cast_button" type="Button" parent="crafting_layout"]
+margin_left = 1813.0
+margin_top = 2027.0
+margin_right = 2027.0
+margin_bottom = 2160.0
+size_flags_horizontal = 4
+text = "Cast"
+
+[node name="result_popup" type="PopupDialog" parent="."]
+visible = true
+anchor_left = 0.3
+anchor_top = 0.2
+anchor_right = 0.7
+anchor_bottom = 0.7
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="popup_timer" type="Timer" parent="result_popup"]
+wait_time = 2.0
+one_shot = true
+
+[node name="popup_layout" type="VBoxContainer" parent="result_popup"]
+anchor_top = 0.05
+anchor_right = 1.0
+anchor_bottom = 0.95
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="result_icon" type="TextureRect" parent="result_popup/popup_layout"]
+margin_right = 1536.0
+margin_bottom = 841.0
+size_flags_vertical = 3
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="result_label" type="Label" parent="result_popup/popup_layout"]
+margin_top = 845.0
+margin_right = 1536.0
+margin_bottom = 972.0
+text = "Invalid Combination!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="crafting_layout/component_layout/target/item" to="crafting_layout/component_layout/target" method="_on_item_pressed"]
+[connection signal="item_activated" from="crafting_layout/component_layout/target/label/list" to="crafting_layout/component_layout/target" method="_on_list_item_activated"]
+[connection signal="pressed" from="crafting_layout/component_layout/type/item" to="crafting_layout/component_layout/type" method="_on_item_pressed"]
+[connection signal="item_activated" from="crafting_layout/component_layout/type/label/list" to="crafting_layout/component_layout/type" method="_on_list_item_activated"]
+[connection signal="pressed" from="crafting_layout/component_layout/element_1/item" to="crafting_layout/component_layout/element_1" method="_on_item_pressed"]
+[connection signal="item_activated" from="crafting_layout/component_layout/element_1/label/list" to="crafting_layout/component_layout/element_1" method="_on_list_item_activated"]
+[connection signal="pressed" from="crafting_layout/component_layout/element_2/item" to="crafting_layout/component_layout/element_2" method="_on_item_pressed"]
+[connection signal="item_activated" from="crafting_layout/component_layout/element_2/label/list" to="crafting_layout/component_layout/element_2" method="_on_list_item_activated"]
+[connection signal="pressed" from="crafting_layout/component_layout/element_3/item" to="crafting_layout/component_layout/element_3" method="_on_item_pressed"]
+[connection signal="item_activated" from="crafting_layout/component_layout/element_3/label/list" to="crafting_layout/component_layout/element_3" method="_on_list_item_activated"]
+[connection signal="pressed" from="crafting_layout/cast_button" to="." method="_on_cast_button_pressed"]
+[connection signal="timeout" from="result_popup/popup_timer" to="." method="_on_popup_timer_timeout"]

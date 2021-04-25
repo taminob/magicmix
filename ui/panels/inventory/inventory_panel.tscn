@@ -1,0 +1,67 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://themes/ui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://ui/panels/inventory/inventory_panel.gd" type="Script" id=2]
+
+[node name="inventory_panel" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tabs" type="TabContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 8.0
+margin_bottom = 36.0
+tab_align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="All" type="ItemList" parent="tabs"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 145.0
+margin_right = -4.0
+margin_bottom = -4.0
+select_mode = 1
+allow_reselect = true
+max_columns = 12
+icon_mode = 0
+
+[node name="Weapons" type="ItemList" parent="tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 145.0
+margin_right = -4.0
+margin_bottom = -4.0
+max_columns = 12
+
+[node name="Consumables" type="ItemList" parent="tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 145.0
+margin_right = -4.0
+margin_bottom = -4.0
+max_columns = 12
+
+[node name="sort_button" type="Button" parent="."]
+anchor_left = 0.9
+anchor_top = 0.03
+anchor_right = 0.97
+anchor_bottom = 0.1
+text = "Sort"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="tab_changed" from="tabs" to="." method="_on_tabs_tab_changed"]
+[connection signal="pressed" from="sort_button" to="." method="_on_sort_button_pressed"]

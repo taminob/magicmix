@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://themes/ui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://ui/panels/crafting/crafting_panel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ui/panels/panels.gd" type="Script" id=3]
+[ext_resource path="res://ui/panels/inventory/inventory_panel.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ui/panels/skills/skills_panel.tscn" type="PackedScene" id=5]
+
+[node name="panels" type="Popup"]
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.95
+margin_right = 0.00012207
+theme = ExtResource( 1 )
+popup_exclusive = true
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tabs" type="TabContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inventory" parent="tabs" instance=ExtResource( 4 )]
+margin_left = 4.0
+margin_top = 145.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Spell Crafting" parent="tabs" instance=ExtResource( 2 )]
+visible = false
+margin_left = 4.0
+margin_top = 145.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Skills" parent="tabs" instance=ExtResource( 5 )]
+visible = false
+margin_left = 4.0
+margin_top = 145.0
+margin_right = -4.0
+margin_bottom = -4.0

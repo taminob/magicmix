@@ -1,0 +1,137 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://menu/background/smoke_background.tres" type="Texture" id=1]
+[ext_resource path="res://themes/menu_theme.tres" type="Theme" id=2]
+[ext_resource path="res://menu/main_menu/main_menu.gd" type="Script" id=8]
+
+[node name="main_menu" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 2 )
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="background" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 0.000244141
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="center_container" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 0.000244141
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="v_box_container" type="VBoxContainer" parent="center_container"]
+margin_left = 1651.0
+margin_top = 447.0
+margin_right = 2188.0
+margin_bottom = 1712.0
+theme = ExtResource( 2 )
+alignment = 1
+
+[node name="continue_button" type="Button" parent="center_container/v_box_container"]
+margin_right = 537.0
+margin_bottom = 133.0
+focus_neighbour_top = NodePath("../quit_button")
+focus_neighbour_bottom = NodePath("../new_button")
+focus_next = NodePath("../new_button")
+focus_previous = NodePath("../quit_button")
+size_flags_vertical = 3
+theme = ExtResource( 2 )
+text = "Continue"
+flat = true
+
+[node name="new_button" type="Button" parent="center_container/v_box_container"]
+margin_top = 283.0
+margin_right = 537.0
+margin_bottom = 416.0
+focus_next = NodePath("../load_button")
+focus_previous = NodePath("../continue_button")
+size_flags_vertical = 3
+theme = ExtResource( 2 )
+text = "New Game"
+flat = true
+
+[node name="load_button" type="Button" parent="center_container/v_box_container"]
+margin_top = 566.0
+margin_right = 537.0
+margin_bottom = 699.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 2 )
+text = "Load Game"
+flat = true
+
+[node name="options_button" type="Button" parent="center_container/v_box_container"]
+margin_top = 849.0
+margin_right = 537.0
+margin_bottom = 982.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 2 )
+text = "Options"
+flat = true
+
+[node name="quit_button" type="Button" parent="center_container/v_box_container"]
+margin_top = 1132.0
+margin_right = 537.0
+margin_bottom = 1265.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 2 )
+text = "Quit"
+flat = true
+
+[node name="load_popup" type="Popup" parent="."]
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.9
+
+[node name="layout" type="VBoxContainer" parent="load_popup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="save_list" type="ItemList" parent="load_popup/layout"]
+margin_right = 3072.0
+margin_bottom = 1445.0
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="load_save_button" type="Button" parent="load_popup/layout"]
+margin_top = 1595.0
+margin_right = 3072.0
+margin_bottom = 1728.0
+text = "Load"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="center_container/v_box_container/continue_button" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="center_container/v_box_container/new_button" to="." method="_on_new_button_pressed"]
+[connection signal="pressed" from="center_container/v_box_container/load_button" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="center_container/v_box_container/options_button" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="center_container/v_box_container/quit_button" to="." method="_on_quit_button_pressed"]
+[connection signal="item_activated" from="load_popup/layout/save_list" to="." method="_on_save_list_item_activated"]
+[connection signal="pressed" from="load_popup/layout/load_save_button" to="." method="_on_load_save_button_pressed"]

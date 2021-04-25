@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://menu/options_menu/option_pages/game_options.gd" type="Script" id=1]
+[ext_resource path="res://themes/menu_theme.tres" type="Theme" id=3]
+
+[node name="game_options" type="ScrollContainer"]
+anchor_right = 0.5
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+theme = ExtResource( 3 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="layout" type="VBoxContainer" parent="."]
+margin_right = 1920.0
+margin_bottom = 133.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="difficulty" type="HBoxContainer" parent="layout"]
+margin_right = 1920.0
+margin_bottom = 133.0
+
+[node name="difficulty_label" type="Label" parent="layout/difficulty"]
+margin_top = 3.0
+margin_right = 572.0
+margin_bottom = 130.0
+text = "Difficulty     "
+
+[node name="difficulty_choice" type="OptionButton" parent="layout/difficulty"]
+margin_left = 576.0
+margin_right = 1920.0
+margin_bottom = 133.0
+size_flags_horizontal = 3
+text = "Kill Yourself"
+flat = true
+align = 1

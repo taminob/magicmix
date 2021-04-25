@@ -1,0 +1,92 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://menu/options_menu/option_pages/display_options.gd" type="Script" id=1]
+[ext_resource path="res://themes/menu_theme.tres" type="Theme" id=4]
+
+[node name="display_options" type="ScrollContainer"]
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_right = 0.00012207
+size_flags_horizontal = 3
+theme = ExtResource( 4 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="layout" type="VBoxContainer" parent="."]
+margin_right = 1920.0
+margin_bottom = 984.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="screen_option" type="HBoxContainer" parent="layout"]
+margin_right = 1920.0
+margin_bottom = 133.0
+
+[node name="screen_label" type="Label" parent="layout/screen_option"]
+margin_top = 3.0
+margin_right = 470.0
+margin_bottom = 130.0
+text = "Output     "
+
+[node name="screen_choice" type="OptionButton" parent="layout/screen_option"]
+margin_left = 474.0
+margin_right = 1920.0
+margin_bottom = 133.0
+size_flags_horizontal = 3
+text = "1: (1920x1080)"
+flat = true
+align = 1
+
+[node name="screen-mode_option" type="HBoxContainer" parent="layout"]
+margin_top = 283.0
+margin_right = 1920.0
+margin_bottom = 416.0
+
+[node name="screen-mode_label" type="Label" parent="layout/screen-mode_option"]
+margin_top = 3.0
+margin_right = 742.0
+margin_bottom = 130.0
+text = "Screen Mode     "
+
+[node name="screen-mode_choice" type="OptionButton" parent="layout/screen-mode_option"]
+margin_left = 746.0
+margin_right = 1920.0
+margin_bottom = 133.0
+size_flags_horizontal = 3
+text = "Window"
+flat = true
+align = 1
+
+[node name="resolution_option" type="HBoxContainer" parent="layout"]
+margin_top = 566.0
+margin_right = 1920.0
+margin_bottom = 699.0
+
+[node name="resolution_label" type="Label" parent="layout/resolution_option"]
+margin_top = 3.0
+margin_right = 635.0
+margin_bottom = 130.0
+text = "Resolution     "
+
+[node name="resolution_choice" type="OptionButton" parent="layout/resolution_option"]
+margin_left = 639.0
+margin_right = 1920.0
+margin_bottom = 133.0
+size_flags_horizontal = 3
+text = "1920x1080"
+flat = true
+align = 1
+
+[node name="vsync" type="CheckBox" parent="layout"]
+margin_top = 849.0
+margin_right = 1920.0
+margin_bottom = 984.0
+text = "Enable V-Sync"
+[connection signal="item_selected" from="layout/screen_option/screen_choice" to="." method="_on_screen_choice_item_selected"]
+[connection signal="item_selected" from="layout/screen-mode_option/screen-mode_choice" to="." method="_on_screenmode_choice_item_selected"]
+[connection signal="item_selected" from="layout/resolution_option/resolution_choice" to="." method="_on_resolution_choice_item_selected"]
+[connection signal="toggled" from="layout/vsync" to="." method="_on_vsync_toggled"]
