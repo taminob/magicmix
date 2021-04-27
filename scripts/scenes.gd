@@ -17,6 +17,7 @@ func open_scene(scene, clear_scene_stack=false):
 	if(current_scene):
 		previous_scenes.append(current_scene)
 		root.remove_child(current_scene)
+	errors.log("open scene: " + scene.filename)
 	current_scene = scene
 	root.add_child(current_scene)
 	get_tree().set_current_scene(current_scene)

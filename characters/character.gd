@@ -62,7 +62,7 @@ func die():
 	# todo: animation
 	if(is_player):
 		_update_ui()
-		management.change_level(load("res://world/death_realm/death_realm.tscn").instance())
+		levels.change_level("death_realm")
 		in_death_realm = true
 
 func damage(dmg):
@@ -94,11 +94,11 @@ func _collide(delta):
 	var d_y = abs(last_speed.y - velocity.y) / delta
 	var d_z = abs(last_speed.z - velocity.z) / delta
 	var max_axis = max(d_x, max(d_y, d_z))
-	if(max_axis > 300):
-		print(max_axis)
 	var threshold = 600
 	if(max_axis > threshold):
-		_self_damage(pow((max_axis - threshold)/100, 3))
+		var dmg = pow((max_axis - threshold*0.8)/100, 2)
+		errors.test("impact: " + str(max_axis) + "; dmg: " + str(dmg))
+		_self_damage(dmg)
 	last_speed = velocity
 
 func _move(delta):
@@ -138,6 +138,9 @@ func _input(event):
 	elif(event.is_action_released("sprint") && move_state == SPRINTING ||
 		event.is_action_released("walk") && move_state == WALKING):
 		move_state = RUNNING
+
+	if(event is InputEventMouseMotion):
+		rotate_y(-event.relative.x * 0.002)
 
 	if(event.is_action_pressed("rotate_camera_left")):
 		rotation_degrees.y += 30

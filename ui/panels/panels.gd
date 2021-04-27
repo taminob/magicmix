@@ -4,11 +4,13 @@ var hidden = true
 onready var tabs = $"tabs"
 
 func open(tab):
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	hidden = false
 	tabs.set_current_tab(tab)
 	popup()
 
 func close():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	hidden = true
 	hide()
 

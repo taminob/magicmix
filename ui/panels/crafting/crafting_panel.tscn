@@ -251,6 +251,7 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="pressed" from="crafting_layout/component_layout/target/item" to="crafting_layout/component_layout/target" method="_on_item_pressed"]
 [connection signal="item_activated" from="crafting_layout/component_layout/target/label/list" to="crafting_layout/component_layout/target" method="_on_list_item_activated"]
 [connection signal="pressed" from="crafting_layout/component_layout/type/item" to="crafting_layout/component_layout/type" method="_on_item_pressed"]

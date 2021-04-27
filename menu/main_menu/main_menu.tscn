@@ -135,4 +135,5 @@ __meta__ = {
 [connection signal="pressed" from="center_container/v_box_container/options_button" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="center_container/v_box_container/quit_button" to="." method="_on_quit_button_pressed"]
 [connection signal="item_activated" from="load_popup/layout/save_list" to="." method="_on_save_list_item_activated"]
+[connection signal="item_selected" from="load_popup/layout/save_list" to="." method="_on_save_list_item_selected"]
 [connection signal="pressed" from="load_popup/layout/load_save_button" to="." method="_on_load_save_button_pressed"]

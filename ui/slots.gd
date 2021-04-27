@@ -1,6 +1,6 @@
 extends GridContainer
 
-onready var slots = [$"slot1/slot", $"slot2/slot", $"slot3/slot", $"slot4/slot"]
+onready var slots = [$"space3/slot0/slot", $"slot1/slot", $"slot2/slot", $"slot3/slot", $"slot4/slot"]
 
 func _ready():
 	update_slots()

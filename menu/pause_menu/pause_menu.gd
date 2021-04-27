@@ -3,16 +3,19 @@ extends Popup
 var hidden = true
 
 func prepare_leave():
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	saves.save()
 	hidden = true
 	get_tree().paused = false # todo: test if unpausing here is a good idea
 
 func unpause():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	hidden = true
 	get_tree().paused = false
 	hide()
 
 func pause():
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	hidden = false
 	get_tree().paused = true
 	popup()

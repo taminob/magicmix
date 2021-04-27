@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/intro_level.dae-57a6f26a1ef07ef75cd24006f75cd555.scn"
+path="res://.import/intro.dae-2c4d032d6f0137e05c856d683e6236e1.scn"
 
 [deps]
 
-source_file="res://world/levels/intro/intro_level.dae"
-dest_files=[ "res://.import/intro_level.dae-57a6f26a1ef07ef75cd24006f75cd555.scn" ]
+source_file="res://world/levels/intro/intro.dae"
+dest_files=[ "res://.import/intro.dae-2c4d032d6f0137e05c856d683e6236e1.scn" ]
 
 [params]
 

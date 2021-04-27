@@ -3,13 +3,14 @@ extends Control
 onready var list = $"layout/list"
 
 func _on_inventory_panel_visibility_changed():
-	update_inventory()
+	if(is_visible()):
+		update_inventory()
 
 func update_inventory(category=""):
 	list.clear()
 	for x in inventory.items:
 		var item = items.items[x]
-		if(item[x]["category"] == category || category.empty()):
+		if(item["category"] == category || category.empty()):
 			list.add_item(item["name"], item["icon"])
 
 func _on_sort_button_pressed():

@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://characters/player/camera_top_down.gd" type="Script" id=1]
+
+[sub_resource type="SpatialMaterial" id=1]
+render_priority = 3
+flags_transparent = true
+albedo_color = Color( 1, 1, 1, 0 )
+
+[sub_resource type="CylinderMesh" id=2]
+material = SubResource( 1 )
+
+[node name="camera" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="wall_detect" type="CSGMesh" parent="."]
+transform = Transform( 1, 0, 0, 0, 7.98945, -0.491497, 0, 4.50899, 0.870879, -0.0996919, 7.07369, 3.43466 )
+visible = false
+mesh = SubResource( 2 )
+
+[node name="spring_arm" type="SpringArm" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 1.7, 0 )
+collision_mask = 524289
+spring_length = 15.0
+
+[node name="player_camera" type="Camera" parent="spring_arm"]
+
+[node name="ray_cast" type="RayCast" parent="spring_arm/player_camera"]
+transform = Transform( 1, 0, 0, 0, 0.5, -0.866025, 0, 0.866025, 0.5, 0, -0.85, -1.47224 )
+enabled = true
+collision_mask = 524289

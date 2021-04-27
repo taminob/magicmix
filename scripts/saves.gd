@@ -20,6 +20,7 @@ func get_save_list():
 	return list
 
 func new_save(name=""):
+	load_save("new") # todo: create default save file
 	if(name.empty()):
 		var list = saves.get_save_list()
 		if(!list.empty()):
@@ -28,8 +29,7 @@ func new_save(name=""):
 			saves.current_save = "0"
 	else:
 		saves.current_save = name
-	management.player_name = "hans"
-	management.change_level(load("res://world/levels/intro/intro.tscn").instance())
+	levels.change_level("intro")
 
 func load_save(save=current_save):
 	#var error = save_file.load_encrypted(SAVE_PATH + save, key)
@@ -41,15 +41,18 @@ func load_save(save=current_save):
 	inventory.items = save_file.get_value("inventory", "items")
 	inventory.spells = save_file.get_value("inventory", "spells")
 	inventory.slots = save_file.get_value("inventory", "slots")
+	inventory.ui_slots.update_slots()
 	management.player_name = save_file.get_value("characters", "player")
-	management.change_level(load(save_file.get_value("level", "current_level")).instance())
+	characters.characters = save_file.get_value("characters", "characters")
+	levels.change_level(save_file.get_value("level", "current_level"))
 
 func save():
 	save_file.set_value("inventory", "items", inventory.items)
 	save_file.set_value("inventory", "spells", inventory.spells)
 	save_file.set_value("inventory", "slots", inventory.slots)
 	save_file.set_value("characters", "player", management.player_name)
-	save_file.set_value("level", "current_level", management.current_level.filename)
+	save_file.set_value("characters", "characters", characters.characters)
+	save_file.set_value("level", "current_level", levels.current_level_name)
 	Directory.new().make_dir_recursive(SAVE_PATH)
 	#var error = save_file.save_encrypted(SAVE_PATH + current_save, key)
 	var error = save_file.save(SAVE_PATH + current_save)
