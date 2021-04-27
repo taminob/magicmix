@@ -12,56 +12,70 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="tabs" type="TabContainer" parent="."]
+[node name="layout" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 8.0
-margin_bottom = 36.0
-tab_align = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="All" type="ItemList" parent="tabs"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 145.0
-margin_right = -4.0
-margin_bottom = -4.0
-select_mode = 1
-allow_reselect = true
-max_columns = 12
-icon_mode = 0
+[node name="buttons" type="HBoxContainer" parent="layout"]
+margin_right = 3840.0
+margin_bottom = 133.0
 
-[node name="Weapons" type="ItemList" parent="tabs"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 145.0
-margin_right = -4.0
-margin_bottom = -4.0
-max_columns = 12
+[node name="all" type="Button" parent="layout/buttons"]
+margin_left = 404.0
+margin_right = 502.0
+margin_bottom = 133.0
+size_flags_horizontal = 6
+text = "All"
+expand_icon = true
 
-[node name="Consumables" type="ItemList" parent="tabs"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 145.0
-margin_right = -4.0
-margin_bottom = -4.0
-max_columns = 12
+[node name="weapons" type="Button" parent="layout/buttons"]
+margin_left = 1156.0
+margin_right = 1570.0
+margin_bottom = 133.0
+size_flags_horizontal = 6
+text = "Weapons"
+expand_icon = true
 
-[node name="sort_button" type="Button" parent="."]
-anchor_left = 0.9
-anchor_top = 0.03
-anchor_right = 0.97
-anchor_bottom = 0.1
+[node name="armor" type="Button" parent="layout/buttons"]
+margin_left = 2143.0
+margin_right = 2404.0
+margin_bottom = 133.0
+size_flags_horizontal = 6
+text = "Armor"
+expand_icon = true
+
+[node name="consumables" type="Button" parent="layout/buttons"]
+margin_left = 2890.0
+margin_right = 3479.0
+margin_bottom = 133.0
+size_flags_horizontal = 6
+text = "Consumables"
+expand_icon = true
+
+[node name="sort_button" type="Button" parent="layout/buttons"]
+margin_left = 3642.0
+margin_right = 3840.0
+margin_bottom = 133.0
 text = "Sort"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="tab_changed" from="tabs" to="." method="_on_tabs_tab_changed"]
-[connection signal="pressed" from="sort_button" to="." method="_on_sort_button_pressed"]
+
+[node name="list" type="ItemList" parent="layout"]
+margin_top = 137.0
+margin_right = 3840.0
+margin_bottom = 2160.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+max_columns = 10
+icon_mode = 0
+
+[connection signal="visibility_changed" from="." to="." method="_on_inventory_panel_visibility_changed"]
+[connection signal="pressed" from="layout/buttons/all" to="." method="_on_all_pressed"]
+[connection signal="pressed" from="layout/buttons/weapons" to="." method="_on_weapons_pressed"]
+[connection signal="pressed" from="layout/buttons/armor" to="." method="_on_armor_pressed"]
+[connection signal="pressed" from="layout/buttons/consumables" to="." method="_on_consumables_pressed"]
+[connection signal="pressed" from="layout/buttons/sort_button" to="." method="_on_sort_button_pressed"]

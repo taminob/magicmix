@@ -4,6 +4,7 @@ var hidden = true
 
 func prepare_leave():
 	saves.save()
+	hidden = true
 	get_tree().paused = false # todo: test if unpausing here is a good idea
 
 func unpause():

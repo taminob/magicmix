@@ -2,11 +2,13 @@ extends CSGMesh
 
 
 func _on_trigger_body_entered(body):
-	if(body.name != inventory.player_character):
+	if(body == null || body != management.player):
 		return
-	inventory.player_character = "hans"
-	var world = $".."
-	world.remove_child(world.get_node("level"))
-	var level = load("res://world/levels/intro/intro_level.tscn").instance()
-	level.name = "level"
-	world.add_child(level)
+	management.unmake_player()
+	characters.characters[management.player_name]["dead"] = true
+	management.player_name = "mary" if(management.player_name == "hans") else "hans"
+	management.change_level(load("res://world/levels/intro/intro.tscn").instance())
+	#inventory.change_level(load("res://world/death_realm/death_realm.tscn").instance())
+#	body.pain = 0.0
+#	body.dead = false
+#	body.in_death_realm = false

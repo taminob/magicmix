@@ -13,7 +13,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="layout" type="VBoxContainer" parent="."]
 margin_right = 1920.0
 margin_bottom = 135.0
 size_flags_horizontal = 3
@@ -21,11 +21,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="layout" type="HBoxContainer" parent="VBoxContainer"]
+[node name="godmode" type="HBoxContainer" parent="layout"]
 margin_right = 1920.0
 margin_bottom = 135.0
 
-[node name="god-mode_label" type="CheckBox" parent="VBoxContainer/layout"]
+[node name="godmode_check" type="CheckBox" parent="layout/godmode"]
 margin_right = 488.0
 margin_bottom = 135.0
 text = "God Mode"
+
+[connection signal="toggled" from="layout/godmode/godmode_check" to="." method="_on_godmode_check_toggled"]

@@ -33,10 +33,11 @@ func is_combination(combination, elements):
 func create_spell():
 	var components = get_components()
 	for x in spells.spells.keys():
-		if(spells.spells[x]["combination"]["target"] == components["target"] &&
-			spells.spells[x]["combination"]["type"] == components["type"] &&
-			is_combination(spells.spells[x]["combination"]["elements"], components["elements"])):
-			return x
+		for combo in spells.spells[x]["combinations"]:
+			if(combo["target"] == components["target"] &&
+				combo["type"] == components["type"] &&
+				is_combination(combo["elements"], components["elements"])):
+				return x
 	return ""
 
 func _on_cast_button_pressed():
@@ -48,7 +49,7 @@ func _on_cast_button_pressed():
 			result_label.set_text(spells.spells[new_spell]["name"])
 	else:
 		result_label.set_text("Invalid Combination!")
-	result_icon.set_texture(load(spells.spells[new_spell]["icon"]))
+	result_icon.set_texture(spells.spells[new_spell]["icon"])
 	result_popup.show()
 	popup_timer.start()
 

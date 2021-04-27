@@ -12,7 +12,9 @@ roughness = 0.31
 radius = 1.00469
 height = 1.74365
 
-[node name="character_body" type="KinematicBody"]
+[node name="character_body" type="KinematicBody" groups=[
+"characters",
+]]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.94, 0 )
 script = ExtResource( 1 )
 

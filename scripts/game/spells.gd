@@ -7,9 +7,10 @@ var spells = {
 		"combinations": [],
 		"name": "Do Nothing",
 		"description": "Do nothing!",
+		"category": "",
 		"focus": -5,
 		"health": 0,
-		"icon": "res://ui/icons/empty_slot_frame-512.png",
+		"icon": load("res://ui/icons/empty_slot_frame-512.png"),
 		"anim": ""
 	},
 	"heal": {
@@ -20,22 +21,24 @@ var spells = {
 		}],
 		"name": "Heal",
 		"description": "Heal yourself for a bit!",
+		"category": "heal",
 		"focus": -10,
 		"health": 50,
-		"icon": "res://ui/icons/circle-512.png",
+		"icon": load("res://ui/icons/circle-512.png"),
 		"anim": ""
 	},
 	"blood_sacrifice": {
 		"combinations": [{
-			"target": "area",
+			"target": "self",
 			"type": "defense",
-			"elements": ["life", "darkness", "darkness"]
+			"elements": ["life", "life", "darkness"]
 		}],
 		"name": "Blood Sacrifice",
-		"description": "Sacrifice your own life (or an innocent creature) to revive all allies in a certain radius!",
+		"description": "Sacrifice your own life (or an innocent creature) to revive the nearest ally!",
+		"category": "blood",
 		"focus": -full,
 		"health": -full,
-		"icon": "res://ui/icons/self_dark-512.png",
+		"icon": load("res://ui/icons/self_dark-512.png"),
 		"anim": ""
 	}
 }

@@ -1,22 +1,28 @@
 extends Control
 
-onready var all = $"tabs/All"
-onready var weapons = $"tabs/Weapons"
-onready var consumables = $"tabs/Consumables"
+onready var list = $"layout/list"
 
-func update_inventory():
+func _on_inventory_panel_visibility_changed():
+	update_inventory()
+
+func update_inventory(category=""):
+	list.clear()
 	for x in inventory.items:
 		var item = items.items[x]
-		all.add_item(item["name"], item["icon"])
-		if(items.items[x]["category"] == "weapon"):
-			weapons.add_item(item["name"], item["icon"])
-		if(items.items[x]["category"] == "consumable"):
-			consumables.add_item(item["name"], item["icon"])
+		if(item[x]["category"] == category || category.empty()):
+			list.add_item(item["name"], item["icon"])
 
 func _on_sort_button_pressed():
-	inventory.items.sort()
+	list.sort_items_by_text()
+
+func _on_all_pressed():
 	update_inventory()
 
+func _on_weapons_pressed():
+	update_inventory("weapon")
 
-func _on_tabs_tab_changed(tab):
-	update_inventory()
+func _on_armor_pressed():
+	update_inventory("armor")
+
+func _on_consumables_pressed():
+	update_inventory("consumable")

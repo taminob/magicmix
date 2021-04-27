@@ -3,16 +3,12 @@ extends Node
 const CONFIG_PATH = "res://settings.cfg" # use user:// for user directory
 var _config_file = ConfigFile.new()
 var _settings = {
-	"game": {
-		
-	},
+	"game": game_settings.options,
 	"display": display_settings.options,
 	"graphics": {
 		
 	},
-	"dev": {
-		
-	}
+	"dev": dev_settings.options
 }
 
 func _ready():
@@ -36,7 +32,7 @@ func load_settings():
 
 	for section in _settings.keys():
 		for key in _settings[section].keys():
-			_settings[section][key] = _config_file.get_value(section, key, null)
+			_settings[section][key] = _config_file.get_value(section, key, _settings[section][key])
 
 func get_setting(section, key):
 	return _settings[section][key]

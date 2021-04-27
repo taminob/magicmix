@@ -14,16 +14,16 @@ var attributes = {
 
 var base_font = {}
 func _scale_font(font, factor):
-	var attributes = ["size", "extra_spacing_top", "extra_spacing_bottom",
+	var font_attributes = ["size", "extra_spacing_top", "extra_spacing_bottom",
 	"extra_spacing_char", "extra_spacing_space", "outline_size"]
 	var font_id = font.get_instance_id()
 	var no_base = !base_font.has(font_id)
 	if(no_base):
 		base_font[font_id] = []
-	for i in range(attributes.size()):
+	for i in range(font_attributes.size()):
 		if(no_base):
-			base_font[font_id].push_back(font.get(attributes[i]))
-		font.set(attributes[i], base_font[font_id][i] * factor)
+			base_font[font_id].push_back(font.get(font_attributes[i]))
+		font.set(font_attributes[i], base_font[font_id][i] * factor)
 
 func scale_themes(factor):
 	for theme in themes:

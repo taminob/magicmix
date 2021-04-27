@@ -128,6 +128,7 @@ text = "Load"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="pressed" from="center_container/v_box_container/continue_button" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="center_container/v_box_container/new_button" to="." method="_on_new_button_pressed"]
 [connection signal="pressed" from="center_container/v_box_container/load_button" to="." method="_on_load_button_pressed"]

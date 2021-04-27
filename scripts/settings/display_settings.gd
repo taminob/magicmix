@@ -5,7 +5,7 @@ var options = {
 	"screen": 0,
 	"mode": SCREENMODE_FULLSCREEN,
 	"resolution": Vector2(1920, 1080),
-	"vsync": 1
+	"vsync": false
 }
 
 const base_resolution = Vector2(3840, 2160)

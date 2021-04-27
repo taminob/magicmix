@@ -1,11 +1,157 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://ui/panels/skills/skills_panel.gd" type="Script" id=1]
+[ext_resource path="res://themes/ui_theme.tres" type="Theme" id=2]
+[ext_resource path="res://ui/icons/empty_slot_frame-512.png" type="Texture" id=3]
 
-[node name="Spells" type="Control"]
+[node name="skills_panel" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 2 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="layout" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="buttons" type="HBoxContainer" parent="layout"]
+margin_right = 3840.0
+margin_bottom = 133.0
+
+[node name="all" type="Button" parent="layout/buttons"]
+margin_left = 429.0
+margin_right = 527.0
+margin_bottom = 133.0
+size_flags_horizontal = 6
+text = "All"
+expand_icon = true
+
+[node name="heal" type="Button" parent="layout/buttons"]
+margin_left = 1342.0
+margin_right = 1537.0
+margin_bottom = 133.0
+size_flags_horizontal = 6
+text = "Heal"
+expand_icon = true
+
+[node name="fire" type="Button" parent="layout/buttons"]
+margin_left = 2317.0
+margin_right = 2483.0
+margin_bottom = 133.0
+size_flags_horizontal = 6
+text = "Fire"
+expand_icon = true
+
+[node name="blood" type="Button" parent="layout/buttons"]
+margin_left = 3237.0
+margin_right = 3486.0
+margin_bottom = 133.0
+size_flags_horizontal = 6
+text = "Blood"
+expand_icon = true
+
+[node name="list" type="ItemList" parent="layout"]
+margin_top = 137.0
+margin_right = 3840.0
+margin_bottom = 2160.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="detail_popup" type="PopupDialog" parent="layout/list"]
+anchor_left = 0.2
+anchor_top = 0.2
+anchor_right = 0.8
+anchor_bottom = 0.8
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="icon" type="TextureRect" parent="layout/list/detail_popup"]
+anchor_right = 1.0
+anchor_bottom = 0.3
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="layout/list/detail_popup"]
+anchor_top = 0.3
+anchor_right = 1.0
+anchor_bottom = 0.8
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="slots" type="HBoxContainer" parent="layout/list/detail_popup"]
+anchor_top = 0.8
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="slot0" type="TextureButton" parent="layout/list/detail_popup/slots"]
+margin_right = 457.0
+margin_bottom = 242.0
+size_flags_horizontal = 3
+texture_normal = ExtResource( 3 )
+expand = true
+stretch_mode = 5
+
+[node name="slot1" type="TextureButton" parent="layout/list/detail_popup/slots"]
+margin_left = 461.0
+margin_right = 919.0
+margin_bottom = 242.0
+size_flags_horizontal = 3
+texture_normal = ExtResource( 3 )
+expand = true
+stretch_mode = 5
+
+[node name="slot2" type="TextureButton" parent="layout/list/detail_popup/slots"]
+margin_left = 923.0
+margin_right = 1380.0
+margin_bottom = 242.0
+size_flags_horizontal = 3
+texture_normal = ExtResource( 3 )
+expand = true
+stretch_mode = 5
+
+[node name="slot3" type="TextureButton" parent="layout/list/detail_popup/slots"]
+margin_left = 1384.0
+margin_right = 1842.0
+margin_bottom = 242.0
+size_flags_horizontal = 3
+texture_normal = ExtResource( 3 )
+expand = true
+stretch_mode = 5
+
+[node name="slot4" type="TextureButton" parent="layout/list/detail_popup/slots"]
+margin_left = 1846.0
+margin_right = 2304.0
+margin_bottom = 242.0
+size_flags_horizontal = 3
+texture_normal = ExtResource( 3 )
+expand = true
+stretch_mode = 5
+
+[connection signal="visibility_changed" from="." to="." method="_on_skills_panel_visibility_changed"]
+[connection signal="pressed" from="layout/buttons/all" to="." method="_on_all_pressed"]
+[connection signal="pressed" from="layout/buttons/heal" to="." method="_on_heal_pressed"]
+[connection signal="pressed" from="layout/buttons/fire" to="." method="_on_fire_pressed"]
+[connection signal="pressed" from="layout/buttons/blood" to="." method="_on_blood_pressed"]
+[connection signal="item_activated" from="layout/list" to="." method="_on_list_item_activated"]
+[connection signal="pressed" from="layout/list/detail_popup/slots/slot0" to="." method="_on_slot_pressed" binds= [ 0 ]]
+[connection signal="pressed" from="layout/list/detail_popup/slots/slot1" to="." method="_on_slot_pressed" binds= [ 1 ]]
+[connection signal="pressed" from="layout/list/detail_popup/slots/slot2" to="." method="_on_slot_pressed" binds= [ 2 ]]
+[connection signal="pressed" from="layout/list/detail_popup/slots/slot3" to="." method="_on_slot_pressed" binds= [ 3 ]]
+[connection signal="pressed" from="layout/list/detail_popup/slots/slot4" to="." method="_on_slot_pressed" binds= [ 4 ]]

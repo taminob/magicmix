@@ -1,0 +1,149 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ui/slots.gd" type="Script" id=1]
+[ext_resource path="res://ui/icons/empty_slot_frame-512.png" type="Texture" id=2]
+
+[node name="slots" type="GridContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+columns = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="space1" type="Label" parent="."]
+margin_top = 351.0
+margin_right = 1277.0
+margin_bottom = 365.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+
+[node name="slot1" type="TextureRect" parent="."]
+margin_left = 1281.0
+margin_right = 2558.0
+margin_bottom = 717.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+
+[node name="slot" type="TextureButton" parent="slot1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand = true
+stretch_mode = 6
+
+[node name="space2" type="Label" parent="."]
+margin_left = 2562.0
+margin_right = 3839.0
+margin_bottom = 717.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="slot2" type="TextureRect" parent="."]
+margin_top = 721.0
+margin_right = 1277.0
+margin_bottom = 1438.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+
+[node name="slot" type="TextureButton" parent="slot2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand = true
+stretch_mode = 6
+
+[node name="space3" type="Label" parent="."]
+margin_left = 1281.0
+margin_top = 721.0
+margin_right = 2558.0
+margin_bottom = 1438.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="slot0" type="TextureRect" parent="space3"]
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.95
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="slot" type="TextureButton" parent="space3/slot0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="slot3" type="TextureRect" parent="."]
+margin_left = 2562.0
+margin_top = 721.0
+margin_right = 3839.0
+margin_bottom = 1438.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+
+[node name="slot" type="TextureButton" parent="slot3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand = true
+stretch_mode = 6
+
+[node name="space4" type="Label" parent="."]
+margin_top = 1442.0
+margin_right = 1277.0
+margin_bottom = 2159.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="slot4" type="TextureRect" parent="."]
+margin_left = 1281.0
+margin_top = 1442.0
+margin_right = 2558.0
+margin_bottom = 2159.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+
+[node name="slot" type="TextureButton" parent="slot4"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand = true
+stretch_mode = 6
+
+[node name="space5" type="Label" parent="."]
+margin_left = 2562.0
+margin_top = 1442.0
+margin_right = 3839.0
+margin_bottom = 2159.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
