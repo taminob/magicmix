@@ -8,7 +8,7 @@ func _on_inventory_panel_visibility_changed():
 
 func update_inventory(category=""):
 	list.clear()
-	for x in inventory.items:
+	for x in management.player.inventory.things:
 		var item = items.items[x]
 		if(item["category"] == category || category.empty()):
 			list.add_item(item["name"], item["icon"])

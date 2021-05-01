@@ -12,7 +12,7 @@ func _on_skills_panel_visibility_changed():
 
 func update_skills(category=""):
 	list.clear()
-	for x in inventory.spells:
+	for x in management.player.inventory.skills:
 		var spell = spells.get_spell(x)
 		if(spells.get_category(spell) == category || category.empty()):
 			list.add_item(spells.get_spell_name(spell), spells.get_icon(spell))
@@ -31,7 +31,9 @@ func _on_blood_pressed():
 	update_skills("blood")
 
 func _set_slot(num):
-	get_node("layout/list/detail_popup/slots/slot" + str(num)).set_normal_texture(spells.get_icon(spells.get_spell(inventory.get_action_slot(num))))
+	get_node("layout/list/detail_popup/slots/slot" + 
+	str(num)).set_normal_texture(spells.get_icon(spells.get_spell(
+		management.player.inventory.get_skill_slot(num))))
 
 func _on_list_item_activated(index):
 	var current = list.get_item_metadata(index)
@@ -44,5 +46,5 @@ func _on_list_item_activated(index):
 	detail_popup.popup()
 
 func _on_slot_pressed(num):
-	inventory.set_action_slot(num, detail_popup.get_meta("current"))
+	management.player.inventory.set_skill_slot(num, detail_popup.get_meta("current"))
 	_set_slot(num)

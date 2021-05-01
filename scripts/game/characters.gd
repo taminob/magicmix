@@ -29,11 +29,11 @@ func get_character(id):
 
 var characters = {
 	"hans": {
-		"name": "Hans",
-		"gender": "male",
-		"pain": 0.0,
-		"focus": 0.0,
-		"stamina": 0.0,
+		"dialogue": {
+			"name": "Hans",
+			"gender": "male"
+		},
+		"stats": {},
 		"experience": {
 			"intelligence": 1,
 			"strength": 1,
@@ -41,57 +41,97 @@ var characters = {
 			"concentration": 1,
 			"endurance": 1
 		},
-		"velocity": Vector3.ZERO,
-		"translations": {},
-		"items": [],
-		"spells": []
+		"move": {
+			"translations": {}
+		},
+		"inventory": { },
+		"skills": {}
 	},
 	"mary": {
-		"name": "Mary",
-		"gender": "female",
-		"dead": false,
-		"undead": false,
-		"pain": 0.0,
-		"focus": 0.0,
-		"velocity": Vector3.ZERO,
-		"translations": {},
-		"items": [],
-		"spells": []
+		"dialogue": {
+			"name": "Mary",
+			"gender": "female"
+		},
+		"stats": {},
+		"experience": {
+			"intelligence": 1,
+			"strength": 1,
+			"sturdiness": 1,
+			"concentration": 1,
+			"endurance": 1
+		},
+		"move": {
+			"translations": {}
+		},
+		"inventory": { },
+		"skills": {}
 	},
 	"guenther": {
-		"name": "Günther",
-		"gender": "male",
-		"dead": true,
-		"undead": true,
-		"pain": 100.0,
-		"focus": 0.0,
-		"velocity": Vector3.ZERO,
-		"translations": {},
-		"items": [],
-		"spells": []
+		"dialogue": {
+			"name": "Günther",
+			"gender": "male"
+		},
+		"stats": {
+			"dead": true,
+			"undead": true,
+			"pain": 100.0
+		},
+		"experience": {
+			"intelligence": 1,
+			"strength": 1,
+			"sturdiness": 1,
+			"concentration": 1,
+			"endurance": 1
+		},
+		"move": {
+			"translations": {}
+		},
+		"inventory": { },
+		"skills": {}
 	},
 	"sqlykt": {
-		"name": "Sqlykt",
-		"gender": "ocelot",
-		"dead": false,
-		"undead": false,
-		"pain": 0.0,
-		"focus": 0.0,
-		"velocity": Vector3.ZERO,
-		"translations": {},
-		"items": [],
-		"spells": ["blood_sacrifice"]
+		"dialogue": {
+			"name": "Sqlykt",
+			"gender": "ocelot"
+		},
+		"stats": {},
+		"experience": {
+			"intelligence": 1,
+			"strength": 1,
+			"sturdiness": 1,
+			"concentration": 1,
+			"endurance": 1
+		},
+		"move": {
+			"translations": {}
+		},
+		"inventory": {
+			"spells": ["blood_sacrifice"]
+		},
+		"skills": {}
 	},
 	"sqlay": {
-		"name": "Sqlay",
-		"gender": "ocelot",
-		"dead": true,
-		"undead": false,
-		"pain": 0.0,
-		"focus": 0.0,
-		"velocity": Vector3.ZERO,
-		"translations": {},
-		"items": [],
-		"spells": ["blood_sacrifice"]
+		"dialogue": {
+			"name": "Sqlay",
+			"gender": "ocelot"
+		},
+		"stats": {
+			"dead": true,
+			"pain": 100.0
+		},
+		"experience": {
+			"intelligence": 1,
+			"strength": 1,
+			"sturdiness": 1,
+			"concentration": 1,
+			"endurance": 1
+		},
+		"move": {
+			"translations": {}
+		},
+		"inventory": {
+			"spells": ["blood_sacrifice"]
+		},
+		"skills": {}
 	}
 }

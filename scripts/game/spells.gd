@@ -87,11 +87,9 @@ var spells = {
 		"description": "Sacrifice your own life (or an innocent creature) to revive the nearest ally!",
 		"category": "blood",
 		"self": {
-			"focus": -full,
 			"pain": full
 		},
 		"target": {
-			"focus": 0,
 			"pain": -full
 		},
 		"icon": load(spell_icons_path + "self_dark-512.png"),

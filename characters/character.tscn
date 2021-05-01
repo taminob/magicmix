@@ -1,7 +1,13 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://characters/character.gd" type="Script" id=1]
-[ext_resource path="res://characters/stats.gd" type="Script" id=2]
+[ext_resource path="res://characters/state/state.gd" type="Script" id=2]
+[ext_resource path="res://characters/state/inventory_state.gd" type="Script" id=3]
+[ext_resource path="res://characters/state/dialogue_state.gd" type="Script" id=4]
+[ext_resource path="res://characters/state/move_state.gd" type="Script" id=5]
+[ext_resource path="res://characters/state/stats_state.gd" type="Script" id=6]
+[ext_resource path="res://characters/state/experience_state.gd" type="Script" id=7]
+[ext_resource path="res://characters/state/skills_state.gd" type="Script" id=8]
 
 [sub_resource type="CapsuleMesh" id=1]
 
@@ -70,10 +76,26 @@ transform = Transform( 0.5, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
 [node name="collision" type="CollisionShape" parent="interact_area"]
 shape = SubResource( 4 )
 
-[node name="stats" type="Node" parent="."]
+[node name="state" type="Node" parent="."]
 script = ExtResource( 2 )
 
-[node name="inventory" type="Node" parent="stats"]
+[node name="move" type="Node" parent="state"]
+script = ExtResource( 5 )
+
+[node name="experience" type="Node" parent="state"]
+script = ExtResource( 7 )
+
+[node name="inventory" type="Node" parent="state"]
+script = ExtResource( 3 )
+
+[node name="stats" type="Node" parent="state"]
+script = ExtResource( 6 )
+
+[node name="skills" type="Node" parent="state"]
+script = ExtResource( 8 )
+
+[node name="dialogue" type="Node" parent="state"]
+script = ExtResource( 4 )
 
 [node name="health_bar" type="CSGMesh" parent="."]
 transform = Transform( 1.25, 0, 0, 0, 0.25, 0, 0, 0, 0.1, 0, 2.4, 0 )

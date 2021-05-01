@@ -17,22 +17,31 @@ var levels = {
 
 var current_level_name = ""
 var current_level = null
+var current_level_death_realm = false
 
 func change_level(level_name):
 	var world = scenes.game_scene.get_node("3d_world/viewport/world")
 	if(current_level):
-		management.save_characters(current_level_name)
+		management.save_characters()
 		current_level.name = "_level"
 		management.unmake_player()
 		world.call_deferred("remove_child", current_level)
 		current_level.call_deferred("free")
 	current_level_name = level_name
-	var path = levels[level_name]["path"]
-	current_level = load(path).instance()
+	current_level = load(levels[level_name]["path"]).instance()
+	current_level_death_realm = levels[level_name]["death_realm"]
 	current_level.name = "level"
 	var spawn = current_level.get_node_or_null("player_spawn")
-	management.player_spawn_position = spawn.translation if(spawn != null) else management.player.translation
+	spawn = spawn.translation if(spawn != null) else management.player.translation
 	errors.log("change level: " + current_level_name)
 	world.call_deferred("add_child", current_level)
-	management.call_deferred("init_characters", current_level, current_level_name, levels[current_level_name]["death_realm"])
+	var new_player = current_level.get_node_or_null(management.player_name)
+	if(new_player):
+		management.call_deferred("make_player", new_player)
+	else:
+		management.create_player()
+		management.player.translation = spawn
+		current_level.call_deferred("add_child", management.player)
+
+	#for character in get_tree().get_nodes_in_group("characters"):
 	#management.camera.last_obstructing_objects.clear() # todo: use when using top-down-camera

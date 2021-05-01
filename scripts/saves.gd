@@ -41,19 +41,13 @@ func load_save(save=current_save):
 	if(error != OK):
 		errors.error("unable to read save file %s: %s" % [save, error])
 	current_save = save
-	inventory.items = save_file.get_value("inventory", "items", inventory.items)
-	inventory.spells = save_file.get_value("inventory", "spells", inventory.spells)
-	inventory.slots = save_file.get_value("inventory", "slots", inventory.slots)
-	inventory.ui_slots.update_slots()
 	management.player_name = save_file.get_value("characters", "player", "hans")
 	characters.characters = save_file.get_value("characters", "characters", characters.characters)
 	levels.change_level(save_file.get_value("level", "current_level", "intro"))
 
 func save():
-	save_file.set_value("inventory", "items", inventory.items)
-	save_file.set_value("inventory", "spells", inventory.spells)
-	save_file.set_value("inventory", "slots", inventory.slots)
 	save_file.set_value("characters", "player", management.player_name)
+	management.save_characters()
 	save_file.set_value("characters", "characters", characters.characters)
 	save_file.set_value("level", "current_level", levels.current_level_name)
 	Directory.new().make_dir_recursive(SAVE_PATH)

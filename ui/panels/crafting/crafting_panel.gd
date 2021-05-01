@@ -11,14 +11,14 @@ onready var result_icon = $"result_popup/popup_layout/result_icon"
 onready var result_label = $"result_popup/popup_layout/result_label"
 
 func get_components():
-	var spell = {}
-	spell["target"] = target.selected
-	spell["type"] = type.selected
-	spell["elements"] = []
+	var skill = {}
+	skill["target"] = target.selected
+	skill["type"] = type.selected
+	skill["elements"] = []
 	for element in elements:
 		if(!element.selected.empty()):
-			spell["elements"].push_back(element.selected)
-	return spell
+			skill["elements"].push_back(element.selected)
+	return skill
 
 func is_combination(combination, elements):
 	if(combination.size() > elements.size()):
@@ -30,7 +30,7 @@ func is_combination(combination, elements):
 			return false
 	return true
 
-func create_spell():
+func create_skill():
 	var components = get_components()
 	for x in spells.spells.keys():
 		for combo in spells.get_combinations(spells.get_spell(x)):
@@ -41,15 +41,15 @@ func create_spell():
 	return ""
 
 func _on_cast_button_pressed():
-	var new_spell = create_spell()
-	if(new_spell != ""):
-		if(inventory.add_spell(new_spell)):
-			result_label.set_text("New! " + spells.get_spell_name(spells.get_spell(new_spell)))
+	var new_skill = create_skill()
+	if(new_skill != ""):
+		if(management.player.inventory.add_skill(new_skill)):
+			result_label.set_text("New! " + spells.get_spell_name(spells.get_spell(new_skill)))
 		else:
-			result_label.set_text(spells.get_spell_name(spells.get_spell(new_spell)))
+			result_label.set_text(spells.get_spell_name(spells.get_spell(new_skill)))
 	else:
 		result_label.set_text("Invalid Combination!")
-	result_icon.set_texture(spells.get_icon(spells.get_spell(new_spell)))
+	result_icon.set_texture(spells.get_icon(spells.get_spell(new_skill)))
 	result_popup.show()
 	popup_timer.start()
 
