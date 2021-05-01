@@ -20,31 +20,34 @@ func get_save_list():
 	return list
 
 func new_save(name=""):
-	load_save("new") # todo: create default save file
+	load_save(name) # todo: good idea?
 	if(name.empty()):
-		var list = saves.get_save_list()
+		var list = get_save_list()
 		if(!list.empty()):
-			saves.current_save = str(int(list.back()) + 1)
+			var dir = Directory.new()
+			var save = 0
+			for x in list:
+				if(int(x) > save):
+					save = int(x)
+			current_save = str(save + 1)
 		else:
-			saves.current_save = "0"
+			current_save = "0"
 	else:
-		saves.current_save = name
-	levels.change_level("intro")
+		current_save = name
 
 func load_save(save=current_save):
 	#var error = save_file.load_encrypted(SAVE_PATH + save, key)
 	var error = save_file.load(SAVE_PATH + save)
 	if(error != OK):
 		errors.error("unable to read save file %s: %s" % [save, error])
-		return
 	current_save = save
-	inventory.items = save_file.get_value("inventory", "items")
-	inventory.spells = save_file.get_value("inventory", "spells")
-	inventory.slots = save_file.get_value("inventory", "slots")
+	inventory.items = save_file.get_value("inventory", "items", inventory.items)
+	inventory.spells = save_file.get_value("inventory", "spells", inventory.spells)
+	inventory.slots = save_file.get_value("inventory", "slots", inventory.slots)
 	inventory.ui_slots.update_slots()
-	management.player_name = save_file.get_value("characters", "player")
-	characters.characters = save_file.get_value("characters", "characters")
-	levels.change_level(save_file.get_value("level", "current_level"))
+	management.player_name = save_file.get_value("characters", "player", "hans")
+	characters.characters = save_file.get_value("characters", "characters", characters.characters)
+	levels.change_level(save_file.get_value("level", "current_level", "intro"))
 
 func save():
 	save_file.set_value("inventory", "items", inventory.items)

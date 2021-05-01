@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/circle-512.png-e832fa90778a65996b7196eb6d0973f8.stex"
+path="res://.import/self-512.png-3b680b7e46788f3e5b3be4f4c1a5eb0e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/icons/circle-512.png"
-dest_files=[ "res://.import/circle-512.png-e832fa90778a65996b7196eb6d0973f8.stex" ]
+source_file="res://ui/icons/spells/self-512.png"
+dest_files=[ "res://.import/self-512.png-3b680b7e46788f3e5b3be4f4c1a5eb0e.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/area_dmg_with_self-512.png-b7ce4bd0b76230bf4f56d2a3001da5be.stex"
+path="res://.import/enemy-512.png-cc4835c6bb0b61c250c81cc238f61983.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/icons/area_dmg_with_self-512.png"
-dest_files=[ "res://.import/area_dmg_with_self-512.png-b7ce4bd0b76230bf4f56d2a3001da5be.stex" ]
+source_file="res://ui/icons/spells/enemy-512.png"
+dest_files=[ "res://.import/enemy-512.png-cc4835c6bb0b61c250c81cc238f61983.stex" ]
 
 [params]
 

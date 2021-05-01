@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/empty_slot-512.png-6c9976823e02f808a99aa4dba8e1b7cb.stex"
+path="res://.import/defense-512.png-17397267c358175932279ac4c5ae748b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/icons/empty_slot-512.png"
-dest_files=[ "res://.import/empty_slot-512.png-6c9976823e02f808a99aa4dba8e1b7cb.stex" ]
+source_file="res://ui/icons/spells/defense-512.png"
+dest_files=[ "res://.import/defense-512.png-17397267c358175932279ac4c5ae748b.stex" ]
 
 [params]
 

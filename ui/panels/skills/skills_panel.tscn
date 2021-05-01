@@ -2,7 +2,7 @@
 
 [ext_resource path="res://ui/panels/skills/skills_panel.gd" type="Script" id=1]
 [ext_resource path="res://themes/ui_theme.tres" type="Theme" id=2]
-[ext_resource path="res://ui/icons/empty_slot_frame-512.png" type="Texture" id=3]
+[ext_resource path="res://ui/icons/spells/empty_slot_frame-512.png" type="Texture" id=3]
 
 [node name="skills_panel" type="Control"]
 anchor_right = 1.0

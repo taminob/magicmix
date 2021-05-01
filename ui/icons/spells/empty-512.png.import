@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/darkness-512.png-e73a7a69ff86d8babbc9af1d84042b93.stex"
+path="res://.import/empty-512.png-f8f7b91accd9e7b0756a1961e964f944.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/icons/darkness-512.png"
-dest_files=[ "res://.import/darkness-512.png-e73a7a69ff86d8babbc9af1d84042b93.stex" ]
+source_file="res://ui/icons/spells/empty-512.png"
+dest_files=[ "res://.import/empty-512.png-f8f7b91accd9e7b0756a1961e964f944.stex" ]
 
 [params]
 

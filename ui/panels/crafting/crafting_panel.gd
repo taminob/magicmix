@@ -33,7 +33,7 @@ func is_combination(combination, elements):
 func create_spell():
 	var components = get_components()
 	for x in spells.spells.keys():
-		for combo in spells.spells[x]["combinations"]:
+		for combo in spells.get_combinations(spells.get_spell(x)):
 			if(combo["target"] == components["target"] &&
 				combo["type"] == components["type"] &&
 				is_combination(combo["elements"], components["elements"])):
@@ -44,12 +44,12 @@ func _on_cast_button_pressed():
 	var new_spell = create_spell()
 	if(new_spell != ""):
 		if(inventory.add_spell(new_spell)):
-			result_label.set_text("New! " + spells.spells[new_spell]["name"])
+			result_label.set_text("New! " + spells.get_spell_name(spells.get_spell(new_spell)))
 		else:
-			result_label.set_text(spells.spells[new_spell]["name"])
+			result_label.set_text(spells.get_spell_name(spells.get_spell(new_spell)))
 	else:
 		result_label.set_text("Invalid Combination!")
-	result_icon.set_texture(spells.spells[new_spell]["icon"])
+	result_icon.set_texture(spells.get_icon(spells.get_spell(new_spell)))
 	result_popup.show()
 	popup_timer.start()
 

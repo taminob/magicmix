@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/self_dark-512.png-a0f141fb41c322839a64ccc8ae1c4418.stex"
+path="res://.import/area_dmg_no_self-512.png-47bb9d29a61532dbf3f217d3101dc9f6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/icons/self_dark-512.png"
-dest_files=[ "res://.import/self_dark-512.png-a0f141fb41c322839a64ccc8ae1c4418.stex" ]
+source_file="res://ui/icons/spells/area_dmg_no_self-512.png"
+dest_files=[ "res://.import/area_dmg_no_self-512.png-47bb9d29a61532dbf3f217d3101dc9f6.stex" ]
 
 [params]
 

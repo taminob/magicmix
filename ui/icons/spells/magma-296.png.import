@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/magma-296.png-b5caf63a1d336c9a9296b4f850686088.stex"
+path="res://.import/magma-296.png-345c33e7abd1a4d5ddaff4e40cdeda82.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/icons/magma-296.png"
-dest_files=[ "res://.import/magma-296.png-b5caf63a1d336c9a9296b4f850686088.stex" ]
+source_file="res://ui/icons/spells/magma-296.png"
+dest_files=[ "res://.import/magma-296.png-345c33e7abd1a4d5ddaff4e40cdeda82.stex" ]
 
 [params]
 

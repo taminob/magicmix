@@ -19,15 +19,15 @@ func make_player(character):
 	player = character
 	player.add_child(camera)
 	#player.set_script(player_class)
-	player.is_player = true
+	player.stats.is_player = true
 	#player.camera_pivot = camera
 
 func unmake_player():
-	if(!player):
+	if(!player && is_instance_valid(player)):
 		return
 	player.call_deferred("remove_child", camera)
 	#player.set_script(character_class)
-	player.is_player = false
+	player.stats.is_player = false
 	player = null
 
 func create_player(level_name):
@@ -46,30 +46,36 @@ func init_characters(level, level_name, death_realm=false):
 			make_player(character)
 			player.translation = player_spawn_position
 		set_character_data(character, level_name)
-		character.in_death_realm = death_realm
+		character.stats.in_death_realm = death_realm
 	if(!player):
 		create_player(level_name)
 		level.call_deferred("add_child", player)
 		set_character_data(player, level_name)
-		player.in_death_realm = death_realm
+		player.stats.in_death_realm = death_realm
 
 func save_characters(level_name):
 	for character in get_tree().get_nodes_in_group("characters"):
-		characters.characters[character.name]["dead"] = character.dead
-		characters.characters[character.name]["pain"] = character.pain
-		characters.characters[character.name]["focus"] = character.focus
-		characters.characters[character.name]["velocity"] = character.velocity
+		characters.characters[character.name]["dead"] = character.stats.dead
+		characters.characters[character.name]["pain"] = character.stats.pain
+		characters.characters[character.name]["focus"] = character.stats.focus
+		characters.characters[character.name]["velocity"] = character.stats.velocity
 		characters.characters[character.name]["translations"][level_name] = character.translation
 
 func set_character_data(character, level_name):
 	var char_data = characters.characters[character.name]
 	if(char_data["dead"]):
-		character.dead = true
-	character.velocity = char_data["velocity"]
+		character.stats.dead = true
+	character.stats.velocity = char_data["velocity"]
 	character.translation = char_data["translations"].get(level_name, character.translation)
-	character.pain = char_data["pain"]
-	character.focus = char_data["focus"]
+	character.stats.pain = char_data["pain"]
+	character.stats.focus = char_data["focus"]
 
 	if(character != player):
 		# todo: init inventory?
 		pass
+
+func call_delayed(caller, method, param, time):
+	if(param):
+		get_tree().create_timer(time).connect("timeout", caller, method, [param])
+	else:
+		get_tree().create_timer(time).connect("timeout", caller, method)

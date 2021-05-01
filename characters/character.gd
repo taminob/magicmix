@@ -1,39 +1,12 @@
 extends KinematicBody
 
-const RUN_SPEED = 10
-const WALK_SPEED = 7
-const SPRINT_SPEED = 15
-const ACCELERATION = 3
-const DE_ACCELERATION = 5
-const GRAVITY = -9.81
-const JUMP_VELOCITY = 6
-
-enum {RUNNING, WALKING, SPRINTING}
-var move_dict = {
-	RUNNING: RUN_SPEED,
-	WALKING: WALK_SPEED,
-	SPRINTING: SPRINT_SPEED
-}
-var move_state = RUNNING
-var jump_requested = false
-var velocity = Vector3.ZERO
-var input_direction = Vector3.ZERO # unnormalized input direction
-
-export(float) var max_pain = 100.0
-var pain = 0.0
-export(float) var max_focus = 100.0
-var focus = max_focus
-var focus_gain_per_second = clamp(90.0 - pain, 0, 10)
-var dead = false
-var in_death_realm = false
-var is_player = false
-
-onready var collision = $"character_collision"
+#onready var collision = $"character_collision"
 onready var mesh = $"character_mesh"
+onready var health_bar = $"health_bar"
 
-onready var pain_bar = $"../../../../../ui/pain_bar"
-onready var focus_bar = $"../../../../../ui/focus_bar"
-onready var debug_label = $"../../../../../ui/debug_info_label"
+onready var ui = $"../../../../../ui"
+
+onready var stats = $"stats"
 
 #onready var camera_pivot = $"camera_pivot"
 
@@ -42,128 +15,176 @@ func _ready():
 	pass
 
 func _physics_process(delta):
-	if(can_move() || in_death_realm):
+	if(can_move() || stats.in_death_realm):
 		_collide(delta)
 		_move(delta)
 		_act(delta)
-	if(is_player):
+		_dialogue(delta)
 		_update_ui()
+	else:
+		# gravity even when dead
+		stats.velocity.y += stats.GRAVITY * delta
+		stats.velocity = move_and_slide(stats.velocity, Vector3.UP, true, 4, 0.25)
 
 func can_move():
-	return !dead || in_death_realm
+	return !stats.dead || stats.in_death_realm
 
 func die():
-	if(dead):
-		return
 	var material = mesh.material.duplicate()
 	material.set("albedo_color", Color(0.9, 0.9, 0.2))
 	mesh.material_override = material
-	dead = true
+	cancel_spell()
+	stats.dead = true
 	# todo: animation
-	if(is_player):
+	if(stats.is_player && !stats.in_death_realm):
 		_update_ui()
 		levels.change_level("death_realm")
-		in_death_realm = true
+		stats.in_death_realm = true
 
 func damage(dmg):
 	_self_damage(dmg)
 
 func _self_damage(dmg):
-	if(settings.get_setting("dev", "god_mode")):
+	if(settings.get_setting("dev", "god_mode") || stats.in_death_realm):
 		return
-	pain += dmg
-	pain = 0 if(pain < 0) else pain
-	if(pain >= max_pain):
+	stats.pain = clamp(stats.pain + dmg, 0, stats.max_pain)
+	if(stats.pain >= stats.max_pain):
 		die()
 
-func cast(spell):
-	if(focus < spells.spells[spell]["focus"]):
+func cast(spell_id):
+	var spell = spells.get_spell(spell_id)
+	var spell_focus = spells.get_focus(spell, "self")
+	var focus_per_second = spells.get_focus(spell, "self", true)
+	if(stats.focus + spell_focus < 0 || stats.focus + focus_per_second < 0):
 		return
-	focus += spells.spells[spell]["focus"]
-	_self_damage(-spells.spells[spell]["health"])
+	stats.focus += spell_focus
+	_self_damage(spells.get_pain(spell, "self"))
+	var spell_duration = spells.get_duration(spell)
 	#todo: animation
+	var scene = spells.get_scene(spell)
+	if(!scene):
+		return
+	var spell_scene = scene.instance()
+	stats.active_spells.push_back([focus_per_second, spells.get_pain(spell, "self", true), spell_duration, spell_scene])
+	add_child(spell_scene)
+	#management.call_delayed(spell_scene, "queue_free", null, spell_duration) # done via focus_per_second count
+
+func cancel_spell(active_spell=[]):
+	if(active_spell.empty()):
+		for x in stats.active_spells:
+			if(x.size() > 3):
+				x[3].queue_free()
+		stats.active_spells = [[]]
+	else:
+		if(active_spell.size() > 3):
+			active_spell[3].queue_free()
+		# todo: inefficient array erase
+		stats.active_spells.erase(active_spell)
+
+func experience(xp):
+	# todo: xp system
+	ui.update_xp(xp / 10)
 
 func _act(delta):
-	focus = clamp(focus + focus_gain_per_second * delta, 0, max_focus)
+	stats.active_spells[0] = [(1 - (stats.pain / stats.max_pain)) * 6, stats.focus / stats.max_focus * -3]
+	var canceled_spells = []
+	for x in stats.active_spells:
+		if(x.size() > 3):
+			x[2] -= delta
+			if(x[2] <= 0 || stats.focus + x[0] * delta < 0):
+				canceled_spells.push_back(x)
+				continue
+		stats.focus = clamp(stats.focus + x[0] * delta, 0, stats.max_focus)
+		_self_damage(x[1] * delta)
+	for x in canceled_spells:
+		cancel_spell(x)
 
 var last_speed = Vector3.ZERO
 func _collide(delta):
-	#for i in range(get_slide_count()):
-	#	var collision = get_slide_collision(i)
-	var d_x = abs(last_speed.x - velocity.x) / delta
-	var d_y = abs(last_speed.y - velocity.y) / delta
-	var d_z = abs(last_speed.z - velocity.z) / delta
+	var d_x = abs(last_speed.x - stats.velocity.x) / delta
+	var d_y = abs(last_speed.y - stats.velocity.y) / delta
+	var d_z = abs(last_speed.z - stats.velocity.z) / delta
 	var max_axis = max(d_x, max(d_y, d_z))
 	var threshold = 600
 	if(max_axis > threshold):
 		var dmg = pow((max_axis - threshold*0.8)/100, 2)
-		errors.test("impact: " + str(max_axis) + "; dmg: " + str(dmg))
+		errors.test("impact: " + str(max_axis) + "; dmg: " + str(dmg) + "velo: " + str(stats.velocity) + "; last: " + str(last_speed))
 		_self_damage(dmg)
-	last_speed = velocity
+		for i in range(get_slide_count()):
+			var collision = get_slide_collision(i)
+			if(collision.collider.has_method("damage")):
+				collision.collider.damage(dmg)
+	last_speed = stats.velocity
 
 func _move(delta):
-	if(jump_requested):
-		velocity.y = JUMP_VELOCITY
-		jump_requested = false
-	var move_direction = input_direction.rotated(Vector3.UP, rotation.y).normalized()
+	if(stats.jump_requested):
+		stats.velocity.y = stats.JUMP_VELOCITY
+		stats.jump_requested = false
+	var move_direction = stats.input_direction.rotated(Vector3.UP, rotation.y).normalized()
 
-	var hv = Vector3(velocity.x, 0, velocity.z)
+	var hv = Vector3(stats.velocity.x, 0, stats.velocity.z)
 
-	var max_speed = move_dict[move_state]
+	var max_speed = stats.move_dict[stats.move_state]
 	var new_pos = move_direction * max_speed
-	var accel = ACCELERATION if(move_direction.dot(hv) > 0) else DE_ACCELERATION
+	var accel = stats.ACCELERATION if(move_direction.dot(hv) > 0) else stats.DE_ACCELERATION
 
 	# todo: check if multiplication with delta is correct
 	hv = hv.linear_interpolate(new_pos, accel * delta)
 
-	velocity = move_and_slide(Vector3(hv.x, velocity.y + GRAVITY * 2 * delta, hv.z), Vector3.UP, true, 4, 0.25)
+	stats.velocity.y += stats.GRAVITY * delta
+	stats.velocity = move_and_slide(Vector3(hv.x, stats.velocity.y, hv.z), Vector3.UP, true, 4, 0.25)
 
+const player_input = preload("res://characters/player/player_input.gd")
 func _input(event):
-	if(!is_player):
+	if(!stats.is_player):
 		return
-	if(event.is_action_pressed("move_up") || (event.is_action_released("move_down") && input_direction.z != 0)):
-		input_direction += Vector3.FORWARD
-	if(event.is_action_pressed("move_down") || (event.is_action_released("move_up") && input_direction.z != 0)):
-		input_direction += Vector3.BACK
-	if(event.is_action_pressed("move_left") || (event.is_action_released("move_right") && input_direction.x != 0)):
-		input_direction += Vector3.LEFT
-	if(event.is_action_pressed("move_right") || (event.is_action_released("move_left") && input_direction.x != 0)):
-		input_direction += Vector3.RIGHT
-	if(is_on_floor() && event.is_action_pressed("jump")):
-		jump_requested = true
-	if(event.is_action_pressed("sprint") && move_state == RUNNING):
-		move_state = SPRINTING
-	elif(event.is_action_pressed("walk") && move_state == RUNNING):
-		move_state = WALKING
-	elif(event.is_action_released("sprint") && move_state == SPRINTING ||
-		event.is_action_released("walk") && move_state == WALKING):
-		move_state = RUNNING
-
-	if(event is InputEventMouseMotion):
-		rotate_y(-event.relative.x * 0.002)
-
-	if(event.is_action_pressed("rotate_camera_left")):
-		rotation_degrees.y += 30
-	if(event.is_action_pressed("rotate_camera_right")):
-		rotation_degrees.y -= 30
-
-	if(event.is_action_pressed("interact")):
-		cast("heal")
-	if(event.is_action_pressed("slot0")):
-		cast(inventory.slots[0])
-	if(event.is_action_pressed("slot1")):
-		cast(inventory.slots[1])
-	if(event.is_action_pressed("slot2")):
-		cast(inventory.slots[2])
-	if(event.is_action_pressed("slot3")):
-		cast(inventory.slots[3])
-	if(event.is_action_pressed("slot4")):
-		cast(inventory.slots[4])
+	player_input.move(self, event)
+	player_input.camera_move(self, event)
+	player_input.action(self, event)
 
 func _update_ui():
-	if(pain_bar):
-		pain_bar.set_value(pain)
-	if(focus_bar):
-		focus_bar.set_value(focus)
-	if(debug_label):
-		debug_label.set_text(str(input_direction))
+	if(ui):
+		ui.update_pain(stats.pain / stats.max_pain * 100)
+		ui.update_focus(stats.focus / stats.max_focus * 100)
+		ui.update_debug(str(stats.velocity))
+	health_bar.material = health_bar.material.duplicate()
+	health_bar.material.set_shader_param("percentage", 1 - stats.pain / stats.max_pain)
+	var dir_to_player = management.player.global_transform.origin.direction_to(global_transform.origin)
+	#health_bar.material.set_shader_param("angle", dir_to_player.angle_to(rotation_degrees.y))
+	#health_bar.look_at(management.player.transform.origin, Vector3.UP)
+
+func _dialogue(delta):
+	for x in stats.is_in_dialog:
+		# todo: distance_squared_to
+		var dialog_intensity = 1 - clamp((x.translation.distance_to(translation) - 3)/10, 0, 1)
+		if(dialog_intensity <= 0):
+			end_dialogue()
+		ui.update_dialogue(dialog_intensity)
+
+func start_dialogue(actor):
+	end_dialogue()
+	stats.is_in_dialog.push_back(actor)
+	if(ui):
+		ui.start_dialogue()
+
+func end_dialogue():
+	for x in stats.is_in_dialog:
+		# TODO: might cause seg faul because of erase in loop
+		stats.is_in_dialog.erase(x)
+		x.end_dialogue()
+	if(ui):
+		ui.end_dialogue()
+
+func interact(actor):
+	if(!stats.is_in_dialog.empty()):
+		end_dialogue()
+	start_dialogue(actor)
+	actor.start_dialogue(self)
+
+func _on_interact_area_body_entered(body):
+	if(body.has_method("interact")):
+		stats.interact_target = body
+
+func _on_interact_area_body_exited(body):
+	if(stats.interact_target == body):
+		stats.interact_target = null

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/self-512.png-6e6cbfcc40da6c2beae20d3152951d94.stex"
+path="res://.import/flame-512.png-89b258a855d9450be73b1ce52f68e620.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/icons/self-512.png"
-dest_files=[ "res://.import/self-512.png-6e6cbfcc40da6c2beae20d3152951d94.stex" ]
+source_file="res://ui/icons/spells/flame-512.png"
+dest_files=[ "res://.import/flame-512.png-89b258a855d9450be73b1ce52f68e620.stex" ]
 
 [params]
 

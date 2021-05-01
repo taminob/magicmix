@@ -1,5 +1,7 @@
 extends CSGMesh
 
+onready var player_spawn = $"../player_spawn"
+
 func _on_trigger_body_entered(body, name):
 	if(body == null || body != management.player):
 		return
@@ -10,6 +12,8 @@ func _on_trigger_body_entered(body, name):
 	else: # todo: when character is dead, these changes will be reverted in save_characters in change_level
 		characters.characters[name]["pain"] = 0.0
 		characters.characters[name]["dead"] = false
+		characters.characters[body.name]["translations"].erase(levels.current_level_name)
+	body.translation = player_spawn.translation
 	characters.characters[name]["translations"].clear()
 	management.player_name = name
 	levels.change_level("intro")

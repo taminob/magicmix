@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://ui/icons/circle-512.png" type="Texture" id=1]
+[ext_resource path="res://ui/icons/spells/circle-512.png" type="Texture" id=1]
 [ext_resource path="res://ui/ui.gd" type="Script" id=2]
 [ext_resource path="res://themes/ui_theme.tres" type="Theme" id=3]
 [ext_resource path="res://ui/panels/panels.tscn" type="PackedScene" id=4]
 [ext_resource path="res://ui/slots.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ui/dialogue/dialogue.tscn" type="PackedScene" id=6]
 
 [sub_resource type="ShaderMaterial" id=1]
 
@@ -56,6 +57,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="stamina_bar" type="TextureProgress" parent="."]
+anchor_left = 0.15
+anchor_right = 0.283
+anchor_bottom = 0.237
+margin_right = 1.28
+margin_bottom = 0.0799561
+rect_clip_content = true
+value = 70.0
+texture_under = ExtResource( 1 )
+texture_progress = ExtResource( 1 )
+fill_mode = 5
+tint_under = Color( 0, 0, 0, 0.235294 )
+tint_progress = Color( 0.0313726, 0.54902, 0, 1 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="fps_label" type="RichTextLabel" parent="."]
 anchor_left = 0.8
 anchor_right = 1.0
@@ -66,7 +85,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="percentage_bar" type="ProgressBar" parent="."]
+[node name="xp_bar" type="ProgressBar" parent="."]
 material = SubResource( 1 )
 anchor_top = 0.9
 anchor_right = 1.0
@@ -104,5 +123,7 @@ anchor_left = 0.75
 anchor_top = 0.5
 anchor_right = 0.975
 anchor_bottom = 0.875
+
+[node name="dialogue" parent="." instance=ExtResource( 6 )]
 
 [connection signal="pressed" from="menu_button" to="." method="_on_menu_button_pressed"]

@@ -8,5 +8,5 @@ func _ready():
 
 func update_slots():
 	for i in range(slots.size()):
-		var spell = spells.spells[inventory.slots[i]]
-		slots[i].set_normal_texture(spell["icon"])
+		var spell = spells.get_spell(inventory.slots[i])
+		slots[i].set_normal_texture(spells.get_icon(spell))
