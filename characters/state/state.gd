@@ -15,14 +15,14 @@ func save():
 	move.save(_state)
 	experience.save(_state)
 	inventory.save(_state)
-	stats.save(_state)
 	skills.save(_state)
+	stats.save(_state)
 	dialogue.save(_state)
 
 func init():
 	move.init(_state)
 	experience.init(_state)
 	inventory.init(_state)
-	stats.init(_state)
 	skills.init(_state)
+	stats.init(_state)
 	dialogue.init(_state)

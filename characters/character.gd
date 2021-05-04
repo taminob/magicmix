@@ -1,7 +1,8 @@
-extends KinematicBody
+extends KinematicBody2D
 
 #onready var collision = $"character_collision"
-onready var mesh = $"character_mesh"
+onready var y_sort = $"y_sort"
+onready var sprite = $"y_sort/sprite"
 onready var health_bar = $"health_bar"
 
 onready var state = $"state"
@@ -15,6 +16,7 @@ onready var dialogue = state.dialogue
 #onready var camera_pivot = $"camera_pivot"
 
 func _ready():
+	VisualServer.canvas_item_set_sort_children_by_y(get_canvas_item(), true)
 	init_state()
 
 func save_state():
@@ -58,8 +60,9 @@ func _update_ui():
 		management.ui.update_xp(0.4)
 		management.ui.update_debug(str(move.velocity))
 		management.ui.update_slots()
-	health_bar.material = health_bar.material.duplicate()
-	health_bar.material.set_shader_param("percentage", 1 - stats.pain / stats.max_pain())
+	health_bar.set_value((1 - stats.pain / stats.max_pain()) * 100)
+	#health_bar.material = health_bar.material.duplicate()
+	#health_bar.material.set_shader_param("percentage", 1 - stats.pain / stats.max_pain())
 	#var dir_to_player = management.player.global_transform.origin.direction_to(global_transform.origin)
 	#health_bar.material.set_shader_param("angle", dir_to_player.angle_to(rotation_degrees.y))
 	#health_bar.look_at(management.player.transform.origin, Vector3.UP)
@@ -67,7 +70,7 @@ func _update_ui():
 func _dialogue(delta):
 	for x in dialogue.dialogue_partners:
 		# todo: distance_squared_to
-		var dialogue_intensity = 1 - clamp((x.translation.distance_to(translation) - 3)/10, 0, 1)
+		var dialogue_intensity = 1 - clamp((x.position.distance_to(position) - 3)/10, 0, 1)
 		if(dialogue_intensity <= 0):
 			dialogue.end_dialogue()
 			if(state.is_player):

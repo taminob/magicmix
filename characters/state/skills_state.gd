@@ -1,6 +1,7 @@
 extends Node
 
 onready var state = get_parent()
+onready var character = $"../.."
 onready var stats = $"../stats"
 
 var active_skills
@@ -20,7 +21,7 @@ func cast(spell_id):
 		return
 	var spell_scene = scene.instance()
 	active_skills.push_back([focus_per_second, spells.get_pain(spell, "self", true), spell_duration, spell_scene])
-	state.character.add_child(spell_scene)
+	character.y_sort.add_child(spell_scene)
 	#management.call_delayed(spell_scene, "queue_free", null, spell_duration) # done via focus_per_second count
 
 func cancel_spell(active_spell=[]):
@@ -50,8 +51,9 @@ func _act(delta):
 		cancel_spell(x)
 
 func save(_state):
+	# todo: crash when saving with skill scene active
 	var _skills_state = _state.get("skills", {})
-	_skills_state["active_skills"] = active_skills
+	_skills_state["active_skills"] = [[]]#active_skills
 	_state["skills"] = _skills_state
 
 func init(_state):

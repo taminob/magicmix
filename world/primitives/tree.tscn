@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://world/sprites/tree-color-root.png" type="Texture" id=1]
+
+[node name="tree" type="StaticBody2D"]
+position = Vector2( 0, -6.34958 )
+scale = Vector2( 0.3, 0.3 )
+
+[node name="tree-color-root" type="Sprite" parent="."]
+position = Vector2( -4.81738, -234.137 )
+texture = ExtResource( 1 )
+offset = Vector2( 89.4788, -1035.78 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( 84.6615, -1269.92 )
+polygon = PoolVector2Array( -995.798, 1332.45, -830.982, 1510.72, -255.809, 1614.99, 272.273, 1608.26, 820.538, 1376.18, 675.904, 1184.45, 255.456, 1097, -353.353, 1100.36, -837.709, 1177.72 )

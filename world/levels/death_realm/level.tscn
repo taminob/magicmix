@@ -1,53 +1,26 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world/levels/death_realm/way_of_sacrifice.gd" type="Script" id=2]
-[ext_resource path="res://world/primitives/cube.tscn" type="PackedScene" id=3]
+[ext_resource path="res://world/sprites/tree.png" type="Texture" id=3]
 
-[sub_resource type="BoxShape" id=1]
+[node name="level" type="YSort"]
 
-[node name="level" type="Spatial"]
-
-[node name="player_spawn" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
-
-[node name="hans_way_of_sacrifice" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 3.25, 7.10873, 6, -0.0920563 )
-script = ExtResource( 2 )
-
-[node name="cube2" parent="hans_way_of_sacrifice" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 0.307692, 0, -3, -0.692308 )
-
-[node name="cube3" parent="hans_way_of_sacrifice" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 0.307692, 0, -3, 0.692308 )
-
-[node name="trigger" type="Area" parent="hans_way_of_sacrifice"]
-transform = Transform( 0.5, 0, 0, 0, 2, 0, 0, 0, 0.5, 0, -3, 0 )
-
-[node name="CollisionShape" type="CollisionShape" parent="hans_way_of_sacrifice/trigger"]
-shape = SubResource( 1 )
-
-[node name="mary_way_of_sacrifice" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 3.25, 7.10873, 6, 7.99057 )
-script = ExtResource( 2 )
-
-[node name="cube2" parent="mary_way_of_sacrifice" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 0.307692, 0, -3, -0.692308 )
-
-[node name="cube3" parent="mary_way_of_sacrifice" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 0.307692, 0, -3, 0.692308 )
-
-[node name="trigger" type="Area" parent="mary_way_of_sacrifice"]
-transform = Transform( 0.5, 0, 0, 0, 2, 0, 0, 0, 0.5, 0, -3, 0 )
-
-[node name="CollisionShape" type="CollisionShape" parent="mary_way_of_sacrifice/trigger"]
-shape = SubResource( 1 )
-
-[node name="cube" parent="." instance=ExtResource( 3 )]
-transform = Transform( 50, 0, 0, 0, 1, 0, 0, 0, 50, 0, 0, 0 )
+[node name="player_spawn" type="Node2D" parent="."]
+position = Vector2( 182.228, 1851.94 )
 
 [node name="guenther" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5, 2, 3.6 )
+position = Vector2( 2679.25, 1882.19 )
 
-[connection signal="body_entered" from="hans_way_of_sacrifice/trigger" to="hans_way_of_sacrifice" method="_on_trigger_body_entered" binds= [ "hans" ]]
-[connection signal="body_entered" from="mary_way_of_sacrifice/trigger" to="mary_way_of_sacrifice" method="_on_trigger_body_entered" binds= [ "mary" ]]
+[node name="tree_of_life" type="Sprite" parent="."]
+position = Vector2( 3271.81, 1101.2 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+script = ExtResource( 2 )
+
+[node name="trigger" type="Area2D" parent="tree_of_life"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="tree_of_life/trigger"]
+polygon = PoolVector2Array( -1038.01, 1879.46, -608.089, 1664.5, 42.4495, 1687.13, 709.958, 1862.49, 359.233, 1941.68, -268.678, 1947.34, -783.451, 1907.74 )
+
+[connection signal="body_entered" from="tree_of_life/trigger" to="tree_of_life" method="_on_trigger_body_entered" binds= [ "hans" ]]

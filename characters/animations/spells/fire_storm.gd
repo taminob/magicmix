@@ -1,21 +1,11 @@
-extends Spatial
-
-var caster = null
-var affected_bodies = []
-const spell_name = "fire_storm"
+extends "res://characters/animations/spells/spell_spawner.gd"
 
 func _ready():
-	caster = get_parent()
-
-func _physics_process(delta):
-	for x in affected_bodies:
-		x.damage(spells.get_pain(spells.get_spell(spell_name), "target", true) * delta)
-
-func _on_area_of_effect_body_entered(body):
-	if(body.has_method("damage") && body != caster):
-		affected_bodies.append(body)
-
-
-func _on_area_of_effect_body_exited(body):
-	if(affected_bodies.has(body)):
-		affected_bodies.erase(body)
+	time = 2
+	amount = 500
+	spawn_timer.set_wait_time(0.05)
+	radius = 500
+	spell = spells.get_spell("fire_storm")
+	example_object = load("res://characters/animations/spells/fire.tscn").instance()
+	example_object.set_scale(Vector2(3, 3))
+	spawn_timer.start()

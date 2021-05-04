@@ -1,4 +1,4 @@
-extends CSGMesh
+extends Sprite
 
 onready var player_spawn = $"../player_spawn"
 
@@ -13,7 +13,7 @@ func _on_trigger_body_entered(body, name):
 		characters.characters[name]["stats"]["pain"] = 0.0
 		characters.characters[name]["stats"]["dead"] = false
 		characters.characters[body.name]["move"]["translations"].erase(levels.current_level_name)
-	body.translation = player_spawn.translation
+	body.position = player_spawn.position
 	characters.characters[name]["move"]["translations"].clear()
 	management.player_name = name
 	levels.change_level("intro")

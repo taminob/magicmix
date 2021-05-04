@@ -113,9 +113,32 @@ var spells = {
 			"pain_per_second": 15
 		},
 		"duration": 5,
-		"icon": load(spell_icons_path + "magma-296.png"),
+		"icon": load(spell_icons_path + "magma-512.png"),
 		"anim": "",
 		"scene": load(spell_scenes_path + "fire_storm.tscn")
+	},
+	"fire_ring": {
+		"combinations": [{
+			"target": "area",
+			"type": "defense",
+			"elements": ["fire", "fire", "darkness"]
+		}],
+		"name": "Fire Ring",
+		"description": "Summon a ring of fire to protect yourself!",
+		"category": "fire",
+		"self": {
+			"focus_per_second": -5,
+			"focus": -5
+		},
+		"target": {
+			"focus_per_second": -10,
+			"pain": 10,
+			"pain_per_second": 1
+		},
+		"duration": 25,
+		"icon": load(spell_icons_path + "fire_ring-512.png"),
+		"anim": "",
+		"scene": load(spell_scenes_path + "fire_ring.tscn")
 	},
 	"blood_storm": {
 		"combinations": [{
@@ -137,7 +160,7 @@ var spells = {
 			"pain_per_second": 40
 		},
 		"duration": 5,
-		"icon": load(spell_icons_path + "magma-296.png"),
+		"icon": load(spell_icons_path + "blood_storm-512.png"),
 		"anim": "",
 		"scene": load(spell_scenes_path + "fire_storm.tscn")
 	}

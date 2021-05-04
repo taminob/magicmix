@@ -54,7 +54,7 @@ func set_screenmode(screenmode):
 
 func set_resolution(resolution):
 	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D, SceneTree.STRETCH_ASPECT_KEEP, resolution)
-#	get_viewport().set_attach_to_screen_rect(Rect2(Vector2(0, 0), resolution))
+	get_viewport().set_size_override(true, resolution)
 	global_scale = min(resolution.x / base_resolution.x, resolution.y / base_resolution.y)
 	themes.scale_themes(global_scale)
 

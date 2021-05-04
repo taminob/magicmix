@@ -2,14 +2,14 @@ extends Node
 
 static func move(target, event):
 	var move_state = target.move
-	if(event.is_action_pressed("move_up") || (event.is_action_released("move_down") && move_state.input_direction.z != 0)):
-		move_state.input_direction += Vector3.FORWARD
-	if(event.is_action_pressed("move_down") || (event.is_action_released("move_up") && move_state.input_direction.z != 0)):
-		move_state.input_direction += Vector3.BACK
+	if(event.is_action_pressed("move_up") || (event.is_action_released("move_down") && move_state.input_direction.y != 0)):
+		move_state.input_direction += Vector2.UP
+	if(event.is_action_pressed("move_down") || (event.is_action_released("move_up") && move_state.input_direction.y != 0)):
+		move_state.input_direction += Vector2.DOWN
 	if(event.is_action_pressed("move_left") || (event.is_action_released("move_right") && move_state.input_direction.x != 0)):
-		move_state.input_direction += Vector3.LEFT
+		move_state.input_direction += Vector2.LEFT
 	if(event.is_action_pressed("move_right") || (event.is_action_released("move_left") && move_state.input_direction.x != 0)):
-		move_state.input_direction += Vector3.RIGHT
+		move_state.input_direction += Vector2.RIGHT
 	if(target.is_on_floor() && event.is_action_pressed("jump")):
 		move_state.jump_requested = true
 	if(event.is_action_pressed("sprint") && move_state.move_state == move_state.RUNNING):
@@ -21,6 +21,7 @@ static func move(target, event):
 		move_state.move_state = move_state.RUNNING
 
 static func camera_move(target, event):
+	return
 	if(event is InputEventMouseMotion):
 		target.rotate_y(-event.relative.x * 0.002)
 

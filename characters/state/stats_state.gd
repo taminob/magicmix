@@ -30,9 +30,11 @@ func stamina_per_second():
 	return experience.endurance * focus / max_focus() * 6
 
 func die():
-	var material = character.mesh.material.duplicate()
-	material.set("albedo_color", Color(0.9, 0.9, 0.2))
-	character.mesh.material_override = material
+	#var material = character.mesh.material.duplicate()
+	#material.set("albedo_color", Color(0.9, 0.9, 0.2))
+	#character.mesh.material_override = material
+	skills.cancel_spell()
+	character.sprite.set_texture(load("res://world/sprites/pixelart-zombie-32.png"))
 	dead = true
 	# todo: animation
 	if(state.is_player && !levels.current_level_death_realm):
@@ -43,7 +45,7 @@ func damage(dmg):
 	_self_damage(dmg)
 
 func _self_damage(dmg):
-	if(settings.get_setting("dev", "god_mode") || levels.current_level_death_realm):
+	if(settings.get_setting("dev", "god_mode") || dead || levels.current_level_death_realm):
 		return
 	pain = clamp(pain + dmg, 0, max_pain())
 	if(pain >= max_pain()):
