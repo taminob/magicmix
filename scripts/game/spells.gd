@@ -2,8 +2,8 @@ extends Node
 
 const full = 10000
 const spell_icons_path = "res://ui/icons/spells/"
-const spell_scenes_path = "res://characters/animations/spells/"
-const spell_anims_path = "res://characters/animations/spells/"
+const spell_scenes_path = "res://spells/"
+const spell_anims_path = "res://spells/"
 
 func get_spell(id):
 	return spells.get(id, "")
@@ -87,13 +87,15 @@ var spells = {
 		"description": "Sacrifice your own life (or an innocent creature) to revive the nearest ally!",
 		"category": "blood",
 		"self": {
-			"pain": full
+			"pain": 0#full
 		},
 		"target": {
-			"pain": -full
+			"pain": 0#-full
 		},
+		"duration": 5,
 		"icon": load(spell_icons_path + "self_dark-512.png"),
-		"anim": ""
+		"anim": "",
+		"scene": load(spell_scenes_path + "blood/blood_sacrifice.tscn")
 	},
 	"fire_storm": {
 		"combinations": [{
@@ -115,7 +117,7 @@ var spells = {
 		"duration": 5,
 		"icon": load(spell_icons_path + "magma-512.png"),
 		"anim": "",
-		"scene": load(spell_scenes_path + "fire_storm.tscn")
+		"scene": load(spell_scenes_path + "fire/fire_storm.tscn")
 	},
 	"fire_ring": {
 		"combinations": [{
@@ -138,7 +140,7 @@ var spells = {
 		"duration": 25,
 		"icon": load(spell_icons_path + "fire_ring-512.png"),
 		"anim": "",
-		"scene": load(spell_scenes_path + "fire_ring.tscn")
+		"scene": load(spell_scenes_path + "fire/fire_ring.tscn")
 	},
 	"blood_storm": {
 		"combinations": [{
@@ -162,6 +164,6 @@ var spells = {
 		"duration": 5,
 		"icon": load(spell_icons_path + "blood_storm-512.png"),
 		"anim": "",
-		"scene": load(spell_scenes_path + "fire_storm.tscn")
+		"scene": load(spell_scenes_path + "blood/blood_storm.tscn")
 	}
 }

@@ -1,8 +1,7 @@
 extends KinematicBody2D
 
 #onready var collision = $"character_collision"
-onready var y_sort = $"y_sort"
-onready var sprite = $"y_sort/sprite"
+onready var sprite = $"sprite"
 onready var health_bar = $"health_bar"
 
 onready var state = $"state"
@@ -40,6 +39,9 @@ func _physics_process(delta):
 
 func damage(dmg):
 	stats.damage(dmg)
+
+func die():
+	stats.die()
 
 func revive():
 	stats._self_revive()

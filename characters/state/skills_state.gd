@@ -21,7 +21,7 @@ func cast(spell_id):
 		return
 	var spell_scene = scene.instance()
 	active_skills.push_back([focus_per_second, spells.get_pain(spell, "self", true), spell_duration, spell_scene])
-	character.y_sort.add_child(spell_scene)
+	character.add_child(spell_scene)
 	#management.call_delayed(spell_scene, "queue_free", null, spell_duration) # done via focus_per_second count
 
 func cancel_spell(active_spell=[]):

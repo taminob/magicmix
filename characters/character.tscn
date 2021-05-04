@@ -31,11 +31,8 @@ position = Vector2( 0.850879, -26.866 )
 rotation = 1.5708
 shape = SubResource( 1 )
 
-[node name="y_sort" type="YSort" parent="."]
-scale = Vector2( 3, 3 )
-
-[node name="sprite" type="Sprite" parent="y_sort"]
-scale = Vector2( 5, 5 )
+[node name="sprite" type="Sprite" parent="."]
+scale = Vector2( 15, 15 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -15 )
 hframes = 2
