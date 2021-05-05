@@ -3,6 +3,7 @@ extends Node
 onready var state = get_parent()
 onready var character = $"../.."
 onready var stats = $"../stats"
+onready var inventory = $"../inventory"
 
 var active_skills
 
@@ -24,6 +25,9 @@ func cast(spell_id):
 	character.add_child(spell_scene)
 	#management.call_delayed(spell_scene, "queue_free", null, spell_duration) # done via focus_per_second count
 
+func cast_slot(slot_id):
+	cast(inventory.get_skill_slot(slot_id))
+
 func cancel_spell(active_spell=[]):
 	if(active_spell.empty()):
 		for x in active_skills:
@@ -36,7 +40,7 @@ func cancel_spell(active_spell=[]):
 		# todo: inefficient array erase, optimization prob required
 		active_skills.erase(active_spell)
 
-func _act(delta):
+func skill_process(delta):
 	active_skills[0] = [stats.focus_per_second(), stats.pain_per_second()]
 	var canceled_spells = []
 	for x in active_skills:

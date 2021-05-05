@@ -52,6 +52,7 @@ func get_anim(spell):
 func get_scene(spell):
 	return spell.get("scene", null)
 
+
 var spells = {
 	"": {
 		"name": "Do Nothing",
@@ -92,7 +93,7 @@ var spells = {
 		"target": {
 			"pain": 0#-full
 		},
-		"duration": 5,
+		"duration": 0.5,
 		"icon": load(spell_icons_path + "self_dark-512.png"),
 		"anim": "",
 		"scene": load(spell_scenes_path + "blood/blood_sacrifice.tscn")

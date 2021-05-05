@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tree-color.png-d4ad04b7646a77dffab52754c90d9928.stex"
+path="res://.import/tree_no_color-3840.png-0623a7ce4f7a813dd82c3d14e0964f26.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://world/sprites/tree-color.png"
-dest_files=[ "res://.import/tree-color.png-d4ad04b7646a77dffab52754c90d9928.stex" ]
+source_file="res://world/sprites/tree_no_color-3840.png"
+dest_files=[ "res://.import/tree_no_color-3840.png-0623a7ce4f7a813dd82c3d14e0964f26.stex" ]
 
 [params]
 

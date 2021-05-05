@@ -11,9 +11,15 @@ var _caster_affected = false
 func next_object_scale(delta):
 	return object.scale
 
-func init_object():
+func do_on_end():
+	pass
+
+func connect_object():
 	object.connect("body_entered", self, "_object_enter")
 	object.connect("body_exited", self, "_object_exit")
+
+func init_object():
+	connect_object()
 	add_child(object)
 
 func _physics_process(delta):
@@ -21,6 +27,7 @@ func _physics_process(delta):
 		return
 	time -= delta
 	if(time <= 0):
+		do_on_end()
 		spell = null
 		return
 	object.scale = next_object_scale(delta)

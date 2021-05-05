@@ -6,6 +6,7 @@ onready var stamina_bar = $"stamina_bar"
 onready var xp_bar = $"xp_bar"
 onready var slots = $"slots"
 onready var dialogue = $"dialogue"
+onready var interaction = $"interaction"
 onready var debug_label = $"debug_info_label"
 
 func _ready():
@@ -36,11 +37,25 @@ func update_slots():
 	slots.update_slots()
 
 func start_dialogue():
+	interaction.set_anchor(MARGIN_TOP, 0.5)
+	interaction.set_anchor(MARGIN_BOTTOM, 0.58)
 	dialogue.popup()
 
 func end_dialogue():
+	interaction.set_anchor(MARGIN_TOP, 0.8)
+	interaction.set_anchor(MARGIN_BOTTOM, 0.88)
 	dialogue.hide()
 
-func update_dialogue(percentage):
-	print(percentage)
-	dialogue.set_modulate(Color(1, 1, 1, percentage))
+func update_dialogue(visible_chars, transparency):
+	dialogue.update_dialogue(visible_chars, transparency)
+
+func set_dialogue_text(string, speaker, answers=[]):
+	dialogue.set_dialogue_text(string, speaker, answers)
+
+# todo: interaction icon
+func show_interaction(text, icon):
+	interaction.get_node("text").set_bbcode("[center]" + text + "[/center]")
+	interaction.popup()
+
+func hide_interaction():
+	interaction.hide()

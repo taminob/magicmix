@@ -24,7 +24,7 @@ func pain_per_second():
 	return experience.sturdiness * focus / max_focus() * -3
 
 func focus_per_second():
-	return experience.concentration * (1 - (pain / max_pain())) * 6
+	return experience.concentration * (1 - pain / max_pain()) * 6
 
 func stamina_per_second():
 	return experience.endurance * focus / max_focus() * 6
@@ -34,7 +34,7 @@ func die():
 	#material.set("albedo_color", Color(0.9, 0.9, 0.2))
 	#character.mesh.material_override = material
 	skills.cancel_spell()
-	character.sprite.set_texture(load("res://world/sprites/pixelart-zombie-32.png"))
+	character.sprite.set_texture(load("res://world/sprites/pixelart_zombie-32.png"))
 	dead = true
 	# todo: animation
 	if(state.is_player && !levels.current_level_death_realm):
@@ -52,6 +52,8 @@ func _self_damage(dmg):
 		die()
 
 func _self_revive():
+	if(undead):
+		return
 	pain = 0.0
 	dead = false
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tree-color-root.png-e995f02f32618ebf8aafcf432ea3799f.stex"
+path="res://.import/thin_light_ring-4096.png-b4528d3c903ed3ea2e5b77ba89a8763f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://world/sprites/tree-color-root.png"
-dest_files=[ "res://.import/tree-color-root.png-e995f02f32618ebf8aafcf432ea3799f.stex" ]
+source_file="res://world/sprites/thin_light_ring-4096.png"
+dest_files=[ "res://.import/thin_light_ring-4096.png-b4528d3c903ed3ea2e5b77ba89a8763f.stex" ]
 
 [params]
 

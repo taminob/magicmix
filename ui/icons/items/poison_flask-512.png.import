@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/light-ring.png-2f2a99224852ea4629f8444e08715b92.stex"
+path="res://.import/poison_flask-512.png-365240b133f165695386c4121bdc4f15.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://world/sprites/light-ring.png"
-dest_files=[ "res://.import/light-ring.png-2f2a99224852ea4629f8444e08715b92.stex" ]
+source_file="res://ui/icons/items/poison_flask-512.png"
+dest_files=[ "res://.import/poison_flask-512.png-365240b133f165695386c4121bdc4f15.stex" ]
 
 [params]
 

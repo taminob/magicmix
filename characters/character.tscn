@@ -1,6 +1,6 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://world/sprites/pixelart-human-32.png" type="Texture" id=1]
+[ext_resource path="res://world/sprites/pixelart_human-32.png" type="Texture" id=1]
 [ext_resource path="res://characters/character.gd" type="Script" id=2]
 [ext_resource path="res://characters/state/state.gd" type="Script" id=3]
 [ext_resource path="res://characters/state/skills_state.gd" type="Script" id=4]
@@ -10,15 +10,20 @@
 [ext_resource path="res://characters/state/dialogue_state.gd" type="Script" id=8]
 [ext_resource path="res://characters/state/experience_state.gd" type="Script" id=9]
 [ext_resource path="res://themes/ui_theme.tres" type="Theme" id=10]
+[ext_resource path="res://characters/state/input_state.gd" type="Script" id=11]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 30.9303
 height = 85.7968
 
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.729412, 0, 0, 1 )
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 143.299
+height = 202.96
 
 [sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.729412, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
 
 [node name="character" type="KinematicBody2D" groups=[
@@ -27,7 +32,7 @@ bg_color = Color( 0.6, 0.6, 0.6, 0 )
 script = ExtResource( 2 )
 
 [node name="collision" type="CollisionShape2D" parent="."]
-position = Vector2( 0.850879, -26.866 )
+position = Vector2( 0, -31 )
 rotation = 1.5708
 shape = SubResource( 1 )
 
@@ -37,6 +42,12 @@ texture = ExtResource( 1 )
 offset = Vector2( 0, -15 )
 hframes = 2
 vframes = 2
+
+[node name="interact_zone" type="Area2D" parent="."]
+
+[node name="collision" type="CollisionShape2D" parent="interact_zone"]
+position = Vector2( -1.68176, -201.815 )
+shape = SubResource( 2 )
 
 [node name="state" type="Node" parent="."]
 script = ExtResource( 3 )
@@ -59,14 +70,20 @@ script = ExtResource( 7 )
 [node name="dialogue" type="Node" parent="state"]
 script = ExtResource( 8 )
 
+[node name="input" type="Node" parent="state"]
+script = ExtResource( 11 )
+
 [node name="health_bar" type="ProgressBar" parent="."]
 margin_left = -108.017
 margin_top = -543.993
 margin_right = 91.9824
 margin_bottom = -416.993
 theme = ExtResource( 10 )
-custom_styles/fg = SubResource( 2 )
-custom_styles/bg = SubResource( 3 )
+custom_styles/fg = SubResource( 3 )
+custom_styles/bg = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[connection signal="area_entered" from="interact_zone" to="state/dialogue" method="_on_interact_zone_area_entered"]
+[connection signal="area_exited" from="interact_zone" to="state/dialogue" method="_on_interact_zone_area_exited"]

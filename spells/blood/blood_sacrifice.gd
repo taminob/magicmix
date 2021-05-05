@@ -4,15 +4,19 @@ var growth_per_second = 3
 
 func _ready():
 	spell = spells.get_spell("blood_sacrifice")
-	object = preload("ring_trigger.tscn").instance()
+	object = self
 	object.set_scale(Vector2(0.1, 0.1))
-	init_object()
+	connect_object()
 	time = spells.get_duration(spell)
 
 func next_object_scale(delta):
 	return object.scale * (1 + growth_per_second * delta)
 
 var used = false
+func do_on_end():
+	if(!used):
+		_caster.die()
+
 func _object_enter(body):
 	if(!used && body):
 		# todo: only try to revive if dead?

@@ -39,16 +39,16 @@ __meta__ = {
 }
 
 [node name="v_box_container" type="VBoxContainer" parent="center_container"]
-margin_left = 1651.0
-margin_top = 447.0
-margin_right = 2188.0
-margin_bottom = 1712.0
+margin_left = 1645.0
+margin_top = 432.0
+margin_right = 2194.0
+margin_bottom = 1727.0
 theme = ExtResource( 2 )
 alignment = 1
 
 [node name="continue_button" type="Button" parent="center_container/v_box_container"]
-margin_right = 537.0
-margin_bottom = 133.0
+margin_right = 549.0
+margin_bottom = 139.0
 focus_neighbour_top = NodePath("../quit_button")
 focus_neighbour_bottom = NodePath("../new_button")
 focus_next = NodePath("../new_button")
@@ -59,9 +59,9 @@ text = "Continue"
 flat = true
 
 [node name="new_button" type="Button" parent="center_container/v_box_container"]
-margin_top = 283.0
-margin_right = 537.0
-margin_bottom = 416.0
+margin_top = 289.0
+margin_right = 549.0
+margin_bottom = 428.0
 focus_next = NodePath("../load_button")
 focus_previous = NodePath("../continue_button")
 size_flags_vertical = 3
@@ -70,9 +70,9 @@ text = "New Game"
 flat = true
 
 [node name="load_button" type="Button" parent="center_container/v_box_container"]
-margin_top = 566.0
-margin_right = 537.0
-margin_bottom = 699.0
+margin_top = 578.0
+margin_right = 549.0
+margin_bottom = 717.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 2 )
@@ -80,9 +80,9 @@ text = "Load Game"
 flat = true
 
 [node name="options_button" type="Button" parent="center_container/v_box_container"]
-margin_top = 849.0
-margin_right = 537.0
-margin_bottom = 982.0
+margin_top = 867.0
+margin_right = 549.0
+margin_bottom = 1006.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 2 )
@@ -90,9 +90,9 @@ text = "Options"
 flat = true
 
 [node name="quit_button" type="Button" parent="center_container/v_box_container"]
-margin_top = 1132.0
-margin_right = 537.0
-margin_bottom = 1265.0
+margin_top = 1156.0
+margin_right = 549.0
+margin_bottom = 1295.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 2 )

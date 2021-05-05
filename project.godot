@@ -30,6 +30,7 @@ items="*res://scripts/game/items.gd"
 characters="*res://scripts/game/characters.gd"
 management="*res://scripts/game/management.gd"
 levels="*res://scripts/game/levels.gd"
+game="res://scripts/game/game.gd"
 saves="*res://scripts/saves.gd"
 
 [debug]

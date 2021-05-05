@@ -31,7 +31,7 @@ func max_speed():
 func can_move():
 	return !stats.dead || levels.current_level_death_realm
 
-func move(delta):
+func move_process(delta):
 	if(jump_requested):
 		velocity.y = JUMP_VELOCITY
 		jump_requested = false
