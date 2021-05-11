@@ -12,8 +12,8 @@ func _ready():
 	spawn_timer.set_wait_time(TAU / (speed * amount))
 	spawn_timer.start()
 
-func first_object_position(object, object_id):
+func first_object_position(_object, _object_id):
 	return Vector2(sin(0 * speed), cos(0 * speed)) * radius
 
-func next_object_position(object, object_id, remaining_duration):
+func next_object_position(_object, _object_id, remaining_duration):
 	return Vector2(sin(remaining_duration * speed), cos(remaining_duration * speed)) * radius

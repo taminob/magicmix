@@ -1,16 +1,21 @@
 extends KinematicBody2D
 
 #onready var collision = $"character_collision"
+# warning-ignore:unused_class_variable
 onready var sprite = $"sprite"
 onready var health_bar = $"health_bar"
 
 onready var state = $"state"
 onready var move = state.move
+# warning-ignore:unused_class_variable
 onready var experience = state.experience
+# warning-ignore:unused_class_variable
 onready var inventory = state.inventory
 onready var stats = state.stats
 onready var skills = state.skills
 onready var dialogue = state.dialogue
+# warning-ignore:unused_class_variable
+onready var interaction = state.interaction
 
 #onready var camera_pivot = $"camera_pivot"
 
@@ -38,9 +43,11 @@ func _physics_process(delta):
 	move.collide(delta)
 	_update_ui()
 
+# warning-ignore:unused_class_variable
 var interaction_name = "Talk"
-func interact():
-	dialogue.interact()
+func interact(interactor):
+	interactor.dialogue.start_dialogue(dialogue)
+	dialogue.start_dialogue(interactor.dialogue)
 
 func damage(dmg):
 	stats.damage(dmg)
@@ -55,15 +62,15 @@ func revive():
 
 func _update_ui():
 	if(state.is_player):
-		management.ui.update_pain(stats.pain / stats.max_pain())
-		management.ui.update_focus(stats.focus / stats.max_focus())
-		management.ui.update_stamina(stats.stamina / stats.max_stamina())
-		management.ui.update_xp(0.4)
-		management.ui.update_debug(str(move.velocity))
-		management.ui.update_slots()
+		game.mgmt.ui.update_pain(stats.pain / stats.max_pain())
+		game.mgmt.ui.update_focus(stats.focus / stats.max_focus())
+		game.mgmt.ui.update_stamina(stats.stamina / stats.max_stamina())
+		game.mgmt.ui.update_xp(0.4)
+		game.mgmt.ui.update_debug(str(move.velocity))
+		game.mgmt.ui.update_slots()
 	health_bar.set_value((1 - stats.pain / stats.max_pain()) * 100)
 	#health_bar.material = health_bar.material.duplicate()
 	#health_bar.material.set_shader_param("percentage", 1 - stats.pain / stats.max_pain())
-	#var dir_to_player = management.player.global_transform.origin.direction_to(global_transform.origin)
+	#var dir_to_player = game.mgmt.player.global_transform.origin.direction_to(global_transform.origin)
 	#health_bar.material.set_shader_param("angle", dir_to_player.angle_to(rotation_degrees.y))
-	#health_bar.look_at(management.player.transform.origin, Vector3.UP)
+	#health_bar.look_at(game.mgmt.player.transform.origin, Vector3.UP)

@@ -1,5 +1,6 @@
 extends Node
 
+# warning-ignore:unused_class_variable
 onready var state = get_parent()
 onready var character = $"../.."
 onready var stats = $"../stats"
@@ -16,14 +17,14 @@ func cast(spell_id):
 	stats.focus = clamp(stats.focus + spell_focus, 0, stats.max_focus())
 	stats._self_damage(spells.get_pain(spell, "self"))
 	var spell_duration = spells.get_duration(spell)
-	#todo: animation
+	# todo: animation
 	var scene = spells.get_scene(spell)
 	if(!scene):
 		return
 	var spell_scene = scene.instance()
 	active_skills.push_back([focus_per_second, spells.get_pain(spell, "self", true), spell_duration, spell_scene])
 	character.add_child(spell_scene)
-	#management.call_delayed(spell_scene, "queue_free", null, spell_duration) # done via focus_per_second count
+	#game.mgmt.call_delayed(spell_scene, "queue_free", null, spell_duration) # done via focus_per_second count
 
 func cast_slot(slot_id):
 	cast(inventory.get_skill_slot(slot_id))

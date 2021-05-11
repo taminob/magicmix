@@ -1,12 +1,13 @@
 extends Node
 
+# warning-ignore:unused_class_variable
 onready var state = get_parent()
 
 var sturdiness
 var concentration
 var endurance
 
-func experience(xp):
+func experience(_xp):
 	# todo: xp system
 	#ui.update_xp(xp / 10)
 	pass

@@ -1,6 +1,7 @@
 extends Node
 
 enum {SCREENMODE_WINDOW, SCREENMODE_FULLSCREEN, SCREENMODE_BORDERLESS}
+# warning-ignore:unused_class_variable
 var options = {
 	"screen": 0,
 	"mode": SCREENMODE_FULLSCREEN,

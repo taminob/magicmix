@@ -20,13 +20,13 @@ func get_components():
 			skill["elements"].push_back(element.selected)
 	return skill
 
-func is_combination(combination, elements):
-	if(combination.size() > elements.size()):
+func is_combination(combination, element_combi):
+	if(combination.size() > element_combi.size()):
 		return false
-	elements.sort()
+	element_combi.sort()
 	combination.sort()
-	for i in range(elements.size()):
-		if(elements[i] != combination[clamp(i, 0, combination.size()-1)]):
+	for i in range(element_combi.size()):
+		if(element_combi[i] != combination[clamp(i, 0, combination.size()-1)]):
 			return false
 	return true
 
@@ -43,7 +43,7 @@ func create_skill():
 func _on_cast_button_pressed():
 	var new_skill = create_skill()
 	if(new_skill != ""):
-		if(management.player.inventory.add_skill(new_skill)):
+		if(game.mgmt.player.inventory.add_skill(new_skill)):
 			result_label.set_text("New! " + spells.get_spell_name(spells.get_spell(new_skill)))
 		else:
 			result_label.set_text(spells.get_spell_name(spells.get_spell(new_skill)))

@@ -44,14 +44,13 @@ func get_duration(spell):
 	return spell.get("duration", 0)
 
 func get_icon(spell):
-	return spell.get("icon", load(spell_icons_path + "empty_slot_frame-512.png"))
+	return spell.get("icon", load(spell_icons_path + "../empty_slot_frame-512.png"))
 
 func get_anim(spell):
 	return spell.get("anim", "")
 
 func get_scene(spell):
 	return spell.get("scene", null)
-
 
 var spells = {
 	"": {

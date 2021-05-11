@@ -114,14 +114,14 @@ __meta__ = {
 
 [node name="save_list" type="ItemList" parent="load_popup/layout"]
 margin_right = 3072.0
-margin_bottom = 1445.0
+margin_bottom = 1439.0
 size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="load_save_button" type="Button" parent="load_popup/layout"]
-margin_top = 1595.0
+margin_top = 1589.0
 margin_right = 3072.0
 margin_bottom = 1728.0
 text = "Load"

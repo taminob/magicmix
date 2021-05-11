@@ -1,14 +1,13 @@
 extends Node
 
 var time
-var spawn_timer
 var spell = null
 var object = null
 var _affected_bodies = []
 onready var _caster = $".."
 var _caster_affected = false
 
-func next_object_scale(delta):
+func next_object_scale(_delta):
 	return object.scale
 
 func do_on_end():

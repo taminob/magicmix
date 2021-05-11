@@ -25,5 +25,5 @@ func _object_enter(body):
 			body.revive()
 			_caster.die()
 
-func _object_exit(body):
+func _object_exit(_body):
 	pass

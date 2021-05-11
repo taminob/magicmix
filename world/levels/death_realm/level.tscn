@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world/levels/death_realm/way_of_sacrifice.gd" type="Script" id=2]
 [ext_resource path="res://world/sprites/tree_no_color-3840.png" type="Texture" id=3]
 [ext_resource path="res://world/levels/tilemap.tres" type="TileSet" id=4]
+[ext_resource path="res://world/objects/box.tscn" type="PackedScene" id=5]
 
 [node name="level" type="YSort"]
 
@@ -18,7 +19,7 @@ tile_data = PoolIntArray( 65531, 1, 65538, 65532, 1, 196609, 65533, 1, 65537, 1,
 position = Vector2( -4406.48, 1352.28 )
 
 [node name="guenther" parent="." instance=ExtResource( 1 )]
-position = Vector2( -2331.73, 3431.01 )
+position = Vector2( -2703.73, 3567.01 )
 
 [node name="tree_of_life" type="Sprite" parent="."]
 position = Vector2( -1264.91, 3423.29 )
@@ -32,5 +33,8 @@ script = ExtResource( 2 )
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="tree_of_life/trigger"]
 position = Vector2( 185.308, -1881.58 )
 polygon = PoolVector2Array( -1038.01, 1879.46, -608.089, 1664.5, 42.4495, 1687.13, 709.958, 1862.49, 359.233, 1941.68, -268.678, 1947.34, -783.451, 1907.74 )
+
+[node name="box1" parent="." instance=ExtResource( 5 )]
+position = Vector2( -2268.75, 3513.21 )
 
 [connection signal="body_entered" from="tree_of_life/trigger" to="tree_of_life" method="_on_trigger_body_entered" binds= [ "hans" ]]

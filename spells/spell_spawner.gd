@@ -12,10 +12,10 @@ onready var _caster = $".."
 var _caster_affected = false
 
 # override for custom placement; return Vector2 with position
-func first_object_position(object, object_id):
+func first_object_position(_object, _object_id):
 	return Vector2(randf() * 2 - 1, randf() * 2 - 1).clamped(1) * radius
 
-func next_object_position(object, object_id, remaining_duration):
+func next_object_position(object, _object_id, _remaining_duration):
 	return object.position
 
 func _ready():

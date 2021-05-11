@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://world/levels/tilemap.tres" type="TileSet" id=1]
 [ext_resource path="res://characters/character.tscn" type="PackedScene" id=2]
-[ext_resource path="res://world/primitives/tree.tscn" type="PackedScene" id=4]
-[ext_resource path="res://world/primitives/stone.tscn" type="PackedScene" id=7]
+[ext_resource path="res://world/objects/box.tscn" type="PackedScene" id=3]
+[ext_resource path="res://world/objects/tree.tscn" type="PackedScene" id=4]
+[ext_resource path="res://world/objects/stone.tscn" type="PackedScene" id=7]
 
 [node name="intro" type="YSort"]
 position = Vector2( 1920, 1080 )
@@ -90,3 +91,9 @@ position = Vector2( 9703.4, -4392.19 )
 
 [node name="stone-3846" parent="Node2D" instance=ExtResource( 7 )]
 position = Vector2( 10832.3, -2154.57 )
+
+[node name="box1" parent="." instance=ExtResource( 3 )]
+position = Vector2( -6990.59, 2926.06 )
+
+[node name="box2" parent="." instance=ExtResource( 3 )]
+position = Vector2( -7272.76, -883.75 )

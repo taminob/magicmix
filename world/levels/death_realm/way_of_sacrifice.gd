@@ -4,16 +4,16 @@ onready var player_spawn = $"../player_spawn"
 
 func _on_trigger_body_entered(body, name):
 	# todo: make revive mechanic more robust to non-existent entries in dictionaries
-	if(body == null || body != management.player):
+	if(body == null || body != game.mgmt.player):
 		return
 	errors.log("revive: " + name)
 	if(body.name == name):
 		body.revive()
 	else: # todo: when character is dead, these changes will be reverted in save_characters in change_level
-		characters.characters[name]["stats"]["pain"] = 0.0
-		characters.characters[name]["stats"]["dead"] = false
-		characters.characters[body.name]["move"]["translations"].erase(levels.current_level_name)
+		game.char_data[name]["stats"]["pain"] = 0.0
+		game.char_data[name]["stats"]["dead"] = false
+		game.char_data[body.name]["move"]["translations"].erase(game.levels.current_level_name)
 	body.position = player_spawn.position
-	characters.characters[name]["move"]["translations"].clear()
-	management.player_name = name
-	levels.change_level("intro")
+	game.char_data[name]["move"]["translations"].clear()
+	game.mgmt.player_name = name
+	game.levels.change_level("intro")

@@ -2,10 +2,11 @@ extends Node
 # todo: remove on all non-player characters (?)
 
 onready var state = get_parent()
+# warning-ignore:unused_class_variable
 onready var character = $"../.."
 onready var move = $"../move"
 onready var skills = $"../skills"
-onready var dialogue = $"../dialogue"
+onready var interaction = $"../interaction"
 
 func _input(event):
 	if(state.is_player):
@@ -14,14 +15,14 @@ func _input(event):
 
 func _physics_process(delta):
 	if(state.is_player):
-		move_input_process()
+		move_input_process(delta)
 
-func move_input_process():
+func move_input_process(_delta):
 	move.input_direction.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	move.input_direction.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
 
 func move_input(event):
-	if(character.is_on_floor() && event.is_action_pressed("jump")):
+	if(event.is_action_pressed("jump")):
 		move.jump_requested = true
 	if(event.is_action_pressed("sprint") && move.move_state == move.RUNNING):
 		move.move_state = move.SPRINTING
@@ -38,7 +39,7 @@ func move_input(event):
 
 func action_input(event):
 	if(event.is_action_pressed("interact")):
-		dialogue.interact()
+		interaction.interact()
 	if(event.is_action_pressed("slot0")):
 		skills.cast_slot(0)
 	if(event.is_action_pressed("slot1")):

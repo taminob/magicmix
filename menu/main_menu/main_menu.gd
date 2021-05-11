@@ -7,16 +7,15 @@ var current_load_selection = -1
 func _enter_tree():
 	$"center_container/v_box_container/continue_button".disabled = saves.get_save_list().empty()
 
-func start_game():
+func prepare_start_game():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	scenes.open_scene(scenes.game_scene)
 
 func _on_continue_button_pressed():
-	start_game()
-	saves.load_save(saves.get_save_list().back())
+	prepare_start_game()
+	saves.load_save(saves.get_latest_save())
 
 func _on_new_button_pressed():
-	start_game()
+	prepare_start_game()
 	saves.new_save()
 
 func _on_load_button_pressed():
@@ -34,7 +33,7 @@ func _on_quit_button_pressed():
 
 func load_selected():
 	if(current_load_selection != -1):
-		start_game()
+		prepare_start_game()
 		saves.load_save(save_list.get_item_text(current_load_selection))
 
 func _on_save_list_item_activated(index):

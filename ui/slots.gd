@@ -4,5 +4,5 @@ onready var slots = [$"space3/slot0/slot", $"slot1/slot", $"slot2/slot", $"slot3
 
 func update_slots():
 	for i in range(slots.size()):
-		var spell = spells.get_spell(management.player.inventory.slots[i])
+		var spell = spells.get_spell(game.mgmt.player.inventory.slots[i])
 		slots[i].set_normal_texture(spells.get_icon(spell))

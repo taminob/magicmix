@@ -18,10 +18,10 @@ var lists = {
 	"element": [["fire", component_icons_path + "flame-512.png"],
 		["life", component_icons_path + "circle-512.png"],
 		["darkness", component_icons_path + "darkness-512.png"]],
-	"item": [["dagger", component_icons_path + "empty-512.png"],
-		["shield", component_icons_path + "empty-512.png"],
-		["arrow", component_icons_path + "empty-512.png"],
-		["sword", component_icons_path + "empty-512.png"]]
+	"item": [["dagger", component_icons_path + "../empty-512.png"],
+		["shield", component_icons_path + "../empty-512.png"],
+		["arrow", component_icons_path + "../empty-512.png"],
+		["sword", component_icons_path + "../empty-512.png"]]
 }
 
 func _ready():
@@ -33,7 +33,7 @@ func _ready():
 func fill_list(name):
 	if(name != "item"):
 		# add option to reset choice
-		list.add_item("", load(component_icons_path + "empty_slot_frame-512.png"))
+		list.add_item("", load(component_icons_path + "../empty_slot_frame-512.png"))
 	for x in lists[name]:
 		list.add_item(x[0], load(x[1]))
 

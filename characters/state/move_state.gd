@@ -1,5 +1,6 @@
 extends Node
 
+# warning-ignore:unused_class_variable
 onready var state = get_parent()
 onready var stats = $"../stats"
 onready var character = $"../.."
@@ -9,8 +10,8 @@ const WALK_SPEED = 700
 const SPRINT_SPEED = 1500
 const ACCELERATION = 7
 const DE_ACCELERATION = 8
-const GRAVITY = -9.81
-const JUMP_VELOCITY = 5
+const GRAVITY = -1600
+const JUMP_VELOCITY = 300
 
 var velocity = Vector2.ZERO
 
@@ -29,13 +30,35 @@ func max_speed():
 		SPRINTING: return SPRINT_SPEED * speed_factor()
 
 func can_move():
-	return !stats.dead || levels.current_level_death_realm
+	return !stats.dead || game.levels.current_level_death_realm
 
+# todo: improve jump mechanic (disable collision, change constants, improve on_floor check)
+var z_axis = 0
+onready var start_jump_y = character.position.y
+var is_jumping = false
 func move_process(delta):
-	if(jump_requested):
-		velocity.y = JUMP_VELOCITY
+	if(jump_requested && !is_jumping):
+		z_axis = JUMP_VELOCITY
 		jump_requested = false
-	var move_direction = input_direction
+		start_jump_y = character.position.y
+		is_jumping = true
+	elif(is_jumping):
+		if(character.position.y < start_jump_y):
+			z_axis = z_axis + GRAVITY * delta
+		else:
+			velocity.y = 0
+			is_jumping = false
+			z_axis = 0
+	var move_direction = input_direction.normalized()
+	# todo: animation interpolation
+	if(input_direction.x > 0):
+		character.sprite.set_frame(0)
+	elif(input_direction.x < 0):
+		character.sprite.set_frame(1)
+	elif(input_direction.y > 0):
+		character.sprite.set_frame(2)
+	elif(input_direction.y < 0):
+		character.sprite.set_frame(3)
 #	if(character.is_on_floor()):
 #		move_direction = input_direction.rotated(character.rotation.y).normalized()
 #	elif(character.is_on_wall()):
@@ -48,10 +71,9 @@ func move_process(delta):
 	var accel = ACCELERATION if(Vector2(move_direction.x, move_direction.y).dot(hv) > 0) else DE_ACCELERATION
 	hv = hv.linear_interpolate(new_pos, accel * delta)
 
-	velocity.y += GRAVITY * delta
-	velocity = character.move_and_slide(Vector2(hv.x, hv.y), Vector2.UP, true, 4, 0.25)
+	velocity = character.move_and_slide(Vector2(hv.x, hv.y - z_axis), Vector2.UP, true, 4, 0.25)
 
-func move_dead(delta):
+func move_dead(_delta):
 	# gravity even when dead
 	#velocity.y += GRAVITY * delta
 	velocity = character.move_and_slide(Vector2(velocity.x, velocity.y), Vector2.UP, true, 4, 0.25)
@@ -76,10 +98,10 @@ func collide(delta):
 func save(_state):
 	var _move_state = _state.get("move", {"translations": {}})
 	_move_state["velocity"] = velocity
-	_move_state["translations"][levels.current_level_name] = character.position
+	_move_state["translations"][game.levels.current_level_name] = character.position
 	_state["move"] = _move_state
 
 func init(_state):
 	var _move_state = _state.get("move", {"translations": {}})
 	velocity = _move_state.get("velocity", Vector3.ZERO)
-	character.position = _move_state["translations"].get(levels.current_level_name, character.position)
+	character.position = _move_state["translations"].get(game.levels.current_level_name, character.position)

@@ -1,8 +1,5 @@
 extends Node
 
-func get_character(id):
-	return characters.get(id, "")
-
 #func get_character_name(character):
 #	return character.get("name", "")
 #
@@ -27,6 +24,7 @@ func get_character(id):
 #func get_velocity(character):
 #	return character.get("velocity", 0.0)
 
+# warning-ignore:unused_class_variable
 var characters = {
 	"hans": {
 		"dialogue": {

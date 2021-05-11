@@ -21,51 +21,59 @@ __meta__ = {
 
 [node name="buttons" type="HBoxContainer" parent="layout"]
 margin_right = 3840.0
-margin_bottom = 133.0
+margin_bottom = 139.0
 
 [node name="all" type="Button" parent="layout/buttons"]
-margin_left = 404.0
-margin_right = 502.0
-margin_bottom = 133.0
+margin_left = 304.0
+margin_right = 414.0
+margin_bottom = 139.0
 size_flags_horizontal = 6
 text = "All"
 expand_icon = true
 
 [node name="weapons" type="Button" parent="layout/buttons"]
-margin_left = 1156.0
-margin_right = 1570.0
-margin_bottom = 133.0
+margin_left = 872.0
+margin_right = 1298.0
+margin_bottom = 139.0
 size_flags_horizontal = 6
 text = "Weapons"
 expand_icon = true
 
 [node name="armor" type="Button" parent="layout/buttons"]
-margin_left = 2143.0
-margin_right = 2404.0
-margin_bottom = 133.0
+margin_left = 1674.0
+margin_right = 1947.0
+margin_bottom = 139.0
 size_flags_horizontal = 6
 text = "Armor"
 expand_icon = true
 
 [node name="consumables" type="Button" parent="layout/buttons"]
-margin_left = 2890.0
-margin_right = 3479.0
-margin_bottom = 133.0
+margin_left = 2236.0
+margin_right = 2837.0
+margin_bottom = 139.0
 size_flags_horizontal = 6
 text = "Consumables"
 expand_icon = true
 
+[node name="tokens" type="Button" parent="layout/buttons"]
+margin_left = 3089.0
+margin_right = 3436.0
+margin_bottom = 139.0
+size_flags_horizontal = 6
+text = "Tokens"
+expand_icon = true
+
 [node name="sort_button" type="Button" parent="layout/buttons"]
-margin_left = 3642.0
+margin_left = 3630.0
 margin_right = 3840.0
-margin_bottom = 133.0
+margin_bottom = 139.0
 text = "Sort"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="list" type="ItemList" parent="layout"]
-margin_top = 137.0
+margin_top = 147.0
 margin_right = 3840.0
 margin_bottom = 2160.0
 size_flags_horizontal = 3
@@ -78,4 +86,5 @@ icon_mode = 0
 [connection signal="pressed" from="layout/buttons/weapons" to="." method="_on_weapons_pressed"]
 [connection signal="pressed" from="layout/buttons/armor" to="." method="_on_armor_pressed"]
 [connection signal="pressed" from="layout/buttons/consumables" to="." method="_on_consumables_pressed"]
+[connection signal="pressed" from="layout/buttons/tokens" to="." method="_on_tokens_pressed"]
 [connection signal="pressed" from="layout/buttons/sort_button" to="." method="_on_sort_button_pressed"]

@@ -1,6 +1,7 @@
 extends Node
 
-var game_scene = load("res://main.tscn").instance()
+var game_scene = load("res://main.tscn")
+var game_instance = null
 var current_scene = null
 var previous_scenes = []
 var root = null
@@ -8,6 +9,10 @@ var root = null
 func _ready():
 	root = get_tree().get_root()
 	current_scene = root.get_child(root.get_child_count() - 1)
+
+func open_new_game_scene():
+	game_instance = game_scene.instance()
+	open_scene(game_instance)
 
 func open_scene(scene, clear_scene_stack=false):
 	if(!scene):
@@ -31,8 +36,8 @@ func close_scene():
 		return
 	root.remove_child(current_scene)
 	# todo: test if game_scene should stay loaded
-	if(current_scene != game_scene):
-		current_scene.call_deferred("free")
+	#if(current_scene != game_instance):
+	current_scene.call_deferred("free")
 	current_scene = null
 	open_scene(previous_scenes.pop_back())
 

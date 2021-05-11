@@ -10,9 +10,9 @@ onready var interaction = $"interaction"
 onready var debug_label = $"debug_info_label"
 
 func _ready():
-	management.ui = self
+	game.mgmt.ui = self
 
-func _process(delta):
+func _process(_delta):
 	$"fps_label".text = str("FPS:",(Engine.get_frames_per_second()))
 
 func _on_menu_button_pressed():
@@ -53,7 +53,7 @@ func set_dialogue_text(string, speaker, answers=[]):
 	dialogue.set_dialogue_text(string, speaker, answers)
 
 # todo: interaction icon
-func show_interaction(text, icon):
+func show_interaction(text, _icon):
 	interaction.get_node("text").set_bbcode("[center]" + text + "[/center]")
 	interaction.popup()
 

@@ -1,5 +1,6 @@
 extends Node
 
+# warning-ignore:unused_class_variable
 onready var state = get_parent()
 
 var slots = ["", "", "", "", ""]
@@ -10,7 +11,7 @@ var skills = []
 
 func set_skill_slot(num, action):
 	slots[num] = action
-	management.ui.update_slots()
+	game.mgmt.ui.update_slots()
 
 func get_skill_slot(num):
 	return slots[num]

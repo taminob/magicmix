@@ -4,6 +4,7 @@ var player_name = ""
 var player = null
 var camera = Camera2D.new()#load("res://characters/player/camera.tscn").instance()
 var character_scene = load("res://characters/character.tscn")
+# warning-ignore:unused_class_variable
 var ui = null
 
 func is_player(node):
@@ -47,6 +48,8 @@ func save_characters():
 
 func call_delayed(caller, method, param, time):
 	if(param):
+# warning-ignore:return_value_discarded
 		get_tree().create_timer(time).connect("timeout", caller, method, [param])
 	else:
+# warning-ignore:return_value_discarded
 		get_tree().create_timer(time).connect("timeout", caller, method)
