@@ -130,9 +130,9 @@ script = ExtResource( 11 )
 
 [node name="health_bar" type="ProgressBar" parent="."]
 margin_left = -108.017
-margin_top = -543.993
+margin_top = -545.491
 margin_right = 91.9824
-margin_bottom = -416.993
+margin_bottom = -418.491
 theme = ExtResource( 10 )
 custom_styles/fg = SubResource( 12 )
 custom_styles/bg = SubResource( 13 )

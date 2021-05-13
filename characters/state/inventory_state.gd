@@ -1,7 +1,5 @@
 extends Node
 
-# warning-ignore:unused_class_variable
-onready var state = get_parent()
 
 var slots = ["", "", "", "", ""]
 

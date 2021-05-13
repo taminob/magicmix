@@ -35,3 +35,7 @@ func _on_consumables_pressed():
 
 func _on_tokens_pressed():
 	update_inventory("token")
+
+func _on_list_item_activated(index):
+	game.mgmt.player.interaction.consume(game.mgmt.player.inventory.things[index])
+	list.remove_item(index)

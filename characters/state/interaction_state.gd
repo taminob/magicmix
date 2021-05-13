@@ -2,16 +2,11 @@ extends Node
 
 onready var state = get_parent()
 onready var character = $"../.."
+onready var inventory = $"../inventory"
+onready var stats = $"../stats"
 onready var dialogue = $"../dialogue"
 
 var interact_target = null
-
-# warning-ignore:unused_class_variable
-var interaction_options = {
-	"": null,
-	"Talk": funcref(self, "talk"),
-	"Open": funcref(self, "open")
-}
 
 func interact():
 	if(dialogue.end_dialogue()):
@@ -20,13 +15,13 @@ func interact():
 	if(!interact_target):
 		return
 	interact_target.interact(character)
-	interaction_options[interact_target.interaction_name].call_func()
 
-func talk():
-	errors.log("starting conversation!")
-
-func open():
-	errors.log("opening box!")
+func consume(item, remove_from_inventory=true):
+	if(items.items[item]["category"] != "consumable"):
+		return
+	if(remove_from_inventory):
+		inventory.things.erase(item)
+	stats._self_damage(items.items[item]["self"]["pain"])
 
 func _on_interact_zone_area_entered(area):
 	var target = area.get_parent()

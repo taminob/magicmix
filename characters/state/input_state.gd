@@ -2,8 +2,6 @@ extends Node
 # todo: remove on all non-player characters (?)
 
 onready var state = get_parent()
-# warning-ignore:unused_class_variable
-onready var character = $"../.."
 onready var move = $"../move"
 onready var skills = $"../skills"
 onready var interaction = $"../interaction"

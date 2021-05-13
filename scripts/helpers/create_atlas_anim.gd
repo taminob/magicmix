@@ -1,3 +1,4 @@
+tool
 extends Node2D
 
 onready var particles = $"Particles2D"

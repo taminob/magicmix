@@ -7,6 +7,13 @@ var character_scene = load("res://characters/character.tscn")
 # warning-ignore:unused_class_variable
 var ui = null
 
+func _ready():
+	errors.error_test(display_settings.connect("global_scale_changed", self, "update_camera_zoom"))
+	update_camera_zoom()
+
+func update_camera_zoom():
+	camera.set_zoom(Vector2(1,1)*(1/display_settings.global_scale))
+
 func is_player(node):
 	return node == player && player
 
@@ -14,7 +21,7 @@ func _set_player_flag(target, is_player):
 	if(target.state):
 		target.set_player(is_player)
 	else:
-		target.connect("ready", target, "set_player", [is_player])
+		errors.error_test(target.connect("ready", target, "set_player", [is_player]))
 
 func make_player(character):
 	if(!character):
@@ -46,10 +53,5 @@ func save_characters():
 	for character in get_tree().get_nodes_in_group("characters"):
 		character.save_state()
 
-func call_delayed(caller, method, param, time):
-	if(param):
-# warning-ignore:return_value_discarded
-		get_tree().create_timer(time).connect("timeout", caller, method, [param])
-	else:
-# warning-ignore:return_value_discarded
-		get_tree().create_timer(time).connect("timeout", caller, method)
+func call_delayed(caller, method, time, param=[]):
+	errors.error_test(get_tree().create_timer(time).connect("timeout", caller, method, [param]))

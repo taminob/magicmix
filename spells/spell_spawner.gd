@@ -21,7 +21,7 @@ func next_object_position(object, _object_id, _remaining_duration):
 func _ready():
 	spawn_timer = Timer.new()
 	add_child(spawn_timer)
-	spawn_timer.connect("timeout", self, "spawn_object")
+	errors.error_test(spawn_timer.connect("timeout", self, "spawn_object"))
 
 func _physics_process(delta):
 	if(!spell || !example_object):
@@ -43,8 +43,8 @@ func _physics_process(delta):
 
 func spawn_object():
 	var new_object = example_object.duplicate()
-	new_object.connect("body_entered", self, "_object_enter")
-	new_object.connect("body_exited", self, "_object_exit")
+	errors.error_test(new_object.connect("body_entered", self, "_object_enter"))
+	errors.error_test(new_object.connect("body_exited", self, "_object_exit"))
 	new_object.position = first_object_position(new_object, _objects.size())
 	_objects.push_back([0, new_object])
 	add_child(new_object)

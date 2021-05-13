@@ -43,11 +43,14 @@ window/size/width=3840
 window/size/height=2160
 window/size/fullscreen=true
 window/dpi/allow_hidpi=true
+mouse_cursor/custom_image="res://ui/icons/cursor/diagonal_crosshair-64.png"
+mouse_cursor/custom_image_hotspot=Vector2( 32, 32 )
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
 [gui]
 
+common/text_edit_undo_stack_max_size=2048
 theme/use_hidpi=true
 
 [importer_defaults]
@@ -187,6 +190,10 @@ open_skills={
 3d_physics/layer_3="objects"
 3d_physics/layer_4="characters"
 3d_physics/layer_5="enemies"
+
+[node]
+
+name_casing=2
 
 [rendering]
 

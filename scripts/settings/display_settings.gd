@@ -12,6 +12,8 @@ var options = {
 const base_resolution = Vector2(3840, 2160)
 var global_scale = 1.0
 
+signal global_scale_changed
+
 func set_options(settings):
 	set_screen(settings.get_setting("display", "screen"))
 	set_screenmode(settings.get_setting("display", "mode"))
@@ -20,7 +22,7 @@ func set_options(settings):
 
 # todo: remove?
 #func _ready():
-#	get_tree().connect("screen_resized", self, "_screen_resized")
+#	errors.error_test(get_tree().connect("screen_resized", self, "_screen_resized"))
 #
 #func _screen_resized():
 #	var window_size = OS.get_window_size()
@@ -57,6 +59,7 @@ func set_resolution(resolution):
 	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D, SceneTree.STRETCH_ASPECT_KEEP, resolution)
 	get_viewport().set_size_override(true, resolution)
 	global_scale = min(resolution.x / base_resolution.x, resolution.y / base_resolution.y)
+	emit_signal("global_scale_changed")
 	themes.scale_themes(global_scale)
 
 func set_vsync(vsync_enabled):

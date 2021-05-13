@@ -14,3 +14,7 @@ func test(out):
 	for x in out:
 		s = s + str(x)
 	print(s)
+
+func error_test(error_code):
+	if(error_code != OK):
+		error("an unknown error occurred; code: " + error_code)

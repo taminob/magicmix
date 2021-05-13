@@ -13,10 +13,12 @@ func get_latest_save():
 	var last_save = ["", 0]
 	while true:
 		var file_name = dir.get_next()
-		var last_modified = file.get_modified_time(SAVE_PATH + file_name)
 		if(file_name.empty()):
 			break
-		elif(!file_name.begins_with(".") && last_save[1] < last_modified):
+		elif(file_name.begins_with(".")):
+			continue
+		var last_modified = file.get_modified_time(SAVE_PATH + file_name)
+		if(last_save[1] < last_modified):
 			last_save = [file_name, last_modified]
 	dir.list_dir_end()
 	return last_save[0]
@@ -71,8 +73,7 @@ func save():
 	save_file.set_value("characters", "characters", game.char_data)
 	save_file.set_value("world", "boxes", game.world.boxes)
 	save_file.set_value("level", "current_level", game.levels.current_level_name)
-	# warning-ignore:return_value_discarded
-	Directory.new().make_dir_recursive(SAVE_PATH)
+	errors.error_test(Directory.new().make_dir_recursive(SAVE_PATH))
 	#var error = save_file.save_encrypted(SAVE_PATH + current_save, key)
 	var error = save_file.save(SAVE_PATH + current_save)
 	if(error != OK):

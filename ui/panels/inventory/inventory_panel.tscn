@@ -88,3 +88,4 @@ icon_mode = 0
 [connection signal="pressed" from="layout/buttons/consumables" to="." method="_on_consumables_pressed"]
 [connection signal="pressed" from="layout/buttons/tokens" to="." method="_on_tokens_pressed"]
 [connection signal="pressed" from="layout/buttons/sort_button" to="." method="_on_sort_button_pressed"]
+[connection signal="item_activated" from="layout/list" to="." method="_on_list_item_activated"]

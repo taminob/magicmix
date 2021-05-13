@@ -14,8 +14,8 @@ func do_on_end():
 	pass
 
 func connect_object():
-	object.connect("body_entered", self, "_object_enter")
-	object.connect("body_exited", self, "_object_exit")
+	errors.error_test(object.connect("body_entered", self, "_object_enter"))
+	errors.error_test(object.connect("body_exited", self, "_object_exit"))
 
 func init_object():
 	connect_object()

@@ -1,20 +1,18 @@
 extends KinematicBody2D
 
+#warning-ignore-all:unused_class_variable
+
 #onready var collision = $"character_collision"
-# warning-ignore:unused_class_variable
 onready var sprite = $"sprite"
 onready var health_bar = $"health_bar"
 
 onready var state = $"state"
 onready var move = state.move
-# warning-ignore:unused_class_variable
 onready var experience = state.experience
-# warning-ignore:unused_class_variable
 onready var inventory = state.inventory
 onready var stats = state.stats
 onready var skills = state.skills
 onready var dialogue = state.dialogue
-# warning-ignore:unused_class_variable
 onready var interaction = state.interaction
 
 #onready var camera_pivot = $"camera_pivot"
