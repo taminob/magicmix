@@ -6,3 +6,4 @@ settings.cfg
 .old/
 .blender/
 .third-party/
+.export/
