@@ -8,6 +8,10 @@ var levels = {
 	"death_realm": {
 		"path": "res://world/levels/death_realm/level.tscn",
 		"death_realm": true
+	},
+	"palace": {
+		"path": "res://world/levels/palace/level.tscn",
+		"death_realm": false
 	}
 }
 
@@ -28,7 +32,7 @@ func change_level(level_name):
 	current_level_death_realm = levels[level_name].get("death_realm", false)
 	current_level.name = "level"
 	var spawn = current_level.get_node_or_null("player_spawn")
-	spawn = spawn.position if(spawn != null) else game.mgmt.player.position
+	spawn = spawn.translation if(spawn != null) else game.mgmt.player.translation
 	errors.log("change level: " + current_level_name)
 	world.call_deferred("add_child", current_level)
 	var new_player = current_level.get_node_or_null(game.mgmt.player_name)
@@ -36,7 +40,7 @@ func change_level(level_name):
 		game.mgmt.call_deferred("make_player", new_player)
 	else:
 		game.mgmt.create_player()
-		game.mgmt.player.position = spawn
+		game.mgmt.player.translation = spawn
 		current_level.call_deferred("add_child", game.mgmt.player)
 
 	#for character in get_tree().get_nodes_in_group("characters"):

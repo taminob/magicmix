@@ -30,11 +30,11 @@ func stamina_per_second():
 	return experience.endurance * focus / max_focus() * 6
 
 func die():
-	#var material = character.mesh.material.duplicate()
-	#material.set("albedo_color", Color(0.9, 0.9, 0.2))
-	#character.mesh.material_override = material
 	skills.cancel_spell()
-	character.sprite.set_animation("dead")
+	#character.sprite.set_animation("dead") # todo remove 2d
+	var material = character.mesh.material.duplicate()
+	material.set("albedo_color", Color(0.9, 0.9, 0.2))
+	character.mesh.material_override = material
 	dead = true
 	# todo: animation
 	if(state.is_player && !game.levels.current_level_death_realm):

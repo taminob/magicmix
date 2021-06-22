@@ -2,17 +2,13 @@ extends Node
 
 var player_name = ""
 var player = null
-var camera = Camera2D.new()#load("res://characters/player/camera.tscn").instance()
+var camera = load("res://characters/player/camera.tscn").instance()
 var character_scene = load("res://characters/character.tscn")
 # warning-ignore:unused_class_variable
 var ui = null
 
-func _ready():
-	errors.error_test(display_settings.connect("global_scale_changed", self, "update_camera_zoom"))
-	update_camera_zoom()
-
-func update_camera_zoom():
-	camera.set_zoom(Vector2(1,1)*(1/display_settings.global_scale))
+#func _ready():
+	#errors.error_test(display_settings.connect("global_scale_changed", self, "update_camera_zoom")) # todo: remove 2d
 
 func is_player(node):
 	return node == player && player
@@ -31,7 +27,7 @@ func make_player(character):
 	player_name = character.name
 	player = character
 	player.call_deferred("add_child", camera)
-	camera.make_current()
+	#camera.make_current() todo: remove 2d
 	player.get_node("health_bar").set_visible(false)
 	_set_player_flag(player, true)
 

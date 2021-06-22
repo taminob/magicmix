@@ -1,9 +1,9 @@
-extends KinematicBody2D
+extends KinematicBody
 
 #warning-ignore-all:unused_class_variable
 
-#onready var collision = $"character_collision"
-onready var sprite = $"sprite"
+#onready var collision = $"collision"
+onready var mesh = $"mesh"
 onready var health_bar = $"health_bar"
 
 onready var state = $"state"
@@ -18,7 +18,6 @@ onready var interaction = state.interaction
 #onready var camera_pivot = $"camera_pivot"
 
 func _ready():
-	VisualServer.canvas_item_set_sort_children_by_y(get_canvas_item(), true)
 	init_state()
 
 func save_state():
@@ -66,9 +65,9 @@ func _update_ui():
 		game.mgmt.ui.update_xp(0.4)
 		game.mgmt.ui.update_debug(str(move.velocity))
 		game.mgmt.ui.update_slots()
-	health_bar.set_value((1 - stats.pain / stats.max_pain()) * 100)
-	#health_bar.material = health_bar.material.duplicate()
-	#health_bar.material.set_shader_param("percentage", 1 - stats.pain / stats.max_pain())
+	#health_bar.set_value((1 - stats.pain / stats.max_pain()) * 100)
+	health_bar.material = health_bar.material.duplicate()
+	health_bar.material.set_shader_param("percentage", 1 - stats.pain / stats.max_pain())
 	#var dir_to_player = game.mgmt.player.global_transform.origin.direction_to(global_transform.origin)
 	#health_bar.material.set_shader_param("angle", dir_to_player.angle_to(rotation_degrees.y))
 	#health_bar.look_at(game.mgmt.player.transform.origin, Vector3.UP)

@@ -1,40 +1,53 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world/levels/death_realm/way_of_sacrifice.gd" type="Script" id=2]
-[ext_resource path="res://world/sprites/tree_no_color-3840.png" type="Texture" id=3]
-[ext_resource path="res://world/levels/tilemap.tres" type="TileSet" id=4]
-[ext_resource path="res://world/objects/box.tscn" type="PackedScene" id=5]
+[ext_resource path="res://world/primitives/cube.tscn" type="PackedScene" id=3]
 
-[node name="level" type="YSort"]
+[sub_resource type="BoxShape" id=1]
 
-[node name="ground" type="TileMap" parent="."]
-self_modulate = Color( 1, 0, 0, 1 )
-tile_set = ExtResource( 4 )
-cell_size = Vector2( 1024, 1024 )
-format = 1
-tile_data = PoolIntArray( 65531, 1, 65538, 65532, 1, 196609, 65533, 1, 65537, 1, 1, 65538, 2, 1, 65537, 4, 1, 65538, 5, 1, 65537, 131067, 1, 65536, 131068, 1, 131072, 131069, 1, 131075, 131070, 1, 196609, 131071, 1, 196609, 65536, 1, 196609, 65537, 1, 131074, 65538, 1, 131075, 65539, 1, 196609, 65540, 1, 131074, 65541, 1, 131075, 65542, 1, 196609, 65543, 1, 65537, 196604, 1, 196610, 196605, 1, 2, 196606, 1, 1, 196607, 1, 131073, 131072, 1, 196608, 131073, 1, 196608, 131074, 1, 131072, 131075, 1, 131073, 131076, 1, 196608, 131077, 1, 196608, 131078, 1, 131072, 131079, 1, 196611, 262140, 1, 196610, 262141, 1, 131073, 262142, 1, 196608, 262143, 1, 65539, 196610, 1, 196610, 196611, 1, 196611, 196614, 1, 196610, 196615, 1, 196611, 327667, 1, 65538, 327668, 1, 196609, 327669, 1, 196609, 327670, 1, 196609, 327671, 1, 196609, 327672, 1, 196609, 327673, 1, 65537, 327676, 1, 196610, 327677, 1, 196611, 262146, 1, 196610, 262147, 1, 196611, 262150, 1, 196610, 262151, 1, 196611, 393203, 1, 196610, 393204, 1, 3, 393205, 1, 3, 393206, 1, 1, 393207, 1, 0, 393208, 1, 2, 393209, 1, 196611, 393212, 1, 196610, 393213, 1, 131075, 393214, 1, 196609, 393215, 1, 196609, 327680, 1, 196609, 327681, 1, 196609, 327682, 1, 131074, 327683, 1, 196611, 327686, 1, 196610, 327687, 1, 196611, 458739, 1, 196610, 458740, 1, 3, 458741, 1, 131073, 458742, 1, 196608, 458743, 1, 196608, 458744, 1, 131072, 458745, 1, 196611, 458748, 1, 65536, 458749, 1, 196608, 458750, 1, 196608, 458751, 1, 196608, 393216, 1, 196608, 393217, 1, 196608, 393218, 1, 196608, 393219, 1, 65539, 393222, 1, 196610, 393223, 1, 196611, 524275, 1, 196610, 524276, 1, 0, 524277, 1, 196611, 524280, 1, 196610, 524281, 1, 196611, 458758, 1, 196610, 458759, 1, 196611, 589811, 1, 196610, 589812, 1, 1, 589813, 1, 131075, 589814, 1, 196609, 589815, 1, 196609, 589816, 1, 131074, 589817, 1, 131075, 589818, 1, 196609, 589819, 1, 196609, 589820, 1, 196609, 589821, 1, 196609, 589822, 1, 196609, 589823, 1, 196609, 524288, 1, 196609, 524289, 1, 196609, 524290, 1, 196609, 524291, 1, 196609, 524292, 1, 196609, 524293, 1, 196609, 524294, 1, 131074, 524295, 1, 196611, 655346, 1, 65538, 655347, 1, 131074, 655348, 1, 3, 655349, 1, 2, 655350, 1, 3, 655351, 1, 2, 655352, 1, 2, 655353, 1, 131073, 655354, 1, 196608, 655355, 1, 196608, 655356, 1, 196608, 655357, 1, 196608, 655358, 1, 196608, 655359, 1, 196608, 589824, 1, 196608, 589825, 1, 196608, 589826, 1, 196608, 589827, 1, 196608, 589828, 1, 196608, 589829, 1, 196608, 589830, 1, 196608, 589831, 1, 65539, 720882, 1, 65536, 720883, 1, 196608, 720884, 1, 196608, 720885, 1, 196608, 720886, 1, 196608, 720887, 1, 196608, 720888, 1, 196608, 720889, 1, 65539 )
+[node name="level" type="Spatial"]
 
-[node name="player_spawn" type="Node2D" parent="."]
-position = Vector2( -4406.48, 1352.28 )
+[node name="player_spawn" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 
-[node name="guenther" parent="." instance=ExtResource( 1 )]
-position = Vector2( -2703.73, 3567.01 )
-
-[node name="tree_of_life" type="Sprite" parent="."]
-position = Vector2( -1264.91, 3423.29 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 3 )
-offset = Vector2( 167.371, -1910.42 )
+[node name="hans_way_of_sacrifice" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 3.25, 7.10873, 6, -0.0920563 )
 script = ExtResource( 2 )
 
-[node name="trigger" type="Area2D" parent="tree_of_life"]
+[node name="cube2" parent="hans_way_of_sacrifice" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 0.307692, 0, -3, -0.692308 )
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="tree_of_life/trigger"]
-position = Vector2( 185.308, -1881.58 )
-polygon = PoolVector2Array( -1038.01, 1879.46, -608.089, 1664.5, 42.4495, 1687.13, 709.958, 1862.49, 359.233, 1941.68, -268.678, 1947.34, -783.451, 1907.74 )
+[node name="cube3" parent="hans_way_of_sacrifice" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 0.307692, 0, -3, 0.692308 )
 
-[node name="box1" parent="." instance=ExtResource( 5 )]
-position = Vector2( -2268.75, 3513.21 )
+[node name="trigger" type="Area" parent="hans_way_of_sacrifice"]
+transform = Transform( 0.5, 0, 0, 0, 2, 0, 0, 0, 0.5, 0, -3, 0 )
 
-[connection signal="body_entered" from="tree_of_life/trigger" to="tree_of_life" method="_on_trigger_body_entered" binds= [ "hans" ]]
+[node name="CollisionShape" type="CollisionShape" parent="hans_way_of_sacrifice/trigger"]
+shape = SubResource( 1 )
+
+[node name="mary_way_of_sacrifice" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 3.25, 7.10873, 6, 7.99057 )
+script = ExtResource( 2 )
+
+[node name="cube2" parent="mary_way_of_sacrifice" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 0.307692, 0, -3, -0.692308 )
+
+[node name="cube3" parent="mary_way_of_sacrifice" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 0.307692, 0, -3, 0.692308 )
+
+[node name="trigger" type="Area" parent="mary_way_of_sacrifice"]
+transform = Transform( 0.5, 0, 0, 0, 2, 0, 0, 0, 0.5, 0, -3, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="mary_way_of_sacrifice/trigger"]
+shape = SubResource( 1 )
+
+[node name="cube" parent="." instance=ExtResource( 3 )]
+transform = Transform( 50, 0, 0, 0, 1, 0, 0, 0, 50, 0, 0, 0 )
+
+[node name="guenther" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5, 2, 3.6 )
+
+[connection signal="body_entered" from="hans_way_of_sacrifice/trigger" to="hans_way_of_sacrifice" method="_on_trigger_body_entered" binds= [ "hans" ]]
+[connection signal="body_entered" from="mary_way_of_sacrifice/trigger" to="mary_way_of_sacrifice" method="_on_trigger_body_entered" binds= [ "mary" ]]

@@ -11,7 +11,7 @@ var dialogue_progress = 0
 func dialogue_process(delta):
 	for x in dialogue_partners:
 		# todo: distance_squared_to
-		var t = (x.character.position.distance_to(character.position) - 500)/1000
+		var t = (x.character.translation.distance_to(character.translation) - 500)/1000
 		var dialogue_intensity = 1 - clamp(t, 0, 1)
 		if(dialogue_intensity <= 0):
 			end_dialogue()
