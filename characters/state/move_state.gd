@@ -43,6 +43,11 @@ func move_process(delta):
 	else:
 		move_direction = velocity.normalized()
 
+	if(move_direction.length_squared() > 0):
+		character.get_node("default/animation_player").play("default")
+	else:
+		character.get_node("default/animation_player").stop()
+
 	var hv = Vector3(velocity.x, 0, velocity.z)
 	var new_pos = move_direction * max_speed()
 	var accel = ACCELERATION if(move_direction.dot(hv) > 0) else DE_ACCELERATION

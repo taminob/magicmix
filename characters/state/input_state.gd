@@ -16,8 +16,8 @@ func _physics_process(delta):
 		move_input_process(delta)
 
 func move_input_process(_delta):
-	move.input_direction.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-	move.input_direction.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+	move.input_direction.x = Input.get_action_strength("move_left") - Input.get_action_strength("move_right")
+	move.input_direction.z = Input.get_action_strength("move_up") - Input.get_action_strength("move_down")
 
 func move_input(event):
 	if(event.is_action_pressed("jump")):

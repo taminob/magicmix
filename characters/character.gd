@@ -3,7 +3,8 @@ extends KinematicBody
 #warning-ignore-all:unused_class_variable
 
 #onready var collision = $"collision"
-onready var mesh = $"mesh"
+onready var debug_mesh = $"mesh" # todo: remove default debug mesh
+onready var mesh = load("res://characters/default/default.tscn").instance()
 onready var health_bar = $"health_bar"
 
 onready var state = $"state"
@@ -19,6 +20,8 @@ onready var interaction = state.interaction
 
 func _ready():
 	init_state()
+	add_child(mesh)
+	get_node("default/animation_player").get_animation("default").loop = true
 
 func save_state():
 	state.save()
@@ -68,6 +71,7 @@ func _update_ui():
 	#health_bar.set_value((1 - stats.pain / stats.max_pain()) * 100)
 	health_bar.material = health_bar.material.duplicate()
 	health_bar.material.set_shader_param("percentage", 1 - stats.pain / stats.max_pain())
+	$"health_bar2".region_rect.size.y = 1 - stats.pain / stats.max_pain();
 	#var dir_to_player = game.mgmt.player.global_transform.origin.direction_to(global_transform.origin)
 	#health_bar.material.set_shader_param("angle", dir_to_player.angle_to(rotation_degrees.y))
 	#health_bar.look_at(game.mgmt.player.transform.origin, Vector3.UP)

@@ -23,7 +23,10 @@ func _ready():
 func _input(event):
 	if(event is InputEventMouseMotion):
 		# Rotate the rig around the target
-		rotate_y(-event.relative.x * horizontal_sensitivity)
+		#rotate_y(-event.relative.x * horizontal_sensitivity)
+		var character = get_parent()
+		if(character):
+			character.rotate_y(-event.relative.x * horizontal_sensitivity)
 		rotation.x = clamp(rotation.x - event.relative.y * vertical_sensitivity, deg2rad(min_pitch), deg2rad(max_pitch))
 		orthonormalize()
 
@@ -37,4 +40,4 @@ func _input(event):
 				camera_y_offset += zoom_y_step
 
 func _physics_process(delta):
-	pass#camera.set_translation(camera.translation.linear_interpolate(Vector3(0, camera_y_offset, current_zoom), delta * camera_lerp_speed))
+	camera.set_translation(camera.translation.linear_interpolate(Vector3(0, camera_y_offset, current_zoom), delta * camera_lerp_speed))

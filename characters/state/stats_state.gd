@@ -32,9 +32,9 @@ func stamina_per_second():
 func die():
 	skills.cancel_spell()
 	#character.sprite.set_animation("dead") # todo remove 2d
-	var material = character.mesh.material.duplicate()
+	var material = character.debug_mesh.material.duplicate()
 	material.set("albedo_color", Color(0.9, 0.9, 0.2))
-	character.mesh.material_override = material
+	character.debug_mesh.material_override = material
 	dead = true
 	# todo: animation
 	if(state.is_player && !game.levels.current_level_death_realm):

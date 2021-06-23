@@ -23,7 +23,7 @@ func consume(item, remove_from_inventory=true):
 		inventory.things.erase(item)
 	stats._self_damage(items.items[item]["self"]["pain"])
 
-func _on_interact_zone_area_entered(area):
+func _on_interact_zone_body_entered(area):
 	var target = area.get_parent()
 	if(target && target.has_method("interact")):
 		interact_target = target
@@ -31,7 +31,7 @@ func _on_interact_zone_area_entered(area):
 			game.mgmt.ui.show_interaction(target.interaction_name, null)
 
 # todo: if there is another target still in zone, switch to it
-func _on_interact_zone_area_exited(area):
+func _on_interact_zone_body_exited(area):
 	if(interact_target == area.get_parent()):
 		interact_target = null
 		if(state.is_player):
