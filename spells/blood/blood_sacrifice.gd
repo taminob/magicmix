@@ -1,4 +1,4 @@
-extends "../spell_expander.gd"
+extends spell_expander
 
 var growth_per_second = 3
 
@@ -9,7 +9,7 @@ func _ready():
 	connect_object()
 	time = spells.get_duration(spell)
 
-func next_object_scale(delta):
+func next_object_scale(delta: float):
 	return object.scale * (1 + growth_per_second * delta)
 
 var used = false

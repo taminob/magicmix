@@ -1,8 +1,10 @@
 extends Node
 
-onready var character = $"../.."
-onready var stats = $"../stats"
-onready var inventory = $"../inventory"
+class_name skills_state
+
+onready var character: character = $"../.."
+onready var stats: Node = $"../stats"
+onready var inventory: Node = $"../inventory"
 
 var active_skills
 
@@ -39,7 +41,7 @@ func cancel_spell(active_spell=[]):
 		# todo: inefficient array erase, optimization prob required
 		active_skills.erase(active_spell)
 
-func skill_process(delta):
+func skill_process(delta: float):
 	active_skills[0] = [stats.focus_per_second(), stats.pain_per_second()]
 	var canceled_spells = []
 	for x in active_skills:
@@ -53,12 +55,12 @@ func skill_process(delta):
 	for x in canceled_spells:
 		cancel_spell(x)
 
-func save(_state):
+func save(state_dict: Dictionary):
 	# todo: crash when saving with skill scene active
-	var _skills_state = _state.get("skills", {})
+	var _skills_state = state_dict.get("skills", {})
 	_skills_state["active_skills"] = [[]]#active_skills
-	_state["skills"] = _skills_state
+	state_dict["skills"] = _skills_state
 
-func init(_state):
-	var _skills_state = _state.get("skills", {})
+func init(state_dict: Dictionary):
+	var _skills_state = state_dict.get("skills", {})
 	active_skills = _skills_state.get("active_skills", [[]])

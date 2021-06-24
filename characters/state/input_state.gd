@@ -1,25 +1,27 @@
 extends Node
 # todo: remove on all non-player characters (?)
 
-onready var state = get_parent()
-onready var move = $"../move"
-onready var skills = $"../skills"
-onready var interaction = $"../interaction"
+class_name input_state
 
-func _input(event):
+onready var state: Node = get_parent()
+onready var move: Node = $"../move"
+onready var skills: Node = $"../skills"
+onready var interaction: Node = $"../interaction"
+
+func _input(event: InputEvent):
 	if(state.is_player):
 		move_input(event)
 		action_input(event)
 
-func _physics_process(delta):
+func _physics_process(delta: float):
 	if(state.is_player):
 		move_input_process(delta)
 
-func move_input_process(_delta):
+func move_input_process(_delta: float):
 	move.input_direction.x = Input.get_action_strength("move_left") - Input.get_action_strength("move_right")
 	move.input_direction.z = Input.get_action_strength("move_up") - Input.get_action_strength("move_down")
 
-func move_input(event):
+func move_input(event: InputEvent):
 	if(event.is_action_pressed("jump")):
 		move.jump_requested = true
 	if(event.is_action_pressed("sprint") && move.move_state == move.RUNNING):
@@ -30,12 +32,12 @@ func move_input(event):
 		event.is_action_released("walk") && move.move_state == move.WALKING):
 		move.move_state = move.RUNNING
 
-# todo: tbd: move camera on mouse move?
+# todo: tbd: move camera on mouse move here?
 #func camera_input(event):
 #	if(event is InputEventMouseMotion):
 #		character.get_node("camera").position = event.position
 
-func action_input(event):
+func action_input(event: InputEvent):
 	if(event.is_action_pressed("interact")):
 		interaction.interact()
 	if(event.is_action_pressed("slot0")):

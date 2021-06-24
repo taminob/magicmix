@@ -1,7 +1,7 @@
 extends Spatial
 
-onready var camera = $"spring_arm/player_camera"
-onready var spring_arm = $"spring_arm"
+onready var camera: Camera = $"spring_arm/player_camera"
+onready var spring_arm: SpringArm = $"spring_arm"
 
 # Control variables
 var max_pitch: float = 45.0
@@ -24,7 +24,7 @@ func _ready():
 	current_zoom = default_zoom
 	default_length = spring_arm.spring_length
 
-func _input(event):
+func _input(event: InputEvent):
 	if(event is InputEventMouseMotion):
 		# Rotate the rig around the target
 		#rotate_y(-event.relative.x * horizontal_sensitivity)
@@ -43,6 +43,6 @@ func _input(event):
 				current_zoom += zoom_step
 				camera_y_offset += zoom_y_step
 
-func _physics_process(delta):
+func _physics_process(delta: float):
 	#camera.set_translation(camera.translation.linear_interpolate(Vector3(0, camera_y_offset, current_zoom), delta * camera_lerp_speed))
 	spring_arm.spring_length = lerp(spring_arm.spring_length, current_zoom * default_length, delta * camera_lerp_speed)

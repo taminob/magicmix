@@ -8,6 +8,88 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "KinematicBody",
+"class": "character",
+"language": "GDScript",
+"path": "res://characters/character.gd"
+}, {
+"base": "Node",
+"class": "dialogue_state",
+"language": "GDScript",
+"path": "res://characters/state/dialogue_state.gd"
+}, {
+"base": "Node",
+"class": "experience_state",
+"language": "GDScript",
+"path": "res://characters/state/experience_state.gd"
+}, {
+"base": "Node",
+"class": "input_state",
+"language": "GDScript",
+"path": "res://characters/state/input_state.gd"
+}, {
+"base": "Node",
+"class": "interaction_state",
+"language": "GDScript",
+"path": "res://characters/state/interaction_state.gd"
+}, {
+"base": "Node",
+"class": "inventory_state",
+"language": "GDScript",
+"path": "res://characters/state/inventory_state.gd"
+}, {
+"base": "Node",
+"class": "move_state",
+"language": "GDScript",
+"path": "res://characters/state/move_state.gd"
+}, {
+"base": "Node",
+"class": "skills_state",
+"language": "GDScript",
+"path": "res://characters/state/skills_state.gd"
+}, {
+"base": "Node",
+"class": "spell_expander",
+"language": "GDScript",
+"path": "res://spells/spell_expander.gd"
+}, {
+"base": "Node",
+"class": "spell_spawner",
+"language": "GDScript",
+"path": "res://spells/spell_spawner.gd"
+}, {
+"base": "Node",
+"class": "state",
+"language": "GDScript",
+"path": "res://characters/state/state.gd"
+}, {
+"base": "Node",
+"class": "stats_state",
+"language": "GDScript",
+"path": "res://characters/state/stats_state.gd"
+}, {
+"base": "Control",
+"class": "ui",
+"language": "GDScript",
+"path": "res://ui/ui.gd"
+} ]
+_global_script_class_icons={
+"character": "",
+"dialogue_state": "",
+"experience_state": "",
+"input_state": "",
+"interaction_state": "",
+"inventory_state": "",
+"move_state": "",
+"skills_state": "",
+"spell_expander": "",
+"spell_spawner": "",
+"state": "",
+"stats_state": "",
+"ui": ""
+}
+
 [application]
 
 config/name="Magicmix"

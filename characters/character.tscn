@@ -87,7 +87,7 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0
 shape = SubResource( 3 )
 
 [node name="interact_zone" type="Area" parent="."]
-transform = Transform( 0.5, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
 
 [node name="collision" type="CollisionShape" parent="interact_zone"]
 shape = SubResource( 4 )

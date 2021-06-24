@@ -1,22 +1,28 @@
 extends Control
 
-onready var pain_bar = $"pain_bar"
-onready var focus_bar = $"focus_bar"
-onready var stamina_bar = $"stamina_bar"
-onready var xp_bar = $"xp_bar"
-onready var slots = $"slots"
-onready var dialogue = $"dialogue"
-onready var interaction = $"interaction"
-onready var debug_label = $"debug_info_label"
+class_name ui
+
+onready var pain_bar: TextureProgress = $"pain_bar"
+onready var focus_bar: TextureProgress = $"focus_bar"
+onready var stamina_bar: TextureProgress = $"stamina_bar"
+onready var xp_bar: ProgressBar = $"xp_bar"
+onready var slots: Node = $"slots"
+onready var dialogue: Popup = $"dialogue"
+onready var interaction: Popup = $"interaction"
+onready var debug_label: Label = $"debug_info_label"
 
 func _ready():
 	game.mgmt.ui = self
 
-func _process(_delta):
+func _process(_delta: float):
 	$"fps_label".text = str("FPS:",(Engine.get_frames_per_second()))
 
 func _on_menu_button_pressed():
 	$"../pause_menu".pause()
+
+func reset():
+	end_dialogue()
+	hide_interaction()
 
 func update_pain(percentage):
 	pain_bar.set_value(percentage * 100)

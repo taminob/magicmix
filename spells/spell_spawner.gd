@@ -1,4 +1,6 @@
-extends Node2D
+extends Node
+
+class_name spell_spawner
 
 var time
 var amount
@@ -23,7 +25,7 @@ func _ready():
 	add_child(spawn_timer)
 	errors.error_test(spawn_timer.connect("timeout", self, "spawn_object"))
 
-func _physics_process(delta):
+func _physics_process(delta: float):
 	if(!spell || !example_object):
 		return
 	var i = 0

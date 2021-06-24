@@ -1,17 +1,19 @@
 extends Node
 
-onready var state = get_parent()
-onready var character = $"../.."
+class_name dialogue_state
 
-var display_name
-var gender
-var dialogue_partners
+onready var state: Node = get_parent()
+onready var character: character = $"../.."
 
-var dialogue_progress = 0
-func dialogue_process(delta):
+var display_name: String
+var gender: String
+var dialogue_partners: Array
+
+var dialogue_progress: float = 0
+func dialogue_process(delta: float):
 	for x in dialogue_partners:
 		# todo: distance_squared_to
-		var t = (x.character.translation.distance_to(character.translation) - 500)/1000
+		var t = (x.character.translation.distance_to(character.translation) - 5)/10
 		var dialogue_intensity = 1 - clamp(t, 0, 1)
 		if(dialogue_intensity <= 0):
 			end_dialogue()
@@ -21,7 +23,7 @@ func dialogue_process(delta):
 			dialogue_progress += delta * 10
 			game.mgmt.ui.update_dialogue(dialogue_progress, dialogue_intensity)
 
-func start_dialogue(other_dialogue_state):
+func start_dialogue(other_dialogue_state: dialogue_state):
 	end_dialogue()
 	dialogue_partners.push_back(other_dialogue_state)
 	if(state.is_player):
@@ -33,7 +35,7 @@ func end_dialogue():
 	if(dialogue_partners.empty()):
 		# todo: skip talk animation
 		return false
-	var i = 0
+	var i: int = 0
 	while i < dialogue_partners.size():
 		var partner = dialogue_partners[i]
 		dialogue_partners.remove(i)
@@ -42,15 +44,15 @@ func end_dialogue():
 		game.mgmt.ui.end_dialogue()
 	return true
 
-func save(_state):
-	var _dialogue_state = _state.get("dialogue", {})
+func save(state_dict: Dictionary):
+	var _dialogue_state = state_dict.get("dialogue", {})
 	_dialogue_state["name"] = display_name
 	_dialogue_state["gender"] = gender
 	_dialogue_state["dialogue_partners"] = dialogue_partners
-	_state["dialogue"] = _dialogue_state
+	state_dict["dialogue"] = _dialogue_state
 
-func init(_state):
-	var _dialogue_state = _state.get("dialogue", {})
-	display_name = _state["dialogue"].get("name", "")
-	gender = _state["dialogue"].get("gender", "")
-	dialogue_partners = _state["dialogue"].get("dialogue_partners", [])
+func init(state_dict: Dictionary):
+	var _dialogue_state = state_dict.get("dialogue", {})
+	display_name = _dialogue_state.get("name", "")
+	gender = _dialogue_state.get("gender", "")
+	dialogue_partners = _dialogue_state.get("dialogue_partners", [])

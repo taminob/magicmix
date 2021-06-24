@@ -1,13 +1,15 @@
 extends Node
 
-var time
-var spell = null
-var object = null
-var _affected_bodies = []
-onready var _caster = $".."
-var _caster_affected = false
+class_name spell_expander
 
-func next_object_scale(_delta):
+var time
+var spell: String = ""
+var object: Node = null
+var _affected_bodies: Array = []
+onready var _caster: Node = $".."
+var _caster_affected: bool = false
+
+func next_object_scale(_delta: float):
 	return object.scale
 
 func do_on_end():
@@ -21,13 +23,13 @@ func init_object():
 	connect_object()
 	add_child(object)
 
-func _physics_process(delta):
-	if(!spell || !object):
+func _physics_process(delta: float):
+	if(!object || spell.empty()):
 		return
 	time -= delta
 	if(time <= 0):
 		do_on_end()
-		spell = null
+		spell = ""
 		return
 	object.scale = next_object_scale(delta)
 

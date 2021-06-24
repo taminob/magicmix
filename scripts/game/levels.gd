@@ -15,11 +15,11 @@ var levels = {
 	}
 }
 
-var current_level_name = ""
-var current_level = null
-var current_level_death_realm = false
+var current_level_name: String = ""
+var current_level: Node = null
+var current_level_death_realm: bool = false
 
-func change_level(level_name):
+func change_level(level_name: String):
 	var world = scenes.game_instance.get_node("world_container/viewport/world")
 	if(current_level):
 		game.mgmt.save_characters()
@@ -42,6 +42,7 @@ func change_level(level_name):
 		game.mgmt.create_player()
 		game.mgmt.player.translation = spawn
 		current_level.call_deferred("add_child", game.mgmt.player)
+	game.mgmt.ui.reset()
 
 	#for character in get_tree().get_nodes_in_group("characters"):
 	#game.mgmt.camera.last_obstructing_objects.clear() # todo: use when using top-down-camera

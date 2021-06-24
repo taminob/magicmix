@@ -1,4 +1,4 @@
-extends "../spell_spawner.gd"
+extends spell_spawner
 
 func _ready():
 	spell = spells.get_spell("blood_storm")

@@ -1,11 +1,11 @@
 extends Node
 
-var player_name = ""
+var player_name: String = ""
 var player = null
 var camera = load("res://characters/player/camera.tscn").instance()
 var character_scene = load("res://characters/character.tscn")
 # warning-ignore:unused_class_variable
-var ui = null
+var ui: ui = null
 
 #func _ready():
 	#errors.error_test(display_settings.connect("global_scale_changed", self, "update_camera_zoom")) # todo: remove 2d
@@ -48,6 +48,7 @@ func create_player():
 func save_characters():
 	for character in get_tree().get_nodes_in_group("characters"):
 		character.save_state()
+		character.reset()
 
 func call_delayed(caller, method, time, param=[]):
 	errors.error_test(get_tree().create_timer(time).connect("timeout", caller, method, [param]))
