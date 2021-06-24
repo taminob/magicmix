@@ -54,12 +54,12 @@ func move_process(delta):
 	hv = hv.linear_interpolate(new_pos, accel * delta)
 
 	velocity.y += GRAVITY * delta
-	velocity = character.move_and_slide(Vector3(hv.x, velocity.y, hv.z), Vector3.UP, true, 4, 0.25)
+	velocity = character.move_and_slide(Vector3(hv.x, velocity.y, hv.z), Vector3.UP, true)
 
 func move_dead(delta):
 	# gravity even when dead
 	velocity.y += GRAVITY * delta
-	velocity = character.move_and_slide(velocity, Vector3.UP, true, 4, 0.25)
+	velocity = character.move_and_slide(velocity, Vector3.UP, true)
 
 var last_speed = Vector3.ZERO
 func collide(delta):

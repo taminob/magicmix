@@ -5,11 +5,11 @@ onready var character = $"../.."
 onready var experience = $"../experience"
 onready var skills = $"../skills"
 
-var dead = false
-var pain
-var focus
-var stamina
-var undead
+var dead: bool
+var pain: float
+var focus: float
+var stamina: float
+var undead: bool
 
 func max_pain():
 	return experience.sturdiness * 100.0
