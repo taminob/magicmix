@@ -6,7 +6,7 @@ func back_to_menu():
 	settings.save_settings()
 	scenes.close_scene()
 
-func _input(event):
+func _input(event: InputEvent):
 	if(event.is_action_pressed("ui_cancel")):
 		back_to_menu()
 

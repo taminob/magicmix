@@ -1,6 +1,6 @@
 extends Popup
 
-var hidden = true
+var hidden: bool = true
 
 func prepare_leave():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -25,7 +25,7 @@ func _enter_tree():
 		get_tree().paused = true
 		call_deferred("popup")
 
-func _input(event):
+func _input(event: InputEvent):
 	if(event.is_action_pressed("pause")):
 		if(hidden):
 			pause()
