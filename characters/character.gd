@@ -9,6 +9,8 @@ onready var debug_mesh: CSGMesh = $"mesh" # todo: remove default debug mesh
 onready var mesh: Node = load("res://characters/default/default.tscn").instance()
 onready var health_bar: Node = $"health_bar"
 
+var spirit: KinematicBody = null
+
 onready var state: Node = $"state"
 onready var move: Node = state.move
 onready var experience: Node = state.experience
@@ -17,8 +19,6 @@ onready var stats: Node = state.stats
 onready var skills: Node = state.skills
 onready var dialogue: Node = state.dialogue
 onready var interaction: Node = state.interaction
-
-#onready var camera_pivot = $"camera_pivot"
 
 func _ready():
 	init_state()
@@ -71,7 +71,7 @@ func _update_ui():
 		game.mgmt.ui.update_focus(stats.focus / stats.max_focus())
 		game.mgmt.ui.update_stamina(stats.stamina / stats.max_stamina())
 		game.mgmt.ui.update_xp(0.4)
-		game.mgmt.ui.update_debug(str(move.velocity))
+		game.mgmt.ui.update_debug(str(move.spirit_velocity))
 		game.mgmt.ui.update_slots()
 	#health_bar.set_value((1 - stats.pain / stats.max_pain()) * 100)
 	health_bar.material = health_bar.material.duplicate()

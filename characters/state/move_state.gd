@@ -13,6 +13,7 @@ const ACCELERATION: float = 7.0
 const DE_ACCELERATION: float = 8.0
 const GRAVITY: float = -9.81
 const JUMP_VELOCITY: float = 5.0
+const SPIRIT_RANGE_SQUARED: float = 500.0
 
 var velocity: Vector3 = Vector3.ZERO
 var spirit_velocity: Vector3 = Vector3.ZERO
@@ -74,20 +75,23 @@ func _move_normal(delta: float):
 	velocity = character.move_and_slide(Vector3(hv.x, velocity.y + GRAVITY * delta, hv.z), Vector3.UP, true)
 
 func _move_spirit(delta: float):
-	var spirit = character.get_node("spirit")
 	if(jump_requested):
-		_move_direction = spirit.global_transform.basis.z
-		_move_direction *= 50
+		spirit_velocity = character.spirit.global_transform.basis.z
+		spirit_velocity *= 200
 		jump_requested = false
 	else:
-		_move_direction = input_direction.rotated(Vector3.UP, character.rotation.y + spirit.rotation.y).normalized()
+		#_move_direction = input_direction.rotated(Vector3.UP, character.spirit.rotation.y).normalized()
+		_move_direction = character.spirit.global_transform.basis.xform(input_direction)
 
-	var hv = Vector3(spirit_velocity.x, 0, spirit_velocity.z)
+	var hv: Vector3 = Vector3(spirit_velocity.x, spirit_velocity.y, spirit_velocity.z)
 	var new_pos = _move_direction * max_speed()
 	var accel = ACCELERATION if(_move_direction.dot(hv) > 0) else DE_ACCELERATION
 	hv = hv.linear_interpolate(new_pos, accel * delta)
+
+	if(character.translation.distance_squared_to(character.spirit.translation + hv * delta) > SPIRIT_RANGE_SQUARED):
+		hv = Vector3.ZERO
 	#spirit_velocity = spirit.move_and_slide(Vector3(hv.x, spirit_velocity.y + GRAVITY * delta, hv.z), Vector3.UP, true)
-	spirit_velocity = spirit.move_and_slide(hv, Vector3.UP, true) # no gravity
+	spirit_velocity = character.spirit.move_and_slide(hv, Vector3.UP, true) # no gravity
 
 var last_speed: Vector3 = Vector3.ZERO
 func collide_process(delta: float):

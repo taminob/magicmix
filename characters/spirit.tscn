@@ -2,42 +2,42 @@
 
 [sub_resource type="SphereMesh" id=1]
 
-[sub_resource type="Gradient" id=4]
+[sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0, 0.2, 0.5, 0.8, 1 )
 colors = PoolColorArray( 0, 0, 0, 0.196078, 0.643137, 0.643137, 0.643137, 0.196078, 0, 0, 0, 0.196078, 0.572549, 0.572549, 0.572549, 0.196078, 0, 0, 0, 0.196078 )
 
-[sub_resource type="GradientTexture" id=5]
-gradient = SubResource( 4 )
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
 
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="SpatialMaterial" id=4]
 flags_transparent = true
 albedo_color = Color( 0, 0.823529, 1, 1 )
-albedo_texture = SubResource( 5 )
+albedo_texture = SubResource( 3 )
 emission_enabled = true
 emission = Color( 0, 0, 1, 1 )
 emission_energy = 16.0
 emission_operator = 0
 emission_on_uv2 = false
 
-[sub_resource type="SphereMesh" id=7]
+[sub_resource type="SphereMesh" id=5]
 
-[sub_resource type="SpatialMaterial" id=8]
+[sub_resource type="SpatialMaterial" id=6]
 flags_transparent = true
 albedo_color = Color( 0, 0.823529, 1, 1 )
-albedo_texture = SubResource( 5 )
+albedo_texture = SubResource( 3 )
 emission_enabled = true
 emission = Color( 0, 0.27451, 1, 1 )
 emission_energy = 16.0
 emission_operator = 0
 emission_on_uv2 = false
 
-[sub_resource type="CapsuleShape" id=3]
+[sub_resource type="CapsuleShape" id=7]
 radius = 0.334538
 height = 0.26924
 
-[sub_resource type="CubeMesh" id=9]
+[sub_resource type="CubeMesh" id=8]
 
-[sub_resource type="SpatialMaterial" id=10]
+[sub_resource type="SpatialMaterial" id=9]
 albedo_color = Color( 1, 0, 0, 1 )
 
 [node name="spirit" type="KinematicBody"]
@@ -56,18 +56,19 @@ omni_range = 0.700157
 [node name="csg_mesh" type="CSGMesh" parent="."]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.71714, 0 )
 mesh = SubResource( 1 )
-material = SubResource( 6 )
+material = SubResource( 4 )
 
 [node name="csg_mesh2" type="CSGMesh" parent="."]
 transform = Transform( 0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.71714, 0 )
-mesh = SubResource( 7 )
-material = SubResource( 8 )
+mesh = SubResource( 5 )
+material = SubResource( 6 )
 
 [node name="collision_shape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.607661, 0 )
-shape = SubResource( 3 )
+shape = SubResource( 7 )
 
-[node name="csg_mesh3" type="CSGMesh" parent="."]
+[node name="debug_direction_indicator" type="CSGMesh" parent="."]
 transform = Transform( 0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.5, 0, 0.699811, 0.930982 )
-mesh = SubResource( 9 )
-material = SubResource( 10 )
+visible = false
+mesh = SubResource( 8 )
+material = SubResource( 9 )
