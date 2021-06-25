@@ -3,20 +3,21 @@
 [ext_resource path="res://themes/ui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://ui/dialogue/dialogue.gd" type="Script" id=2]
 
-[sub_resource type="Gradient" id=4]
+[sub_resource type="Gradient" id=1]
 colors = PoolColorArray( 0, 0, 0, 1, 0.133333, 0.133333, 0.133333, 1 )
 
-[sub_resource type="GradientTexture" id=5]
-gradient = SubResource( 4 )
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
 
-[sub_resource type="Gradient" id=2]
+[sub_resource type="Gradient" id=3]
 offsets = PoolRealArray( 0, 0.510753, 1 )
 colors = PoolColorArray( 0, 0, 0, 1, 0.317647, 0.317647, 0.317647, 1, 0, 0, 0, 1 )
 
-[sub_resource type="GradientTexture" id=3]
-gradient = SubResource( 2 )
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
 
 [node name="dialogue" type="Popup"]
+visible = true
 anchor_top = 0.6
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -30,7 +31,7 @@ __meta__ = {
 [node name="background" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = SubResource( 5 )
+texture = SubResource( 2 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -39,10 +40,10 @@ __meta__ = {
 [node name="name_background" type="TextureRect" parent="."]
 anchor_left = 0.01
 anchor_top = -0.2
-anchor_right = 0.5
+anchor_right = 0.4
 margin_top = -4.57764e-05
 margin_bottom = -4.57764e-05
-texture = SubResource( 3 )
+texture = SubResource( 4 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false

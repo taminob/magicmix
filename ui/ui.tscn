@@ -128,6 +128,5 @@ anchor_bottom = 0.875
 [node name="dialogue" parent="." instance=ExtResource( 6 )]
 
 [node name="interaction" parent="." instance=ExtResource( 7 )]
-visible = true
 
 [connection signal="pressed" from="menu_button" to="." method="_on_menu_button_pressed"]

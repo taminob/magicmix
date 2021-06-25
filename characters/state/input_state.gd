@@ -38,6 +38,8 @@ func move_input(event: InputEvent):
 #		character.get_node("camera").position = event.position
 
 func action_input(event: InputEvent):
+	if(event.is_action_pressed("toggle_spirit")):
+		interaction.toggle_spirit()
 	if(event.is_action_pressed("interact")):
 		interaction.interact()
 	if(event.is_action_pressed("slot0")):

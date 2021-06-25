@@ -14,7 +14,8 @@ onready var dialogue: dialogue_state = $"dialogue"
 onready var interaction: interaction_state = $"interaction"
 
 # warning-ignore:unused_class_variable
-var is_player:bool = false
+var is_player: bool = false
+var is_spirit: bool = false
 
 func save():
 	move.save(_state)

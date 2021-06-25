@@ -2,7 +2,8 @@ extends Node
 
 class_name move_state
 
-onready var character: character = $"../.."
+onready var state: Node = get_parent()
+onready var character: KinematicBody = $"../.."
 onready var stats: Node = $"../stats"
 
 const RUN_SPEED: float = 10.0
@@ -14,10 +15,11 @@ const GRAVITY: float = -9.81
 const JUMP_VELOCITY: float = 5.0
 
 var velocity: Vector3 = Vector3.ZERO
+var spirit_velocity: Vector3 = Vector3.ZERO
 
 func speed_factor() -> float:
 	# todo: integrate experience system
-	return 1.0
+	return 1.0 * (int(state.is_spirit) + 1)
 
 enum {RUNNING, WALKING, SPRINTING}
 var move_state = RUNNING
@@ -35,6 +37,18 @@ func can_move() -> bool:
 
 var _move_direction: Vector3 = Vector3.ZERO
 func move_process(delta: float):
+	if(state.is_spirit):
+		_move_spirit(delta)
+		move_process_dead(delta)
+	else:
+		_move_normal(delta)
+
+func move_process_dead(delta: float):
+	# gravity even when dead
+	velocity.y += GRAVITY * delta
+	velocity = character.move_and_slide(velocity, Vector3.UP, true)
+
+func _move_normal(delta: float):
 	if(jump_requested):
 		_move_direction = velocity.normalized()
 		velocity.y = JUMP_VELOCITY
@@ -57,16 +71,28 @@ func move_process(delta: float):
 	var accel = ACCELERATION if(_move_direction.dot(hv) > 0) else DE_ACCELERATION
 	hv = hv.linear_interpolate(new_pos, accel * delta)
 
-	velocity.y += GRAVITY * delta
-	velocity = character.move_and_slide(Vector3(hv.x, velocity.y, hv.z), Vector3.UP, true)
+	velocity = character.move_and_slide(Vector3(hv.x, velocity.y + GRAVITY * delta, hv.z), Vector3.UP, true)
 
-func move_dead(delta: float):
-	# gravity even when dead
-	velocity.y += GRAVITY * delta
-	velocity = character.move_and_slide(velocity, Vector3.UP, true)
+func _move_spirit(delta: float):
+	var spirit = character.get_node("spirit")
+	if(jump_requested):
+		_move_direction = spirit.global_transform.basis.z
+		_move_direction *= 50
+		jump_requested = false
+	else:
+		_move_direction = input_direction.rotated(Vector3.UP, character.rotation.y + spirit.rotation.y).normalized()
+
+	var hv = Vector3(spirit_velocity.x, 0, spirit_velocity.z)
+	var new_pos = _move_direction * max_speed()
+	var accel = ACCELERATION if(_move_direction.dot(hv) > 0) else DE_ACCELERATION
+	hv = hv.linear_interpolate(new_pos, accel * delta)
+	#spirit_velocity = spirit.move_and_slide(Vector3(hv.x, spirit_velocity.y + GRAVITY * delta, hv.z), Vector3.UP, true)
+	spirit_velocity = spirit.move_and_slide(hv, Vector3.UP, true) # no gravity
 
 var last_speed: Vector3 = Vector3.ZERO
-func collide(delta: float):
+func collide_process(delta: float):
+	if(state.is_spirit || stats.dead):
+		return
 	var d_x = abs(last_speed.x - velocity.x) / delta
 	var d_y = abs(last_speed.y - velocity.y) / delta
 	var d_z = abs(last_speed.z - velocity.z) / delta

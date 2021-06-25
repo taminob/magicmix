@@ -44,8 +44,8 @@ func _physics_process(delta: float):
 		skills.skill_process(delta)
 		dialogue.dialogue_process(delta)
 	else:
-		move.move_dead(delta)
-	move.collide(delta)
+		move.move_process_dead(delta)
+	move.collide_process(delta)
 	_update_ui()
 
 # warning-ignore:unused_class_variable

@@ -3,7 +3,7 @@ extends Node
 class_name spell_expander
 
 var time
-var spell: String = ""
+var spell: Dictionary = {}
 var object: Node = null
 var _affected_bodies: Array = []
 onready var _caster: Node = $".."
@@ -29,7 +29,7 @@ func _physics_process(delta: float):
 	time -= delta
 	if(time <= 0):
 		do_on_end()
-		spell = ""
+		spell = {}
 		return
 	object.scale = next_object_scale(delta)
 
