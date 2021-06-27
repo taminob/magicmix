@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://world/levels/intro/intro.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world/levels/intro/level.gd" type="Script" id=2]
 [ext_resource path="res://world/objects/box.tscn" type="PackedScene" id=3]
 [ext_resource path="res://characters/character.tscn" type="PackedScene" id=4]
 [ext_resource path="res://characters/spirit.tscn" type="PackedScene" id=5]
+[ext_resource path="res://spells/fire/fire.tscn" type="PackedScene" id=6]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -61,5 +62,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57665, 0.5, -7.67969 )
 
 [node name="box2" parent="." instance=ExtResource( 3 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11.4573, 0, -7.68 )
+
+[node name="fire" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6226, 2.5736, -3.55996 )
 
 [connection signal="body_entered" from="palace_trigger" to="." method="_on_palace_trigger_body_entered"]

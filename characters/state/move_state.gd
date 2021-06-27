@@ -53,12 +53,11 @@ func move_process_dead(delta: float):
 	velocity = character.move_and_slide(Vector3(hv.x, velocity.y, hv.z), Vector3.UP, true)
 
 func _move_normal(delta: float):
-	if(jump_requested):
-		_move_direction = velocity.normalized()
-		velocity.y = JUMP_VELOCITY
-		jump_requested = false
-
 	if(character.is_on_floor()):
+		if(jump_requested):
+			_move_direction = velocity.normalized()
+			velocity.y = JUMP_VELOCITY
+			jump_requested = false
 		_move_direction = input_direction.rotated(Vector3.UP, character.rotation.y).normalized()
 #	elif(character.is_on_wall()):
 #		_move_direction = Vector3.ZERO
@@ -79,7 +78,6 @@ func _move_spirit(delta: float):
 		spirit_velocity *= 200
 		jump_requested = false
 	else:
-		#_move_direction = input_direction.rotated(Vector3.UP, character.spirit.rotation.y).normalized()
 		_move_direction = character.spirit.global_transform.basis.xform(input_direction)
 
 	var hv: Vector3 = Vector3(spirit_velocity.x, spirit_velocity.y, spirit_velocity.z)
@@ -87,6 +85,7 @@ func _move_spirit(delta: float):
 	var accel = ACCELERATION if(_move_direction.dot(hv) > 0) else DE_ACCELERATION
 	hv = hv.linear_interpolate(new_pos, accel * delta)
 
+	# todo: bug? - when character is falling down, spirit can become immovable because distance is too big
 	if(character.translation.distance_squared_to(character.spirit.translation + hv * delta) > SPIRIT_RANGE_SQUARED):
 		hv = Vector3.ZERO
 	#spirit_velocity = spirit.move_and_slide(Vector3(hv.x, spirit_velocity.y + GRAVITY * delta, hv.z), Vector3.UP, true)

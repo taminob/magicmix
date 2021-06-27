@@ -2,22 +2,22 @@ extends Spatial
 
 class_name spell_spawner
 
-var time
-var amount
-var spawn_timer
-var radius
-var spell = null
-var example_object = null
-var _objects = []
-var _affected_bodies = []
-onready var _caster = $".."
-var _caster_affected = false
+var time: float
+var amount: int
+var spawn_timer: Timer
+var radius: float
+var spell: Dictionary = {}
+var example_object: Area = null
+var _objects: Array = []
+var _affected_bodies: Array = []
+onready var _caster: character = $".."
+var _caster_affected: bool = false
 
-# override for custom placement; return Vector2 with position
-func first_object_position(_object, _object_id) -> Vector3:
+# override for custom placement; return position
+func first_object_position(_object: Area, _object_id: int) -> Vector3:
 	return Vector3(randf() * 2 - 1, randf() * 2 - 1, randf() * 2 - 1).normalized() * radius
 
-func next_object_position(object, _object_id, _remaining_duration) -> Vector3:
+func next_object_position(object: Area, _object_id: int, _remaining_duration: float) -> Vector3:
 	return object.translation
 
 func _ready():
@@ -44,9 +44,9 @@ func _physics_process(delta: float):
 		_caster.damage(spells.get_pain(spell, "self", true) * delta)
 
 func spawn_object():
-	var new_object = example_object.duplicate()
-	errors.error_test(new_object.connect("body_entered", self, "_object_enter"))
-	errors.error_test(new_object.connect("body_exited", self, "_object_exit"))
+	var new_object: Area = example_object.duplicate()
+	errors.error_test(new_object.connect("body_entered", self, "_object_enter", [new_object]))
+	errors.error_test(new_object.connect("body_exited", self, "_object_exit", [new_object]))
 	new_object.translation = first_object_position(new_object, _objects.size())
 	_objects.push_back([0, new_object])
 	add_child(new_object)
@@ -56,7 +56,7 @@ func spawn_object():
 	else:
 		spawn_timer.stop()
 
-func _object_enter(body):
+func _object_enter(body: Node, _collider: Area):
 	if(body):
 		if(body == _caster):
 			_caster_affected = true
@@ -65,7 +65,7 @@ func _object_enter(body):
 			_affected_bodies.push_back(body)
 			body.damage(spells.get_pain(spell, "target"))
 
-func _object_exit(body):
+func _object_exit(body: Node, _collider: Area):
 	if(body == _caster):
 		_caster_affected = false
 	_affected_bodies.erase(body)

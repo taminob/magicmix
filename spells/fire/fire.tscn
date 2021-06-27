@@ -1,34 +1,91 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://world/sprites/fireball/fireball_loop.tres" type="Texture" id=3]
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+render_mode blend_mix;
 
-[sub_resource type="SphereShape" id=1]
-radius = 0.236528
+uniform vec4 base_color = vec4(0.37, 0., 0., 0.8);
 
-[sub_resource type="ParticlesMaterial" id=2]
-flag_rotate_y = true
-direction = Vector3( 0, 0, 0 )
+void vertex()
+{
+	COLOR = base_color;
+}
+
+void fragment()
+{
+	ALBEDO = COLOR.rgb;
+	EMISSION = ALBEDO * 20.;
+	ALPHA = smoothstep(0.0, 0.9, COLOR.a);
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/base_color = Plane( 0.6, 0, 0, 0.8 )
+
+[sub_resource type="SphereShape" id=3]
+radius = 0.5
+
+[sub_resource type="ParticlesMaterial" id=4]
+trail_divisor = 5
+emission_shape = 1
+emission_sphere_radius = 0.4
+direction = Vector3( 0, 1, 0 )
+spread = 15.0
 gravity = Vector3( 0, 0, 0 )
-angular_velocity = 10.0
+initial_velocity = 1.0
+tangential_accel = 1.0
 
-[sub_resource type="SpatialMaterial" id=3]
-flags_transparent = true
-albedo_texture = ExtResource( 3 )
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 1 )
+shader_param/base_color = Plane( 0.3, 0, 0, 0.8 )
 
-[sub_resource type="QuadMesh" id=4]
-material = SubResource( 3 )
+[sub_resource type="SphereMesh" id=6]
+material = SubResource( 5 )
+radius = 0.02
+height = 0.04
+
+[sub_resource type="SpatialMaterial" id=7]
+albedo_color = Color( 0.392157, 0, 0, 1 )
+
+[sub_resource type="SphereMesh" id=8]
+material = SubResource( 7 )
+radius = 0.02
+height = 0.04
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = SubResource( 1 )
+shader_param/base_color = Plane( 0.5, 0.3, 0, 0.8 )
+
+[sub_resource type="SphereMesh" id=10]
+material = SubResource( 9 )
+radius = 0.01
+height = 0.02
 
 [node name="fire" type="Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
 
 [node name="sphere" type="CSGSphere" parent="."]
 visible = false
-radius = 0.1
+radius = 0.5
+material = SubResource( 2 )
 
 [node name="collision" type="CollisionShape" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="particles" type="Particles" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.209505, 0 )
+amount = 500
+lifetime = 0.4
+process_material = SubResource( 4 )
+draw_pass_1 = SubResource( 6 )
+
+[node name="particles2" type="Particles" parent="."]
+amount = 50
+lifetime = 0.3
+process_material = SubResource( 4 )
+draw_pass_1 = SubResource( 8 )
+
+[node name="particles3" type="Particles" parent="."]
 amount = 100
-process_material = SubResource( 2 )
-draw_pass_1 = SubResource( 4 )
+lifetime = 0.4
+process_material = SubResource( 4 )
+draw_pass_1 = SubResource( 10 )
