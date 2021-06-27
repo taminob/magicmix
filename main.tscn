@@ -1,8 +1,20 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://menu/pause_menu/pause_menu.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ui/ui.tscn" type="PackedScene" id=3]
 [ext_resource path="res://world/world.tscn" type="PackedScene" id=4]
+
+[sub_resource type="Shader" id=3]
+code = "shader_type canvas_item;
+
+void fragment()
+{
+	vec4 color = texture(TEXTURE, UV);
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 3 )
 
 [node name="main" type="Control"]
 anchor_right = 1.0
@@ -13,6 +25,7 @@ __meta__ = {
 }
 
 [node name="world_container" type="ViewportContainer" parent="."]
+material = SubResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 0.000244141
@@ -27,6 +40,8 @@ __meta__ = {
 [node name="viewport" type="Viewport" parent="world_container"]
 size = Vector2( 3840, 2160 )
 handle_input_locally = false
+msaa = 2
+debanding = true
 render_target_update_mode = 3
 
 [node name="world" parent="world_container/viewport" instance=ExtResource( 4 )]
