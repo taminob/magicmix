@@ -20,7 +20,7 @@ script = ExtResource( 2 )
 [node name="level" parent="." instance=ExtResource( 1 )]
 
 [node name="palace_trigger" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0764, 0, 3.21136 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.2608, 0.764057, 1.82047 )
 
 [node name="CollisionShape" type="CollisionShape" parent="palace_trigger"]
 shape = SubResource( 1 )
@@ -33,16 +33,16 @@ mesh = SubResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.23658, -5.66254 )
 
 [node name="hans" parent="." instance=ExtResource( 4 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
 
 [node name="mary" parent="." instance=ExtResource( 4 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.2, 2, 6.376 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 2, 6.376 )
 
 [node name="sqlykt" parent="." instance=ExtResource( 4 )]
-transform = Transform( 0.2, 0, 0, 0, 0.1, 0, 0, 0, 0.8, 11.611, 1, 3.681 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.611, 1, 3.681 )
 
 [node name="guenther" parent="." instance=ExtResource( 4 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5, 4, 3.6 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 4, 3.6 )
 
 [node name="rigid_body" type="RigidBody" parent="."]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 6.83675, 1.4696, 0 )

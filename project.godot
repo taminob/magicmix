@@ -147,7 +147,6 @@ gdscript/warnings/unused_class_variable=true
 
 window/size/width=3840
 window/size/height=2160
-window/size/fullscreen=true
 window/dpi/allow_hidpi=true
 mouse_cursor/custom_image="res://ui/icons/cursor/diagonal_crosshair-64.png"
 mouse_cursor/custom_image_hotspot=Vector2( 32, 32 )
