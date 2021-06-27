@@ -17,4 +17,4 @@ func test(out):
 
 func error_test(error_code):
 	if(error_code != OK):
-		error("an unknown error occurred; code: " + error_code)
+		error("an unknown error occurred; code: " + str(error_code))

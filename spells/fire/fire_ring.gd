@@ -1,19 +1,19 @@
-extends "../spell_spawner.gd"
+extends spell_spawner
 
 var speed = 2
 
 func _ready():
 	spell = spells.get_spell("fire_ring")
 	example_object = preload("fire.tscn").instance()
-	example_object.set_scale(Vector2(0.5, 0.5))
+	example_object.set_scale(Vector3(0.5, 0.5, 0.5))
 	time = spells.get_duration(spell)
 	amount = 12
-	radius = 200
+	radius = 5
 	spawn_timer.set_wait_time(TAU / (speed * amount))
 	spawn_timer.start()
 
-func first_object_position(_object, _object_id):
-	return Vector2(sin(0 * speed), cos(0 * speed)) * radius
+func first_object_position(_object, _object_id) -> Vector3:
+	return Vector3(sin(0 * speed), _object.translation.y, cos(0 * speed)) * radius
 
-func next_object_position(_object, _object_id, remaining_duration):
-	return Vector2(sin(remaining_duration * speed), cos(remaining_duration * speed)) * radius
+func next_object_position(_object, _object_id, remaining_duration) -> Vector3:
+	return Vector3(sin(remaining_duration * speed), _object.translation.y, cos(remaining_duration * speed)) * radius

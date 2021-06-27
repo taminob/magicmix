@@ -187,6 +187,7 @@
 [ext_resource path="res://world/sprites/fireball/frames/0099.png" type="Texture" id=185]
 
 [resource]
+flags = 16
 frames = 185
 fps = 24.0
 frame_0/texture = ExtResource( 103 )

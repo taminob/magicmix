@@ -17,10 +17,11 @@ const SPIRIT_RANGE_SQUARED: float = 500.0
 
 var velocity: Vector3 = Vector3.ZERO
 var spirit_velocity: Vector3 = Vector3.ZERO
+var immovable: bool = false
 
 func speed_factor() -> float:
 	# todo: integrate experience system
-	return 1.0 * (int(state.is_spirit) + 1)
+	return 1.0 * (1.0 * (int(state.is_spirit) + 1))
 
 enum {RUNNING, WALKING, SPRINTING}
 var move_state = RUNNING
@@ -34,7 +35,7 @@ func max_speed() -> float:
 	return WALK_SPEED * speed_factor()
 
 func can_move() -> bool:
-	return !stats.dead || game.levels.current_level_death_realm
+	return (!stats.dead || game.levels.current_level_death_realm) && !immovable
 
 var _move_direction: Vector3 = Vector3.ZERO
 func move_process(delta: float):
@@ -45,9 +46,11 @@ func move_process(delta: float):
 		_move_normal(delta)
 
 func move_process_dead(delta: float):
-	# gravity even when dead
+	# gravity and friction even when dead
+	var hv = Vector3(velocity.x, 0, velocity.z)
+	hv = hv.linear_interpolate(Vector3.ZERO, DE_ACCELERATION * delta)
 	velocity.y += GRAVITY * delta
-	velocity = character.move_and_slide(velocity, Vector3.UP, true)
+	velocity = character.move_and_slide(Vector3(hv.x, velocity.y, hv.z), Vector3.UP, true)
 
 func _move_normal(delta: float):
 	if(jump_requested):
@@ -62,17 +65,13 @@ func _move_normal(delta: float):
 #	else:
 #		_move_direction = velocity.normalized()
 
-	if(_move_direction.length_squared() > 0):
-		character.get_node("default/animation_player").play("default")
-	else:
-		character.get_node("default/animation_player").stop()
-
 	var hv = Vector3(velocity.x, 0, velocity.z)
 	var new_pos = _move_direction * max_speed()
 	var accel = ACCELERATION if(_move_direction.dot(hv) > 0) else DE_ACCELERATION
 	hv = hv.linear_interpolate(new_pos, accel * delta)
 
-	velocity = character.move_and_slide(Vector3(hv.x, velocity.y + GRAVITY * delta, hv.z), Vector3.UP, true)
+	velocity.y += GRAVITY * delta
+	velocity = character.move_and_slide(Vector3(hv.x, velocity.y, hv.z), Vector3.UP, true)
 
 func _move_spirit(delta: float):
 	if(jump_requested):

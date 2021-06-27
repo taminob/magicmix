@@ -42,8 +42,14 @@ var characters = {
 		"move": {
 			"translations": {}
 		},
-		"inventory": { },
-		"skills": {}
+		"inventory": {
+			"skills": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
+			"slots": ["heal", "fire_ring", "", "", "blood_storm", "blood_sacrifice"]
+		},
+		"skills": { },
+		"look": {
+			"mesh": "res://characters/meshes/patrol/body.tscn"
+		}
 	},
 	"mary": {
 		"dialogue": {
@@ -62,7 +68,10 @@ var characters = {
 			"translations": {}
 		},
 		"inventory": { },
-		"skills": {}
+		"skills": {},
+		"look": {
+			"mesh": "res://characters/meshes/default/body.tscn"
+		}
 	},
 	"guenther": {
 		"dialogue": {
@@ -85,7 +94,10 @@ var characters = {
 			"translations": {}
 		},
 		"inventory": { },
-		"skills": {}
+		"skills": {},
+		"look": {
+			"mesh": "res://characters/meshes/patrol/body.tscn"
+		}
 	},
 	"sqlykt": {
 		"dialogue": {
@@ -106,7 +118,10 @@ var characters = {
 		"inventory": {
 			"spells": ["blood_sacrifice"]
 		},
-		"skills": {}
+		"skills": {},
+		"look": {
+			"mesh": "res://characters/meshes/debug/body.tscn"
+		}
 	},
 	"sqlay": {
 		"dialogue": {
@@ -130,6 +145,9 @@ var characters = {
 		"inventory": {
 			"spells": ["blood_sacrifice"]
 		},
-		"skills": {}
+		"skills": {},
+		"look": {
+			"mesh": "res://characters/meshes/debug/body.tscn"
+		}
 	}
 }

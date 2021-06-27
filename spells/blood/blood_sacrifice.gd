@@ -5,7 +5,7 @@ var growth_per_second = 3
 func _ready():
 	spell = spells.get_spell("blood_sacrifice")
 	object = self
-	object.set_scale(Vector2(0.1, 0.1))
+	object.set_scale(Vector3(1, 1, 1))
 	connect_object()
 	time = spells.get_duration(spell)
 

@@ -252,6 +252,7 @@
 [ext_resource path="res://world/sprites/fireball/frames/0049.png" type="Texture" id=250]
 
 [resource]
+flags = 16
 frames = 250
 oneshot = true
 fps = 24.0

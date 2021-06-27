@@ -5,8 +5,6 @@ class_name character
 #warning-ignore-all:unused_class_variable
 
 #onready var collision = $"collision"
-onready var debug_mesh: CSGMesh = $"mesh" # todo: remove default debug mesh
-onready var mesh: Node = load("res://characters/default/default.tscn").instance()
 onready var health_bar: Node = $"health_bar"
 
 var spirit: KinematicBody = null
@@ -19,11 +17,10 @@ onready var stats: Node = state.stats
 onready var skills: Node = state.skills
 onready var dialogue: Node = state.dialogue
 onready var interaction: Node = state.interaction
+onready var look: Node = state.look
 
 func _ready():
 	init_state()
-	add_child(mesh)
-	get_node("default/animation_player").get_animation("default").loop = true
 
 func reset():
 	dialogue.end_dialogue()
@@ -45,6 +42,7 @@ func _physics_process(delta: float):
 		dialogue.dialogue_process(delta)
 	else:
 		move.move_process_dead(delta)
+	look.animations_process(delta)
 	move.collide_process(delta)
 	_update_ui()
 
@@ -63,7 +61,7 @@ func die():
 
 func revive():
 	errors.log("revive: " + name)
-	stats._self_revive()
+	stats.revive()
 
 func _update_ui():
 	if(state.is_player):
@@ -71,7 +69,7 @@ func _update_ui():
 		game.mgmt.ui.update_focus(stats.focus / stats.max_focus())
 		game.mgmt.ui.update_stamina(stats.stamina / stats.max_stamina())
 		game.mgmt.ui.update_xp(0.4)
-		game.mgmt.ui.update_debug(str(move.spirit_velocity))
+		game.mgmt.ui.update_debug(str(move.velocity))
 		game.mgmt.ui.update_slots()
 	#health_bar.set_value((1 - stats.pain / stats.max_pain()) * 100)
 	health_bar.material = health_bar.material.duplicate()

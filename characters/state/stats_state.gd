@@ -6,6 +6,7 @@ onready var state: Node = get_parent()
 onready var character: character = $"../.."
 onready var experience: Node = $"../experience"
 onready var skills: Node = $"../skills"
+onready var look: Node = $"../look"
 
 var dead: bool
 var pain: float
@@ -33,10 +34,8 @@ func stamina_per_second() -> float:
 
 func die():
 	skills.cancel_spell()
-	#character.sprite.set_animation("dead") # todo remove 2d
-	var material = character.debug_mesh.material.duplicate()
-	material.set("albedo_color", Color(0.9, 0.9, 0.2))
-	character.debug_mesh.material_override = material
+	look.update_look()
+	
 	dead = true
 	# todo: animation
 	if(state.is_player && !game.levels.current_level_death_realm):
@@ -53,9 +52,10 @@ func _self_damage(dmg: float):
 	if(pain >= max_pain()):
 		die()
 
-func _self_revive():
+func revive():
 	if(undead):
 		return
+	look.update_look()
 	pain = 0.0
 	dead = false
 

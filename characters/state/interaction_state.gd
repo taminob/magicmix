@@ -6,6 +6,7 @@ onready var state: Node = get_parent()
 onready var character: character = $"../.."
 onready var inventory: Node = $"../inventory"
 onready var stats: Node = $"../stats"
+onready var move: Node = $"../move"
 onready var dialogue: Node = $"../dialogue"
 
 var interact_target: Node = null
@@ -44,6 +45,7 @@ func toggle_spirit():
 	else:
 		character.spirit.queue_free()
 		character.spirit = null
+		move.spirit_velocity = Vector3.ZERO
 		if(state.is_player):
 			#spirit_node.remove_child(game.mgmt.camera)
 			#character.add_child(game.mgmt.camera)

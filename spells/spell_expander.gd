@@ -1,10 +1,10 @@
-extends Node
+extends Area
 
 class_name spell_expander
 
 var time
 var spell: Dictionary = {}
-var object: Node = null
+var object: Area = null
 var _affected_bodies: Array = []
 onready var _caster: Node = $".."
 var _caster_affected: bool = false

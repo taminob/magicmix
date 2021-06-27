@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://characters/animations/idle.anim" type="Animation" id=1]
+[ext_resource path="res://characters/animations/walk.anim" type="Animation" id=2]
+[ext_resource path="res://characters/animations/quick_t_walk.anim" type="Animation" id=3]
+
+[node name="animations" type="AnimationPlayer"]
+anims/idle = ExtResource( 1 )
+anims/quick_t_walk = ExtResource( 3 )
+anims/walk = ExtResource( 2 )

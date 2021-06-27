@@ -1,4 +1,4 @@
-extends Node
+extends Spatial
 
 class_name spell_spawner
 
@@ -14,11 +14,11 @@ onready var _caster = $".."
 var _caster_affected = false
 
 # override for custom placement; return Vector2 with position
-func first_object_position(_object, _object_id):
-	return Vector2(randf() * 2 - 1, randf() * 2 - 1).clamped(1) * radius
+func first_object_position(_object, _object_id) -> Vector3:
+	return Vector3(randf() * 2 - 1, randf() * 2 - 1, randf() * 2 - 1).normalized() * radius
 
-func next_object_position(object, _object_id, _remaining_duration):
-	return object.position
+func next_object_position(object, _object_id, _remaining_duration) -> Vector3:
+	return object.translation
 
 func _ready():
 	spawn_timer = Timer.new()
@@ -35,7 +35,7 @@ func _physics_process(delta: float):
 			_objects[i][1].queue_free()
 			_objects.remove(i)
 		else:
-			_objects[i][1].position = next_object_position(_objects[i][1], i, _objects[i][0])
+			_objects[i][1].translation = next_object_position(_objects[i][1], i, _objects[i][0])
 			i += 1
 
 	for x in _affected_bodies:
@@ -47,11 +47,14 @@ func spawn_object():
 	var new_object = example_object.duplicate()
 	errors.error_test(new_object.connect("body_entered", self, "_object_enter"))
 	errors.error_test(new_object.connect("body_exited", self, "_object_exit"))
-	new_object.position = first_object_position(new_object, _objects.size())
+	new_object.translation = first_object_position(new_object, _objects.size())
 	_objects.push_back([0, new_object])
 	add_child(new_object)
-	while spawn_timer.wait_time <= 0 && _objects.size() < amount:
-		spawn_object()
+	if(_objects.size() < amount):
+		if(spawn_timer.wait_time <= 0):
+			spawn_object()
+	else:
+		spawn_timer.stop()
 
 func _object_enter(body):
 	if(body):

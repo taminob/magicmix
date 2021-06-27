@@ -1,13 +1,29 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://spells/blood/blood_sacrifice.gd" type="Script" id=1]
-[ext_resource path="res://world/sprites/thin_light_ring-4096.png" type="Texture" id=2]
 
-[node name="blood_sacrifice" type="Area2D"]
+[sub_resource type="SpatialMaterial" id=1]
+flags_transparent = true
+albedo_color = Color( 1, 0, 0, 0.235294 )
+emission_enabled = true
+emission = Color( 0, 0, 0, 1 )
+emission_energy = 16.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="SphereShape" id=2]
+radius = 3.0
+
+[node name="blood_sacrifice" type="Area"]
 script = ExtResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 2 )
+[node name="sphere" type="CSGSphere" parent="."]
+radius = 3.0
+material = SubResource( 1 )
 
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -1696.36, 464.624, -1744.31, -356.448, -1372.73, -1147.55, -785.393, -1591.05, 299.381, -1752.87, 1282.27, -1249.44, 1749.74, -386.414, 1695.8, 548.529, 1204.36, 1321.66, 161.537, 1777.14, -725.461, 1627.31, -1354.75, 1159.84, -1708.35, 470.617, -2014.54, 359.556, -1786.47, 1029.51, -1472.88, 1421.51, -1052.37, 1770.74, -560.596, 1977.43, 137.868, 2048.7, 693.789, 1941.79, 1591.81, 1385.87, 2047.95, 395.192, 1905.41, -852.066, 1028.77, -1842.75, -182.855, -2077.94, -1130.77, -1750.09, -1786.47, -1058.75, -2014.54, -460.071, -2014.54, 352.429 )
+[node name="inner" type="CSGSphere" parent="sphere"]
+radius = 2.5
+material = SubResource( 1 )
+
+[node name="collision_shape" type="CollisionShape" parent="."]
+shape = SubResource( 2 )
