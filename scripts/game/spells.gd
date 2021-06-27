@@ -5,51 +5,51 @@ const spell_icons_path = "res://ui/icons/spells/"
 const spell_scenes_path = "res://spells/"
 const spell_anims_path = "res://spells/"
 
-func get_spell(id):
-	return spells.get(id, "")
+func get_spell(id: String) -> Dictionary:
+	return spells.get(id, {})
 
-func get_combinations(spell):
+func get_combinations(spell: Dictionary) -> Array:
 	return spell.get("combinations", [])
 
-func get_spell_name(spell):
+func get_spell_name(spell: Dictionary) -> String:
 	return spell.get("name", "")
 
-func get_description(spell):
+func get_description(spell: Dictionary) -> String:
 	return spell.get("description", "")
 
-func get_category(spell):
+func get_category(spell: Dictionary) -> String:
 	return spell.get("category", "")
 
 # target: "self" or "target"
-func get_focus(spell, target_string, per_second=false):
+func get_focus(spell: Dictionary, target_string: String, per_second:bool=false) -> float:
 	var x = spell.get(target_string, null)
 	if(x == null):
-		return 0
+		return 0.0
 	if(per_second):
-		return x.get("focus_per_second", 0)
+		return x.get("focus_per_second", 0.0)
 	else:
-		return x.get("focus", 0)
+		return x.get("focus", 0.0)
 
 # target: "self" or "target"
-func get_pain(spell, target_string, per_second=false):
+func get_pain(spell: Dictionary, target_string: String, per_second:bool=false) -> float:
 	var x = spell.get(target_string, null)
 	if(x == null):
-		return 0
+		return 0.0
 	if(per_second):
-		return x.get("pain_per_second", 0)
+		return x.get("pain_per_second", 0.0)
 	else:
-		return x.get("pain", 0)
+		return x.get("pain", 0.0)
 
-func get_duration(spell):
-	return spell.get("duration", 0)
+func get_duration(spell: Dictionary) -> float:
+	return spell.get("duration", 0.0)
 
-func get_icon(spell):
+func get_icon(spell: Dictionary) -> PackedScene:
 	return spell.get("icon", load(spell_icons_path + "../empty_slot_frame-512.png"))
 
-func get_anim(spell):
+func get_anim(spell: Dictionary) -> String:
 	return spell.get("anim", "")
 
-func get_scene(spell):
+func get_scene(spell: Dictionary) -> PackedScene:
 	return spell.get("scene", null)
 
 var spells = {
