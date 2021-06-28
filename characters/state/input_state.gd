@@ -18,19 +18,19 @@ func _physics_process(delta: float):
 		move_input_process(delta)
 
 func move_input_process(_delta: float):
-	move.input_direction.x = Input.get_action_strength("move_left") - Input.get_action_strength("move_right")
-	move.input_direction.z = Input.get_action_strength("move_up") - Input.get_action_strength("move_down")
+	move.input_direction.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+	move.input_direction.z = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
 
 func move_input(event: InputEvent):
 	if(event.is_action_pressed("jump")):
 		move.jump_requested = true
-	if(event.is_action_pressed("sprint") && move.move_state == move.RUNNING):
-		move.move_state = move.SPRINTING
-	elif(event.is_action_pressed("walk") && move.move_state == move.RUNNING):
-		move.move_state = move.WALKING
-	elif(event.is_action_released("sprint") && move.move_state == move.SPRINTING ||
-		event.is_action_released("walk") && move.move_state == move.WALKING):
-		move.move_state = move.RUNNING
+	if(event.is_action_pressed("sprint") && move.current_mode == move.RUNNING):
+		move.current_mode = move.SPRINTING
+	elif(event.is_action_pressed("walk") && move.current_mode == move.RUNNING):
+		move.current_mode = move.WALKING
+	elif(event.is_action_released("sprint") && move.current_mode == move.SPRINTING ||
+		event.is_action_released("walk") && move.current_mode == move.WALKING):
+		move.current_mode = move.RUNNING
 
 # todo: tbd: move camera on mouse move here?
 #func camera_input(event):

@@ -1,29 +1,28 @@
 extends spell_spawner
 
-var speed = 2
+var speed: float = 2
 
 func _ready():
 	spell = spells.get_spell("fire_ring")
-	example_object = preload("fire.tscn").instance()
-	example_object.set_scale(Vector3(0.5, 0.5, 0.5))
+	set_example_object(preload("fire.tscn").instance())
 	time = spells.get_duration(spell)
 	amount = 12
 	radius = 5
 	spawn_timer.set_wait_time(TAU / (speed * amount))
 	spawn_timer.start()
 
-func first_object_position(target: Area, _object_id: int) -> Vector3:
-	return Vector3(sin(0 * speed), 1, cos(0 * speed)) * radius
+func first_object_position(_target: Area, _object_id: int) -> Vector3:
+	return Vector3(sin(0 * speed), 0.1, cos(0 * speed)) * radius
 
-func next_object_position(target: Area, _object_id: int, remaining_duration: float) -> Vector3:
-	print(target.translation.y)
-	return Vector3(sin(remaining_duration * speed), target.translation.y, cos(remaining_duration * speed)) * radius
+func next_object_position(_target: Area, _object_id: int, object_age: float) -> Vector3:
+	return Vector3(sin(object_age * speed), 0.1, cos(object_age * speed)) * radius
 
-func _object_enter(body: Node, collider: Area):
-	if(body && body is StaticBody):
-		for x in _objects:
-			if(x[1] == collider):
-				_objects.erase(x)
-				break
-		collider.queue_free()
-	._object_enter(body, collider)
+# todo: decide if destroy on contact with StaticBody
+#func _object_enter(body: Node, collider: Area):
+#	._object_enter(body, collider)
+#	if(body && body is StaticBody):
+#		for x in _objects:
+#			if(x[1] == collider):
+#				_objects.erase(x)
+#				break
+#		collider.queue_free()

@@ -27,6 +27,7 @@ func set_mesh(path:String=_mesh_path):
 	if(mesh):
 		mesh.queue_free()
 	mesh = load(path).instance()
+	mesh.rotate_y(PI) # todo: fix meshes
 	character.add_child(mesh)
 	animations = mesh.get_node("animations")
 

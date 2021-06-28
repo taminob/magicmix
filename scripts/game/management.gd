@@ -1,14 +1,31 @@
 extends Node
 
 var player_name: String = ""
-var player = null
-var camera = load("res://characters/player/camera.tscn").instance()
-var character_scene = load("res://characters/character.tscn")
+var player: character = null
+var camera: Node = load("res://characters/player/camera.tscn").instance()
+var character_scene: PackedScene = load("res://characters/character.tscn")
 # warning-ignore:unused_class_variable
 var ui: ui = null
 
-#func _ready():
-	#errors.error_test(display_settings.connect("global_scale_changed", self, "update_camera_zoom")) # todo: remove 2d
+enum layer_bit {
+	default = 0,
+	static_world = 1,
+	objects = 2,
+	characters = 3,
+	enemies = 4,
+	spirits = 5,
+	spells = 6
+}
+
+enum layer {
+	default = 1 << layer_bit.default,
+	static_world = 1 << layer_bit.static_world,
+	objects = 1 << layer_bit.objects,
+	characters = 1 << layer_bit.characters,
+	enemies = 1 << layer_bit.enemies,
+	spirits = 1 << layer_bit.spirits,
+	spells = 1 << layer_bit.spells,
+}
 
 func is_player(node):
 	return node == player && player

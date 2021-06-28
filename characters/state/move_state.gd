@@ -23,15 +23,15 @@ func speed_factor() -> float:
 	# todo: integrate experience system
 	return 1.0 * (1.0 * (int(state.is_spirit) + 1))
 
-enum {RUNNING, WALKING, SPRINTING}
-var move_state = RUNNING
+enum move_mode {RUNNING, WALKING, SPRINTING}
+var current_mode = move_mode.RUNNING
 var jump_requested: bool = false
 var input_direction: Vector3 = Vector3.ZERO # unnormalized input direction
 func max_speed() -> float:
-	match move_state:
-		RUNNING: return RUN_SPEED * speed_factor()
-		WALKING: return WALK_SPEED * speed_factor()
-		SPRINTING: return SPRINT_SPEED * speed_factor()
+	match current_mode:
+		move_mode.RUNNING: return RUN_SPEED * speed_factor()
+		move_mode.WALKING: return WALK_SPEED * speed_factor()
+		move_mode.SPRINTING: return SPRINT_SPEED * speed_factor()
 	return WALK_SPEED * speed_factor()
 
 func can_move() -> bool:

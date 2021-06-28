@@ -2,7 +2,7 @@ extends Area
 
 class_name spell_expander
 
-var time
+var time: float
 var spell: Dictionary = {}
 var object: Area = null
 var _affected_bodies: Array = []

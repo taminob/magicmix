@@ -22,6 +22,8 @@ script = ExtResource( 2 )
 
 [node name="palace_trigger" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.2608, 0.764057, 1.82047 )
+collision_layer = 3
+collision_mask = 24
 
 [node name="CollisionShape" type="CollisionShape" parent="palace_trigger"]
 shape = SubResource( 1 )
@@ -47,6 +49,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 4, 3.6 )
 
 [node name="rigid_body" type="RigidBody" parent="."]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 6.83675, 1.4696, 0 )
+collision_layer = 4
+collision_mask = 31
 
 [node name="csg_mesh" type="CSGMesh" parent="rigid_body"]
 mesh = SubResource( 3 )
@@ -64,6 +68,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57665, 0.5, -7.67969 )
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11.4573, 0, -7.68 )
 
 [node name="fire" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6226, 2.5736, -3.55996 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.20374, 1.74103, -5.07807 )
 
 [connection signal="body_entered" from="palace_trigger" to="." method="_on_palace_trigger_body_entered"]

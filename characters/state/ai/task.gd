@@ -3,61 +3,48 @@ extends Node
 class_name task
 
 enum task_status {
-	NEW,
+	SUCCESS,
+	FAIL,
 	RUNNING,
-	FAILED,
-	SUCCEEDED,
-	CANCELLED,
+	CANCEL,
+	NEW
 }
 
-var parent_task: task = null
-var root_task: task = null
-var status: int = task_status.NEW
+var pawn: character
 
-func running():
-	status = task_status.RUNNING
-	if parent_task != null:
-		parent_task.child_running()
+func _ready():
+	var parent: Node = get_parent()
+	var is_root
+	while !parent is character && parent:
+		parent = parent.get_parent()
+	pawn = parent
+	init()
 
-func success():
-	status = task_status.SUCCEEDED
-	if parent_task != null:
-		parent_task.child_success()
-
-func fail():
-	status = task_status.FAILED
-	if parent_task != null:
-		parent_task.child_fail()
-
-func cancel():
-	if status == task_status.RUNNING:
-		status = task_status.CANCELLED
-		# Cancel child tasks
-		for child in get_children():
-			child.cancel()
-
-# Abstract methods
-func run():
-	# Process the task and call running(), success(), or fail()
+func init():
 	pass
 
-func child_success():
-	pass
+func init_children():
+	for x in get_children():
+		x.init()
 
-func child_fail():
-	pass
+func cancel() -> int:
+	for x in get_children():
+		x.cancel()
+	return task_status.CANCEL
 
-func child_running():
-	pass
+# implement task
+func _run(delta: float) -> int:
+	return task_status.SUCCESS
 
-# Non-final non-abstact methods
-func start():
-	status = task_status.NEW
-	for child in get_children():
-		child.control = self
-		child.tree = self.tree
-		child.start()
+var _root_status: int = task_status.NEW
+func run(delta: float) -> int:
+	if(_root_status == task_status.RUNNING):
+		_root_status = _run(delta)
+	return _root_status
+
+func start(controlled_character: character):
+	pawn = controlled_character
+	_root_status = task_status.RUNNING
 
 func reset():
 	cancel()
-	status = task_status.NEW

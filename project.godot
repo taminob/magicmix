@@ -49,10 +49,35 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://characters/state/look_state.gd"
 }, {
+"base": "task",
+"class": "move",
+"language": "GDScript",
+"path": "res://characters/state/ai/tasks/move.gd"
+}, {
 "base": "Node",
 "class": "move_state",
 "language": "GDScript",
 "path": "res://characters/state/move_state.gd"
+}, {
+"base": "task",
+"class": "move_to",
+"language": "GDScript",
+"path": "res://characters/state/ai/tasks/move_to.gd"
+}, {
+"base": "task",
+"class": "parallel",
+"language": "GDScript",
+"path": "res://characters/state/ai/parallel.gd"
+}, {
+"base": "task",
+"class": "repeat",
+"language": "GDScript",
+"path": "res://characters/state/ai/repeat.gd"
+}, {
+"base": "task",
+"class": "selector",
+"language": "GDScript",
+"path": "res://characters/state/ai/selector.gd"
 }, {
 "base": "task",
 "class": "sequence",
@@ -89,10 +114,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://characters/state/ai/task.gd"
 }, {
+"base": "task",
+"class": "turn",
+"language": "GDScript",
+"path": "res://characters/state/ai/tasks/turn.gd"
+}, {
 "base": "Control",
 "class": "ui",
 "language": "GDScript",
 "path": "res://ui/ui.gd"
+}, {
+"base": "task",
+"class": "wait",
+"language": "GDScript",
+"path": "res://characters/state/ai/tasks/wait.gd"
 } ]
 _global_script_class_icons={
 "ai_state": "",
@@ -103,7 +138,12 @@ _global_script_class_icons={
 "interaction_state": "",
 "inventory_state": "",
 "look_state": "",
+"move": "",
 "move_state": "",
+"move_to": "",
+"parallel": "",
+"repeat": "",
+"selector": "",
 "sequence": "",
 "skills_state": "",
 "spell_expander": "",
@@ -111,7 +151,9 @@ _global_script_class_icons={
 "state": "",
 "stats_state": "",
 "task": "",
-"ui": ""
+"turn": "",
+"ui": "",
+"wait": ""
 }
 
 [application]
@@ -1354,6 +1396,7 @@ toggle_spirit={
 3d_physics/layer_4="characters"
 3d_physics/layer_5="enemies"
 3d_physics/layer_6="spirits"
+3d_physics/layer_7="spells"
 
 [node]
 

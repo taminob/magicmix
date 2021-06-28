@@ -8,22 +8,34 @@ var spawn_timer: Timer
 var radius: float
 var spell: Dictionary = {}
 var example_object: Area = null
+var can_spawn_behind_walls: bool = false
 var _objects: Array = []
 var _affected_bodies: Array = []
 onready var _caster: character = $".."
 var _caster_affected: bool = false
+var _default_collision_mask: int = game.mgmt.layer.characters  | game.mgmt.layer.enemies | game.mgmt.layer.spells
+#var _raycast: RayCast # todo: remove manual raycast from script
+#var _raycast_collision_mask: int = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3) | (1 << 4)
 
 # override for custom placement; return position
 func first_object_position(_object: Area, _object_id: int) -> Vector3:
 	return Vector3(randf() * 2 - 1, randf() * 2 - 1, randf() * 2 - 1).normalized() * radius
 
-func next_object_position(object: Area, _object_id: int, _remaining_duration: float) -> Vector3:
+func next_object_position(object: Area, _object_id: int, _object_age: float) -> Vector3:
 	return object.translation
+
+func set_example_object(object: Area):
+	example_object = object
+	_default_collision_mask = example_object.collision_mask
 
 func _ready():
 	spawn_timer = Timer.new()
 	add_child(spawn_timer)
+	spawn_timer.set_one_shot(true)
 	errors.error_test(spawn_timer.connect("timeout", self, "spawn_object"))
+	#_raycast = RayCast.new()
+	#_raycast.collision_mask = _raycast_collision_mask
+	#add_child(_raycast)
 
 func _physics_process(delta: float):
 	if(!spell || !example_object):
@@ -36,6 +48,7 @@ func _physics_process(delta: float):
 			_objects.remove(i)
 		else:
 			_objects[i][1].translation = next_object_position(_objects[i][1], i, _objects[i][0])
+			set_object_active(_objects[i][1], can_reach_caster(_objects[i][1]))
 			i += 1
 
 	for x in _affected_bodies:
@@ -43,18 +56,32 @@ func _physics_process(delta: float):
 	if(_caster_affected):
 		_caster.damage(spells.get_pain(spell, "self", true) * delta)
 
-func spawn_object():
+func set_object_active(target: Area, active:bool=true):
+	target.set_visible(active)
+	target.collision_mask = _default_collision_mask if active else 0
+
+func can_reach_caster(target: Area) -> bool:
+	if(can_spawn_behind_walls):
+		return true
+	var result = get_world().direct_space_state.intersect_ray(target.global_transform.origin, _caster.global_transform.origin)
+	return result && result["collider"] == _caster
+	#_raycast.translation = target.translation
+	#_raycast.cast_to = target.translation.direction_to(Vector3.ZERO) * radius * 2
+	#_raycast.force_raycast_update()
+	#return _raycast.get_collider() == _caster
+
+func spawn_object(spawn_time:float=0.0, id:int=_objects.size()):
+	if(_objects.size() >= amount):
+		return
 	var new_object: Area = example_object.duplicate()
 	errors.error_test(new_object.connect("body_entered", self, "_object_enter", [new_object]))
 	errors.error_test(new_object.connect("body_exited", self, "_object_exit", [new_object]))
 	new_object.translation = first_object_position(new_object, _objects.size())
-	_objects.push_back([0, new_object])
+	_objects.insert(id, [spawn_time, new_object])
 	add_child(new_object)
+	set_object_active(new_object, can_reach_caster(new_object))
 	if(_objects.size() < amount):
-		if(spawn_timer.wait_time <= 0):
-			spawn_object()
-	else:
-		spawn_timer.stop()
+		spawn_timer.start()
 
 func _object_enter(body: Node, _collider: Area):
 	if(body):

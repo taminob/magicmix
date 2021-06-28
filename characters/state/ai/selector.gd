@@ -1,19 +1,23 @@
 extends task
 
-class_name sequence
+# run all children in sequence and succeed as soon as first child succeeds
+class_name selector
 
-var current_child = 0
+var current_child_index: int
 
-func run():
-  get_child(current_child).run()
-  running()
+func init():
+	current_child_index = 0
+	init_children()
 
-func child_success():
-	current_child += 1
-	if current_child >= get_child_count():
-		current_child = 0
-		success()
-
-func child_fail():
-	current_child = 0
-	fail()
+func _run(delta: float) -> int:
+	var current_child: task = get_child(current_child_index)
+	current_child._run(delta)
+	match current_child.status:
+		task_status.FAIL:
+			current_child_index += 1
+		task_status.SUCCESS:
+			return task_status.SUCCESS
+	if(current_child_index < get_child_count()):
+		return task_status.RUNNING
+	else:
+		return task_status.FAIL
