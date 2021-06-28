@@ -4,7 +4,7 @@ class_name wait
 
 export var wait_time: float = 0
 
-var _wait_counter: float = 0
+var _wait_counter: float
 
 func init():
 	_wait_counter = wait_time
