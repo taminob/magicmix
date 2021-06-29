@@ -49,7 +49,8 @@ var characters = {
 		"skills": { },
 		"look": {
 			"mesh": "res://characters/meshes/patrol/body.tscn"
-		}
+		},
+		"behavior": "res://characters/behavior/patrol.tscn"
 	},
 	"mary": {
 		"dialogue": {
@@ -71,7 +72,8 @@ var characters = {
 		"skills": {},
 		"look": {
 			"mesh": "res://characters/meshes/default/body.tscn"
-		}
+		},
+		"behavior": "res://characters/behavior/vendor.tscn"
 	},
 	"guenther": {
 		"dialogue": {
@@ -97,7 +99,8 @@ var characters = {
 		"skills": {},
 		"look": {
 			"mesh": "res://characters/meshes/patrol/body.tscn"
-		}
+		},
+		"behavior": "res://characters/behavior/patrol.tscn"
 	},
 	"sqlykt": {
 		"dialogue": {
@@ -121,7 +124,8 @@ var characters = {
 		"skills": {},
 		"look": {
 			"mesh": "res://characters/meshes/debug/body.tscn"
-		}
+		},
+		"behavior": "res://characters/behavior/vendor.tscn"
 	},
 	"sqlay": {
 		"dialogue": {
@@ -148,6 +152,7 @@ var characters = {
 		"skills": {},
 		"look": {
 			"mesh": "res://characters/meshes/debug/body.tscn"
-		}
+		},
+		"behavior": "res://characters/behavior/patrol.tscn"
 	}
 }

@@ -48,3 +48,4 @@ func start(controlled_character: character):
 
 func reset():
 	cancel()
+	init()

@@ -24,13 +24,14 @@ func move_input_process(_delta: float):
 func move_input(event: InputEvent):
 	if(event.is_action_pressed("jump")):
 		move.jump_requested = true
-	if(event.is_action_pressed("sprint") && move.current_mode == move.RUNNING):
-		move.current_mode = move.SPRINTING
-	elif(event.is_action_pressed("walk") && move.current_mode == move.RUNNING):
-		move.current_mode = move.WALKING
-	elif(event.is_action_released("sprint") && move.current_mode == move.SPRINTING ||
-		event.is_action_released("walk") && move.current_mode == move.WALKING):
-		move.current_mode = move.RUNNING
+	# todo: refactor sprint/walk for a more intuitive behavior
+	if(event.is_action_pressed("sprint") && move.current_mode == move.move_mode.RUNNING):
+		move.current_mode = move.move_mode.SPRINTING
+	elif(event.is_action_pressed("walk") && move.current_mode == move.move_mode.RUNNING):
+		move.current_mode = move.move_mode.WALKING
+	elif(event.is_action_released("sprint") && move.current_mode == move.move_mode.SPRINTING ||
+		event.is_action_released("walk") && move.current_mode == move.move_mode.WALKING):
+		move.current_mode = move.move_mode.RUNNING
 
 # todo: tbd: move camera on mouse move here?
 #func camera_input(event):
