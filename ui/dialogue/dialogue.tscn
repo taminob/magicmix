@@ -17,7 +17,6 @@ colors = PoolColorArray( 0, 0, 0, 1, 0.317647, 0.317647, 0.317647, 1, 0, 0, 0, 1
 gradient = SubResource( 3 )
 
 [node name="dialogue" type="Popup"]
-visible = true
 anchor_top = 0.6
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -59,24 +58,45 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="container" type="VBoxContainer" parent="."]
+[node name="text" type="RichTextLabel" parent="."]
 anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="text" type="RichTextLabel" parent="container"]
-margin_right = 3840.0
-margin_bottom = 856.0
+anchor_bottom = 0.5
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "This is a really exciting conversation!!!"
+scroll_following = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="answers" type="VBoxContainer" parent="container"]
-margin_top = 864.0
-margin_right = 3840.0
-margin_bottom = 864.0
+[node name="answer_up" type="RichTextLabel" parent="."]
+self_modulate = Color( 1, 1, 1, 0.498039 )
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.65
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "> One"
+
+[node name="answer" type="RichTextLabel" parent="."]
+anchor_top = 0.65
+anchor_right = 1.0
+anchor_bottom = 0.85
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "* Two"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="answer_down" type="RichTextLabel" parent="."]
+self_modulate = Color( 1, 1, 1, 0.498039 )
+anchor_top = 0.85
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "> Three"
+__meta__ = {
+"_edit_use_anchors_": false
+}

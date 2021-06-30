@@ -27,7 +27,7 @@ enum layer {
 	spells = 1 << layer_bit.spells,
 }
 
-func is_player(node):
+func is_player(node) -> bool:
 	return node == player && player
 
 func _set_player_flag(target, is_player):

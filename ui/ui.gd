@@ -56,14 +56,14 @@ func end_dialogue():
 	interaction.anchor_right = 0.65
 	dialogue.hide()
 
-func update_dialogue(visible_chars, transparency):
-	dialogue.update_dialogue(visible_chars, transparency)
+func update_dialogue(delta: float, transparency: float):
+	dialogue.update_dialogue(delta, transparency)
 
-func set_dialogue_text(string, speaker, answers=[]):
-	dialogue.set_dialogue_text(string, speaker, answers)
+func set_dialogue_text(text: String, speaker: String, answers:Array=[], answer_callback:FuncRef=null):
+	dialogue.set_dialogue_text(text, speaker, answers, answer_callback)
 
 # todo: interaction icon
-func show_interaction(text: String, _icon):
+func show_interaction(text: String, _icon: Texture):
 	interaction.get_node("text").set_bbcode("[center]" + text + "[/center]")
 	interaction.set_visible(true)
 

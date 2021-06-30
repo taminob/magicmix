@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://characters/state/ai_state.gd"
 }, {
+"base": "task",
+"class": "cast",
+"language": "GDScript",
+"path": "res://characters/state/ai/tasks/cast.gd"
+}, {
 "base": "KinematicBody",
 "class": "character",
 "language": "GDScript",
@@ -28,6 +33,11 @@ _global_script_classes=[ {
 "class": "experience_state",
 "language": "GDScript",
 "path": "res://characters/state/experience_state.gd"
+}, {
+"base": "move_to",
+"class": "follow",
+"language": "GDScript",
+"path": "res://characters/state/ai/tasks/follow.gd"
 }, {
 "base": "Node",
 "class": "input_state",
@@ -59,7 +69,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://characters/state/move_state.gd"
 }, {
-"base": "task",
+"base": "move",
 "class": "move_to",
 "language": "GDScript",
 "path": "res://characters/state/ai/tasks/move_to.gd"
@@ -131,9 +141,11 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "ai_state": "",
+"cast": "",
 "character": "",
 "dialogue_state": "",
 "experience_state": "",
+"follow": "",
 "input_state": "",
 "interaction_state": "",
 "inventory_state": "",

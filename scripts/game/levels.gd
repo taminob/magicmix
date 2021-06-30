@@ -33,8 +33,6 @@ func change_level(level_name: String):
 	current_level.name = "level"
 	var spawn = current_level.get_node_or_null("player_spawn")
 	spawn = spawn.translation if(spawn != null) else game.mgmt.player.translation
-	errors.log("change level: " + current_level_name)
-	world.call_deferred("add_child", current_level)
 	var new_player = current_level.get_node_or_null(game.mgmt.player_name)
 	if(new_player):
 		game.mgmt.call_deferred("make_player", new_player)
@@ -42,6 +40,8 @@ func change_level(level_name: String):
 		game.mgmt.create_player()
 		game.mgmt.player.translation = spawn
 		current_level.call_deferred("add_child", game.mgmt.player)
+	errors.log("change level: " + current_level_name)
+	world.call_deferred("add_child", current_level)
 	game.mgmt.ui.reset()
 
 	#for character in get_tree().get_nodes_in_group("characters"):

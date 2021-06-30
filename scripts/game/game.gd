@@ -34,5 +34,5 @@ func reload_game():
 	levels = load(game_script_path + "levels.gd").new()
 	add_child(levels)
 
-func get_character(id):
-	return char_data.get(id, "")
+func get_character(id) -> Dictionary:
+	return char_data.get(id, {})

@@ -10,8 +10,7 @@ var current_task: task = null
 func _ready():
 	if(state.is_player):
 		return
-	var t = game.char_data[character.name]["behavior"]
-	current_task = load(t).instance() # todo: refactor, maybe init/save for ai component
+	current_task = load(game.char_data[character.name]["behavior"]).instance() # todo: refactor, maybe init/save for ai component
 	add_child(current_task)
 	current_task.start(character)
 

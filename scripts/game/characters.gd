@@ -1,29 +1,5 @@
 extends Node
 
-#func get_character_name(character):
-#	return character.get("name", "")
-#
-#func get_gender(character):
-#	return character.get("gender", "")
-#
-#func get_dead(character):
-#	return character.get("dead", false)
-#
-#func get_undead(character):
-#	return character.get("undead", false)
-#
-#func get_pain(character):
-#	return character.get("pain", 0.0)
-#
-#func get_focus(character):
-#	return character.get("focus", 0.0)
-#
-#func get_stamina(character):
-#	return character.get("stamina", 0.0)
-#
-#func get_velocity(character):
-#	return character.get("velocity", 0.0)
-
 # warning-ignore:unused_class_variable
 var characters = {
 	"hans": {
@@ -44,7 +20,7 @@ var characters = {
 		},
 		"inventory": {
 			"skills": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
-			"slots": ["heal", "fire_ring", "", "", "blood_storm", "blood_sacrifice"]
+			"slots": ["heal", "fire_ring", "", "blood_storm", "blood_sacrifice"]
 		},
 		"skills": { },
 		"look": {
@@ -55,7 +31,9 @@ var characters = {
 	"mary": {
 		"dialogue": {
 			"name": "Mary",
-			"gender": "female"
+			"gender": "female",
+			"dialogue": "res://characters/dialogue/mary/dialogue.gd",
+			"current_dialogue": 0
 		},
 		"stats": {},
 		"experience": {

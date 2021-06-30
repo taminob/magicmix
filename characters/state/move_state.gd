@@ -21,7 +21,7 @@ var immovable: bool = false
 
 func speed_factor() -> float:
 	# todo: integrate experience system
-	return 1.0 * (1.0 * (int(state.is_spirit) + 1))
+	return 1.0 * (int(state.is_spirit) * 2.0 + 1)
 
 enum move_mode {RUNNING, WALKING, SPRINTING}
 var current_mode = move_mode.RUNNING
@@ -35,7 +35,7 @@ func max_speed() -> float:
 	return WALK_SPEED * speed_factor()
 
 func can_move() -> bool:
-	return (!stats.dead || game.levels.current_level_death_realm) && !immovable
+	return (!stats.dead || stats.undead || game.levels.current_level_death_realm) && !immovable
 
 var _move_direction: Vector3 = Vector3.ZERO
 func move_process(delta: float):
@@ -74,7 +74,7 @@ func _move_normal(delta: float):
 
 func _move_spirit(delta: float):
 	if(jump_requested):
-		spirit_velocity = character.spirit.global_transform.basis.z
+		spirit_velocity = -character.spirit.global_transform.basis.z
 		spirit_velocity *= 200
 		jump_requested = false
 	else:

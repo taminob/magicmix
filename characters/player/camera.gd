@@ -38,7 +38,7 @@ func _input(event: InputEvent):
 	if(event is InputEventMouseMotion):
 		var character = get_parent()
 		if(character && rotation_axes.x > 0 && !_free_rotate):
-			character.rotation.x = clamp(character.rotation.x + event.relative.y * vertical_sensitivity, min_pitch, max_pitch)
+			character.rotation.x = clamp(character.rotation.x - event.relative.y * vertical_sensitivity, min_pitch, max_pitch)
 		else:
 			rotation.x = clamp(rotation.x - event.relative.y * vertical_sensitivity, min_pitch, max_pitch)
 		if(character && rotation_axes.y > 0 && !_free_rotate):
