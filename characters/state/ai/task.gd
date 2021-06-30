@@ -22,31 +22,35 @@ func _ready():
 
 func init_children():
 	for x in get_children():
-		x.init()
+		if(x as task):
+			x.init()
 
 func cancel():
-#	for x in get_children():
-#		x.cancel()
-	_root_status = task_status.CANCEL
+	for x in get_children():
+		if(x as task):
+			x.cancel()
+	_status = task_status.CANCEL
 
 # implement init if task changes state in _run
 func init():
-	pass
+	_status = task_status.NEW
 
 # implement task here
 func _run(_delta: float) -> int:
+	if(_status == task_status.CANCEL):
+		return task_status.CANCEL
 	return task_status.SUCCESS
 
-var _root_status: int = task_status.NEW
+var _status: int = task_status.NEW
 func run(delta: float) -> int:
-	if(_root_status == task_status.RUNNING):
-		_root_status = _run(delta)
-	return _root_status
+	if(_status == task_status.RUNNING):
+		_status = _run(delta)
+	return _status
 
 func start(controlled_character: character):
 	reset()
 	pawn = controlled_character
-	_root_status = task_status.RUNNING
+	_status = task_status.RUNNING
 
 func reset():
 	cancel()

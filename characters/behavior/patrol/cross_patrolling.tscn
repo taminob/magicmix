@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://characters/state/ai/tasks/move.gd" type="Script" id=1]
+[ext_resource path="res://characters/state/ai/repeat.gd" type="Script" id=2]
+[ext_resource path="res://characters/state/ai/sequence.gd" type="Script" id=3]
+[ext_resource path="res://characters/state/ai/tasks/turn.gd" type="Script" id=4]
+[ext_resource path="res://characters/state/ai/tasks/wait.gd" type="Script" id=5]
+
+[node name="repeat" type="Node"]
+script = ExtResource( 2 )
+
+[node name="sequence" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="repeat" type="Node" parent="sequence"]
+script = ExtResource( 2 )
+times = 2
+
+[node name="sequence" type="Node" parent="sequence/repeat"]
+script = ExtResource( 3 )
+
+[node name="move" type="Node" parent="sequence/repeat/sequence"]
+script = ExtResource( 1 )
+move_mode = 1
+
+[node name="wait" type="Node" parent="sequence/repeat/sequence"]
+script = ExtResource( 5 )
+wait_time = 2.0
+
+[node name="turn" type="Node" parent="sequence/repeat/sequence"]
+script = ExtResource( 4 )
+turn_degrees = 180.0
+
+[node name="turn" type="Node" parent="sequence"]
+script = ExtResource( 4 )
+turn_degrees = 90.0
+
+[node name="move" type="Node" parent="sequence"]
+script = ExtResource( 1 )
+direction = Vector3( 0, 0, 0 )
+
+[node name="wait" type="Node" parent="sequence"]
+script = ExtResource( 5 )
+wait_time = 2.0

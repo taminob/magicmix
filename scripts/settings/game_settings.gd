@@ -5,11 +5,10 @@ var options = {
 	"difficulty": 0
 }
 
-# warning-ignore:unused_argument
-func set_options(settings):
-	#set difficulty
+func set_options(_settings):
+	#todo: implement and set difficulty
 	pass
 
-# warning-ignore:unused_argument
-func set_difficulty(god_mode):
+func set_difficulty(_difficulty):
+	#todo: implement
 	pass

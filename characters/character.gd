@@ -47,7 +47,6 @@ func _physics_process(delta: float):
 	move.collide_process(delta)
 	_update_ui()
 
-# warning-ignore:unused_class_variable
 var interaction_name: String = "Talk"
 func interact(interactor: Node):
 	interactor.dialogue.start_dialogue(dialogue)

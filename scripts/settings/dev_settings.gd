@@ -5,11 +5,10 @@ var options = {
 	"god_mode": false
 }
 
-# warning-ignore:unused_argument
-func set_options(settings):
-	#set god mode
+func set_options(_settings):
+	#todo: implement
 	pass
 
-# warning-ignore:unused_argument
-func set_god_mode(god_mode):
+func set_god_mode(_god_mode):
+	#todo: implement
 	pass
