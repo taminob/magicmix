@@ -3,6 +3,7 @@ extends move
 class_name move_to
 
 export var location: Vector3 = Vector3.ZERO
+export var radius: float = 1
 #export(move_state.move_mode) var move_mode: int = move_state.move_mode.RUNNING
 
 func _run(delta: float) -> int:
@@ -12,10 +13,12 @@ func _run(delta: float) -> int:
 		return task_status.CANCEL
 	# todo: use nav mesh
 	#pawn.move.input_direction = pawn.translation.direction_to(location)
-	direction = pawn.translation.direction_to(location)
+	pawn.look_at(location, Vector3.UP)
+	direction = Vector3.FORWARD
 # warning-ignore:return_value_discarded
 	._run(delta)
-	if(pawn.translation.is_equal_approx(location)):
+	if(pawn.translation.distance_squared_to(location) <= radius * radius):
+		pawn.move.input_direction = Vector3.ZERO
 		return task_status.SUCCESS
 	else:
 		return task_status.RUNNING

@@ -22,7 +22,7 @@ var characters = {
 			"skills": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
 			"slots": ["heal", "fire_ring", "", "blood_storm", "blood_sacrifice"]
 		},
-		"skills": { },
+		"skills": {},
 		"look": {
 			"mesh": "res://characters/meshes/patrol/body.tscn"
 		},
@@ -46,7 +46,7 @@ var characters = {
 		"move": {
 			"translations": {}
 		},
-		"inventory": { },
+		"inventory": {},
 		"skills": {},
 		"look": {
 			"mesh": "res://characters/meshes/default/body.tscn"
@@ -72,11 +72,26 @@ var characters = {
 			"concentration": 1,
 			"endurance": 1
 		},
-		"move": {
-			"translations": {}
+		"look": {
+			"mesh": "res://characters/meshes/patrol/body.tscn"
 		},
-		"inventory": { },
-		"skills": {},
+		"behavior": "res://characters/behavior/guenther/behavior.tscn"
+	},
+	"vladimir": {
+		"dialogue": {
+			"name": "Vlad",
+			"gender": "male",
+			"dialogue": "res://characters/dialogue/vladimir/dialogue.gd",
+			"current_dialogue": 0
+		},
+		"stats": {},
+		"experience": {
+			"intelligence": 1,
+			"strength": 1,
+			"sturdiness": 1,
+			"concentration": 1,
+			"endurance": 1
+		},
 		"look": {
 			"mesh": "res://characters/meshes/patrol/body.tscn"
 		},

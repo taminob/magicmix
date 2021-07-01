@@ -1,0 +1,69 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://characters/state/ai/tasks/wait.gd" type="Script" id=1]
+[ext_resource path="res://characters/state/ai/parallel.gd" type="Script" id=2]
+[ext_resource path="res://characters/state/ai/repeat.gd" type="Script" id=3]
+[ext_resource path="res://characters/state/ai/sequence.gd" type="Script" id=4]
+[ext_resource path="res://characters/state/ai/remap.gd" type="Script" id=5]
+[ext_resource path="res://characters/state/ai/tasks/follow.gd" type="Script" id=7]
+[ext_resource path="res://characters/state/ai/tasks/raycast_hit.gd" type="Script" id=8]
+[ext_resource path="res://characters/state/ai/tasks/cancel_task.gd" type="Script" id=9]
+
+[node name="sequence" type="Node"]
+script = ExtResource( 4 )
+
+[node name="repeat" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="sequence" type="Node" parent="repeat"]
+script = ExtResource( 4 )
+
+[node name="parallel" type="Node" parent="repeat/sequence"]
+script = ExtResource( 2 )
+
+[node name="repeat" type="Node" parent="repeat/sequence/parallel"]
+script = ExtResource( 3 )
+
+[node name="wait" type="Node" parent="repeat/sequence/parallel/repeat"]
+script = ExtResource( 1 )
+wait_time = 5.0
+
+[node name="sequence" type="Node" parent="repeat/sequence/parallel"]
+script = ExtResource( 4 )
+
+[node name="remap" type="Node" parent="repeat/sequence/parallel/sequence"]
+script = ExtResource( 5 )
+return_on_fail = 2
+return_on_success = 0
+
+[node name="raycast_hit" type="Node" parent="repeat/sequence/parallel/sequence/remap"]
+script = ExtResource( 8 )
+target_path = "hans"
+
+[node name="cancel_task" type="Node" parent="repeat/sequence/parallel/sequence"]
+script = ExtResource( 9 )
+task_path = NodePath("../../repeat")
+
+[node name="parallel2" type="Node" parent="repeat/sequence"]
+script = ExtResource( 2 )
+
+[node name="follow" type="Node" parent="repeat/sequence/parallel2"]
+script = ExtResource( 7 )
+move_mode = 1
+radius = 2.0
+target_path = "hans"
+
+[node name="sequence" type="Node" parent="repeat/sequence/parallel2"]
+script = ExtResource( 4 )
+
+[node name="remap" type="Node" parent="repeat/sequence/parallel2/sequence"]
+script = ExtResource( 5 )
+return_on_success = 2
+
+[node name="raycast_hit" type="Node" parent="repeat/sequence/parallel2/sequence/remap"]
+script = ExtResource( 8 )
+target_path = "hans"
+
+[node name="cancel_task" type="Node" parent="repeat/sequence/parallel2/sequence"]
+script = ExtResource( 9 )
+task_path = NodePath("../../follow")

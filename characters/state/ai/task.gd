@@ -20,6 +20,8 @@ func _ready():
 	while !parent is character && parent:
 		parent = parent.get_parent()
 	assert(parent, "behavior tree has to be child of a character")
+	var expected_name = get_script().resource_path.get_file().split('.')[0]
+	assert(expected_name == name.substr(0, expected_name.length()))
 	pawn = parent
 	init()
 

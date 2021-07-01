@@ -1,21 +1,10 @@
 [gd_scene load_steps=7 format=2]
 
+[ext_resource path="res://world/objects/stone/stone.shader" type="Shader" id=1]
+
 [sub_resource type="CapsuleMesh" id=1]
 radius = 0.4
 mid_height = 0.5
-
-[sub_resource type="Shader" id=3]
-code = "shader_type spatial;
-render_mode blend_mix;
-
-uniform sampler2D noise;
-
-void fragment()
-{
-	float noise_lod = 1.;
-	ALBEDO = vec3(0.3) * textureLod(noise, UV, noise_lod).xyz;
-	ALPHA = 1.;
-}"
 
 [sub_resource type="OpenSimplexNoise" id=5]
 
@@ -24,7 +13,7 @@ seamless = true
 noise = SubResource( 5 )
 
 [sub_resource type="ShaderMaterial" id=4]
-shader = SubResource( 3 )
+shader = ExtResource( 1 )
 shader_param/noise = SubResource( 6 )
 
 [sub_resource type="CapsuleShape" id=2]
