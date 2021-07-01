@@ -4,8 +4,9 @@
 
 [sub_resource type="BoxShape" id=2]
 
-[node name="cube" type="CSGMesh"]
+[node name="cube" type="MeshInstance"]
 mesh = SubResource( 1 )
+material/0 = null
 
 [node name="static" type="StaticBody" parent="."]
 

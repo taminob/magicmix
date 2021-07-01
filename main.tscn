@@ -53,4 +53,3 @@ mouse_filter = 1
 [node name="pause_menu" parent="." instance=ExtResource( 2 )]
 
 [node name="console" parent="." instance=ExtResource( 1 )]
-visible = false

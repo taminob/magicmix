@@ -58,7 +58,7 @@ func set_object_active(target: Area, active:bool=true):
 func can_reach_caster(target: Area) -> bool:
 	if(can_spawn_behind_walls):
 		return true
-	var result = get_world().direct_space_state.intersect_ray(target.global_transform.origin, _caster.global_transform.origin)
+	var result = get_world().direct_space_state.intersect_ray(target.global_transform.origin, _caster.global_body_center())
 	return result && result["collider"] == _caster
 
 func spawn_object(spawn_time:float=0.0, id:int=_objects.size()):

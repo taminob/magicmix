@@ -4,7 +4,7 @@ class_name character
 
 #warning-ignore-all:unused_class_variable
 
-#onready var collision = $"collision"
+onready var collision = $"collision"
 onready var health_bar: Node = $"health_bar"
 
 var spirit: KinematicBody = null
@@ -62,6 +62,9 @@ func die():
 func revive():
 	errors.log("revive: " + name)
 	stats.revive()
+
+func global_body_center() -> Vector3:
+	return global_transform.origin + global_transform.basis.y * look.body_height / 2
 
 func _update_ui():
 	if(state.is_player):

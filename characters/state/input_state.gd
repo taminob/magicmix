@@ -32,6 +32,10 @@ func move_input(event: InputEvent):
 	elif(event.is_action_released("sprint") && move.current_mode == move.move_mode.SPRINTING ||
 		event.is_action_released("walk") && move.current_mode == move.move_mode.WALKING):
 		move.current_mode = move.move_mode.RUNNING
+	# todo: implement crouching
+	#if(event.is_action_pressed("crouch") && move.is_crouching || 
+	#	event.is_action_released("crouch") && !move.is_crouching):
+	#	move.toggle_crouch()
 
 # todo: tbd: move camera on mouse move here?
 #func camera_input(event):
