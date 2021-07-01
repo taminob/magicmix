@@ -16,4 +16,4 @@ func _on_trigger_body_entered(body, name):
 	body.translation = player_spawn.translation
 	game.char_data[name]["move"]["translations"].clear()
 	game.mgmt.player_name = name
-	game.levels.change_level("intro")
+	game.levels.change_level("debug1")

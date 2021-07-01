@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
+[ext_resource path="res://menu/console/console.tscn" type="PackedScene" id=1]
 [ext_resource path="res://menu/pause_menu/pause_menu.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ui/ui.tscn" type="PackedScene" id=3]
 [ext_resource path="res://world/world.tscn" type="PackedScene" id=4]
 
-[sub_resource type="Shader" id=3]
+[sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
 
 void fragment()
@@ -14,7 +15,7 @@ void fragment()
 }"
 
 [sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 3 )
+shader = SubResource( 1 )
 
 [node name="main" type="Control"]
 anchor_right = 1.0
@@ -50,3 +51,6 @@ render_target_update_mode = 3
 mouse_filter = 1
 
 [node name="pause_menu" parent="." instance=ExtResource( 2 )]
+
+[node name="console" parent="." instance=ExtResource( 1 )]
+visible = false

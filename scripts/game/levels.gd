@@ -9,8 +9,16 @@ var levels = {
 		"path": "res://world/levels/death_realm/level.tscn",
 		"death_realm": true
 	},
-	"palace": {
-		"path": "res://world/levels/palace/level.tscn",
+	"debug1": {
+		"path": "res://world/levels/debug1/level.tscn",
+		"death_realm": false
+	},
+	"debug_death1": {
+		"path": "res://world/levels/debug_death1/level.tscn",
+		"death_realm": true
+	},
+	"debug2": {
+		"path": "res://world/levels/debug2/level.tscn",
 		"death_realm": false
 	}
 }
@@ -31,14 +39,14 @@ func change_level(level_name: String):
 	current_level = load(levels[level_name]["path"]).instance()
 	current_level_death_realm = levels[level_name].get("death_realm", false)
 	current_level.name = "level"
-	var spawn = current_level.get_node_or_null("player_spawn")
-	spawn = spawn.translation if(spawn != null) else game.mgmt.player.translation
 	var new_player = current_level.get_node_or_null(game.mgmt.player_name)
 	if(new_player):
 		game.mgmt.call_deferred("make_player", new_player)
 	else:
 		game.mgmt.create_player()
-		game.mgmt.player.translation = spawn
+		var spawn = current_level.get_node_or_null("player_spawn")
+		if(spawn):
+			game.mgmt.player.translation = spawn.translation
 		current_level.call_deferred("add_child", game.mgmt.player)
 	errors.log("change level: " + current_level_name)
 	world.call_deferred("add_child", current_level)

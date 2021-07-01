@@ -15,7 +15,7 @@ __meta__ = {
 
 [node name="layout" type="VBoxContainer" parent="."]
 margin_right = 1920.0
-margin_bottom = 135.0
+margin_bottom = 436.0
 size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false
@@ -23,11 +23,22 @@ __meta__ = {
 
 [node name="godmode" type="HBoxContainer" parent="layout"]
 margin_right = 1920.0
-margin_bottom = 135.0
+margin_bottom = 143.0
 
 [node name="godmode_check" type="CheckBox" parent="layout/godmode"]
-margin_right = 488.0
-margin_bottom = 135.0
+margin_right = 516.0
+margin_bottom = 143.0
 text = "God Mode"
 
+[node name="console" type="HBoxContainer" parent="layout"]
+margin_top = 293.0
+margin_right = 1920.0
+margin_bottom = 436.0
+
+[node name="console_check" type="CheckBox" parent="layout/console"]
+margin_right = 917.0
+margin_bottom = 143.0
+text = "Developer Console"
+
 [connection signal="toggled" from="layout/godmode/godmode_check" to="." method="_on_godmode_check_toggled"]
+[connection signal="toggled" from="layout/console/console_check" to="." method="_on_console_check_toggled"]

@@ -14,8 +14,6 @@ var _affected_bodies: Array = []
 onready var _caster: character = $".."
 var _caster_affected: bool = false
 var _default_collision_mask: int = game.mgmt.layer.characters  | game.mgmt.layer.enemies | game.mgmt.layer.spells
-#var _raycast: RayCast # todo: remove manual raycast from script
-#var _raycast_collision_mask: int = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3) | (1 << 4)
 
 # override for custom placement; return position
 func first_object_position(_object: Area, _object_id: int) -> Vector3:
@@ -33,9 +31,6 @@ func _ready():
 	add_child(spawn_timer)
 	spawn_timer.set_one_shot(true)
 	errors.error_test(spawn_timer.connect("timeout", self, "spawn_object"))
-	#_raycast = RayCast.new()
-	#_raycast.collision_mask = _raycast_collision_mask
-	#add_child(_raycast)
 
 func _physics_process(delta: float):
 	if(!spell || !example_object):
@@ -63,17 +58,8 @@ func set_object_active(target: Area, active:bool=true):
 func can_reach_caster(target: Area) -> bool:
 	if(can_spawn_behind_walls):
 		return true
-	#var result = get_world().direct_space_state.intersect_ray(target.global_transform.origin, _caster.global_transform.origin)
-	#return result && result["collider"] == _caster
-	var raycast = _caster.get_node("raycast")
-	raycast.cast_to = raycast.to_local(target.global_transform.origin)
-	raycast.force_raycast_update()
-	var result = raycast.get_collider()
-	return result == _caster
-	#_raycast.translation = target.translation
-	#_raycast.cast_to = target.translation.direction_to(Vector3.ZERO) * radius * 2
-	#_raycast.force_raycast_update()
-	#return _raycast.get_collider() == _caster
+	var result = get_world().direct_space_state.intersect_ray(target.global_transform.origin, _caster.global_transform.origin)
+	return result && result["collider"] == _caster
 
 func spawn_object(spawn_time:float=0.0, id:int=_objects.size()):
 	if(_objects.size() >= amount):

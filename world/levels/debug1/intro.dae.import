@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/stairs.dae-187b0b0a350fa70c615e80417dcdb24e.scn"
+path="res://.import/intro.dae-fd2f776d54143abd3c0451053345a383.scn"
 
 [deps]
 
-source_file="res://world/objects/stairs/stairs.dae"
-dest_files=[ "res://.import/stairs.dae-187b0b0a350fa70c615e80417dcdb24e.scn" ]
+source_file="res://world/levels/debug1/intro.dae"
+dest_files=[ "res://.import/intro.dae-fd2f776d54143abd3c0451053345a383.scn" ]
 
 [params]
 
@@ -16,7 +16,7 @@ nodes/root_name="Scene Root"
 nodes/root_scale=1.0
 nodes/custom_script=""
 nodes/storage=0
-nodes/use_legacy_names=false
+nodes/use_legacy_names=true
 materials/location=1
 materials/storage=1
 materials/keep_on_reimport=true
@@ -25,13 +25,13 @@ meshes/ensure_tangents=true
 meshes/storage=0
 meshes/light_baking=0
 meshes/lightmap_texel_size=0.1
-skins/use_named_skins=false
-external_files/store_in_subdir=true
+skins/use_named_skins=true
+external_files/store_in_subdir=false
 animation/import=true
 animation/fps=15
 animation/filter_script=""
-animation/storage=1
-animation/keep_custom_tracks=true
+animation/storage=false
+animation/keep_custom_tracks=false
 animation/optimizer/enabled=true
 animation/optimizer/max_linear_error=0.05
 animation/optimizer/max_angular_error=0.01

@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/palace.dae-f3418b2d3c2f045054bd518bf5265eac.scn"
+path="res://.import/palace.dae-564b0b000744fa645c399f4f85d4fdf9.scn"
 
 [deps]
 
-source_file="res://world/levels/palace/palace.dae"
-dest_files=[ "res://.import/palace.dae-f3418b2d3c2f045054bd518bf5265eac.scn" ]
+source_file="res://world/levels/debug2/palace.dae"
+dest_files=[ "res://.import/palace.dae-564b0b000744fa645c399f4f85d4fdf9.scn" ]
 
 [params]
 
