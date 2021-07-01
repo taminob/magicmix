@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://world/objects/stone/stone.shader" type="Shader" id=1]
+[ext_resource path="res://world/shaders/stone.shader" type="Shader" id=1]
 
 [sub_resource type="CapsuleMesh" id=1]
 radius = 0.4

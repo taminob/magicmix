@@ -5,7 +5,7 @@
 
 [node name="level" type="Spatial"]
 
-[node name="level" parent="." instance=ExtResource( 2 )]
+[node name="environment" parent="." instance=ExtResource( 2 )]
 
 [node name="player_spawn" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32.2038, 1.72577, 0 )

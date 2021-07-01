@@ -7,5 +7,5 @@ void fragment()
 {
 	float noise_lod = 1.;
 	ALBEDO = vec3(0.3) * textureLod(noise, UV, noise_lod).xyz;
-	ALPHA = 1.;
+	//ALPHA = 1.;
 }

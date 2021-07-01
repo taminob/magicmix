@@ -13,7 +13,10 @@ func _run(delta: float) -> int:
 		return task_status.CANCEL
 	# todo: use nav mesh
 	#pawn.move.input_direction = pawn.translation.direction_to(location)
-	pawn.look_at(location, Vector3.UP)
+	if(pawn.state.is_spirit):
+		pawn.spirit.look_at(location, pawn.spirit.transform.basis.y)
+	else:
+		pawn.look_at(location, Vector3.UP)
 	direction = Vector3.FORWARD
 # warning-ignore:return_value_discarded
 	._run(delta)

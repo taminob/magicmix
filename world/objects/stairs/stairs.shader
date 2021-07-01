@@ -9,4 +9,5 @@ void vertex()
 void fragment()
 {
 	ALBEDO = VERTEX;
+	ALPHA = 1.;
 }
