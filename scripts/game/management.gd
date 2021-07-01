@@ -27,6 +27,8 @@ enum layer {
 	spells = 1 << layer_bit.spells,
 }
 
+const sight_layers = layer.default | layer.static_world | layer.objects | layer.characters | layer.enemies
+
 func is_player(node) -> bool:
 	return node == player && player
 

@@ -47,8 +47,9 @@ func answer_selected(num: int):
 
 func show_current_dialogue(other_dialogue_state: dialogue_state):
 	var other_dialogue: Dictionary = other_dialogue_state._dialogues[other_dialogue_state.current_dialogue]
+	dialogue_progress = 0
 	game.mgmt.ui.set_dialogue_text(other_dialogue["say"], other_dialogue.get("name", other_dialogue_state.display_name), other_dialogue.get("answers", []), funcref(self, "answer_selected"))
-	dialogue_length = other_dialogue["say"].length()
+	dialogue_length = other_dialogue["say"].length() # todo? dont count bbcode tags (if tags are allowed in dialogue)
 
 func end_dialogue() -> bool:
 	if(dialogue_partners.empty()):

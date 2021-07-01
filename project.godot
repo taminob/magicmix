@@ -1288,7 +1288,7 @@ scene={
 "animation/optimizer/max_linear_error": 0.05,
 "animation/optimizer/remove_unused_tracks": true,
 "animation/storage": 1,
-"external_files/store_in_subdir": true,
+"external_files/store_in_subdir": false,
 "materials/keep_on_reimport": true,
 "materials/location": 1,
 "materials/storage": 1,

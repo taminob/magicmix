@@ -2,7 +2,7 @@
 
 [ext_resource path="res://world/levels/intro/intro.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world/levels/intro/level.gd" type="Script" id=2]
-[ext_resource path="res://world/objects/box.tscn" type="PackedScene" id=3]
+[ext_resource path="res://world/objects/box/box.tscn" type="PackedScene" id=3]
 [ext_resource path="res://characters/character.tscn" type="PackedScene" id=4]
 [ext_resource path="res://characters/spirit.tscn" type="PackedScene" id=5]
 [ext_resource path="res://spells/fire/fire.tscn" type="PackedScene" id=6]

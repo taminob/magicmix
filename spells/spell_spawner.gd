@@ -63,8 +63,13 @@ func set_object_active(target: Area, active:bool=true):
 func can_reach_caster(target: Area) -> bool:
 	if(can_spawn_behind_walls):
 		return true
-	var result = get_world().direct_space_state.intersect_ray(target.global_transform.origin, _caster.global_transform.origin)
-	return result && result["collider"] == _caster
+	#var result = get_world().direct_space_state.intersect_ray(target.global_transform.origin, _caster.global_transform.origin)
+	#return result && result["collider"] == _caster
+	var raycast = _caster.get_node("raycast")
+	raycast.cast_to = raycast.to_local(target.global_transform.origin)
+	raycast.force_raycast_update()
+	var result = raycast.get_collider()
+	return result == _caster
 	#_raycast.translation = target.translation
 	#_raycast.cast_to = target.translation.direction_to(Vector3.ZERO) * radius * 2
 	#_raycast.force_raycast_update()

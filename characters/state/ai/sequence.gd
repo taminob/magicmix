@@ -15,7 +15,7 @@ func _run(delta: float) -> int:
 	if(_status == task_status.CANCEL):
 		return task_status.CANCEL
 	var current_child: task = get_child(current_child_index)
-	var current_status = current_child._run(delta)
+	var current_status: int = current_child._run(delta)
 	match current_status:
 		task_status.FAIL:
 			return task_status.FAIL

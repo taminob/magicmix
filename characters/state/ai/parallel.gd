@@ -16,7 +16,7 @@ func _run(delta: float) -> int:
 		return task_status.CANCEL
 	var i: int = 0
 	while i < current_tasks.size():
-		var current_status = current_tasks[i]._run(delta)
+		var current_status: int = current_tasks[i]._run(delta)
 		match current_status:
 			task_status.FAIL:
 				return task_status.FAIL

@@ -56,7 +56,9 @@ var characters = {
 	"guenther": {
 		"dialogue": {
 			"name": "Günther",
-			"gender": "male"
+			"gender": "male",
+			"dialogue": "res://characters/dialogue/guenther/dialogue.gd",
+			"current_dialogue": 0
 		},
 		"stats": {
 			"dead": true,

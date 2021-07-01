@@ -2,6 +2,9 @@ extends Node
 
 class_name task
 
+# todo: implement utiliy ai based system with score system for each action with a score add/sub based on each input
+# or: goap (goal-oriented action planning), so setting a goal and having actions with a set of dynamic (funcions) pre- and post-conditions
+
 enum task_status {
 	SUCCESS,
 	FAIL,
