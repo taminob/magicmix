@@ -47,7 +47,10 @@ func _physics_process(delta: float):
 	move.collide_process(delta)
 	_update_ui()
 
-var interaction_name: String = "Talk"
+var _interaction_name: String = "Talk"
+func get_interaction() -> String:
+	return _interaction_name
+
 func interact(interactor: Node):
 	interactor.dialogue.start_dialogue(dialogue)
 	dialogue.start_dialogue(interactor.dialogue)

@@ -38,7 +38,6 @@ return_on_success = 0
 
 [node name="raycast_hit" type="Node" parent="repeat/sequence/parallel/sequence/remap"]
 script = ExtResource( 8 )
-target_path = "hans"
 
 [node name="cancel_task" type="Node" parent="repeat/sequence/parallel/sequence"]
 script = ExtResource( 9 )
@@ -61,7 +60,6 @@ return_on_success = 2
 
 [node name="raycast_hit" type="Node" parent="repeat/sequence/parallel2/sequence/remap"]
 script = ExtResource( 8 )
-target_path = "hans"
 
 [node name="cancel_task" type="Node" parent="repeat/sequence/parallel2/sequence"]
 script = ExtResource( 9 )

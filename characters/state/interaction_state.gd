@@ -57,7 +57,7 @@ func _on_interact_zone_body_entered(body: Node):
 	if(body && body.has_method("interact") && body != character):
 		interact_target = body
 		if(state.is_player):
-			game.mgmt.ui.show_interaction(body.interaction_name, null)
+			game.mgmt.ui.show_interaction(body.get_interaction(), null)
 
 # todo: if there is another target still in zone, switch to it
 func _on_interact_zone_body_exited(body: Node):

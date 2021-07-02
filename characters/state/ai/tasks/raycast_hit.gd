@@ -10,6 +10,8 @@ func init():
 	.init()
 	target = game.levels.current_level.get_node(target_path)
 	assert(target, "target of raycast_hit behavior does not exist")
+	#if(!target):
+	#	_status = task_status.CANCEL
 
 func _run(_delta: float) -> int:
 	if(_status == task_status.CANCEL):
