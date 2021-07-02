@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://world/objects/portal/portal.tscn" type="PackedScene" id=1]
+[ext_resource path="res://world/shaders/stone.shader" type="Shader" id=5]
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 200, 1, 200 )
+
+[sub_resource type="OpenSimplexNoise" id=5]
+
+[sub_resource type="NoiseTexture" id=6]
+seamless = true
+noise = SubResource( 5 )
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 5 )
+shader_param/noise_lod = 1.0
+shader_param/base_color = Vector3( 0.05, 0.05, 0.05 )
+shader_param/noise = SubResource( 6 )
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 100, 0.5, 100 )
+
+[node name="environment" type="Spatial"]
+
+[node name="ground" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = SubResource( 3 )
+
+[node name="static_body" type="StaticBody" parent="ground"]
+
+[node name="collision_shape" type="CollisionShape" parent="ground/static_body"]
+shape = SubResource( 4 )
+
+[node name="boxes" type="Spatial" parent="."]
+
+[node name="portals" type="Spatial" parent="."]
+
+[node name="portal1" parent="portals" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15 )
+next_level = "intro"
+next_character_name = "hans"
+
+[node name="portal2" parent="portals" instance=ExtResource( 1 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 0, 0 )
+next_level = "intro"
+next_character_name = "mary"
+
+[node name="portal3" parent="portals" instance=ExtResource( 1 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 0, 0 )
+next_level = "intro"
+next_character_name = "vladimir"
+
+[node name="portal4" parent="portals" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15 )
+next_level = "intro"
+next_character_name = "sqlykt"
+
+[node name="walls" type="Spatial" parent="."]

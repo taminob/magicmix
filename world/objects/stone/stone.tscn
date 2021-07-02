@@ -6,17 +6,17 @@
 radius = 0.4
 mid_height = 0.5
 
-[sub_resource type="OpenSimplexNoise" id=5]
+[sub_resource type="OpenSimplexNoise" id=2]
 
-[sub_resource type="NoiseTexture" id=6]
+[sub_resource type="NoiseTexture" id=3]
 seamless = true
-noise = SubResource( 5 )
+noise = SubResource( 2 )
 
 [sub_resource type="ShaderMaterial" id=4]
 shader = ExtResource( 1 )
-shader_param/noise = SubResource( 6 )
+shader_param/noise = SubResource( 3 )
 
-[sub_resource type="CapsuleShape" id=2]
+[sub_resource type="CapsuleShape" id=5]
 radius = 0.4
 height = 0.3
 
@@ -30,4 +30,4 @@ material/0 = SubResource( 4 )
 [node name="static_body" type="StaticBody" parent="mesh_instance"]
 
 [node name="collision_shape" type="CollisionShape" parent="mesh_instance/static_body"]
-shape = SubResource( 2 )
+shape = SubResource( 5 )

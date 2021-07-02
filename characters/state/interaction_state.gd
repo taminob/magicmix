@@ -52,7 +52,6 @@ func toggle_spirit():
 			game.mgmt.camera.make_current()
 			#spirit_node.translation = Vector3(0, 2, 0)
 			#spirit_node.rotation = Vector3.ZERO
-		
 
 func _on_interact_zone_body_entered(body: Node):
 	if(body && body.has_method("interact") && body != character):

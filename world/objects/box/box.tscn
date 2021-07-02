@@ -1,44 +1,45 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://world/shaders/wood.shader" type="Shader" id=1]
 [ext_resource path="res://world/objects/box/box.gd" type="Script" id=2]
 [ext_resource path="res://world/shaders/metal.shader" type="Shader" id=3]
+[ext_resource path="res://world/objects/child_interact.gd" type="Script" id=4]
 
-[sub_resource type="CubeMesh" id=5]
+[sub_resource type="CubeMesh" id=1]
 
-[sub_resource type="OpenSimplexNoise" id=11]
+[sub_resource type="OpenSimplexNoise" id=2]
 
-[sub_resource type="NoiseTexture" id=12]
-noise = SubResource( 11 )
+[sub_resource type="NoiseTexture" id=3]
+noise = SubResource( 2 )
 
-[sub_resource type="ShaderMaterial" id=7]
+[sub_resource type="ShaderMaterial" id=4]
 shader = ExtResource( 1 )
 shader_param/noise_lod = 1.0
 shader_param/noise_scale = 1.0
-shader_param/noise = SubResource( 12 )
+shader_param/noise = SubResource( 3 )
 
-[sub_resource type="BoxShape" id=8]
+[sub_resource type="BoxShape" id=5]
 extents = Vector3( 1, 0.5, 1 )
 
-[sub_resource type="PrismMesh" id=9]
+[sub_resource type="PrismMesh" id=6]
 
-[sub_resource type="OpenSimplexNoise" id=15]
+[sub_resource type="OpenSimplexNoise" id=7]
 
-[sub_resource type="NoiseTexture" id=16]
-noise = SubResource( 15 )
+[sub_resource type="NoiseTexture" id=8]
+noise = SubResource( 7 )
 
-[sub_resource type="ShaderMaterial" id=14]
+[sub_resource type="ShaderMaterial" id=9]
 shader = ExtResource( 3 )
 shader_param/noise_lod = 5.0
 shader_param/noise_scale = 2.0
-shader_param/noise = SubResource( 16 )
+shader_param/noise = SubResource( 8 )
 
-[sub_resource type="CylinderMesh" id=17]
+[sub_resource type="CylinderMesh" id=10]
 top_radius = 0.1
 bottom_radius = 0.1
 height = 0.2
 
-[sub_resource type="ConvexPolygonShape" id=10]
+[sub_resource type="ConvexPolygonShape" id=11]
 points = PoolVector3Array( 1, 0, 1, -1, 0.4, 0, 1, 0.4, 0, 1, 0, -1, -1, 0, -1, -1, 0, 1 )
 
 [node name="box" type="Spatial"]
@@ -47,23 +48,24 @@ script = ExtResource( 2 )
 [node name="body" type="CSGMesh" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0.5, 0 )
 use_collision = true
-mesh = SubResource( 5 )
-material = SubResource( 7 )
+mesh = SubResource( 1 )
+material = SubResource( 4 )
 
 [node name="static_body" type="StaticBody" parent="body"]
+script = ExtResource( 4 )
 
 [node name="collision" type="CollisionShape" parent="body/static_body"]
 transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0 )
-shape = SubResource( 8 )
+shape = SubResource( 5 )
 
 [node name="lid" type="CSGMesh" parent="."]
 transform = Transform( -4.37114e-08, 0, 1, 0, 0.2, 0, -1, 0, -4.37114e-08, 0, 1.2, 0 )
-mesh = SubResource( 9 )
-material = SubResource( 14 )
+mesh = SubResource( 6 )
+material = SubResource( 9 )
 
 [node name="handle" type="MeshInstance" parent="lid"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.798276, -0.49533, -1.82381e-09 )
-mesh = SubResource( 17 )
+mesh = SubResource( 10 )
 material/0 = null
 
 [node name="static_body" type="StaticBody" parent="lid"]
@@ -71,4 +73,4 @@ transform = Transform( -4.37114e-08, 0, -1, 0, 5, 0, 1, 0, -4.37114e-08, 0, -6, 
 
 [node name="collision" type="CollisionShape" parent="lid/static_body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-shape = SubResource( 10 )
+shape = SubResource( 11 )
