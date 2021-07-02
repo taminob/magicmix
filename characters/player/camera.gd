@@ -31,6 +31,14 @@ func _ready():
 func make_current():
 	camera.make_current()
 
+func update_environment():
+	if(!camera):
+		return
+	if(!game.levels.current_level_death_realm):
+		camera.set_environment(preload("res://characters/player/default_environment.tres"))
+	else:
+		camera.set_environment(preload("res://characters/player/death_environment.tres"))
+
 func _input(event: InputEvent):
 	if(!camera.is_current()):
 		return

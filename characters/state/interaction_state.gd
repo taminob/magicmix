@@ -7,17 +7,12 @@ onready var character: character = $"../.."
 onready var inventory: Node = $"../inventory"
 onready var stats: Node = $"../stats"
 onready var move: Node = $"../move"
-onready var dialogue: Node = $"../dialogue"
 
 var interact_target: Node = null
 
-func interact():
-	if(dialogue.end_dialogue()):
-		return
-
-	if(!interact_target):
-		return
-	interact_target.interact(character)
+func initiate_interact():
+	if(interact_target):
+		interact_target.interact(character)
 
 func consume(item: String, remove_from_inventory:bool=true):
 	if(items.items[item]["category"] != "consumable"):
@@ -33,6 +28,7 @@ func toggle_spirit():
 		character.spirit = load("res://characters/spirit.tscn").instance()
 		character.spirit.translation = character.translation + 2 * Vector3.UP
 		character.spirit.set_name(character.name + "_spirit")
+		character.spirit.character = character
 		character.get_parent().add_child(character.spirit)
 		if(state.is_player):
 			#character.remove_child(game.mgmt.camera)
@@ -53,15 +49,15 @@ func toggle_spirit():
 			#spirit_node.translation = Vector3(0, 2, 0)
 			#spirit_node.rotation = Vector3.ZERO
 
-func _on_interact_zone_body_entered(body: Node):
-	if(body && body.has_method("interact") && body != character):
-		interact_target = body
+func _on_interact_zone_entered(body_or_area: Node):
+	if(body_or_area && body_or_area.has_method("interact") && body_or_area != character):
+		interact_target = body_or_area
 		if(state.is_player):
-			game.mgmt.ui.show_interaction(body.get_interaction(), null)
+			game.mgmt.ui.show_interaction(body_or_area.get_interaction(), null)
 
 # todo: if there is another target still in zone, switch to it
-func _on_interact_zone_body_exited(body: Node):
-	if(interact_target == body):
+func _on_interact_zone_exited(body_or_area: Node):
+	if(interact_target == body_or_area):
 		interact_target = null
 		if(state.is_player):
 			game.mgmt.ui.hide_interaction()

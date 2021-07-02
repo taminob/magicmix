@@ -47,13 +47,11 @@ func _physics_process(delta: float):
 	move.collide_process(delta)
 	_update_ui()
 
-var _interaction_name: String = "Talk"
 func get_interaction() -> String:
-	return _interaction_name
+	return "Talk"
 
 func interact(interactor: Node):
-	interactor.dialogue.start_dialogue(dialogue)
-	dialogue.start_dialogue(interactor.dialogue)
+	dialogue.dialogue_interact(interactor)
 
 func damage(dmg: float):
 	stats.damage(dmg)

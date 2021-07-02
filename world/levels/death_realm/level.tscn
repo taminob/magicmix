@@ -4,4 +4,6 @@
 
 [node name="level" type="Spatial"]
 
+[node name="player_spawn" type="Spatial" parent="."]
+
 [node name="environment" parent="." instance=ExtResource( 1 )]

@@ -46,7 +46,6 @@ func make_player(character):
 	player_name = character.name
 	player = character
 	player.call_deferred("add_child", camera)
-	#camera.make_current() todo: remove 2d
 	player.get_node("health_bar").set_visible(false)
 	_set_player_flag(player, true)
 

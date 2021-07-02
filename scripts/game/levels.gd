@@ -48,6 +48,7 @@ func change_level(level_name: String):
 		if(spawn):
 			game.mgmt.player.translation = spawn.translation
 		current_level.call_deferred("add_child", game.mgmt.player)
+	game.mgmt.camera.call_deferred("update_environment")
 	errors.log("change level: " + current_level_name)
 	world.call_deferred("add_child", current_level)
 	game.mgmt.ui.reset()

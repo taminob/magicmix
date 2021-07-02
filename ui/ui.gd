@@ -7,7 +7,7 @@ onready var focus_bar: TextureProgress = $"focus_bar"
 onready var stamina_bar: TextureProgress = $"stamina_bar"
 onready var xp_bar: ProgressBar = $"xp_bar"
 onready var slots: Control = $"slots"
-onready var dialogue: Popup = $"dialogue"
+onready var dialogue: ui_dialogue = $"dialogue"
 onready var interaction: Control = $"interaction"
 onready var debug_label: Label = $"debug_info_label"
 
@@ -55,12 +55,6 @@ func end_dialogue():
 	interaction.anchor_left = 0.35
 	interaction.anchor_right = 0.65
 	dialogue.hide()
-
-func update_dialogue(delta: float, transparency: float):
-	dialogue.update_dialogue(delta, transparency)
-
-func set_dialogue_text(text: String, speaker: String, answers:Array=[], answer_callback:FuncRef=null):
-	dialogue.set_dialogue_text(text, speaker, answers, answer_callback)
 
 # todo: interaction icon
 func show_interaction(text: String, _icon: Texture):

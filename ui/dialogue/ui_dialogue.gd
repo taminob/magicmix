@@ -1,24 +1,28 @@
 extends Popup
 
+class_name ui_dialogue
+
 onready var text: RichTextLabel = $"text"
 onready var name_text: Label = $"name_background/name"
 onready var answer_up: RichTextLabel = $"answer_up"
 onready var answer: RichTextLabel = $"answer"
 onready var answer_down: RichTextLabel = $"answer_down"
 
-var _answer_callback: FuncRef
 var selected_answer: int = 0
 var answer_data: Array = []
 
 func _unhandled_key_input(event: InputEventKey):
-	if(!is_visible() || answer_data.empty()):
+	if(!is_visible()):
 		return
+
 	if(event.is_action_pressed("ui_down")):
 		change_selected_answer(1, true)
 	elif(event.is_action_pressed("ui_up")):
 		change_selected_answer(-1, true)
 	elif(event.is_action_pressed("ui_accept")):
-		_answer_callback.call_func(answer_data[selected_answer][1])
+		if(answer_data.empty() || text.get_visible_characters() >= 0):
+			set_dialogue_progress(-1)
+		# todo: remove? (moved to character)
 	elif(event.is_action_pressed("ui_page_down")):
 		change_selected_answer(answer_data.size() - 1)
 	elif(event.is_action_pressed("ui_page_up")):
@@ -50,15 +54,20 @@ func set_answer_visible(is_visible: bool):
 	answer.set_visible(is_visible)
 	answer_down.set_visible(is_visible)
 
-func set_dialogue_text(say_text: String, speaker: String, answers:Array=[], answer_callback:FuncRef=null):
+func set_dialogue_text(say_text: String, speaker: String, answers:Array=[]):
 	name_text.set_text(speaker)
 	text.set_bbcode(say_text)
 	answer_data = answers
-	_answer_callback = answer_callback
 	set_answer_visible(!answer_data.empty())
 	change_selected_answer(0)
+	text.set_visible_characters(0)
 
-func update_dialogue(visible_chars: int, transparency:float):
+func get_current_answer_data() -> Array:
+	if(answer_data.empty()):
+		return ["", -1] # todo: refactor answer system
+	return answer_data[selected_answer]
+
+func update_dialogue(visible_chars: int, transparency: float):
 	set_transparency(transparency)
 	set_dialogue_progress(visible_chars)
 

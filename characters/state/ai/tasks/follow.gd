@@ -4,10 +4,14 @@ class_name follow
 
 # path relativ to level
 export(String) var target_path: String
+export var follow_player: bool = false
 var target
 
 func init():
-	target = game.levels.current_level.get_node(target_path)
+	if(follow_player):
+		target = game.mgmt.player
+	else:
+		target = game.levels.current_level.get_node(target_path)
 	assert(target, "target of follow behavior does not exist")
 	location = target.translation
 	.init()

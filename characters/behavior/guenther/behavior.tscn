@@ -13,9 +13,6 @@
 [node name="sequence" type="Node"]
 script = ExtResource( 4 )
 
-[node name="toggle_spirit" type="Node" parent="."]
-script = ExtResource( 6 )
-
 [node name="repeat" type="Node" parent="."]
 script = ExtResource( 3 )
 
@@ -42,11 +39,14 @@ return_on_success = 0
 
 [node name="raycast_hit" type="Node" parent="repeat/sequence/parallel/sequence/remap"]
 script = ExtResource( 8 )
-target_path = "hans"
+follow_player = true
 
 [node name="cancel_task" type="Node" parent="repeat/sequence/parallel/sequence"]
 script = ExtResource( 9 )
 task_path = NodePath("../../repeat")
+
+[node name="toggle_spirit" type="Node" parent="repeat/sequence/parallel/sequence"]
+script = ExtResource( 6 )
 
 [node name="parallel2" type="Node" parent="repeat/sequence"]
 script = ExtResource( 2 )
@@ -55,7 +55,7 @@ script = ExtResource( 2 )
 script = ExtResource( 7 )
 move_mode = 1
 radius = 2.0
-target_path = "hans"
+follow_player = true
 
 [node name="sequence" type="Node" parent="repeat/sequence/parallel2"]
 script = ExtResource( 4 )
@@ -66,8 +66,11 @@ return_on_success = 2
 
 [node name="raycast_hit" type="Node" parent="repeat/sequence/parallel2/sequence/remap"]
 script = ExtResource( 8 )
-target_path = "hans"
+follow_player = true
 
 [node name="cancel_task" type="Node" parent="repeat/sequence/parallel2/sequence"]
 script = ExtResource( 9 )
 task_path = NodePath("../../follow")
+
+[node name="toggle_spirit" type="Node" parent="repeat/sequence/parallel2/sequence"]
+script = ExtResource( 6 )

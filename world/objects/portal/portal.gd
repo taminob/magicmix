@@ -9,6 +9,12 @@ func _ready():
 	assert(game.char_data.has(next_character_name), "target character name of portal does not exist")
 	assert(game.levels.levels.has(next_level), "target level of portal does not exist")
 
+func get_interaction() -> String:
+	return game.char_data[next_character_name]["dialogue"]["name"]
+
+func interact(_interactor: character):
+	pass
+
 func _on_area_body_entered(body):
 	# todo: make revive mechanic more robust to non-existent entries in dictionaries
 	if(body == null || body != game.mgmt.player):

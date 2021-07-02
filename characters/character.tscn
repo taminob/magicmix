@@ -131,5 +131,7 @@ texture = SubResource( 9 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 1, 1 )
 
-[connection signal="body_entered" from="interact_zone" to="state/interaction" method="_on_interact_zone_body_entered"]
-[connection signal="body_exited" from="interact_zone" to="state/interaction" method="_on_interact_zone_body_exited"]
+[connection signal="area_entered" from="interact_zone" to="state/interaction" method="_on_interact_zone_entered"]
+[connection signal="area_exited" from="interact_zone" to="state/interaction" method="_on_interact_zone_exited"]
+[connection signal="body_entered" from="interact_zone" to="state/interaction" method="_on_interact_zone_entered"]
+[connection signal="body_exited" from="interact_zone" to="state/interaction" method="_on_interact_zone_exited"]

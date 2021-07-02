@@ -7,6 +7,7 @@ onready var state: Node = get_parent()
 onready var move: Node = $"../move"
 onready var skills: Node = $"../skills"
 onready var interaction: Node = $"../interaction"
+onready var dialogue: Node = $"../dialogue"
 
 func _input(event: InputEvent):
 	if(state.is_player):
@@ -46,7 +47,9 @@ func action_input(event: InputEvent):
 	if(event.is_action_pressed("toggle_spirit")):
 		interaction.toggle_spirit()
 	if(event.is_action_pressed("interact")):
-		interaction.interact()
+		interaction.initiate_interact()
+	if(event.is_action_pressed("ui_accept")):
+		dialogue.answer_selected()
 	if(event.is_action_pressed("slot0")):
 		skills.cast_slot(0)
 	if(event.is_action_pressed("slot1")):

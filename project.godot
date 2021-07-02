@@ -154,6 +154,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ui/ui.gd"
 }, {
+"base": "Popup",
+"class": "ui_dialogue",
+"language": "GDScript",
+"path": "res://ui/dialogue/ui_dialogue.gd"
+}, {
 "base": "task",
 "class": "wait",
 "language": "GDScript",
@@ -189,6 +194,7 @@ _global_script_class_icons={
 "toggle_spirit": "",
 "turn": "",
 "ui": "",
+"ui_dialogue": "",
 "wait": ""
 }
 
