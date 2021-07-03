@@ -25,8 +25,7 @@ var characters = {
 		"skills": {},
 		"look": {
 			"mesh": "res://characters/meshes/patrol/body.tscn"
-		},
-		"behavior": "res://characters/behavior/patrol/behavior.tscn"
+		}
 	},
 	"mary": {
 		"dialogue": {
@@ -46,12 +45,14 @@ var characters = {
 		"move": {
 			"translations": {}
 		},
-		"inventory": {},
+		"inventory": {
+			"skills": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
+			"slots": ["fire_ring", "heal"]
+		},
 		"skills": {},
 		"look": {
 			"mesh": "res://characters/meshes/default/body.tscn"
-		},
-		"behavior": "res://characters/behavior/vendor/behavior.tscn"
+		}
 	},
 	"guenther": {
 		"dialogue": {
@@ -74,8 +75,7 @@ var characters = {
 		},
 		"look": {
 			"mesh": "res://characters/meshes/patrol/body.tscn"
-		},
-		"behavior": "res://characters/behavior/guenther/behavior.tscn"
+		}
 	},
 	"vladimir": {
 		"dialogue": {
@@ -94,8 +94,7 @@ var characters = {
 		},
 		"look": {
 			"mesh": "res://characters/meshes/patrol/body.tscn"
-		},
-		"behavior": "res://characters/behavior/patrol/behavior.tscn"
+		}
 	},
 	"sqlykt": {
 		"dialogue": {
@@ -119,8 +118,7 @@ var characters = {
 		"skills": {},
 		"look": {
 			"mesh": "res://characters/meshes/debug/body.tscn"
-		},
-		"behavior": "res://characters/behavior/vendor/behavior.tscn"
+		}
 	},
 	"sqlay": {
 		"dialogue": {
@@ -147,7 +145,6 @@ var characters = {
 		"skills": {},
 		"look": {
 			"mesh": "res://characters/meshes/debug/body.tscn"
-		},
-		"behavior": "res://characters/behavior/patrol/behavior.tscn"
+		}
 	}
 }

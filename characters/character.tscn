@@ -77,6 +77,14 @@ script = ExtResource( 1 )
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.9, 0 )
 shape = SubResource( 1 )
 
+[node name="sight_zone" type="Area" parent="."]
+transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 1, 0 )
+
+[node name="collision" type="CollisionPolygon" parent="sight_zone"]
+transform = Transform( 1, 0, 0, 0, 1, -8.35187e-23, 0, -8.35187e-23, 1, 0, 0, 0 )
+depth = 2.0
+polygon = PoolVector2Array( 0, -0.2, 0, 0.2, 15, 10, 15, -10 )
+
 [node name="interact_zone" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0 )
 
@@ -131,6 +139,8 @@ texture = SubResource( 9 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 1, 1 )
 
+[connection signal="body_entered" from="sight_zone" to="state/ai" method="_on_sight_zone_body_entered"]
+[connection signal="body_exited" from="sight_zone" to="state/ai" method="_on_sight_zone_body_exited"]
 [connection signal="area_entered" from="interact_zone" to="state/interaction" method="_on_interact_zone_entered"]
 [connection signal="area_exited" from="interact_zone" to="state/interaction" method="_on_interact_zone_exited"]
 [connection signal="body_entered" from="interact_zone" to="state/interaction" method="_on_interact_zone_entered"]

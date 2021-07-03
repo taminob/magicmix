@@ -11,11 +11,13 @@ const DIALOGUE_SPEED = 10;
 
 var display_name: String
 var gender: String
+var job: String
 var dialogue_partners: Array
 var current_dialogue: int
 var _dialogues: Dictionary
 
 var relationships: Dictionary
+var base_relationship: float
 
 var dialogue_progress: float = 0
 var dialogue_length: int = 0
@@ -38,7 +40,7 @@ func dialogue_interact(interactor: character):
 		start_dialogue(interactor.dialogue)
 		interactor.dialogue.start_dialogue(self)
 	elif(dialogue_partners.has(interactor.dialogue)):
-		answer_selected()
+		interactor.dialogue.answer_selected() # todo: rework
 
 func is_dialogue_active() -> bool:
 	return !dialogue_partners.empty()
@@ -84,6 +86,9 @@ func end_dialogue():
 	if(state.is_player):
 		game.mgmt.ui.end_dialogue()
 
+func get_relationship(id: String) -> float:
+	return relationships.get(id, base_relationship)
+
 func save(state_dict: Dictionary):
 	var _dialogue_state = state_dict.get("dialogue", {})
 	_dialogue_state["name"] = display_name
@@ -91,6 +96,7 @@ func save(state_dict: Dictionary):
 	_dialogue_state["dialogue_partners"] = dialogue_partners
 	_dialogue_state["current_dialogue"] = current_dialogue
 	_dialogue_state["relationships"] = relationships
+	_dialogue_state["base_relationship"] = base_relationship
 	state_dict["dialogue"] = _dialogue_state
 
 func init(state_dict: Dictionary):
@@ -100,4 +106,5 @@ func init(state_dict: Dictionary):
 	dialogue_partners = _dialogue_state.get("dialogue_partners", [])
 	current_dialogue = _dialogue_state.get("current_dialogue", 0)
 	relationships = _dialogue_state.get("relationships", {})
+	base_relationship = _dialogue_state.get("base_relationship", 0)
 	_dialogues = load(_dialogue_state.get("dialogue", "res://characters/dialogue/default/dialogue.gd")).dialogue()

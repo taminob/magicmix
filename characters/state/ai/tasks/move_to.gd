@@ -16,7 +16,9 @@ func _run(delta: float) -> int:
 	if(pawn.state.is_spirit):
 		pawn.spirit.look_at(location, pawn.spirit.transform.basis.y)
 	else:
-		pawn.look_at(location, Vector3.UP)
+		pawn.look_at(Vector3(location.x, pawn.translation.y, location.z), Vector3.UP)
+
+		#pawn.look_at(location, Vector3.UP)
 	direction = Vector3.FORWARD
 # warning-ignore:return_value_discarded
 	._run(delta)
