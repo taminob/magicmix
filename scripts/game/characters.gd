@@ -47,7 +47,7 @@ var characters = {
 		},
 		"inventory": {
 			"skills": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
-			"slots": ["fire_ring", "heal"]
+			"slots": ["fire_ring", "heal", "", "", ""]
 		},
 		"skills": {},
 		"look": {
@@ -82,7 +82,8 @@ var characters = {
 			"name": "Vlad",
 			"gender": "male",
 			"dialogue": "res://characters/dialogue/vladimir/dialogue.gd",
-			"current_dialogue": 0
+			"current_dialogue": 0,
+			"job": "guard"
 		},
 		"stats": {},
 		"experience": {

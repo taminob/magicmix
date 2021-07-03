@@ -93,6 +93,7 @@ func save(state_dict: Dictionary):
 	var _dialogue_state = state_dict.get("dialogue", {})
 	_dialogue_state["name"] = display_name
 	_dialogue_state["gender"] = gender
+	_dialogue_state["job"] = job
 	_dialogue_state["dialogue_partners"] = dialogue_partners
 	_dialogue_state["current_dialogue"] = current_dialogue
 	_dialogue_state["relationships"] = relationships
@@ -103,6 +104,7 @@ func init(state_dict: Dictionary):
 	var _dialogue_state = state_dict.get("dialogue", {})
 	display_name = _dialogue_state.get("name", "")
 	gender = _dialogue_state.get("gender", "")
+	job = _dialogue_state.get("job", "")
 	dialogue_partners = _dialogue_state.get("dialogue_partners", [])
 	current_dialogue = _dialogue_state.get("current_dialogue", 0)
 	relationships = _dialogue_state.get("relationships", {})

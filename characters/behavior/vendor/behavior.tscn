@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://characters/state/ai/repeat.gd" type="Script" id=1]
-[ext_resource path="res://characters/state/ai/sequence.gd" type="Script" id=2]
-[ext_resource path="res://characters/state/ai/tasks/turn.gd" type="Script" id=3]
-[ext_resource path="res://characters/state/ai/tasks/wait.gd" type="Script" id=4]
+[ext_resource path="res://characters/state/ai/behavior_tree/repeat.gd" type="Script" id=1]
+[ext_resource path="res://characters/state/ai/behavior_tree/sequence.gd" type="Script" id=2]
+[ext_resource path="res://characters/state/ai/behavior_tree/tasks/turn.gd" type="Script" id=3]
+[ext_resource path="res://characters/state/ai/behavior_tree/tasks/wait.gd" type="Script" id=4]
 
 [node name="sequence" type="Node"]
 script = ExtResource( 2 )

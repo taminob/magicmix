@@ -23,6 +23,7 @@ func consume(item: String, remove_from_inventory:bool=true):
 
 func toggle_spirit():
 	state.is_spirit = !state.is_spirit
+	
 	if(state.is_spirit):
 		#var spirit_node: Node =  character.get_node("spirit")
 		character.spirit = load("res://characters/spirit.tscn").instance()
