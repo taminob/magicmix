@@ -3,7 +3,10 @@ extends Node
 # warning-ignore:unused_class_variable
 var options = {
 	"god_mode": false,
-	"console": false
+	"console": false,
+
+	# not visible in ui (debug settings)
+	"debug_target": "",
 }
 
 func set_options(settings):

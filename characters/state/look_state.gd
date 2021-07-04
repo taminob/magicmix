@@ -11,10 +11,10 @@ var animations: AnimationPlayer
 var body_height: float
 
 func animations_process(_delta: float):
-	if(move.input_direction.is_equal_approx(Vector3.ZERO)):
-		animations.play("idle")
-	else:
+	if(move.is_moving()):
 		animations.play("walk")
+	else:
+		animations.play("idle")
 
 func update_look():
 	if(mesh):

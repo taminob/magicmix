@@ -68,5 +68,5 @@ func save_characters():
 		character.save_state()
 		character.reset()
 
-func call_delayed(caller, method, time, param=[]):
-	errors.error_test(get_tree().create_timer(time).connect("timeout", caller, method, [param]))
+func call_delayed(caller: Object, method: String, time: float, param:Array=[]):
+	errors.error_test(get_tree().create_timer(time).connect("timeout", caller, method, param))

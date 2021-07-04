@@ -5,11 +5,10 @@ class_name talk_goal
 static func calc(know: Dictionary) -> float:
 	return know["relationship"] / 10 + 1
 
-func requirements_fulfilled() -> bool:
-	return knowledge["distance"] < 2
+func fulfilled(know:Dictionary=knowledge) -> bool:
+	return know["distance"] < 2
 
-func work_towards(delta: float) -> bool:
-	if(requirements_fulfilled()):
-		interact_action
-		return true
-	return false
+func progress(know:Dictionary=knowledge) -> float:
+	if(fulfilled(know)):
+		return FULL_PROGRESS
+	return max(0.0, FULL_PROGRESS - know["distance"])

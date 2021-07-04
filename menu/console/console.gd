@@ -13,8 +13,15 @@ var commands = {
 	},
 	"save": {
 		
+	},
+	"inspect": {
+		"handler": funcref(self, "inspect_handler"),
+		"possible": game.char_data.keys()
 	}
 }
+
+func inspect_handler(character_id: String):
+	settings.set_setting("dev", "debug_target", character_id)
 
 onready var output = $"output_background/output"
 onready var input = $"command_input"
@@ -28,12 +35,14 @@ func prepare_leave():
 	get_tree().paused = false # todo: test if unpausing here is a good idea
 
 func unpause():
+	input.clear()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	hidden = true
 	get_tree().paused = false
 	hide()
 
 func pause():
+	input.clear()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	hidden = false
 	get_tree().paused = true
@@ -58,7 +67,7 @@ func _on_command_input_text_changed(_new_text: String):
 	pass
 
 func _on_command_input_text_entered(new_text: String):
-	# todo: improve parsing and command handling
+	# todo: improve parsing and command handling; more robust and allow multiple arguments and complexer commands
 	var input_strings: PoolStringArray = new_text.to_lower().split(' ', false)
 	if(input_strings.empty()):
 		output.set_text("No command!")

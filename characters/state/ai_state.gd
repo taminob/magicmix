@@ -4,11 +4,11 @@ class_name ai_state
 
 onready var state: Node = get_parent()
 onready var character: KinematicBody = $"../.."
-onready var skills: Node = $"../skills"
-onready var stats: Node = $"../stats"
-onready var dialogue: Node = $"../dialogue"
 
 var current_goal: goal
+
+const STEPS_BEFORE_RECONSIDER = 500
+var steps: int = 0
 
 var characters_in_sight: Array = []
 
@@ -18,20 +18,34 @@ func _ready():
 	current_goal = goal.new()
 	current_goal.init(character)
 
+func reconsider():
+	consider(null)
+	for x in characters_in_sight:
+		consider(x)
+
+func consider(target:character=null):
+	current_goal = current_goal.next_goal(target)
+	steps = 0
+
 func _process(delta: float):
 	if(state.is_player):
 		return
 	if(current_goal.work_towards(delta)):
-		current_goal = current_goal.next_goal()
+		consider()
+	steps += 1
+	if(steps >= STEPS_BEFORE_RECONSIDER):
+		reconsider()
 
 func _on_sight_zone_body_entered(body: Node):
 	if(state.is_player):
 		return
 	if(body as character && body != character):
 		characters_in_sight.push_back(body)
-		current_goal = current_goal.next_goal(body)
+		consider(body)
 
 func _on_sight_zone_body_exited(body: Node):
-	if(characters_in_sight.has(body)):
-		characters_in_sight.erase(body)
-		current_goal = current_goal.next_goal()
+	if(body && characters_in_sight.has(body)):
+		 # todo: might cause problems with loops using characters_in_sight
+		game.mgmt.call_delayed(characters_in_sight, "erase", 10, [body])
+		#characters_in_sight.erase(body)
+		consider()

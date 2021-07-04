@@ -73,8 +73,16 @@ func _update_ui():
 		game.mgmt.ui.update_focus(stats.focus / stats.max_focus())
 		game.mgmt.ui.update_stamina(stats.stamina / stats.max_stamina())
 		game.mgmt.ui.update_xp(0.4)
-		game.mgmt.ui.update_debug(str(move.velocity))
 		game.mgmt.ui.update_slots()
+	if(name == settings.get_setting("dev", "debug_target")):
+		if(state.is_player):
+			game.mgmt.ui.update_debug(str(move.velocity))
+		else:
+			var current_goal = get_node("state/ai").current_goal
+			var debug_output = current_goal.get_script().get_path().get_file()
+			if(current_goal.current_action):
+				debug_output +=  ": " + current_goal.current_action.get_script().get_path().get_file()
+			game.mgmt.ui.update_debug(debug_output)
 	#health_bar.set_value((1 - stats.pain / stats.max_pain()) * 100)
 	health_bar.material = health_bar.material.duplicate()
 	health_bar.material.set_shader_param("percentage", 1 - stats.pain / stats.max_pain())

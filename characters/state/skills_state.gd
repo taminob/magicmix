@@ -3,12 +3,13 @@ extends Node
 class_name skills_state
 
 onready var character: character = $"../.."
+onready var move: Node = $"../move"
 onready var stats: Node = $"../stats"
 onready var inventory: Node = $"../inventory"
 
 var active_skills
 
-func cast(spell_id):
+func cast(spell_id: String):
 	var spell = spells.get_spell(spell_id)
 	var spell_focus = spells.get_focus(spell, "self")
 	var focus_per_second = spells.get_focus(spell, "self", true)
@@ -26,7 +27,7 @@ func cast(spell_id):
 	character.add_child(spell_scene)
 	#game.mgmt.call_delayed(spell_scene, "queue_free", spell_duration) # done via focus_per_second count
 
-func cast_slot(slot_id):
+func cast_slot(slot_id: int):
 	cast(inventory.get_skill_slot(slot_id))
 
 func cancel_spell(active_spell=[]):
@@ -42,7 +43,7 @@ func cancel_spell(active_spell=[]):
 		active_skills.erase(active_spell)
 
 func skill_process(delta: float):
-	stats.stamina = clamp(stats.stamina + stats.stamina_per_second() * delta, 0, stats.max_stamina())
+	stats.stamina = clamp(stats.stamina + (stats.stamina_per_second() - move.stamina_cost()) * delta, 0, stats.max_stamina())
 	active_skills[0] = [stats.focus_per_second(), stats.pain_per_second()]
 	var canceled_spells = []
 	for x in active_skills:
