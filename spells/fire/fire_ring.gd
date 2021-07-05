@@ -7,7 +7,7 @@ func _ready():
 	set_example_object(preload("fire.tscn").instance())
 	time = spells.get_duration(spell)
 	amount = 12
-	radius = 5
+	radius = spells.get_range(spell)
 	spawn_timer.set_wait_time(TAU / (speed * amount))
 	spawn_timer.start()
 

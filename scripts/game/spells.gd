@@ -43,6 +43,9 @@ func get_pain(spell: Dictionary, target_string: String, per_second: bool=false) 
 func get_duration(spell: Dictionary) -> float:
 	return spell.get("duration", 0.0)
 
+func get_range(spell: Dictionary) -> float:
+	return spell.get("range", 0.0)
+
 func get_icon(spell: Dictionary) -> PackedScene:
 	return spell.get("icon", load(spell_icons_path + "../empty_slot_frame-512.png"))
 
@@ -93,6 +96,7 @@ var spells = {
 			"pain": 0#-full
 		},
 		"duration": 0.5,
+		"range": 10, # todo: calc/tune actual range
 		"icon": load(spell_icons_path + "self_dark-512.png"),
 		"anim": "",
 		"scene": load(spell_scenes_path + "blood/blood_sacrifice.tscn")
@@ -115,6 +119,7 @@ var spells = {
 			"pain_per_second": 15
 		},
 		"duration": 5,
+		"range": 10,
 		"icon": load(spell_icons_path + "magma-512.png"),
 		"anim": "",
 		"scene": load(spell_scenes_path + "fire/fire_storm.tscn")
@@ -138,6 +143,7 @@ var spells = {
 			"pain_per_second": 1
 		},
 		"duration": 25,
+		"range": 5,
 		"icon": load(spell_icons_path + "fire_ring-512.png"),
 		"anim": "",
 		"scene": load(spell_scenes_path + "fire/fire_ring.tscn")
@@ -162,6 +168,7 @@ var spells = {
 			"pain_per_second": 40
 		},
 		"duration": 5,
+		"range": 10,
 		"icon": load(spell_icons_path + "blood_storm-512.png"),
 		"anim": "",
 		"scene": load(spell_scenes_path + "blood/blood_storm.tscn")

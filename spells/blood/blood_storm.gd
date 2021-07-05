@@ -4,10 +4,12 @@ var spell: Dictionary = {}
 var _affected_bodies: Array = []
 onready var _caster: Node = $".."
 var _caster_affected: bool = false
+onready var _collision = $"collision"
 #onready var collision: CollisionShape = $"collision" # todo: expand collision radius (no pre-processed particles)
 
 func _ready():
 	spell = spells.get_spell("blood_storm")
+	_collision.shape.radius = spells.get_range(spell)
 	errors.error_test(connect("body_entered", self, "_object_enter"))
 	errors.error_test(connect("body_exited", self, "_object_exit"))
 
