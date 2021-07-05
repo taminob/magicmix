@@ -26,7 +26,7 @@ func work_towards(delta: float) -> bool:
 func progress(know: Dictionary=knowledge) -> float:
 	if(fulfilled(know)):
 		return FULL_PROGRESS
-	return 0.0
+	return know["pawn"].stats.max_pain() - know["pain"]
 
 func choose_action() -> action:
 	update_knowledge(knowledge.get("target", null))
@@ -87,23 +87,28 @@ func _judge_postcondition(condition: Dictionary) -> float:
 			condition[x] = knowledge[x]
 	return progress(condition)
 
-static func load_scripts_from(path: String) -> Array:
-	var result: Array = []
-	var dir = Directory.new()
-	dir.open(path)
-	dir.list_dir_begin()
-	while true:
-		var file_name = dir.get_next()
-		if(file_name.empty()):
-			break
-		elif(file_name.begins_with(".")):
-			continue
-		result.push_back(load(path + '/' + file_name))
-	dir.list_dir_end()
-	return result
+static func _target_goals() -> Array:
+	return [
+
+	]
 
 static func _goals() -> Array:
-	return load_scripts_from("res://characters/state/ai/goals")
+	return [
+		load("res://characters/state/ai/goal.gd"),
+		load("res://characters/state/ai/goals/patrol_goal.gd"),
+		load("res://characters/state/ai/goals/talk_goal.gd"),
+		load("res://characters/state/ai/goals/kill_goal.gd"),
+		load("res://characters/state/ai/goals/flee_goal.gd"),
+	]
 
 static func _actions() -> Array:
-	return load_scripts_from("res://characters/state/ai/actions")
+	return [
+		preload("res://characters/state/ai/actions/wait_action.gd"),
+		preload("res://characters/state/ai/actions/interact_action.gd"),
+		preload("res://characters/state/ai/actions/rotate_action.gd"),
+		preload("res://characters/state/ai/actions/walk_action.gd"),
+		preload("res://characters/state/ai/actions/run_action.gd"),
+		preload("res://characters/state/ai/actions/sprint_action.gd"),
+		preload("res://characters/state/ai/actions/cast_slot0_action.gd"),
+		preload("res://characters/state/ai/actions/cast_slot1_action.gd"),
+	]
