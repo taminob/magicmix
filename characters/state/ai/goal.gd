@@ -57,12 +57,12 @@ func get_knowledge(target: character) -> Dictionary:
 		know["target"] = target
 		know["relationship"] = pawn.dialogue.get_relationship(target.name)
 		know["distance"] = pawn.global_transform.origin.distance_squared_to(target.global_transform.origin)
-		know["interacting"] = false # todo: add is_interacting to interaction state
+		know["interacting"] = know.get("interacting", false) # todo: add is_interacting to interaction state
 	else:
 		know["target"] = null
 		know["relationship"] = 0
 		know["distance"] = INF
-		know["interacting"] = false
+		know["interacting"] = know.get("interacting", false)
 	return know
 
 func next_goal(target: Node=null) -> goal:

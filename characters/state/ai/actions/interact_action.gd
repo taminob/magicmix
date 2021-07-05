@@ -17,3 +17,4 @@ static func postcondition(know: Dictionary) -> Dictionary:
 
 func do(_delta: float, know: Dictionary):
 	know["pawn"].interaction.initiate_interact()
+	know["interacting"] = !know["interacting"]

@@ -8,7 +8,7 @@ static func precondition(_know: Dictionary) -> float:
 static func postcondition(know: Dictionary) -> Dictionary:
 	var pawn = know["pawn"]
 	var target = know["pawn"]
-	var delta = 1
+	var delta = 1/60
 	var new_translation = pawn.global_transform.origin
 	var new_stamina = pawn.stats.stamina + delta * (pawn.stats.stamina_per_second() - pawn.move.stamina_cost(MOVE_MODE))
 	if(target):

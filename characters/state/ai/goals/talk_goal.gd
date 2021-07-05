@@ -5,7 +5,7 @@ class_name talk_goal
 static func calc(know: Dictionary) -> float:
 	if(!(know["target"] as character)):
 		return 0.0
-	return know["relationship"] / 10 + 1
+	return know["relationship"] / 10 + 1 - int(know["interacting"])
 
 func fulfilled(know: Dictionary=knowledge) -> bool:
 	return know["distance"] < 2 && know["interacting"]
