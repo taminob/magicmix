@@ -20,6 +20,10 @@ var levels = {
 	"debug2": {
 		"path": "res://world/levels/debug2/level.tscn",
 		"death_realm": false
+	},
+	"debug_ai": {
+		"path": "res://world/levels/debug_ai/level.tscn",
+		"death_realm": false
 	}
 }
 

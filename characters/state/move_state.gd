@@ -27,19 +27,19 @@ enum move_mode {RUNNING, WALKING, SPRINTING}
 var current_mode = move_mode.RUNNING
 var jump_requested: bool = false
 var input_direction: Vector3 = Vector3.ZERO # unnormalized input direction
-func max_speed(mode:int=current_mode) -> float:
+func max_speed(mode: int=current_mode) -> float:
 	match mode:
 		move_mode.RUNNING: return RUN_SPEED * speed_factor()
 		move_mode.WALKING: return WALK_SPEED * speed_factor()
 		move_mode.SPRINTING: return SPRINT_SPEED * speed_factor()
 	return WALK_SPEED * speed_factor()
 
-func stamina_cost(mode:int=current_mode) -> float:
+func stamina_cost(mode: int=current_mode) -> float:
 	match mode:
 		move_mode.WALKING:
 			return 0.0
 		move_mode.RUNNING:
-			return -stats.stamina_per_second()
+			return -0.8 * stats.stamina_per_second()
 		move_mode.SPRINTING:
 			return -1.5 * stats.stamina_per_second()
 	return 0.0

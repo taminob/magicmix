@@ -14,7 +14,7 @@ func initiate_interact():
 	if(interact_target):
 		interact_target.interact(character)
 
-func consume(item: String, remove_from_inventory:bool=true):
+func consume(item: String, remove_from_inventory: bool=true):
 	if(items.items[item]["category"] != "consumable"):
 		return
 	if(remove_from_inventory):

@@ -2,23 +2,13 @@ class_name goal
 
 var pawn: character
 
-var knowledge: Dictionary = {
-	"pawn": null,
-	"translation": Vector3.ZERO,
-	"pain": 0,
-	"focus": 0,
-	"stamina": 0,
-	"target": null,
-	"relationship": 0,
-	"distance": 0,
-	"interacting": false,
-}
+var knowledge: Dictionary = {}
 
 var current_action: action = null
 
 const FULL_PROGRESS: float = 100.0
 
-func fulfilled(_know:Dictionary=knowledge) -> bool:
+func fulfilled(_know: Dictionary=knowledge) -> bool:
 	return false
 
 static func calc(_know: Dictionary) -> float:
@@ -27,18 +17,19 @@ static func calc(_know: Dictionary) -> float:
 func work_towards(delta: float) -> bool:
 	if(fulfilled()):
 		return true
-	update_knowledge(knowledge["target"])
+	update_knowledge(knowledge.get("target", null))
+	knowledge["pawn"].move.input_direction = Vector3.ZERO
 	current_action = choose_action()
 	current_action.do(delta, knowledge)
 	return false
 
-func progress(know:Dictionary=knowledge) -> float:
+func progress(know: Dictionary=knowledge) -> float:
 	if(fulfilled(know)):
 		return FULL_PROGRESS
 	return 0.0
 
 func choose_action() -> action:
-	update_knowledge(knowledge["target"])
+	update_knowledge(knowledge.get("target", null))
 	var choice: Array = [-INF, -INF, null]
 	for x in _actions():
 		var pre_score = x.precondition(knowledge)
@@ -47,38 +38,45 @@ func choose_action() -> action:
 			choice = [pre_score, post_score, x]
 	return choice[2].new()
 
-func init(new_pawn: character, know:Dictionary={}):
+func init(new_pawn: character, know: Dictionary={}):
 	pawn = new_pawn
 	if(!know.empty()):
 		knowledge = know
 
 func update_knowledge(target: character):
-	knowledge["pawn"] = pawn
-	knowledge["pain"] = pawn.stats.pain
-	knowledge["focus"] = pawn.stats.focus
-	knowledge["stamina"] = pawn.stats.stamina
-	if(target):
-		knowledge["relationship"] = pawn.dialogue.get_relationship(target.name)
-		knowledge["distance"] = pawn.global_transform.origin.distance_squared_to(target.global_transform.origin)
-		knowledge["target"] = target
+	knowledge = get_knowledge(target)
 
-func next_goal(target:character=null) -> goal:
-	update_knowledge(target)
+func get_knowledge(target: character) -> Dictionary:
+	var know: Dictionary = {}
+	know["pawn"] = pawn
+	know["translation"] = pawn.global_transform.origin
+	know["pain"] = pawn.stats.pain
+	know["focus"] = pawn.stats.focus
+	know["stamina"] = pawn.stats.stamina
+	if(target):
+		know["target"] = target
+		know["relationship"] = pawn.dialogue.get_relationship(target.name)
+		know["distance"] = pawn.global_transform.origin.distance_squared_to(target.global_transform.origin)
+		know["interacting"] = false # todo: add is_interacting to interaction state
+	else:
+		know["target"] = null
+		know["relationship"] = 0
+		know["distance"] = INF
+		know["interacting"] = false
+	return know
+
+func next_goal(target: Node=null) -> goal:
+	var know = get_knowledge(target)
 	var choice = [-INF]
 	for x in _goals():
-		var score = x.calc(knowledge)
+		var score = x.calc(know)
 		if(score > choice[0]):
 			choice = [score, x]
-	if(target):
-		for x in _target_goals():
-			var score = x.calc(knowledge)
-			if(score > choice[0]):
-				choice = [score, x]
 
-	var current_score = calc(knowledge)
-	if(choice[0] * 0.5 > current_score):
+	var current_score = calc(knowledge) if !knowledge.empty() else 0
+	if(choice[0] * 0.7 > current_score):
 		var new_goal = choice[1].new()
-		new_goal.init(pawn, knowledge)
+		new_goal.init(pawn, know)
 		return new_goal
 	else:
 		return self
@@ -89,25 +87,23 @@ func _judge_postcondition(condition: Dictionary) -> float:
 			condition[x] = knowledge[x]
 	return progress(condition)
 
-static func _target_goals() -> Array:
-	return [
-		load("res://characters/state/ai/goals/talk_goal.gd"),
-		load("res://characters/state/ai/goals/kill_goal.gd"),
-	]
+static func load_scripts_from(path: String) -> Array:
+	var result: Array = []
+	var dir = Directory.new()
+	dir.open(path)
+	dir.list_dir_begin()
+	while true:
+		var file_name = dir.get_next()
+		if(file_name.empty()):
+			break
+		elif(file_name.begins_with(".")):
+			continue
+		result.push_back(load(path + '/' + file_name))
+	dir.list_dir_end()
+	return result
 
 static func _goals() -> Array:
-	return [
-		load("res://characters/state/ai/goal.gd"),
-		load("res://characters/state/ai/goals/patrol_goal.gd"),
-	]
+	return load_scripts_from("res://characters/state/ai/goals")
 
 static func _actions() -> Array:
-	return [
-		load("res://characters/state/ai/actions/interact_action.gd"),
-		load("res://characters/state/ai/actions/walk_action.gd"),
-		load("res://characters/state/ai/actions/sprint_action.gd"),
-		load("res://characters/state/ai/actions/run_action.gd"),
-		load("res://characters/state/ai/actions/wait_action.gd"),
-		load("res://characters/state/ai/actions/rotate_action.gd"),
-		load("res://characters/state/ai/actions/cast_slot0_action.gd"),
-	]
+	return load_scripts_from("res://characters/state/ai/actions")

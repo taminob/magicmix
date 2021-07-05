@@ -10,6 +10,6 @@ var boxes = {
 		"box1": ["dark_token", "deadly_poison"]
 	},
 	"intro": {
-		"box1": ["deadly_poison"],
+		"box1": ["deadly_poison", "deadly_poison"],
 	}
 }

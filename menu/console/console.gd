@@ -1,6 +1,11 @@
 extends Popup
 
 var commands = {
+	"help": {
+		"handler": funcref(self, "help_handler"),
+		"possible": [],
+		"accept_none": true
+	},
 	"load": {
 		"handler": funcref(game.levels, "change_level"),
 		"possible": game.levels.levels.keys()
@@ -9,19 +14,52 @@ var commands = {
 		"handler": funcref(self, "unpause")
 	},
 	"reload": {
-		
+		"handler": funcref(self, "reload_handler")
 	},
 	"save": {
-		
+		"handler": funcref(saves, "save")
+	},
+	"quit": {
+		"handler": funcref(self, "quit_handler")
 	},
 	"inspect": {
 		"handler": funcref(self, "inspect_handler"),
+		"possible": game.char_data.keys(),
+		"accept_none": true
+	},
+	"control": {
+		"handler": funcref(self, "control_handler"),
 		"possible": game.char_data.keys()
-	}
+	},
 }
 
-func inspect_handler(character_id: String):
+func control_handler(character_id: String):
+	game.mgmt.player_name = character_id
+	reload_handler()
+
+func inspect_handler(character_id: String=""):
+	if(!game.char_data.has(character_id)):
+		character_id = ""
 	settings.set_setting("dev", "debug_target", character_id)
+	settings.save_settings() # TODO: remove, just for debugging
+
+func reload_handler():
+	game.levels.change_level(game.levels.current_level_name)
+
+func quit_handler(force: bool=false):
+	saves.save()
+	get_tree().quit()
+
+func help_handler(command: String="", clear_output: bool=true):
+	var new_text: String = "" if clear_output else output.get_text() + '\n'
+	if(command.empty()):
+		new_text += "Available commands:\n" + str(commands.keys())
+	else:
+		var command_entry = commands.get(command)
+		if(!command_entry):
+			invalid_argument("help")
+		new_text += "Possible arguments for '" + command + ": " + str(command_entry.get("possible", []))
+	output.set_text(new_text)
 
 onready var output = $"output_background/output"
 onready var input = $"command_input"
@@ -62,31 +100,38 @@ func _input(event: InputEvent):
 		else:
 			unpause()
 
+func invalid_command():
+	output.set_text("Invalid command! Did you try 'help'?")
+
+func invalid_argument(command: String):
+	output.set_text("Invalid argument!")
+	help_handler(command, false)
+
 func _on_command_input_text_changed(_new_text: String):
 	# todo: autocompletion and suggestions
 	pass
 
 func _on_command_input_text_entered(new_text: String):
 	# todo: improve parsing and command handling; more robust and allow multiple arguments and complexer commands
+	commands["help"]["possible"] = commands.keys()
 	var input_strings: PoolStringArray = new_text.to_lower().split(' ', false)
 	if(input_strings.empty()):
-		output.set_text("No command!")
 		return
 	var command = commands.get(input_strings[0])
 	if(!command):
-		output.set_text("Command not found!")
+		invalid_command()
 		return
 	var handler = command.get("handler")
 	if(!handler):
 		output.set_text("Internal error: no command handler found!")
 		return
 	var possible_args = command.get("possible")
-	if(possible_args):
-		if(input_strings.size() > 1 && possible_args.has(input_strings[1])):
-			handler.call_func(input_strings[1])
-		else:
-			output.set_text("Invalid argument!\nPossible arguments: " + str(possible_args))
-			return
-	else:
+	var accept_none = command.get("accept_none")
+	if(input_strings.size() < 2 && (accept_none || !possible_args || possible_args.empty())):
 		handler.call_func()
+	elif(input_strings.size() > 1 && possible_args.has(input_strings[1])):
+		handler.call_func(input_strings[1])
+	else:
+		invalid_argument(input_strings[0])
+		return
 	input.clear()

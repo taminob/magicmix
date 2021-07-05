@@ -51,7 +51,7 @@ func _physics_process(delta: float):
 	if(_caster_affected):
 		_caster.damage(spells.get_pain(spell, "self", true) * delta)
 
-func set_object_active(target: Area, active:bool=true):
+func set_object_active(target: Area, active: bool=true):
 	target.set_visible(active)
 	target.collision_mask = _default_collision_mask if active else 0
 
@@ -61,7 +61,7 @@ func can_reach_caster(target: Area) -> bool:
 	var result = get_world().direct_space_state.intersect_ray(target.global_transform.origin, _caster.global_body_center())
 	return result && result["collider"] == _caster
 
-func spawn_object(spawn_time:float=0.0, id:int=_objects.size()):
+func spawn_object(spawn_time: float=0.0, id: int=_objects.size()):
 	if(_objects.size() >= amount):
 		return
 	var new_object: Area = example_object.duplicate()

@@ -21,7 +21,7 @@ func get_category(spell: Dictionary) -> String:
 	return spell.get("category", "")
 
 # target: "self" or "target"
-func get_focus(spell: Dictionary, target_string: String, per_second:bool=false) -> float:
+func get_focus(spell: Dictionary, target_string: String, per_second: bool=false) -> float:
 	var x = spell.get(target_string, null)
 	if(x == null):
 		return 0.0
@@ -31,7 +31,7 @@ func get_focus(spell: Dictionary, target_string: String, per_second:bool=false) 
 		return x.get("focus", 0.0)
 
 # target: "self" or "target"
-func get_pain(spell: Dictionary, target_string: String, per_second:bool=false) -> float:
+func get_pain(spell: Dictionary, target_string: String, per_second: bool=false) -> float:
 	var x = spell.get(target_string, null)
 	if(x == null):
 		return 0.0

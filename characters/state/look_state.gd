@@ -24,7 +24,7 @@ func update_look():
 			material.set("albedo_color", Color(0.9, 0.9, 0.2))
 			mesh.material_override = material
 
-func set_mesh(path:String=_default_mesh_path):
+func set_mesh(path: String=_default_mesh_path):
 	if(mesh):
 		mesh.queue_free()
 	mesh = load(path).instance()
@@ -32,7 +32,7 @@ func set_mesh(path:String=_default_mesh_path):
 	character.add_child(mesh)
 	animations = mesh.get_node("animations")
 
-func set_height(new_height:float=body_height):
+func set_height(new_height: float=body_height):
 	# todo: rotate collision if width > height
 	var width = character.collision.shape.radius * 2
 	character.collision.shape.height = new_height - width

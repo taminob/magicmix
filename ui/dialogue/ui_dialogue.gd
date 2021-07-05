@@ -28,7 +28,7 @@ func _unhandled_key_input(event: InputEventKey):
 	elif(event.is_action_pressed("ui_page_up")):
 		change_selected_answer(0)
 
-func change_selected_answer(num: int, offset:bool=false):
+func change_selected_answer(num: int, offset: bool=false):
 	set_dialogue_progress(-1)
 	num = selected_answer + num if offset else num
 	if(num >= answer_data.size()):
@@ -54,7 +54,7 @@ func set_answer_visible(is_visible: bool):
 	answer.set_visible(is_visible)
 	answer_down.set_visible(is_visible)
 
-func set_dialogue_text(say_text: String, speaker: String, answers:Array=[]):
+func set_dialogue_text(say_text: String, speaker: String, answers: Array=[]):
 	name_text.set_text(speaker)
 	text.set_bbcode(say_text)
 	answer_data = answers
