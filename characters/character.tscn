@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://characters/character.gd" type="Script" id=1]
 [ext_resource path="res://characters/state/state.gd" type="Script" id=2]
@@ -12,6 +12,8 @@
 [ext_resource path="res://characters/state/look_state.gd" type="Script" id=10]
 [ext_resource path="res://characters/state/input_state.gd" type="Script" id=11]
 [ext_resource path="res://characters/state/interaction_state.gd" type="Script" id=12]
+[ext_resource path="res://characters/state/ai/planner.gd" type="Script" id=13]
+[ext_resource path="res://characters/state/ai/ai_machine.gd" type="Script" id=14]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.4
@@ -124,6 +126,12 @@ script = ExtResource( 11 )
 
 [node name="ai" type="Node" parent="state"]
 script = ExtResource( 9 )
+
+[node name="planner" type="Node" parent="state/ai"]
+script = ExtResource( 13 )
+
+[node name="ai_machine" type="Node" parent="state/ai"]
+script = ExtResource( 14 )
 
 [node name="health_bar" type="CSGMesh" parent="."]
 transform = Transform( 1.25, 0, 0, 0, 0.25, 0, 0, 0, 0.1, 0, 2.18982, 0 )

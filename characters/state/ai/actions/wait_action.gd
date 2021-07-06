@@ -1,10 +1,13 @@
 extends action
 
-static func precondition(_know: Dictionary) -> float:
-	return action.PERFECT_SCORE
+static func precondition() -> int:
+	return 0
 
-static func postcondition(know: Dictionary) -> Dictionary:
-	return know
+static func postcondition() -> int:
+	return 0
 
-func do(_delta: float, know: Dictionary):
-	know["pawn"].move.input_direction = Vector3.ZERO
+func get_range_state() -> int:
+	return range_state.no_range_required
+
+func do():
+	pass

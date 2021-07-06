@@ -23,7 +23,7 @@ func get_category(spell: Dictionary) -> String:
 # target: "self" or "target"
 func get_focus(spell: Dictionary, target_string: String, per_second: bool=false) -> float:
 	var x = spell.get(target_string, null)
-	if(x == null):
+	if(!x):
 		return 0.0
 	if(per_second):
 		return x.get("focus_per_second", 0.0)
@@ -33,7 +33,7 @@ func get_focus(spell: Dictionary, target_string: String, per_second: bool=false)
 # target: "self" or "target"
 func get_pain(spell: Dictionary, target_string: String, per_second: bool=false) -> float:
 	var x = spell.get(target_string, null)
-	if(x == null):
+	if(!x):
 		return 0.0
 	if(per_second):
 		return x.get("pain_per_second", 0.0)
@@ -41,10 +41,10 @@ func get_pain(spell: Dictionary, target_string: String, per_second: bool=false) 
 		return x.get("pain", 0.0)
 
 func get_duration(spell: Dictionary) -> float:
-	return spell.get("duration", 0.0)
+	return spell.get("duration", -1.0)
 
 func get_range(spell: Dictionary) -> float:
-	return spell.get("range", 0.0)
+	return spell.get("range", -1.0)
 
 func get_icon(spell: Dictionary) -> PackedScene:
 	return spell.get("icon", load(spell_icons_path + "../empty_slot_frame-512.png"))
@@ -90,10 +90,10 @@ var spells = {
 		"description": "Sacrifice your own life (or an innocent creature) to revive the nearest ally!",
 		"category": "blood",
 		"self": {
-			"pain": 0#full
+			"pain": 0 # todo: full, currently done in scene
 		},
 		"target": {
-			"pain": 0#-full
+			"pain": 0 # todo: -full, currently done in scene
 		},
 		"duration": 0.5,
 		"range": 10, # todo: calc/tune actual range

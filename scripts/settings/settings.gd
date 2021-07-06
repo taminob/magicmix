@@ -1,6 +1,6 @@
 extends Node
 
-const CONFIG_PATH = "res://settings.cfg" # use user:// for user directory
+const CONFIG_PATH = "res://settings.cfg" # todo: use user:// for user directory
 var _config_file = ConfigFile.new()
 var _settings = {
 	"game": game_settings.options,

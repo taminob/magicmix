@@ -10,6 +10,8 @@ onready var inventory: Node = $"../inventory"
 var active_skills
 
 func cast(spell_id: String):
+	if(!inventory.skills.has(spell_id)):
+		return
 	var spell = spells.get_spell(spell_id)
 	var spell_focus = spells.get_focus(spell, "self")
 	var focus_per_second = spells.get_focus(spell, "self", true)
@@ -25,7 +27,6 @@ func cast(spell_id: String):
 	var spell_scene = scene.instance()
 	active_skills.push_back([focus_per_second, spells.get_pain(spell, "self", true), spell_duration, spell_scene])
 	character.add_child(spell_scene)
-	#game.mgmt.call_delayed(spell_scene, "queue_free", spell_duration) # done via focus_per_second count
 
 func cast_slot(slot_id: int):
 	cast(inventory.get_skill_slot(slot_id))
@@ -39,7 +40,7 @@ func cancel_spell(active_spell=[]):
 	else:
 		if(active_spell.size() > 3):
 			active_spell[3].queue_free()
-		# todo: inefficient array erase, optimization prob required
+		# todo? performance: inefficient array erase, optimization prob required
 		active_skills.erase(active_spell)
 
 func skill_process(delta: float):

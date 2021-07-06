@@ -47,7 +47,8 @@ func reload_handler():
 	game.levels.change_level(game.levels.current_level_name)
 
 func quit_handler(force: bool=false):
-	saves.save()
+	if(!force):
+		saves.save()
 	get_tree().quit()
 
 func help_handler(command: String="", clear_output: bool=true):

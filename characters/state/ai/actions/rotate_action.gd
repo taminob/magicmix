@@ -1,15 +1,14 @@
 extends action
 
-static func precondition(_know: Dictionary) -> float:
-	return action.PERFECT_SCORE
+static func precondition() -> int:
+	return !planner.knowledge.enemy_in_sight
 
-static func postcondition(know: Dictionary) -> Dictionary:
-	# todo
-	return {
-		"distance": know["distance"],
-	}
+static func postcondition() -> int:
+	return planner.knowledge.ally_in_sight | planner.knowledge.enemy_in_sight
 
-func do(_delta: float, know: Dictionary):
-	var pawn = know["pawn"]
-	var location = know["target"].global_transform.origin
+func get_range_state() -> int:
+	return range_state.no_range_required
+
+func do():
+	var location = target.global_transform.origin
 	pawn.look_at(Vector3(location.x, pawn.global_transform.origin.y, location.z), Vector3.UP)

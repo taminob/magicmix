@@ -38,11 +38,6 @@ func move_input(event: InputEvent):
 	#	event.is_action_released("crouch") && !move.is_crouching):
 	#	move.toggle_crouch()
 
-# todo: tbd: move camera on mouse move here?
-#func camera_input(event):
-#	if(event is InputEventMouseMotion):
-#		character.get_node("camera").position = event.position
-
 func action_input(event: InputEvent):
 	if(event.is_action_pressed("toggle_spirit")):
 		interaction.toggle_spirit()

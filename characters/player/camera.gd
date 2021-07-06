@@ -74,5 +74,4 @@ func _input(event: InputEvent):
 func _physics_process(delta: float):
 	if(!camera.is_current()):
 		return
-	#camera.set_translation(camera.translation.linear_interpolate(Vector3(0, camera_y_offset, _current_zoom), delta * camera_lerp_speed))
 	spring_arm.spring_length = lerp(spring_arm.spring_length, _current_zoom * default_spring_length, delta * camera_lerp_speed)

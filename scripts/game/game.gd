@@ -2,8 +2,6 @@ extends Node
 
 const game_script_path = "res://scripts/game/"
 
-#var spells
-#var items
 var chars: Node
 var char_data: Dictionary
 var levels: Node
@@ -14,8 +12,6 @@ func _ready():
 	reload_game()
 
 func reload_game():
-#	spells = load(game_script_path + "spells.gd").new().spells
-#	items = load(game_script_path + "items.gd").new().items
 	if(chars):
 		remove_child(chars)
 	if(mgmt):

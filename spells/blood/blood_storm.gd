@@ -4,8 +4,7 @@ var spell: Dictionary = {}
 var _affected_bodies: Array = []
 onready var _caster: Node = $".."
 var _caster_affected: bool = false
-onready var _collision = $"collision"
-#onready var collision: CollisionShape = $"collision" # todo: expand collision radius (no pre-processed particles)
+onready var _collision: CollisionShape = $"collision" # todo: expand collision radius (no pre-processed particles)
 
 func _ready():
 	spell = spells.get_spell("blood_storm")

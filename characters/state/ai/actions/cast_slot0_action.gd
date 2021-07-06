@@ -14,17 +14,19 @@ static func _can_cast(pawn: character) -> bool:
 	var data = _cast_data(pawn)
 	return pawn.stats.focus + data[0] >= 0 && pawn.stats.focus + data[1] >= 0 && pawn.stats.pain + data[2] < pawn.stats.max_pain()
 
-static func precondition(know: Dictionary) -> float:
-	return int(_can_cast(know["pawn"])) * action.PERFECT_SCORE
+static func precondition() -> int:
+	return planner.knowledge.high_focus
 
-static func postcondition(know: Dictionary) -> Dictionary:
-	var pawn = know["pawn"]
-	var data = _cast_data(pawn)
-	var delta = 0.5
-	return {
-		"pain": pawn.stats.pain + data[2],
-		"focus": pawn.stats.focus + data[0] + delta * data[1],
-	}
+static func postcondition() -> int:
+	return planner.knowledge.low_focus | planner.knowledge.enemy_damaged
 
-func do(_delta: float, know: Dictionary):
-	know["pawn"].skills.cast_slot(CAST_SLOT)
+func get_range_state() -> int:
+	var spell_range = spells.get_range(spells.get_spell(pawn.inventory.get_skill_slot(CAST_SLOT)))
+	if(spell_range < 0):
+		return range_state.no_range_required
+	if(pawn.global_transform.origin.distance_squared_to(target.global_transform.origin) <= spell_range * spell_range):
+		return range_state.in_range
+	return range_state.out_of_range
+
+func do():
+	pawn.skills.cast_slot(CAST_SLOT)

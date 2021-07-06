@@ -1,12 +1,30 @@
 class_name action
 
-const PERFECT_SCORE: float = 100.0
+enum range_state {
+	no_range_required,
+	in_range,
+	out_of_range,
+}
 
-static func precondition(_know: Dictionary) -> float:
-	return 0.0
+var pawn: character
+var target: Spatial
 
-static func postcondition(_know: Dictionary) -> Dictionary:
-	return {}
+# todo: remove new_pawn default argument
+func init(new_pawn: character=null, new_target: Spatial=null):
+	pawn = new_pawn
+	target = new_target
 
-func do(_delta: float, _know: Dictionary):
+static func precondition() -> int:
+	return 0
+
+static func postcondition() -> int:
+	return 0
+
+static func cost() -> float:
+	return 1.0
+
+func get_range_state() -> int:
+	return range_state.no_range_required
+
+func do():
 	pass

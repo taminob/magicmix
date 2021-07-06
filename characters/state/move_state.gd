@@ -35,13 +35,14 @@ func max_speed(mode: int=current_mode) -> float:
 	return WALK_SPEED * speed_factor()
 
 func stamina_cost(mode: int=current_mode) -> float:
-	match mode:
-		move_mode.WALKING:
-			return 0.0
-		move_mode.RUNNING:
-			return -0.8 * stats.stamina_per_second()
-		move_mode.SPRINTING:
-			return -1.5 * stats.stamina_per_second()
+	if(is_moving()):
+		match mode:
+			move_mode.WALKING:
+				return 0.0
+			move_mode.RUNNING:
+				return -0.8 * stats.stamina_per_second()
+			move_mode.SPRINTING:
+				return -1.5 * stats.stamina_per_second()
 	return 0.0
 
 func can_move() -> bool:
@@ -72,10 +73,6 @@ func _move_normal(delta: float):
 			velocity.y = JUMP_VELOCITY
 			jump_requested = false
 		_move_direction = input_direction.rotated(Vector3.UP, character.rotation.y).normalized()
-#	elif(character.is_on_wall()):
-#		_move_direction = Vector3.ZERO
-#	else:
-#		_move_direction = velocity.normalized()
 
 	var hv = Vector3(velocity.x, 0, velocity.z)
 	var new_pos = _move_direction * max_speed()

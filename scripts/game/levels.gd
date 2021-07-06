@@ -56,6 +56,3 @@ func change_level(level_name: String):
 	errors.log("change level: " + current_level_name)
 	world.call_deferred("add_child", current_level)
 	game.mgmt.ui.reset()
-
-	#for character in get_tree().get_nodes_in_group("characters"):
-	#game.mgmt.camera.last_obstructing_objects.clear() # todo: use when using top-down-camera

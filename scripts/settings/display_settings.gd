@@ -20,20 +20,6 @@ func set_options(settings):
 	set_resolution(settings.get_setting("display", "resolution"))
 	set_vsync(settings.get_setting("display", "vsync"))
 
-# todo: remove?
-#func _ready():
-#	errors.error_test(get_tree().connect("screen_resized", self, "_screen_resized"))
-#
-#func _screen_resized():
-#	var window_size = OS.get_window_size()
-#	var viewport = get_viewport()
-#
-#	var scale = (window_size / viewport.size).floor()
-#	scale = max(1, min(scale.x, scale.y))
-#
-#	var diff = window_size - (viewport.size * scale)
-#	viewport.set_attach_to_screen_rect(Rect2((diff * 0.5).floor(), viewport.size * scale))
-
 func set_screen(screen):
 	if(screen > OS.get_screen_count()):
 		screen = 0
@@ -44,7 +30,6 @@ func set_screen(screen):
 	OS.set_window_size(OS.get_screen_size(screen))
 	OS.set_window_position(OS.get_screen_position(screen))
 	OS.set_current_screen(screen)
-	#OS.set_window_position(Vector2(0, 0))
 	set_screenmode(settings.get_setting("display", "mode"))
 
 func set_screenmode(screenmode):

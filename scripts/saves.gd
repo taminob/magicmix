@@ -54,7 +54,7 @@ func new_save(name=""):
 
 func load_save(save=current_save):
 	var save_file = ConfigFile.new()
-	#var error = save_file.load_encrypted(SAVE_PATH + save, key)
+	#var error = save_file.load_encrypted(SAVE_PATH + save, key) # todo? encrypted save files
 	var error = save_file.load(SAVE_PATH + save)
 	if(error != OK):
 		errors.error("unable to read save file %s: %s" % [save, error])
@@ -74,7 +74,7 @@ func save():
 	save_file.set_value("world", "boxes", game.world.boxes)
 	save_file.set_value("level", "current_level", game.levels.current_level_name)
 	errors.error_test(Directory.new().make_dir_recursive(SAVE_PATH))
-	#var error = save_file.save_encrypted(SAVE_PATH + current_save, key)
+	#var error = save_file.save_encrypted(SAVE_PATH + current_save, key) # todo? encrypted save files
 	var error = save_file.save(SAVE_PATH + current_save)
 	if(error != OK):
 		errors.error("unable to write save file %s: %s" % [current_save, error])

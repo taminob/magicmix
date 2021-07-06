@@ -78,15 +78,15 @@ func _update_ui():
 		if(state.is_player):
 			game.mgmt.ui.update_debug(str(move.velocity))
 		else:
-			var current_goal = get_node("state/ai").current_goal
-			var debug_output = current_goal.get_script().get_path().get_file()
-			if(current_goal.current_action):
-				debug_output +=  ": " + current_goal.current_action.get_script().get_path().get_file()
+			var machine = get_node("state/ai").machine
+			var debug_output: String
+			for x in planner.goals.keys():
+				if(planner.goals[x] == machine.planning.current_goal):
+					debug_output = x + ": "
+					break
+			for x in machine.action_queue:
+				debug_output += x.get_script().get_path().get_file() + "; "
 			game.mgmt.ui.update_debug(debug_output)
-	#health_bar.set_value((1 - stats.pain / stats.max_pain()) * 100)
 	health_bar.material = health_bar.material.duplicate()
 	health_bar.material.set_shader_param("percentage", 1 - stats.pain / stats.max_pain())
 	$"health_bar2".region_rect.size.x = 1 - stats.pain / stats.max_pain();
-	#var dir_to_player = game.mgmt.player.global_transform.origin.direction_to(global_transform.origin)
-	#health_bar.material.set_shader_param("angle", dir_to_player.angle_to(rotation_degrees.y))
-	#health_bar.look_at(game.mgmt.player.transform.origin, Vector3.UP)

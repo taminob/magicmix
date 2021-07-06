@@ -1,20 +1,17 @@
 extends action
 
+static func precondition() -> int:
+	return 0
 
-static func precondition(know: Dictionary) -> float:
-	if(!know["target"]):
-		return 0.0
-	var score: float = max(0.0, action.PERFECT_SCORE - know["distance"] - 50 * int(know["interacting"]))
-	var interact_target = know["pawn"].interaction.interact_target
-	if(score > action.PERFECT_SCORE - 1 && interact_target == know["target"] && !know["interacting"]):
-		return action.PERFECT_SCORE
-	return score
+static func postcondition() -> int:
+	return planner.knowledge.talking
 
-static func postcondition(know: Dictionary) -> Dictionary:
-	return {
-		"interacting": !know["interacting"]
-	}
+func get_range_state() -> int:
+	# todo: decide if based on distance or actual interaction target
+	#if(pawn.global_transform.origin.distance_squared_to(target.global_transform.origin) <= 2):
+	if(pawn.interaction.interact_target == target):
+		return range_state.in_range
+	return range_state.out_of_range
 
-func do(_delta: float, know: Dictionary):
-	know["pawn"].interaction.initiate_interact()
-	know["interacting"] = !know["interacting"]
+func do():
+	pawn.interaction.initiate_interact()

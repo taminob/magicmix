@@ -40,7 +40,7 @@ func set_height(new_height: float=body_height):
 
 func save(state_dict: Dictionary):
 	var _look_state = state_dict.get("look", {})
-	#_look_state["mesh"] = _mesh_path
+	#_look_state["mesh"] = _mesh_path # todo? save new mesh?
 	_look_state["height"] = body_height
 	state_dict["look"] = _look_state
 

@@ -25,15 +25,12 @@ func toggle_spirit():
 	state.is_spirit = !state.is_spirit
 	
 	if(state.is_spirit):
-		#var spirit_node: Node =  character.get_node("spirit")
 		character.spirit = load("res://characters/spirit.tscn").instance()
 		character.spirit.translation = character.translation + 2 * Vector3.UP
 		character.spirit.set_name(character.name + "_spirit")
 		character.spirit.character = character
 		character.get_parent().add_child(character.spirit)
 		if(state.is_player):
-			#character.remove_child(game.mgmt.camera)
-			#spirit_node.add_child(game.mgmt.camera)
 			var spirit_camera = load("res://characters/player/camera.tscn").instance()
 			spirit_camera.set_name("spirit_camera")
 			spirit_camera.rotation_axes = Vector2(1, 1)
@@ -44,11 +41,7 @@ func toggle_spirit():
 		character.spirit = null
 		move.spirit_velocity = Vector3.ZERO
 		if(state.is_player):
-			#spirit_node.remove_child(game.mgmt.camera)
-			#character.add_child(game.mgmt.camera)
 			game.mgmt.camera.make_current()
-			#spirit_node.translation = Vector3(0, 2, 0)
-			#spirit_node.rotation = Vector3.ZERO
 
 func _on_interact_zone_entered(body_or_area: Node):
 	if(body_or_area && body_or_area.has_method("interact") && body_or_area != character):
