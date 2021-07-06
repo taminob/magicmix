@@ -80,8 +80,8 @@ func _update_ui():
 		else:
 			var machine = get_node("state/ai").machine
 			var debug_output: String
-			for x in planner.goals.keys():
-				if(planner.goals[x] == machine.planning.current_goal):
+			for x in machine.planning.goals.keys():
+				if(machine.planning.goals[x] == machine.planning.current_goal):
 					debug_output = x + ": "
 					break
 			for x in machine.action_queue:

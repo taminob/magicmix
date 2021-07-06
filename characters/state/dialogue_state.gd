@@ -18,6 +18,15 @@ var _dialogues: Dictionary
 
 var relationships: Dictionary
 var base_relationship: float
+var relations: Dictionary
+
+enum relation {
+	enemy = -2,
+	rival = -1,
+	neutral = 0,
+	friend = 1,
+	ally = 2
+}
 
 var dialogue_progress: float = 0
 var dialogue_length: int = 0
@@ -89,6 +98,9 @@ func end_dialogue():
 func get_relationship(id: String) -> float:
 	return relationships.get(id, base_relationship)
 
+func get_relation(id: String) -> int:
+	return relations.get(id, relation.neutral) # todo: check for tags (e.g. criminal)
+
 func save(state_dict: Dictionary):
 	var _dialogue_state = state_dict.get("dialogue", {})
 	_dialogue_state["name"] = display_name
@@ -98,6 +110,7 @@ func save(state_dict: Dictionary):
 	_dialogue_state["current_dialogue"] = current_dialogue
 	_dialogue_state["relationships"] = relationships
 	_dialogue_state["base_relationship"] = base_relationship
+	_dialogue_state["relations"] = relations
 	state_dict["dialogue"] = _dialogue_state
 
 func init(state_dict: Dictionary):
@@ -109,4 +122,5 @@ func init(state_dict: Dictionary):
 	current_dialogue = _dialogue_state.get("current_dialogue", 0)
 	relationships = _dialogue_state.get("relationships", {})
 	base_relationship = _dialogue_state.get("base_relationship", 0)
+	relations = _dialogue_state.get("relations", {})
 	_dialogues = load(_dialogue_state.get("dialogue", "res://characters/dialogue/default/dialogue.gd")).dialogue()

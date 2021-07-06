@@ -15,9 +15,15 @@ static func _can_cast(pawn: character) -> bool:
 	return pawn.stats.focus + data[0] >= 0 && pawn.stats.focus + data[1] >= 0 && pawn.stats.pain + data[2] < pawn.stats.max_pain()
 
 static func precondition() -> int:
-	return planner.knowledge.high_focus
+	return planner.knowledge.high_focus | planner.knowledge.enemy_in_sight
 
 static func postcondition() -> int:
+	return planner.knowledge.low_focus | planner.knowledge.enemy_damaged
+
+static func precondition_mask() -> int:
+	return planner.knowledge.high_focus | planner.knowledge.low_focus | planner.knowledge.high_pain | planner.knowledge.enemy_in_sight
+
+static func postcondition_mask() -> int:
 	return planner.knowledge.low_focus | planner.knowledge.enemy_damaged
 
 func get_range_state() -> int:

@@ -32,10 +32,24 @@ func push_state(new_state: int):
 
 func get_current_knowledge():
 	var know: int = 0
-	if(ai.stats.pain > 0.7):
+	if(ai.stats.pain_percentage() > 0.7):
 		know |= planner.knowledge.high_pain
-	elif(ai.stats.pain < 0.2):
+	elif(ai.stats.pain_percentage() < 0.2):
 		know |= planner.knowledge.low_pain
+	if(ai.stats.focus_percentage() > 0.7):
+		know |= planner.knowledge.high_focus
+	elif(ai.stats.focus_percentage() < 0.2):
+		know |= planner.knowledge.low_focus
+	for x in ai.characters_in_sight:
+		match ai.character.dialogue.get_relation(x.name):
+			dialogue_state.relation.ally:
+				if(x.stats.pain_percentage() < 0.3):
+					know |= planner.knowledge.ally_damaged
+				know |= planner.knowledge.ally_in_sight
+			dialogue_state.relation.enemy:
+				if(x.stats.pain_percentage() < 0.3):
+					know |= planner.knowledge.enemy_damaged
+				know |= planner.knowledge.enemy_in_sight
 	return know
 
 func reconsider():

@@ -1,5 +1,7 @@
 extends Node
 
+const FULL_PAIN: float = 10000.0
+
 # warning-ignore:unused_class_variable
 var characters = {
 	"hans": {
@@ -64,7 +66,7 @@ var characters = {
 		"stats": {
 			"dead": true,
 			"undead": true,
-			"pain": 100.0
+			"pain": FULL_PAIN
 		},
 		"experience": {
 			"intelligence": 1,
@@ -128,7 +130,7 @@ var characters = {
 		},
 		"stats": {
 			"dead": true,
-			"pain": 100.0
+			"pain": FULL_PAIN
 		},
 		"experience": {
 			"intelligence": 1,

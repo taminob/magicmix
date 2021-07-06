@@ -12,13 +12,24 @@ enum knowledge {
 	ally_in_sight	= 0x0040,
 	ally_damaged	= 0x0080,
 	talking			= 0x0100,
+	facing_target	= 0x0200,
+
+	ALL				= 0xFFFF
 }
 
-enum goals {
-	survive			= knowledge.low_pain,
-	fight			= knowledge.low_pain,
-	talk			= knowledge.talking,
-	patrol			= knowledge.enemy_in_sight,
+class goal:
+	var requirements: int
+	var mask: int
+
+	func _init(new_requirements: int, new_mask: int):
+		requirements = new_requirements
+		mask = new_mask
+
+var goals: Dictionary = {
+	"survive":	goal.new(knowledge.low_pain, knowledge.low_pain),
+	"fight":	goal.new(knowledge.low_pain | knowledge.enemy_damaged, knowledge.low_pain | knowledge.enemy_damaged),
+	"talk":		goal.new(knowledge.talking, knowledge.talking),
+	"patrol":	goal.new(knowledge.low_pain, knowledge.low_pain | knowledge.enemy_in_sight),
 }
 
 enum actions {
@@ -30,9 +41,8 @@ enum actions {
 }
 
 var planning_graph: Array # contains all a_star_node instances; index of node equals position in array
-var adjacencies: Dictionary # maps before knowledge to array of all nodes which satisfy this knowledge
 var current_goals: Array # 
-var current_goal: int
+var current_goal: goal
 var current_goal_index: int
 
 func plan(know: int) -> Array:
@@ -48,48 +58,55 @@ func update_goals():
 
 func build_graph(know: int):
 	planning_graph.clear()
-	adjacencies.clear()
 	planning_graph.push_back(a_star_node.from_knowledge(know, -1, 0))
-	adjacencies[planning_graph.back().before] = []
 	var action_scripts = action_scripts()
 	for x in actions.values():
-		insert_node(a_star_node.from_action(action_scripts[x], x, planning_graph.size()))
+		planning_graph.push_back(a_star_node.from_action(action_scripts[x], x, planning_graph.size()))
 	for x in goals.values():
 		if(x == current_goal):
 			current_goal_index = planning_graph.size()
-		insert_node(a_star_node.from_goal(x, -1, planning_graph.size()))
-
-func insert_node(node: a_star_node):
-	planning_graph.push_back(node)
-	if(adjacencies.has(node.before)):
-		adjacencies[node.before].push_back(node.index)
-	else:
-		adjacencies[node.before] = [node.index]
+		planning_graph.push_back(a_star_node.from_goal(x, -1, planning_graph.size()))
 
 class a_star_node:
 	var id: int # -1 if no action
 	var index: int
 	var before: int
+	var before_mask: int
 	var after: int
+	var after_mask: int
 	var cost: float
 
-	func _init(new_id: int, new_index: int, new_before: int, new_after: int, new_cost: int):
+	func _init(new_id: int, new_index: int, new_before: int, new_before_mask: int, new_after: int, new_after_mask: int, new_cost: int):
 		id = new_id
 		index = new_index
 		before = new_before
+		before_mask = new_before_mask
 		after = new_after
+		after_mask = new_after_mask
 		cost = new_cost
+
+	func before_masked() -> int:
+		return before & before_mask
+
+	func after_masked() -> int:
+		return after & after_mask
+
+	func before_satisfied(know: int) -> bool:
+		return before_masked() == (know & before_mask)
+
+	func apply_after(know: int) -> int:
+		return (know & ~after_mask) | (after & after_mask)
 
 	static func from_action(action_class: Reference, id: int, index: int) -> a_star_node:
 		# todo: (performance) remove need to create instance
 		var temp_action = action_class.new()
-		return a_star_node.new(id, index, temp_action.precondition(), temp_action.postcondition(), temp_action.cost())
+		return a_star_node.new(id, index, temp_action.precondition(), temp_action.precondition_mask(), temp_action.postcondition(), temp_action.postcondition_mask(), temp_action.cost())
 
 	static func from_knowledge(know: int, id: int, index: int) -> a_star_node:
-		return a_star_node.new(id, index, 0, know, 0)
+		return a_star_node.new(id, index, 0, knowledge.ALL, know, knowledge.ALL, 0)
 
-	static func from_goal(goal: int, id: int, index: int):
-		return a_star_node.new(id, index, goal, 0, 0)
+	static func from_goal(g: goal, id: int, index: int):
+		return a_star_node.new(id, index, g.requirements, g.mask, 0, knowledge.ALL, 0)
 
 func get_graph_node(index: int):
 	return planning_graph[index]
@@ -106,8 +123,12 @@ func weight(from: a_star_node, to: a_star_node) -> float:
 func weight_by_index(from: int, to: int) -> float:
 	return weight(get_graph_node(from), get_graph_node(to))
 
-func get_graph_neighbors(index: int) -> Array:
-	return adjacencies.get(get_graph_node(index).after, [])
+func get_graph_neighbors(know: int) -> Array:
+	var neighbors: Array
+	for x in planning_graph:
+		if(x.before_satisfied(know)):
+			neighbors.push_back(x.index)
+	return neighbors
 
 func a_star(start: a_star_node, end: a_star_node) -> Array:
 	var start_index = get_graph_index(start)
@@ -116,14 +137,16 @@ func a_star(start: a_star_node, end: a_star_node) -> Array:
 	var predecessors: Dictionary = {}
 	var costs: Dictionary = {start_index: 0}
 	var costs_over: Dictionary = {start_index: heuristic_by_index(start_index)}
+	var state_after: Dictionary
 
 	while !discovered.empty():
 		var current: int = discovered.back()
+		var current_after_state = get_graph_node(current).apply_after(state_after.get(predecessors.get(current, start_index), start.after))
+		state_after[current] = current_after_state
 		if(current == end_index):
 			return a_star_path(predecessors, current)
 		discovered.pop_back()
-		var neigh = get_graph_neighbors(current)
-		for x in neigh:
+		for x in get_graph_neighbors(state_after[current]):
 			var new_score = costs[current] + weight_by_index(current, x)
 			if(new_score < costs.get(x, INF)):
 				predecessors[x] = current

@@ -14,6 +14,15 @@ var focus: float
 var stamina: float
 var undead: bool
 
+func pain_percentage() -> float:
+	return pain / max_pain()
+
+func focus_percentage() -> float:
+	return focus / max_focus()
+
+func stamina_percentage() -> float:
+	return stamina / max_stamina()
+
 func max_pain() -> float:
 	return experience.sturdiness * 100.0
 
@@ -24,13 +33,13 @@ func max_stamina() -> float:
 	return experience.endurance * 100.0
 
 func pain_per_second() -> float:
-	return experience.sturdiness * focus / max_focus() * -3
+	return experience.sturdiness * focus_percentage() * -3
 
 func focus_per_second() -> float:
-	return experience.concentration * (1 - pain / max_pain()) * 6
+	return experience.concentration * (1 - pain_percentage()) * 6
 
 func stamina_per_second() -> float:
-	return experience.endurance * focus / max_focus() * 6
+	return experience.endurance * focus_percentage() * 6
 
 func die():
 	skills.cancel_spell()

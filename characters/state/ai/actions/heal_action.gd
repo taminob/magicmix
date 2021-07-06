@@ -6,6 +6,12 @@ static func precondition() -> int:
 static func postcondition() -> int:
 	return planner.knowledge.low_pain# | planner.knowledge.low_focus # todo
 
+static func precondition_mask() -> int:
+	return planner.knowledge.high_pain | planner.knowledge.low_focus
+
+static func postcondition_mask() -> int:
+	return planner.knowledge.low_pain | planner.knowledge.high_pain | planner.knowledge.high_focus
+
 func get_range_state() -> int:
 	var spell_range = spells.get_range(spells.get_spell("heal"))
 	if(spell_range < 0):
