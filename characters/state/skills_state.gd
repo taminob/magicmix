@@ -2,7 +2,7 @@ extends Node
 
 class_name skills_state
 
-onready var character: character = $"../.."
+onready var pawn: KinematicBody = $"../.."
 onready var move: Node = $"../move"
 onready var stats: Node = $"../stats"
 onready var inventory: Node = $"../inventory"
@@ -26,7 +26,7 @@ func cast(spell_id: String):
 		return
 	var spell_scene = scene.instance()
 	active_skills.push_back([focus_per_second, spells.get_pain(spell, "self", true), spell_duration, spell_scene])
-	character.add_child(spell_scene)
+	pawn.add_child(spell_scene)
 
 func cast_slot(slot_id: int):
 	cast(inventory.get_skill_slot(slot_id))

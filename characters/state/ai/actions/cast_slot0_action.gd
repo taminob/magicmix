@@ -26,6 +26,9 @@ static func precondition_mask() -> int:
 static func postcondition_mask() -> int:
 	return planner.knowledge.low_focus | planner.knowledge.enemy_damaged
 
+func choose_target():
+	target = pawn.ai.brain.get_any_enemy()
+
 func get_range_state() -> int:
 	var spell_range = spells.get_range(spells.get_spell(pawn.inventory.get_skill_slot(CAST_SLOT)))
 	if(spell_range < 0):

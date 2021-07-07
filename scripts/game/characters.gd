@@ -27,7 +27,8 @@ var characters = {
 		"skills": {},
 		"look": {
 			"mesh": "res://characters/meshes/patrol/body.tscn"
-		}
+		},
+		"ai": {}
 	},
 	"mary": {
 		"dialogue": {
@@ -54,7 +55,8 @@ var characters = {
 		"skills": {},
 		"look": {
 			"mesh": "res://characters/meshes/default/body.tscn"
-		}
+		},
+		"ai": {}
 	},
 	"guenther": {
 		"dialogue": {
@@ -74,6 +76,10 @@ var characters = {
 			"sturdiness": 1,
 			"concentration": 1,
 			"endurance": 1
+		},
+		"inventory": {
+			"skills": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
+			"slots": ["blood_storm", "fire_ring", "", "", ""]
 		},
 		"look": {
 			"mesh": "res://characters/meshes/patrol/body.tscn"
@@ -97,7 +103,8 @@ var characters = {
 		},
 		"look": {
 			"mesh": "res://characters/meshes/patrol/body.tscn"
-		}
+		},
+		"ai": {}
 	},
 	"sqlykt": {
 		"dialogue": {
@@ -121,7 +128,8 @@ var characters = {
 		"skills": {},
 		"look": {
 			"mesh": "res://characters/meshes/debug/body.tscn"
-		}
+		},
+		"ai": {}
 	},
 	"sqlay": {
 		"dialogue": {
@@ -148,6 +156,7 @@ var characters = {
 		"skills": {},
 		"look": {
 			"mesh": "res://characters/meshes/debug/body.tscn"
-		}
+		},
+		"ai": {}
 	}
 }

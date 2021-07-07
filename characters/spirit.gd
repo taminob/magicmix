@@ -1,9 +1,9 @@
 extends KinematicBody
 
-var character: character
+var pawn: character
 
 func get_interaction() -> String:
-	return character.get_interaction()
+	return pawn.get_interaction()
 
 func interact(interactor: character):
-	character.interact(interactor)
+	pawn.interact(interactor)

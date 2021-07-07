@@ -10,12 +10,13 @@ var pawn: character
 var target: Spatial
 
 # todo: remove new_pawn default argument
-func init(new_pawn: character, new_target: Spatial=null):
+func init(new_pawn: character):
 	pawn = new_pawn
-	target = new_target
+	choose_target()
 
 ### override functions below
 
+# todo: allow multiple preconditions
 static func precondition() -> int:
 	return 0
 
@@ -30,6 +31,9 @@ static func postcondition_mask() -> int:
 
 static func cost() -> float:
 	return 1.0
+
+func choose_target():
+	target = null
 
 func get_range_state() -> int:
 	return range_state.no_range_required

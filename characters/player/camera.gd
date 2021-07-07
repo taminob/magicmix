@@ -44,13 +44,13 @@ func _input(event: InputEvent):
 		return
 
 	if(event is InputEventMouseMotion):
-		var character = get_parent()
-		if(character && rotation_axes.x > 0 && !_free_rotate):
-			character.rotation.x = clamp(character.rotation.x - event.relative.y * vertical_sensitivity, min_pitch, max_pitch)
+		var pawn = get_parent()
+		if(pawn && rotation_axes.x > 0 && !_free_rotate):
+			pawn.rotation.x = clamp(pawn.rotation.x - event.relative.y * vertical_sensitivity, min_pitch, max_pitch)
 		else:
 			rotation.x = clamp(rotation.x - event.relative.y * vertical_sensitivity, min_pitch, max_pitch)
-		if(character && rotation_axes.y > 0 && !_free_rotate):
-			character.rotate_y(-event.relative.x * horizontal_sensitivity)
+		if(pawn && rotation_axes.y > 0 && !_free_rotate):
+			pawn.rotate_y(-event.relative.x * horizontal_sensitivity)
 		else:
 			rotate_y(-event.relative.x * horizontal_sensitivity)
 		orthonormalize()

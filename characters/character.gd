@@ -5,19 +5,19 @@ class_name character
 #warning-ignore-all:unused_class_variable
 
 onready var collision = $"collision"
-onready var health_bar: Node = $"health_bar"
 
 var spirit: KinematicBody = null
 
 onready var state: Node = $"state"
-onready var move: Node = state.move
-onready var experience: Node = state.experience
-onready var inventory: Node = state.inventory
-onready var stats: Node = state.stats
-onready var skills: Node = state.skills
-onready var dialogue: Node = state.dialogue
-onready var interaction: Node = state.interaction
-onready var look: Node = state.look
+onready var move: move_state = state.move
+onready var experience: experience_state = state.experience
+onready var inventory: inventory_state = state.inventory
+onready var stats: stats_state = state.stats
+onready var skills: skills_state = state.skills
+onready var dialogue: dialogue_state = state.dialogue
+onready var interaction: interaction_state = state.interaction
+onready var look: look_state = state.look
+onready var ai: Node = state.ai
 
 func _ready():
 	init_state()
@@ -79,14 +79,12 @@ func _update_ui():
 			game.mgmt.ui.update_debug(str(move.velocity))
 		else:
 			var machine = get_node("state/ai").machine
-			var debug_output: String
-			for x in machine.planning.goals.keys():
-				if(machine.planning.goals[x] == machine.planning.current_goal):
-					debug_output = x + ": "
-					break
+			var debug_output: String = ""
 			for x in machine.action_queue:
 				debug_output += x.get_script().get_path().get_file() + "; "
 			game.mgmt.ui.update_debug(debug_output)
+	var health_bar: Spatial = $"health_bar"
 	health_bar.material = health_bar.material.duplicate()
 	health_bar.material.set_shader_param("percentage", 1 - stats.pain / stats.max_pain())
-	$"health_bar2".region_rect.size.x = 1 - stats.pain / stats.max_pain();
+	health_bar.look_at(game.mgmt.camera.camera.global_transform.origin, Vector3.UP)
+	$"health_bar2".region_rect.size.x = 1 - stats.pain / stats.max_pain()

@@ -3,7 +3,7 @@ extends Node
 class_name dialogue_state
 
 onready var state: Node = get_parent()
-onready var character: character = $"../.."
+onready var pawn: KinematicBody = $"../.."
 
 const DIALOGUE_NO_FADE_DISTANCE_SQRD = 25;
 const DIALOGUE_END_DISTANCE_SQRD = 100;
@@ -32,7 +32,7 @@ var dialogue_progress: float = 0
 var dialogue_length: int = 0
 func dialogue_process(delta: float):
 	for x in dialogue_partners:
-		var t = x.character.translation.distance_squared_to(character.translation)
+		var t = x.pawn.translation.distance_squared_to(pawn.translation)
 		t = (t - DIALOGUE_NO_FADE_DISTANCE_SQRD) / DIALOGUE_END_DISTANCE_SQRD
 		var dialogue_intensity = 1 - clamp(t, 0, 1)
 		if(dialogue_intensity <= 0):
@@ -44,7 +44,7 @@ func dialogue_process(delta: float):
 			dialogue_progress = min(dialogue_progress + delta * DIALOGUE_SPEED, dialogue_length)
 			game.mgmt.ui.dialogue.update_dialogue(dialogue_progress, dialogue_intensity)
 
-func dialogue_interact(interactor: character):
+func dialogue_interact(interactor: KinematicBody):
 	if(!is_dialogue_active()):
 		start_dialogue(interactor.dialogue)
 		interactor.dialogue.start_dialogue(self)
@@ -122,5 +122,5 @@ func init(state_dict: Dictionary):
 	current_dialogue = _dialogue_state.get("current_dialogue", 0)
 	relationships = _dialogue_state.get("relationships", {})
 	base_relationship = _dialogue_state.get("base_relationship", 0)
-	relations = _dialogue_state.get("relations", {})
+	relations = _dialogue_state.get("relations", {}) # todo? fix enum type, json parsing might result in floats instead of ints
 	_dialogues = load(_dialogue_state.get("dialogue", "res://characters/dialogue/default/dialogue.gd")).dialogue()

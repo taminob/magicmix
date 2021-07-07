@@ -2,7 +2,7 @@ extends Node
 
 class_name look_state
 
-onready var character: KinematicBody = $"../.."
+onready var pawn: KinematicBody = $"../.."
 onready var move: Node = $"../move"
 
 var _default_mesh_path: String
@@ -29,14 +29,14 @@ func set_mesh(path: String=_default_mesh_path):
 		mesh.queue_free()
 	mesh = load(path).instance()
 	mesh.rotate_y(PI) # todo: fix meshes
-	character.add_child(mesh)
+	pawn.add_child(mesh)
 	animations = mesh.get_node("animations")
 
 func set_height(new_height: float=body_height):
 	# todo: rotate collision if width > height
-	var width = character.collision.shape.radius * 2
-	character.collision.shape.height = new_height - width
-	character.collision.translation.y = new_height / 2
+	var width = pawn.collision.shape.radius * 2
+	pawn.collision.shape.height = new_height - width
+	pawn.collision.translation.y = new_height / 2
 
 func save(state_dict: Dictionary):
 	var _look_state = state_dict.get("look", {})

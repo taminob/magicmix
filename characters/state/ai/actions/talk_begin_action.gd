@@ -1,10 +1,19 @@
 extends action
 
 static func precondition() -> int:
-	return 0
+	return planner.knowledge.ally_in_sight
 
 static func postcondition() -> int:
 	return planner.knowledge.talking
+
+static func precondition_mask() -> int:
+	return planner.knowledge.ally_in_sight | planner.knowledge.talking
+
+static func postcondition_mask() -> int:
+	return planner.knowledge.talking
+
+func choose_target():
+	target = pawn.ai.brain.get_any_ally()
 
 func get_range_state() -> int:
 	# todo: decide if based on distance or actual interaction target

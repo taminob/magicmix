@@ -1,9 +1,9 @@
 extends Node
 
-class_name state
+class_name main_state
 
-onready var character: Node = $".."
-onready var _state: Dictionary = game.get_character(character.name)
+onready var pawn: KinematicBody = $".."
+onready var _state: Dictionary = game.get_character(pawn.name)
 onready var move: move_state = $"move"
 onready var experience: experience_state = $"experience"
 onready var inventory: inventory_state = $"inventory"
@@ -13,6 +13,7 @@ onready var dialogue: dialogue_state = $"dialogue"
 # warning-ignore:unused_class_variable
 onready var interaction: interaction_state = $"interaction"
 onready var look: look_state = $"look"
+onready var ai: ai_state = $"ai"
 
 # warning-ignore:unused_class_variable
 var is_player: bool = false
@@ -28,6 +29,7 @@ func save():
 	dialogue.save(_state)
 	#interaction.save(_state)
 	look.save(_state)
+	ai.save(_state)
 
 func init():
 	move.init(_state)
@@ -38,3 +40,4 @@ func init():
 	dialogue.init(_state)
 	#interaction.init(_state)
 	look.init(_state)
+	ai.init(_state)

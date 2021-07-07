@@ -3,7 +3,7 @@ extends Node
 class_name stats_state
 
 onready var state: Node = get_parent()
-onready var character: character = $"../.."
+onready var pawn: KinematicBody = $"../.."
 onready var experience: Node = $"../experience"
 onready var skills: Node = $"../skills"
 onready var look: Node = $"../look"
@@ -48,7 +48,7 @@ func die():
 	dead = true
 	# todo: animation
 	if(state.is_player && !game.levels.current_level_death_realm):
-		character._update_ui()
+		pawn._update_ui() # todo: refactor? only occurence of pawn
 		game.levels.change_level("death_realm")
 
 func damage(dmg: float):

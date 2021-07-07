@@ -3,7 +3,7 @@ extends Node
 class_name move_state
 
 onready var state: Node = get_parent()
-onready var character: KinematicBody = $"../.."
+onready var pawn: KinematicBody = $"../.."
 onready var stats: Node = $"../stats"
 
 const RUN_SPEED: float = 10.0
@@ -64,15 +64,15 @@ func move_process_dead(delta: float):
 	var hv = Vector3(velocity.x, 0, velocity.z)
 	hv = hv.linear_interpolate(Vector3.ZERO, DE_ACCELERATION * delta)
 	velocity.y += GRAVITY * delta
-	velocity = character.move_and_slide(Vector3(hv.x, velocity.y, hv.z), Vector3.UP, true)
+	velocity = pawn.move_and_slide(Vector3(hv.x, velocity.y, hv.z), Vector3.UP, true)
 
 func _move_normal(delta: float):
-	if(character.is_on_floor()):
+	if(pawn.is_on_floor()):
 		if(jump_requested):
 			_move_direction = velocity.normalized()
 			velocity.y = JUMP_VELOCITY
 			jump_requested = false
-		_move_direction = input_direction.rotated(Vector3.UP, character.rotation.y).normalized()
+		_move_direction = input_direction.rotated(Vector3.UP, pawn.rotation.y).normalized()
 
 	var hv = Vector3(velocity.x, 0, velocity.z)
 	var new_pos = _move_direction * max_speed()
@@ -80,26 +80,26 @@ func _move_normal(delta: float):
 	hv = hv.linear_interpolate(new_pos, accel * delta)
 
 	velocity.y += GRAVITY * delta
-	velocity = character.move_and_slide(Vector3(hv.x, velocity.y, hv.z), Vector3.UP, true)
+	velocity = pawn.move_and_slide(Vector3(hv.x, velocity.y, hv.z), Vector3.UP, true)
 
 func _move_spirit(delta: float):
 	if(jump_requested):
-		spirit_velocity = -character.spirit.global_transform.basis.z
+		spirit_velocity = -pawn.spirit.global_transform.basis.z
 		spirit_velocity *= 200
 		jump_requested = false
 	else:
-		_move_direction = character.spirit.global_transform.basis.xform(input_direction)
+		_move_direction = pawn.spirit.global_transform.basis.xform(input_direction)
 
 	var hv: Vector3 = Vector3(spirit_velocity.x, spirit_velocity.y, spirit_velocity.z)
 	var new_pos = _move_direction * max_speed()
 	var accel = ACCELERATION if(_move_direction.dot(hv) > 0) else DE_ACCELERATION
 	hv = hv.linear_interpolate(new_pos, accel * delta)
 
-	# todo: bug? - when character is falling down, spirit can become immovable because distance is too big
-	if(character.translation.distance_squared_to(character.spirit.translation + hv * delta) > SPIRIT_RANGE_SQUARED):
+	# todo: bug? - when pawn is falling down, spirit can become immovable because distance is too big
+	if(pawn.translation.distance_squared_to(pawn.spirit.translation + hv * delta) > SPIRIT_RANGE_SQUARED):
 		hv = Vector3.ZERO
 	#spirit_velocity = spirit.move_and_slide(Vector3(hv.x, spirit_velocity.y + GRAVITY * delta, hv.z), Vector3.UP, true)
-	spirit_velocity = character.spirit.move_and_slide(hv, Vector3.UP, true) # no gravity
+	spirit_velocity = pawn.spirit.move_and_slide(hv, Vector3.UP, true) # no gravity
 
 var last_speed: Vector3 = Vector3.ZERO
 func collide_process(delta: float):
@@ -114,8 +114,8 @@ func collide_process(delta: float):
 		var dmg = pow((max_axis - threshold*0.8)/100, 2)
 		errors.test("impact: " + str(max_axis) + "; dmg: " + str(dmg) + "velo: " + str(velocity) + "; last: " + str(last_speed))
 		stats._self_damage(dmg)
-		for i in range(character.get_slide_count()):
-			var collision = character.get_slide_collision(i)
+		for i in range(pawn.get_slide_count()):
+			var collision = pawn.get_slide_collision(i)
 			if(collision.collider.has_method("damage")):
 				collision.collider.damage(dmg)
 	last_speed = velocity
@@ -123,10 +123,10 @@ func collide_process(delta: float):
 func save(state_dict: Dictionary):
 	var _move_state = state_dict.get("move", {"translations": {}})
 	_move_state["velocity"] = velocity
-	_move_state["translations"][game.levels.current_level_name] = character.translation
+	_move_state["translations"][game.levels.current_level_name] = pawn.translation
 	state_dict["move"] = _move_state
 
 func init(state_dict: Dictionary):
 	var _move_state = state_dict.get("move", {"translations": {}})
 	velocity = _move_state.get("velocity", Vector3.ZERO)
-	character.translation = _move_state["translations"].get(game.levels.current_level_name, character.translation)
+	pawn.translation = _move_state["translations"].get(game.levels.current_level_name, pawn.translation)

@@ -8,11 +8,13 @@ enum knowledge {
 	low_focus		= 0x0004,
 	high_focus		= 0x0008,
 	enemy_in_sight	= 0x0010,
-	enemy_damaged	= 0x0020,
-	ally_in_sight	= 0x0040,
-	ally_damaged	= 0x0080,
-	talking			= 0x0100,
-	facing_target	= 0x0200,
+	enemy_in_near	= 0x0020,
+	enemy_damaged	= 0x0040,
+	ally_in_sight	= 0x0080,
+	ally_in_near	= 0x0100,
+	ally_damaged	= 0x0200,
+	talking			= 0x0400,
+	facing_target	= 0x0800,
 
 	ALL				= 0xFFFF
 }
@@ -29,11 +31,11 @@ var goals: Dictionary = {
 	"survive":	goal.new(knowledge.low_pain, knowledge.low_pain),
 	"fight":	goal.new(knowledge.low_pain | knowledge.enemy_damaged, knowledge.low_pain | knowledge.enemy_damaged),
 	"talk":		goal.new(knowledge.talking, knowledge.talking),
-	"patrol":	goal.new(knowledge.low_pain, knowledge.low_pain | knowledge.enemy_in_sight),
+	"patrol":	goal.new(knowledge.low_pain | knowledge.enemy_in_sight, knowledge.low_pain | knowledge.enemy_in_sight),
 }
 
 enum actions {
-	interact = 0,
+	talk_begin = 0,
 	rotate,
 	cast_slot0,
 	heal,
@@ -41,20 +43,24 @@ enum actions {
 }
 
 var planning_graph: Array # contains all a_star_node instances; index of node equals position in array
-var current_goals: Array # 
-var current_goal: goal
-var current_goal_index: int
+var current_goals: Array # currently pursued goals, sorted by priority
 
 func plan(know: int) -> Array:
 	update_goals()
 	build_graph(know)
-	return a_star_path_to_actions(a_star(planning_graph.front(), get_graph_node(current_goal_index)))
+	var action_plan: Array
+	for i in range(current_goals.size()):
+		# todo: better looping over goal nodes, currently depending on order of nodes in planning_graph - requires all goals at the end; also: implement priority
+		if(action_plan.empty()):
+			action_plan = a_star_path_to_actions(a_star(planning_graph.front(), get_graph_node(actions.size() + i + 1)))
+		else:
+			break
+	return action_plan
 
 func update_goals():
 	current_goals.clear()
 	for x in goals.values():
 		current_goals.push_back(x)
-	current_goal = current_goals.front()
 
 func build_graph(know: int):
 	planning_graph.clear()
@@ -62,9 +68,7 @@ func build_graph(know: int):
 	var action_scripts = action_scripts()
 	for x in actions.values():
 		planning_graph.push_back(a_star_node.from_action(action_scripts[x], x, planning_graph.size()))
-	for x in goals.values():
-		if(x == current_goal):
-			current_goal_index = planning_graph.size()
+	for x in current_goals: # todo: graph only for current_goals or all goals?
 		planning_graph.push_back(a_star_node.from_goal(x, -1, planning_graph.size()))
 
 class a_star_node:
@@ -97,16 +101,16 @@ class a_star_node:
 	func apply_after(know: int) -> int:
 		return (know & ~after_mask) | (after & after_mask)
 
-	static func from_action(action_class: Reference, id: int, index: int) -> a_star_node:
+	static func from_action(action_class: Reference, new_id: int, new_index: int) -> a_star_node:
 		# todo: (performance) remove need to create instance
 		var temp_action = action_class.new()
-		return a_star_node.new(id, index, temp_action.precondition(), temp_action.precondition_mask(), temp_action.postcondition(), temp_action.postcondition_mask(), temp_action.cost())
+		return a_star_node.new(new_id, new_index, temp_action.precondition(), temp_action.precondition_mask(), temp_action.postcondition(), temp_action.postcondition_mask(), temp_action.cost())
 
-	static func from_knowledge(know: int, id: int, index: int) -> a_star_node:
-		return a_star_node.new(id, index, 0, knowledge.ALL, know, knowledge.ALL, 0)
+	static func from_knowledge(know: int, new_id: int, new_index: int) -> a_star_node:
+		return a_star_node.new(new_id, new_index, 0, knowledge.ALL, know, knowledge.ALL, 0)
 
-	static func from_goal(g: goal, id: int, index: int):
-		return a_star_node.new(id, index, g.requirements, g.mask, 0, knowledge.ALL, 0)
+	static func from_goal(g: goal, new_id: int, new_index: int):
+		return a_star_node.new(new_id, new_index, g.requirements, g.mask, 0, knowledge.ALL, 0)
 
 func get_graph_node(index: int):
 	return planning_graph[index]
@@ -114,8 +118,8 @@ func get_graph_node(index: int):
 func get_graph_index(node: a_star_node):
 	return node.index
 
-func heuristic_by_index(index: int) -> float:
-	return 1.0
+func heuristic_by_index(_index: int) -> float:
+	return 0.0
 
 func weight(from: a_star_node, to: a_star_node) -> float:
 	return from.cost + to.cost
@@ -124,7 +128,7 @@ func weight_by_index(from: int, to: int) -> float:
 	return weight(get_graph_node(from), get_graph_node(to))
 
 func get_graph_neighbors(know: int) -> Array:
-	var neighbors: Array
+	var neighbors: Array = []
 	for x in planning_graph:
 		if(x.before_satisfied(know)):
 			neighbors.push_back(x.index)
@@ -137,11 +141,11 @@ func a_star(start: a_star_node, end: a_star_node) -> Array:
 	var predecessors: Dictionary = {}
 	var costs: Dictionary = {start_index: 0}
 	var costs_over: Dictionary = {start_index: heuristic_by_index(start_index)}
-	var state_after: Dictionary
+	var state_after: Dictionary = {start_index: start.after}
 
 	while !discovered.empty():
 		var current: int = discovered.back()
-		var current_after_state = get_graph_node(current).apply_after(state_after.get(predecessors.get(current, start_index), start.after))
+		var current_after_state = get_graph_node(current).apply_after(state_after[predecessors.get(current, start_index)])
 		state_after[current] = current_after_state
 		if(current == end_index):
 			return a_star_path(predecessors, current)
@@ -153,12 +157,14 @@ func a_star(start: a_star_node, end: a_star_node) -> Array:
 				costs[x] = new_score
 				costs_over[x] = new_score + heuristic_by_index(x)
 				if(!discovered.has(x)):
-					if(discovered.empty()):
+					var i: int = 0
+					while i < discovered.size():
+						if(costs_over[discovered[i]] < costs_over.get(x, INF)):
+							discovered.insert(i, x)
+							break
+						i += 1
+					if(i == discovered.size()):
 						discovered.push_back(x)
-					else:
-						for i in range(discovered.size()):
-							if(costs_over[i] < costs_over.get(x, INF)):
-								discovered.insert(i, x)
 	return []
 
 func a_star_path(predecessors: Dictionary, last: int) -> Array:
@@ -174,7 +180,7 @@ func a_star_path_to_actions(path: Array) -> Array:
 	for x in path:
 		if(x.id >= 0):
 			var new_action = scripts[x.id].new()
-			new_action.init($"..".character, game.mgmt.player) # todo: pass real target
+			new_action.init($"..".pawn) # todo: refactor $".."
 			action_list.push_back(new_action)
 	return action_list
 

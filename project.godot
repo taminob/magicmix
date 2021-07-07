@@ -30,7 +30,7 @@ _global_script_classes=[ {
 "path": "res://characters/state/ai/behavior_tree/tasks/cancel_task.gd"
 }, {
 "base": "task",
-"class": "cast",
+"class": "cast_task",
 "language": "GDScript",
 "path": "res://characters/state/ai/behavior_tree/tasks/cast.gd"
 }, {
@@ -49,8 +49,8 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://characters/state/experience_state.gd"
 }, {
-"base": "move_to",
-"class": "follow",
+"base": "move_to_task",
+"class": "follow_task",
 "language": "GDScript",
 "path": "res://characters/state/ai/behavior_tree/tasks/follow.gd"
 }, {
@@ -74,18 +74,23 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://characters/state/look_state.gd"
 }, {
-"base": "task",
-"class": "move",
+"base": "Node",
+"class": "main_state",
 "language": "GDScript",
-"path": "res://characters/state/ai/behavior_tree/tasks/move.gd"
+"path": "res://characters/state/state.gd"
 }, {
 "base": "Node",
 "class": "move_state",
 "language": "GDScript",
 "path": "res://characters/state/move_state.gd"
 }, {
+"base": "task",
+"class": "move_task",
+"language": "GDScript",
+"path": "res://characters/state/ai/behavior_tree/tasks/move.gd"
+}, {
 "base": "move",
-"class": "move_to",
+"class": "move_to_task",
 "language": "GDScript",
 "path": "res://characters/state/ai/behavior_tree/tasks/move_to.gd"
 }, {
@@ -100,7 +105,7 @@ _global_script_classes=[ {
 "path": "res://characters/state/ai/planner.gd"
 }, {
 "base": "task",
-"class": "raycast_hit",
+"class": "raycast_hit_task",
 "language": "GDScript",
 "path": "res://characters/state/ai/behavior_tree/tasks/raycast_hit.gd"
 }, {
@@ -140,11 +145,6 @@ _global_script_classes=[ {
 "path": "res://spells/spell_spawner.gd"
 }, {
 "base": "Node",
-"class": "state",
-"language": "GDScript",
-"path": "res://characters/state/state.gd"
-}, {
-"base": "Node",
 "class": "stats_state",
 "language": "GDScript",
 "path": "res://characters/state/stats_state.gd"
@@ -155,12 +155,12 @@ _global_script_classes=[ {
 "path": "res://characters/state/ai/behavior_tree/task.gd"
 }, {
 "base": "task",
-"class": "toggle_spirit",
+"class": "toggle_spirit_task",
 "language": "GDScript",
 "path": "res://characters/state/ai/behavior_tree/tasks/toggle_spirit.gd"
 }, {
 "base": "task",
-"class": "turn",
+"class": "turn_task",
 "language": "GDScript",
 "path": "res://characters/state/ai/behavior_tree/tasks/turn.gd"
 }, {
@@ -175,7 +175,7 @@ _global_script_classes=[ {
 "path": "res://ui/dialogue/ui_dialogue.gd"
 }, {
 "base": "task",
-"class": "wait",
+"class": "wait_task",
 "language": "GDScript",
 "path": "res://characters/state/ai/behavior_tree/tasks/wait.gd"
 } ]
@@ -184,21 +184,22 @@ _global_script_class_icons={
 "ai_machine": "",
 "ai_state": "",
 "cancel_task": "",
-"cast": "",
+"cast_task": "",
 "character": "",
 "dialogue_state": "",
 "experience_state": "",
-"follow": "",
+"follow_task": "",
 "input_state": "",
 "interaction_state": "",
 "inventory_state": "",
 "look_state": "",
-"move": "",
+"main_state": "",
 "move_state": "",
-"move_to": "",
+"move_task": "",
+"move_to_task": "",
 "parallel": "",
 "planner": "",
-"raycast_hit": "",
+"raycast_hit_task": "",
 "remap": "",
 "repeat": "",
 "selector": "",
@@ -206,14 +207,13 @@ _global_script_class_icons={
 "skills_state": "",
 "spell_expander": "",
 "spell_spawner": "",
-"state": "",
 "stats_state": "",
 "task": "",
-"toggle_spirit": "",
-"turn": "",
+"toggle_spirit_task": "",
+"turn_task": "",
 "ui": "",
 "ui_dialogue": "",
-"wait": ""
+"wait_task": ""
 }
 
 [application]
@@ -1338,6 +1338,13 @@ scene={
 
 [input]
 
+ui_accept={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777221,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777222,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
 pause={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777217,"unicode":0,"echo":false,"script":null)

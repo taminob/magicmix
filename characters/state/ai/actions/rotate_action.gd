@@ -1,14 +1,19 @@
 extends action
 
 static func precondition() -> int:
-	return !planner.knowledge.enemy_in_sight
+	return 0
 
 static func postcondition() -> int:
-	return planner.knowledge.ally_in_sight | planner.knowledge.enemy_in_sight
+	return planner.knowledge.facing_target
+
+static func precondition_mask() -> int:
+	return planner.knowledge.facing_target
+
+static func postcondition_mask() -> int:
+	return planner.knowledge.facing_target
 
 func get_range_state() -> int:
 	return range_state.no_range_required
 
 func do():
-	var location = target.global_transform.origin
-	pawn.look_at(Vector3(location.x, pawn.global_transform.origin.y, location.z), Vector3.UP)
+	pawn.look_at(Vector3(target.global_transform.origin.x, pawn.global_transform.origin.y, target.global_transform.origin.z), Vector3.UP)

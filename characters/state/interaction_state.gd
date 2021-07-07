@@ -3,7 +3,7 @@ extends Node
 class_name interaction_state
 
 onready var state: Node = get_parent()
-onready var character: character = $"../.."
+onready var pawn: KinematicBody = $"../.."
 onready var inventory: Node = $"../inventory"
 onready var stats: Node = $"../stats"
 onready var move: Node = $"../move"
@@ -12,7 +12,7 @@ var interact_target: Node = null
 
 func initiate_interact():
 	if(interact_target):
-		interact_target.interact(character)
+		interact_target.interact(pawn)
 
 func consume(item: String, remove_from_inventory: bool=true):
 	if(items.items[item]["category"] != "consumable"):
@@ -25,26 +25,26 @@ func toggle_spirit():
 	state.is_spirit = !state.is_spirit
 	
 	if(state.is_spirit):
-		character.spirit = load("res://characters/spirit.tscn").instance()
-		character.spirit.translation = character.translation + 2 * Vector3.UP
-		character.spirit.set_name(character.name + "_spirit")
-		character.spirit.character = character
-		character.get_parent().add_child(character.spirit)
+		pawn.spirit = load("res://characters/spirit.tscn").instance()
+		pawn.spirit.translation = pawn.translation + 2 * Vector3.UP
+		pawn.spirit.set_name(pawn.name + "_spirit")
+		pawn.spirit.pawn = pawn
+		pawn.get_parent().add_child(pawn.spirit)
 		if(state.is_player):
 			var spirit_camera = load("res://characters/player/camera.tscn").instance()
 			spirit_camera.set_name("spirit_camera")
 			spirit_camera.rotation_axes = Vector2(1, 1)
-			character.spirit.add_child(spirit_camera)
+			pawn.spirit.add_child(spirit_camera)
 			spirit_camera.make_current()
 	else:
-		character.spirit.queue_free()
-		character.spirit = null
+		pawn.spirit.queue_free()
+		pawn.spirit = null
 		move.spirit_velocity = Vector3.ZERO
 		if(state.is_player):
 			game.mgmt.camera.make_current()
 
 func _on_interact_zone_entered(body_or_area: Node):
-	if(body_or_area && body_or_area.has_method("interact") && body_or_area != character):
+	if(body_or_area && body_or_area.has_method("interact") && body_or_area != pawn):
 		interact_target = body_or_area
 		if(state.is_player):
 			game.mgmt.ui.show_interaction(body_or_area.get_interaction(), null)
