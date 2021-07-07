@@ -67,12 +67,6 @@ onready var input = $"command_input"
 
 var hidden: bool = true
 
-func prepare_leave():
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	saves.save()
-	hidden = true
-	get_tree().paused = false # todo: test if unpausing here is a good idea
-
 func unpause():
 	input.clear()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -100,6 +94,7 @@ func _input(event: InputEvent):
 			pause()
 		else:
 			unpause()
+		get_tree().set_input_as_handled() # todo: watch if this fix is a good solution to prevent the activation character to appear in input field (caused because _gui_input() is called after _input())
 
 func invalid_command():
 	output.set_text("Invalid command! Did you try 'help'?")
