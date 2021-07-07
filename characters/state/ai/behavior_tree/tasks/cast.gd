@@ -1,6 +1,6 @@
 extends task
 
-class_name cast
+class_name cast_task
 
 export(String) var spell: String
 

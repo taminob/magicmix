@@ -1,6 +1,6 @@
 extends task
 
-class_name raycast_hit
+class_name raycast_hit_task
 
 # path relative to level
 export(String) var target_path: String

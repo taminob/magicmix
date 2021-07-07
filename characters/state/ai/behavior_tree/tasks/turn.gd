@@ -1,6 +1,6 @@
 extends task
 
-class_name turn
+class_name turn_task
 
 export var turn_degrees: float = 0.0
 

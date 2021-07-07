@@ -1,6 +1,6 @@
 extends task
 
-class_name move
+class_name move_task
 
 export(move_state.move_mode) var move_mode: int = move_state.move_mode.RUNNING
 export(Vector3) var direction: Vector3 = Vector3.FORWARD

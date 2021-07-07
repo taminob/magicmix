@@ -1,6 +1,6 @@
 extends task
 
-class_name toggle_spirit
+class_name toggle_spirit_task
 
 func _run(_delta: float) -> int:
 	if(_status == task_status.CANCEL):

@@ -1,6 +1,6 @@
 extends move
 
-class_name move_to
+class_name move_to_task
 
 export var location: Vector3 = Vector3.ZERO
 export var radius: float = 1

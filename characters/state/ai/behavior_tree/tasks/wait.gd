@@ -1,6 +1,6 @@
 extends task
 
-class_name wait
+class_name wait_task
 
 export var wait_time: float = 0
 

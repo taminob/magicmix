@@ -1,6 +1,6 @@
-extends move_to
+extends move_to_task
 
-class_name follow
+class_name follow_task
 
 # path relativ to level
 export(String) var target_path: String
