@@ -30,5 +30,19 @@ func reload_game():
 	levels = load(game_script_path + "levels.gd").new()
 	add_child(levels)
 
+var _loading_scene: Control = null
+var _loading_callback: FuncRef
+func load_resource(path: String, callback: FuncRef):
+	_loading_scene = preload("res://menu/loading/loading.tscn").instance()
+	scenes.open_scene(_loading_scene)
+	_loading_scene.track_loader(ResourceLoader.load_interactive(path))
+	_loading_callback = callback
+	get_tree().paused = true
+
+func finished_loading(loader: ResourceInteractiveLoader):
+	get_tree().paused = false
+	scenes.close_scene()
+	_loading_callback.call_func(loader.get_resource())
+
 func get_character(id) -> Dictionary:
 	return char_data.get(id, {})
