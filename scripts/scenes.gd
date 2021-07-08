@@ -21,10 +21,10 @@ func open_scene(scene: Node, clear_scene_stack: bool=false):
 		close_all_scenes()
 	if(current_scene):
 		previous_scenes.append(current_scene)
-		root.remove_child(current_scene)
+		root.call_deferred("remove_child", current_scene)
 	errors.log("open scene: " + scene.filename)
 	current_scene = scene
-	root.add_child(current_scene)
+	root.call_deferred("add_child", current_scene)
 	get_tree().set_current_scene(current_scene)
 
 func open_scene_from(scene_path: String, clear_scene_stack: bool=false):
@@ -34,7 +34,7 @@ func open_scene_from(scene_path: String, clear_scene_stack: bool=false):
 func close_scene():
 	if(!current_scene):
 		return
-	root.remove_child(current_scene)
+	root.call_deferred("remove_child", current_scene)
 	# todo? test if game_scene should stay in memory
 	#if(current_scene != game_instance):
 	current_scene.call_deferred("free")
