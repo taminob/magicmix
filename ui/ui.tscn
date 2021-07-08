@@ -78,9 +78,10 @@ __meta__ = {
 
 [node name="fps_label" type="RichTextLabel" parent="."]
 anchor_left = 0.8
-anchor_right = 1.0
-margin_right = 26.0
-margin_bottom = 326.0
+anchor_right = 0.9
+anchor_bottom = 0.1
+margin_top = -5.33936
+margin_bottom = -5.33936
 text = "FPS: "
 __meta__ = {
 "_edit_use_anchors_": false

@@ -234,8 +234,9 @@ boot_splash/bg_color=Color( 0, 0, 0, 1 )
 
 errors="*res://scripts/errors.gd"
 themes="*res://scripts/themes.gd"
-game_settings="*res://scripts/settings/game_settings.gd"
 display_settings="*res://scripts/settings/display_settings.gd"
+graphics_settings="*res://scripts/settings/graphics_settings.gd"
+game_settings="*res://scripts/settings/game_settings.gd"
 dev_settings="*res://scripts/settings/dev_settings.gd"
 settings="*res://scripts/settings/settings.gd"
 scenes="*res://scripts/scenes.gd"

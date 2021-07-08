@@ -15,7 +15,7 @@ __meta__ = {
 
 [node name="layout" type="VBoxContainer" parent="."]
 margin_right = 1920.0
-margin_bottom = 135.0
+margin_bottom = 436.0
 size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false
@@ -23,9 +23,21 @@ __meta__ = {
 
 [node name="HBoxContainer" type="HBoxContainer" parent="layout"]
 margin_right = 1920.0
-margin_bottom = 135.0
+margin_bottom = 143.0
 
 [node name="ugly_check" type="CheckBox" parent="layout/HBoxContainer"]
-margin_right = 226.0
-margin_bottom = 135.0
+margin_right = 254.0
+margin_bottom = 143.0
 text = "Ugly"
+
+[node name="show_fps" type="HBoxContainer" parent="layout"]
+margin_top = 293.0
+margin_right = 1920.0
+margin_bottom = 436.0
+
+[node name="show_fps_check" type="CheckBox" parent="layout/show_fps"]
+margin_right = 526.0
+margin_bottom = 143.0
+text = "Show FPS"
+
+[connection signal="toggled" from="layout/show_fps/show_fps_check" to="." method="_on_show_fps_check_toggled"]

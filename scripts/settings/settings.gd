@@ -5,9 +5,7 @@ var _config_file = ConfigFile.new()
 var _settings = {
 	"game": game_settings.options,
 	"display": display_settings.options,
-	"graphics": {
-		
-	},
+	"graphics": graphics_settings.options,
 	"dev": dev_settings.options
 }
 

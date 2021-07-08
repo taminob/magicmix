@@ -15,7 +15,10 @@ func _ready():
 	game.mgmt.ui = self
 
 func _process(_delta: float):
-	$"fps_label".text = str("FPS:",(Engine.get_frames_per_second()))
+	if(settings.get_setting("graphics", "show_fps")):
+		$"fps_label".text = str("FPS:",(Engine.get_frames_per_second()))
+	else:
+		$"fps_label".visible = false
 
 func _on_menu_button_pressed():
 	$"../pause_menu".pause()

@@ -14,13 +14,13 @@ var global_scale = 1.0
 
 signal global_scale_changed
 
-func set_options(settings):
-	set_screen(settings.get_setting("display", "screen"))
-	set_screenmode(settings.get_setting("display", "mode"))
-	set_resolution(settings.get_setting("display", "resolution"))
-	set_vsync(settings.get_setting("display", "vsync"))
+func set_options(set: Node):
+	set_screen(set.get_setting("display", "screen"))
+	set_screenmode(set.get_setting("display", "mode"))
+	set_resolution(set.get_setting("display", "resolution"))
+	set_vsync(set.get_setting("display", "vsync"))
 
-func set_screen(screen):
+func set_screen(screen: int):
 	if(screen > OS.get_screen_count()):
 		screen = 0
 	# todo: change screen not working with maximized window and different resolutions
@@ -32,7 +32,7 @@ func set_screen(screen):
 	OS.set_current_screen(screen)
 	set_screenmode(settings.get_setting("display", "mode"))
 
-func set_screenmode(screenmode):
+func set_screenmode(screenmode: int):
 	OS.set_window_fullscreen(screenmode == SCREENMODE_FULLSCREEN)
 	OS.set_borderless_window(screenmode == SCREENMODE_BORDERLESS)
 	# todo: check maximize and size/position
@@ -40,12 +40,12 @@ func set_screenmode(screenmode):
 	OS.center_window()
 	OS.set_window_size(OS.get_screen_size())
 
-func set_resolution(resolution):
+func set_resolution(resolution: Vector2):
 	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D, SceneTree.STRETCH_ASPECT_KEEP, resolution)
 	get_viewport().set_size_override(true, resolution)
 	global_scale = min(resolution.x / base_resolution.x, resolution.y / base_resolution.y)
 	emit_signal("global_scale_changed")
 	themes.scale_themes(global_scale)
 
-func set_vsync(vsync_enabled):
+func set_vsync(vsync_enabled: bool):
 	OS.set_use_vsync(vsync_enabled)

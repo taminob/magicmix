@@ -15,7 +15,7 @@ __meta__ = {
 
 [node name="layout" type="VBoxContainer" parent="."]
 margin_right = 1920.0
-margin_bottom = 133.0
+margin_bottom = 139.0
 size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false
@@ -23,18 +23,18 @@ __meta__ = {
 
 [node name="difficulty" type="HBoxContainer" parent="layout"]
 margin_right = 1920.0
-margin_bottom = 133.0
+margin_bottom = 139.0
 
 [node name="difficulty_label" type="Label" parent="layout/difficulty"]
-margin_top = 3.0
+margin_top = 6.0
 margin_right = 572.0
-margin_bottom = 130.0
+margin_bottom = 133.0
 text = "Difficulty     "
 
 [node name="difficulty_choice" type="OptionButton" parent="layout/difficulty"]
-margin_left = 576.0
+margin_left = 580.0
 margin_right = 1920.0
-margin_bottom = 133.0
+margin_bottom = 139.0
 size_flags_horizontal = 3
 text = "Kill Yourself"
 flat = true

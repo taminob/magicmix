@@ -9,8 +9,8 @@ var options = {
 	"debug_target": "",
 }
 
-func set_options(settings):
-	set_god_mode(settings.get_setting("dev", "god_mode"))
+func set_options(set: Node):
+	set_god_mode(set.get_setting("dev", "god_mode"))
 
 
 # do nothing, settings will be read from dictionary when needed; todo? add cache
