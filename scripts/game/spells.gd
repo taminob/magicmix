@@ -118,7 +118,7 @@ var spells = {
 		},
 		"duration": 0.5,
 		"range": 10, # todo: calc/tune actual range
-		"icon": load(spell_icons_path + "blood-scratch-512.png"),
+		"icon": load(spell_icons_path + "blood_scratch-512.png"),
 		"anim": "",
 		"scene": load(spell_scenes_path + "blood/blood_heal.tscn")
 	},
