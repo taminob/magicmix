@@ -5,6 +5,14 @@ var levels = {
 		"path": "res://world/levels/intro/level.tscn",
 		"death_realm": false
 	},
+	"intro_outside": {
+		"path": "res://world/levels/intro_outside/level.tscn",
+		"death_realm": false
+	},
+	"palace_entry": {
+		"path": "res://world/levels/palace_entry/level.tscn",
+		"death_realm": false
+	},
 	"death_realm": {
 		"path": "res://world/levels/death_realm/level.tscn",
 		"death_realm": true

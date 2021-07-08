@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://world/objects/portal/portal.tscn" type="PackedScene" id=1]
+[ext_resource path="res://world/objects/revive_portal/revive_portal.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world/shaders/stone.shader" type="Shader" id=5]
 
 [sub_resource type="CylinderMesh" id=1]

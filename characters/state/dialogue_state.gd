@@ -28,8 +28,8 @@ enum relation {
 	ally = 2
 }
 
-var dialogue_progress: float = 0
-var dialogue_length: int = 0
+var _dialogue_progress: float = 0
+var _dialogue_length: int = 0
 func dialogue_process(delta: float):
 	for x in dialogue_partners:
 		var t = x.pawn.translation.distance_squared_to(pawn.translation)
@@ -41,8 +41,8 @@ func dialogue_process(delta: float):
 			if(state.is_player):
 				game.mgmt.ui.end_dialogue()
 		if(state.is_player):
-			dialogue_progress = min(dialogue_progress + delta * DIALOGUE_SPEED, dialogue_length)
-			game.mgmt.ui.dialogue.update_dialogue(dialogue_progress, dialogue_intensity)
+			_dialogue_progress = min(_dialogue_progress + delta * DIALOGUE_SPEED, _dialogue_length)
+			game.mgmt.ui.dialogue.update_dialogue(_dialogue_progress, dialogue_intensity)
 
 func dialogue_interact(interactor: KinematicBody):
 	if(!is_dialogue_active()):
@@ -57,7 +57,7 @@ func is_dialogue_active() -> bool:
 func start_dialogue(other_dialogue_state: dialogue_state):
 	# warning-ignore:return_value_discarded
 	end_dialogue()
-	dialogue_progress = 0
+	_dialogue_progress = 0
 	dialogue_partners.push_back(other_dialogue_state)
 	if(state.is_player):
 		show_current_dialogue(other_dialogue_state)
@@ -66,8 +66,8 @@ func start_dialogue(other_dialogue_state: dialogue_state):
 func answer_selected():
 	if(!is_dialogue_active()):
 		return
-	if(dialogue_progress < dialogue_length):
-		dialogue_progress = dialogue_length
+	if(_dialogue_progress < _dialogue_length):
+		_dialogue_progress = _dialogue_length
 		return
 	var next_num = -1
 	if(state.is_player):
@@ -82,9 +82,9 @@ func answer_selected():
 
 func show_current_dialogue(other_dialogue_state: dialogue_state):
 	var other_dialogue: Dictionary = other_dialogue_state._dialogues[other_dialogue_state.current_dialogue]
-	dialogue_progress = 0
+	_dialogue_progress = 0
 	game.mgmt.ui.dialogue.set_dialogue_text(other_dialogue["say"], other_dialogue.get("name", other_dialogue_state.display_name), other_dialogue.get("answers", []))
-	dialogue_length = other_dialogue["say"].length() # todo? dont count bbcode tags (if tags are allowed in dialogue)
+	_dialogue_length = other_dialogue["say"].length() # todo? dont count bbcode tags (if tags are allowed in dialogue)
 
 func end_dialogue():
 	var i: int = 0

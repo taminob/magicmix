@@ -11,5 +11,8 @@ var boxes = {
 	},
 	"intro": {
 		"box1": ["deadly_poison", "deadly_poison"],
+	},
+	"palace_entry": {
+		"box1": ["fire_token"]
 	}
 }

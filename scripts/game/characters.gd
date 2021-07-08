@@ -7,9 +7,9 @@ var characters = {
 	"hans": {
 		"dialogue": {
 			"name": "Hans",
-			"gender": "male"
+			"gender": "male",
+			"job": "thief"
 		},
-		"stats": {},
 		"experience": {
 			"intelligence": 1,
 			"strength": 1,
@@ -17,27 +17,25 @@ var characters = {
 			"concentration": 1,
 			"endurance": 1
 		},
-		"move": {
-			"translations": {}
-		},
 		"inventory": {
-			"skills": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
-			"slots": ["heal", "fire_ring", "", "blood_storm", "blood_sacrifice"]
+			"skills": ["fire_ring", "blood_sacrifice", "heal", "blood_storm", "blood_heal"],
+			"slots": ["heal", "fire_ring", "blood_heal", "blood_storm", "blood_sacrifice"]
 		},
-		"skills": {},
 		"look": {
 			"mesh": "res://characters/meshes/patrol/body.tscn"
-		},
-		"ai": {}
+		}
 	},
 	"mary": {
 		"dialogue": {
 			"name": "Mary",
 			"gender": "female",
 			"dialogue": "res://characters/dialogue/mary/dialogue.gd",
-			"current_dialogue": 0
+			"current_dialogue": 0,
+			"relations": {
+				"hans": -2,
+				"mary": 2
+			}
 		},
-		"stats": {},
 		"experience": {
 			"intelligence": 1,
 			"strength": 1,
@@ -45,25 +43,24 @@ var characters = {
 			"concentration": 1,
 			"endurance": 1
 		},
-		"move": {
-			"translations": {}
-		},
 		"inventory": {
 			"skills": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
 			"slots": ["fire_ring", "heal", "", "", ""]
 		},
-		"skills": {},
 		"look": {
 			"mesh": "res://characters/meshes/default/body.tscn"
 		},
-		"ai": {}
 	},
 	"guenther": {
 		"dialogue": {
 			"name": "Günther",
 			"gender": "male",
 			"dialogue": "res://characters/dialogue/guenther/dialogue.gd",
-			"current_dialogue": 0
+			"current_dialogue": 0,
+			"relations": {
+				"hans": 2,
+				"vladimir": -2
+			}
 		},
 		"stats": {
 			"dead": true,
@@ -91,9 +88,12 @@ var characters = {
 			"gender": "male",
 			"dialogue": "res://characters/dialogue/vladimir/dialogue.gd",
 			"current_dialogue": 0,
+			"relations": {
+				"hans": -2,
+				"mary": 2
+			},
 			"job": "guard"
 		},
-		"stats": {},
 		"experience": {
 			"intelligence": 1,
 			"strength": 1,
@@ -104,14 +104,12 @@ var characters = {
 		"look": {
 			"mesh": "res://characters/meshes/patrol/body.tscn"
 		},
-		"ai": {}
 	},
 	"sqlykt": {
 		"dialogue": {
 			"name": "Sqlykt",
 			"gender": "ocelot"
 		},
-		"stats": {},
 		"experience": {
 			"intelligence": 1,
 			"strength": 1,
@@ -119,17 +117,12 @@ var characters = {
 			"concentration": 1,
 			"endurance": 1
 		},
-		"move": {
-			"translations": {}
-		},
 		"inventory": {
 			"spells": ["blood_sacrifice"]
 		},
-		"skills": {},
 		"look": {
 			"mesh": "res://characters/meshes/debug/body.tscn"
 		},
-		"ai": {}
 	},
 	"sqlay": {
 		"dialogue": {
@@ -147,16 +140,11 @@ var characters = {
 			"concentration": 1,
 			"endurance": 1
 		},
-		"move": {
-			"translations": {}
-		},
 		"inventory": {
 			"spells": ["blood_sacrifice"]
 		},
-		"skills": {},
 		"look": {
 			"mesh": "res://characters/meshes/debug/body.tscn"
 		},
-		"ai": {}
 	}
 }

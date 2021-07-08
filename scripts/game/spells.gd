@@ -101,6 +101,27 @@ var spells = {
 		"anim": "",
 		"scene": load(spell_scenes_path + "blood/blood_sacrifice.tscn")
 	},
+	"blood_heal": {
+		"combinations": [{
+			"target": "area",
+			"type": "defense",
+			"elements": ["life", "life", "darkness"]
+		}],
+		"name": "Blood Heal",
+		"description": "Give yourself to the pain of your surrounding!",
+		"category": "blood",
+		"self": {
+			"pain": 80
+		},
+		"target": {
+			"pain": -50
+		},
+		"duration": 0.5,
+		"range": 10, # todo: calc/tune actual range
+		"icon": load(spell_icons_path + "blood-scratch-512.png"),
+		"anim": "",
+		"scene": load(spell_scenes_path + "blood/blood_heal.tscn")
+	},
 	"fire_storm": {
 		"combinations": [{
 			"target": "area",

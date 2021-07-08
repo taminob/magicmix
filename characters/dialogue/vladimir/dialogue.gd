@@ -8,7 +8,7 @@ static func dialogue() -> Dictionary:
 			"say": "Halt, you! Arrest him!",
 			"answers": [
 				["I surrender!", 2],
-				["You'll only get me dead!!", -1],
+				["You'll only get me dead!", -1],
 				["Who are you?", 1],
 				["Why?", 1]
 			]
@@ -18,7 +18,7 @@ static func dialogue() -> Dictionary:
 			"say": "No questions, back to jail with you!",
 			"answers": [
 				["I surrender!", 2],
-				["You'll only get me dead!!", -1],
+				["You'll only get me dead!", -1],
 			]
 		},
 		2: {

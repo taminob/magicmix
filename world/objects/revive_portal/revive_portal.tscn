@@ -1,82 +1,82 @@
 [gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://world/shaders/stone.shader" type="Shader" id=1]
-[ext_resource path="res://world/objects/portal/portal.gd" type="Script" id=2]
-[ext_resource path="res://world/objects/child_interact.gd" type="Script" id=3]
+[ext_resource path="res://world/objects/child_interact.gd" type="Script" id=2]
+[ext_resource path="res://world/objects/revive_portal/revive_portal.gd" type="Script" id=3]
 [ext_resource path="res://world/materials/portal.tres" type="Material" id=4]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 7, 2, 2 )
 
-[sub_resource type="OpenSimplexNoise" id=7]
+[sub_resource type="OpenSimplexNoise" id=2]
 
-[sub_resource type="NoiseTexture" id=8]
+[sub_resource type="NoiseTexture" id=3]
 seamless = true
-noise = SubResource( 7 )
+noise = SubResource( 2 )
 
-[sub_resource type="ShaderMaterial" id=3]
+[sub_resource type="ShaderMaterial" id=4]
 shader = ExtResource( 1 )
 shader_param/noise_lod = 1.0
 shader_param/base_color = Vector3( 0.1, 0.1, 0.1 )
-shader_param/noise = SubResource( 8 )
+shader_param/noise = SubResource( 3 )
 
-[sub_resource type="BoxShape" id=4]
+[sub_resource type="BoxShape" id=5]
 extents = Vector3( 3.5, 1, 1 )
 
-[sub_resource type="CubeMesh" id=5]
+[sub_resource type="CubeMesh" id=6]
 size = Vector3( 2, 6, 2 )
 
-[sub_resource type="BoxShape" id=6]
+[sub_resource type="BoxShape" id=7]
 extents = Vector3( 1, 3, 1 )
 
-[sub_resource type="BoxShape" id=9]
+[sub_resource type="BoxShape" id=8]
 extents = Vector3( 2, 3.5, 0.5 )
 
-[sub_resource type="CubeMesh" id=10]
+[sub_resource type="CubeMesh" id=9]
 size = Vector3( 4, 7, 0.5 )
 
-[node name="portal" type="Spatial"]
-script = ExtResource( 2 )
+[node name="revive_portal" type="Spatial"]
+script = ExtResource( 3 )
 
 [node name="mesh_instance" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0 )
 mesh = SubResource( 1 )
-material/0 = SubResource( 3 )
+material/0 = SubResource( 4 )
 
 [node name="static_body" type="StaticBody" parent="mesh_instance"]
 
 [node name="collision_shape" type="CollisionShape" parent="mesh_instance/static_body"]
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="mesh_instance2" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 3, 0 )
-mesh = SubResource( 5 )
-material/0 = SubResource( 3 )
+mesh = SubResource( 6 )
+material/0 = SubResource( 4 )
 
 [node name="static_body" type="StaticBody" parent="mesh_instance2"]
 
 [node name="collision_shape" type="CollisionShape" parent="mesh_instance2/static_body"]
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="mesh_instance3" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 3, 0 )
-mesh = SubResource( 5 )
-material/0 = SubResource( 3 )
+mesh = SubResource( 6 )
+material/0 = SubResource( 4 )
 
 [node name="static_body" type="StaticBody" parent="mesh_instance3"]
 
 [node name="collision_shape" type="CollisionShape" parent="mesh_instance3/static_body"]
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="area" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0 )
-script = ExtResource( 3 )
+script = ExtResource( 2 )
 
 [node name="collision_shape" type="CollisionShape" parent="area"]
-shape = SubResource( 9 )
+shape = SubResource( 8 )
 
 [node name="mesh_instance4" type="MeshInstance" parent="area"]
-mesh = SubResource( 10 )
+mesh = SubResource( 9 )
 material/0 = ExtResource( 4 )
 
 [connection signal="body_entered" from="area" to="." method="_on_area_body_entered"]
