@@ -41,6 +41,7 @@ func _on_options_button_pressed():
 func _on_titlescreen_button_pressed():
 	prepare_leave()
 	scenes.close_scene()
+	scenes.open_scene_from("res://menu/main_menu/main_menu.tscn", true)
 
 func _on_quit_button_pressed():
 	prepare_leave()
