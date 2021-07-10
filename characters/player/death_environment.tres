@@ -5,9 +5,9 @@
 [resource]
 background_mode = 1
 background_sky = SubResource( 1 )
-background_sky_orientation = Basis( -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0, 1 )
-background_sky_rotation = Vector3( 0, 0, 3.14159 )
-background_sky_rotation_degrees = Vector3( 0, 0, 180 )
+background_sky_orientation = Basis( -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1 )
+background_sky_rotation = Vector3( 0, 0, -3.14159 )
+background_sky_rotation_degrees = Vector3( 0, 0, -180 )
 background_color = Color( 0.835294, 0.835294, 0.835294, 1 )
 background_energy = 0.5
 fog_enabled = true

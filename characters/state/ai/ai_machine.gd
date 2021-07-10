@@ -12,13 +12,14 @@ onready var ai: Node = $".."
 onready var planning: planner = $"../planner"
 var state_queue: Array = []
 var action_queue: Array = []
-var steps_since_idle: int = 0 # todo: remove/adjust - little hack to increase performance; only call idle() if 10 or more steps passed since last idle
+var steps_since_idle: int = 0 # todo: remove/adjust - little hack to increase performance; only call idle() if a random amount of steps passed since last idle
+var steps_to_wait_before_idle: int = randi() % 50 + 10 # todo: adjust
 
 func process_state():
 	steps_since_idle += 1
 	match state_queue.pop_front():
 		states.idle:
-			if(steps_since_idle < 10):
+			if(steps_since_idle < steps_to_wait_before_idle):
 				return
 			idle()
 			steps_since_idle = 0

@@ -22,7 +22,7 @@ var characters = {
 			"slots": ["heal", "fire_ring", "blood_heal", "blood_storm", "blood_sacrifice"]
 		},
 		"look": {
-			"mesh": "res://characters/meshes/patrol/body.tscn"
+			"mesh_path": "res://characters/meshes/patrol/body.tscn"
 		}
 	},
 	"mary": {
@@ -47,8 +47,11 @@ var characters = {
 			"skills": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
 			"slots": ["fire_ring", "heal", "", "", ""]
 		},
+		"stats": {
+			"focus": 100
+		},
 		"look": {
-			"mesh": "res://characters/meshes/default/body.tscn"
+			"mesh_path": "res://characters/meshes/default/body.tscn"
 		},
 	},
 	"guenther": {
@@ -79,7 +82,7 @@ var characters = {
 			"slots": ["blood_storm", "fire_ring", "", "", ""]
 		},
 		"look": {
-			"mesh": "res://characters/meshes/patrol/body.tscn"
+			"mesh_path": "res://characters/meshes/patrol/body.tscn"
 		}
 	},
 	"vladimir": {
@@ -102,7 +105,7 @@ var characters = {
 			"endurance": 1
 		},
 		"look": {
-			"mesh": "res://characters/meshes/patrol/body.tscn"
+			"mesh_path": "res://characters/meshes/patrol/body.tscn"
 		},
 	},
 	"sqlykt": {
@@ -121,7 +124,7 @@ var characters = {
 			"spells": ["blood_sacrifice"]
 		},
 		"look": {
-			"mesh": "res://characters/meshes/debug/body.tscn"
+			"mesh_path": "res://characters/meshes/debug/body.tscn"
 		},
 	},
 	"sqlay": {
@@ -144,7 +147,7 @@ var characters = {
 			"spells": ["blood_sacrifice"]
 		},
 		"look": {
-			"mesh": "res://characters/meshes/debug/body.tscn"
+			"mesh_path": "res://characters/meshes/debug/body.tscn"
 		},
 	}
 }

@@ -35,7 +35,7 @@ func close_scene():
 	if(!current_scene):
 		return
 	root.remove_child(current_scene)
-	# todo: test if game_scene should stay loaded
+	# todo? test if game_scene should stay in memory
 	#if(current_scene != game_instance):
 	current_scene.call_deferred("free")
 	current_scene = null

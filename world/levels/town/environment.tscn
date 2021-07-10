@@ -1,20 +1,54 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://world/objects/stairs/stairs.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world/objects/stone/stone.tscn" type="PackedScene" id=2]
 [ext_resource path="res://world/shaders/stone.shader" type="Shader" id=3]
 [ext_resource path="res://world/materials/simple_stone.tres" type="Material" id=4]
 [ext_resource path="res://world/shaders/rainbow.shader" type="Shader" id=5]
-[ext_resource path="res://world/objects/box/box.tscn" type="PackedScene" id=6]
 [ext_resource path="res://world/objects/stairs/stairs.shader" type="Shader" id=7]
-[ext_resource path="res://world/materials/simple_grass.tres" type="Material" id=8]
 [ext_resource path="res://world/objects/door/door.tscn" type="PackedScene" id=9]
 
-[sub_resource type="CubeMesh" id=23]
-size = Vector3( 100, 1, 100 )
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 1000, 1, 1000 )
+subdivide_width = 1000
+subdivide_depth = 1000
 
-[sub_resource type="BoxShape" id=24]
-extents = Vector3( 50, 1, 50 )
+[sub_resource type="Shader" id=23]
+code = "shader_type spatial;
+render_mode blend_mix;
+
+uniform sampler2D noise;
+uniform float noise_lod = 0;
+uniform float noise_scale = 5.;
+
+void vertex()
+{
+	VERTEX = vec3(VERTEX.x, (texture(noise, UV).y - 0.5) * 20., VERTEX.z);
+}
+
+void fragment()
+{
+	ALBEDO = vec3(0.3, 0.5, 0.1) * textureLod(noise, UV * noise_scale, noise_lod).xyz;
+	//ALPHA = 1.;
+}
+"
+
+[sub_resource type="OpenSimplexNoise" id=25]
+
+[sub_resource type="NoiseTexture" id=26]
+width = 4096
+height = 4096
+seamless = true
+noise = SubResource( 25 )
+
+[sub_resource type="ShaderMaterial" id=24]
+shader = SubResource( 23 )
+shader_param/noise_lod = 0.0
+shader_param/noise_scale = 5.0
+shader_param/noise = SubResource( 26 )
+
+[sub_resource type="BoxShape" id=27]
+extents = Vector3( 500, 1, 500 )
 
 [sub_resource type="CubeMesh" id=3]
 size = Vector3( 60, 5, 2 )
@@ -101,16 +135,13 @@ extents = Vector3( 20, 15, 10 )
 [node name="environment" type="Spatial"]
 
 [node name="mesh" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
-mesh = SubResource( 23 )
-material/0 = ExtResource( 8 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 24 )
 
 [node name="ground" type="StaticBody" parent="mesh"]
-collision_layer = 3
-collision_mask = 31
 
-[node name="collision_shape" type="CollisionShape" parent="mesh/ground"]
-shape = SubResource( 24 )
+[node name="collision" type="CollisionShape" parent="mesh/ground"]
+shape = SubResource( 27 )
 
 [node name="stairs" type="Spatial" parent="."]
 
@@ -256,6 +287,3 @@ material/0 = SubResource( 12 )
 shape = SubResource( 22 )
 
 [node name="boxes" type="Spatial" parent="."]
-
-[node name="box1" parent="boxes" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.5 )

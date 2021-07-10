@@ -44,6 +44,7 @@ func _input(event: InputEvent):
 		return
 
 	if(event is InputEventMouseMotion):
+		# todo? add interpolation for camera rotation
 		var pawn = get_parent()
 		if(pawn && rotation_axes.x > 0 && !_free_rotate):
 			pawn.rotation.x = clamp(pawn.rotation.x - event.relative.y * vertical_sensitivity, min_pitch, max_pitch)

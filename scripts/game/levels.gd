@@ -13,6 +13,10 @@ var levels = {
 		"path": "res://world/levels/palace_entry/level.tscn",
 		"death_realm": false
 	},
+	"town": {
+		"path": "res://world/levels/town/level.tscn",
+		"death_realm": false
+	},
 	"death_realm": {
 		"path": "res://world/levels/death_realm/level.tscn",
 		"death_realm": true

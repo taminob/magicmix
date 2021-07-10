@@ -40,13 +40,13 @@ func set_height(new_height: float=body_height):
 
 func save(state_dict: Dictionary):
 	var _look_state = state_dict.get("look", {})
-	#_look_state["mesh"] = _mesh_path # todo? save new mesh?
+	#_look_state["mesh_path"] = _mesh_path # todo? save new mesh?
 	_look_state["height"] = body_height
 	state_dict["look"] = _look_state
 
 func init(state_dict: Dictionary):
 	var _look_state = state_dict.get("look", {})
-	_default_mesh_path = _look_state.get("mesh", "res://characters/meshes/debug/body.tscn")
+	_default_mesh_path = _look_state.get("mesh_path", "res://characters/meshes/debug/body.tscn")
 	set_mesh()
 	body_height = _look_state.get("height", 1.8)
 	set_height()

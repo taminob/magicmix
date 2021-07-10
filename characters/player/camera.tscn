@@ -1,12 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://characters/player/camera.gd" type="Script" id=1]
-
-[sub_resource type="ProceduralSky" id=1]
-
-[sub_resource type="Environment" id=2]
-background_mode = 2
-background_sky = SubResource( 1 )
 
 [node name="camera" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
@@ -16,4 +10,3 @@ script = ExtResource( 1 )
 spring_length = 7.0
 
 [node name="player_camera" type="Camera" parent="spring_arm"]
-environment = SubResource( 2 )
