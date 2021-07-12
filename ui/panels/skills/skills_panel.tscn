@@ -22,42 +22,42 @@ __meta__ = {
 
 [node name="buttons" type="HBoxContainer" parent="layout"]
 margin_right = 3840.0
-margin_bottom = 133.0
+margin_bottom = 139.0
 
 [node name="all" type="Button" parent="layout/buttons"]
-margin_left = 429.0
-margin_right = 527.0
-margin_bottom = 133.0
+margin_left = 422.0
+margin_right = 532.0
+margin_bottom = 139.0
 size_flags_horizontal = 6
 text = "All"
 expand_icon = true
 
 [node name="heal" type="Button" parent="layout/buttons"]
-margin_left = 1342.0
-margin_right = 1537.0
-margin_bottom = 133.0
+margin_left = 1335.0
+margin_right = 1542.0
+margin_bottom = 139.0
 size_flags_horizontal = 6
 text = "Heal"
 expand_icon = true
 
 [node name="fire" type="Button" parent="layout/buttons"]
-margin_left = 2317.0
-margin_right = 2483.0
-margin_bottom = 133.0
+margin_left = 2312.0
+margin_right = 2490.0
+margin_bottom = 139.0
 size_flags_horizontal = 6
 text = "Fire"
 expand_icon = true
 
 [node name="blood" type="Button" parent="layout/buttons"]
-margin_left = 3237.0
-margin_right = 3486.0
-margin_bottom = 133.0
+margin_left = 3232.0
+margin_right = 3493.0
+margin_bottom = 139.0
 size_flags_horizontal = 6
 text = "Blood"
 expand_icon = true
 
 [node name="list" type="ItemList" parent="layout"]
-margin_top = 137.0
+margin_top = 147.0
 margin_right = 3840.0
 margin_bottom = 2160.0
 size_flags_horizontal = 3

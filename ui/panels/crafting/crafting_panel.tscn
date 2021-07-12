@@ -26,7 +26,7 @@ __meta__ = {
 
 [node name="component_layout" type="HBoxContainer" parent="crafting_layout"]
 margin_right = 3840.0
-margin_bottom = 2023.0
+margin_bottom = 2013.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -34,15 +34,15 @@ __meta__ = {
 }
 
 [node name="target" type="VBoxContainer" parent="crafting_layout/component_layout"]
-margin_right = 754.0
-margin_bottom = 2023.0
+margin_right = 750.0
+margin_bottom = 2013.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 3 )
 
 [node name="item" type="TextureButton" parent="crafting_layout/component_layout/target"]
-margin_right = 754.0
-margin_bottom = 1009.0
+margin_right = 750.0
+margin_bottom = 1002.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture_normal = ExtResource( 1 )
@@ -50,9 +50,9 @@ expand = true
 stretch_mode = 5
 
 [node name="label" type="Label" parent="crafting_layout/component_layout/target"]
-margin_top = 1013.0
-margin_right = 754.0
-margin_bottom = 2023.0
+margin_top = 1010.0
+margin_right = 750.0
+margin_bottom = 2013.0
 size_flags_vertical = 7
 text = "target"
 align = 1
@@ -67,15 +67,15 @@ __meta__ = {
 
 [node name="type" type="VBoxContainer" parent="crafting_layout/component_layout"]
 margin_left = 758.0
-margin_right = 1512.0
-margin_bottom = 2023.0
+margin_right = 1508.0
+margin_bottom = 2013.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 3 )
 
 [node name="item" type="TextureButton" parent="crafting_layout/component_layout/type"]
-margin_right = 754.0
-margin_bottom = 1009.0
+margin_right = 750.0
+margin_bottom = 1002.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture_normal = ExtResource( 1 )
@@ -83,9 +83,9 @@ expand = true
 stretch_mode = 5
 
 [node name="label" type="Label" parent="crafting_layout/component_layout/type"]
-margin_top = 1013.0
-margin_right = 754.0
-margin_bottom = 2023.0
+margin_top = 1010.0
+margin_right = 750.0
+margin_bottom = 2013.0
 size_flags_vertical = 7
 text = "type"
 align = 1
@@ -101,21 +101,21 @@ __meta__ = {
 [node name="VSeparator" type="VSeparator" parent="crafting_layout/component_layout"]
 margin_left = 1516.0
 margin_right = 1566.0
-margin_bottom = 2023.0
+margin_bottom = 2013.0
 custom_styles/separator = SubResource( 1 )
 custom_constants/separation = 50
 
 [node name="element_1" type="VBoxContainer" parent="crafting_layout/component_layout"]
-margin_left = 1570.0
+margin_left = 1574.0
 margin_right = 2324.0
-margin_bottom = 2023.0
+margin_bottom = 2013.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 3 )
 
 [node name="item" type="TextureButton" parent="crafting_layout/component_layout/element_1"]
-margin_right = 754.0
-margin_bottom = 1009.0
+margin_right = 750.0
+margin_bottom = 1002.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture_normal = ExtResource( 1 )
@@ -123,9 +123,9 @@ expand = true
 stretch_mode = 5
 
 [node name="label" type="Label" parent="crafting_layout/component_layout/element_1"]
-margin_top = 1013.0
-margin_right = 754.0
-margin_bottom = 2023.0
+margin_top = 1010.0
+margin_right = 750.0
+margin_bottom = 2013.0
 size_flags_vertical = 7
 text = "element/item"
 align = 1
@@ -139,16 +139,16 @@ __meta__ = {
 }
 
 [node name="element_2" type="VBoxContainer" parent="crafting_layout/component_layout"]
-margin_left = 2328.0
+margin_left = 2332.0
 margin_right = 3082.0
-margin_bottom = 2023.0
+margin_bottom = 2013.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 3 )
 
 [node name="item" type="TextureButton" parent="crafting_layout/component_layout/element_2"]
-margin_right = 754.0
-margin_bottom = 1009.0
+margin_right = 750.0
+margin_bottom = 1002.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture_normal = ExtResource( 1 )
@@ -156,9 +156,9 @@ expand = true
 stretch_mode = 5
 
 [node name="label" type="Label" parent="crafting_layout/component_layout/element_2"]
-margin_top = 1013.0
-margin_right = 754.0
-margin_bottom = 2023.0
+margin_top = 1010.0
+margin_right = 750.0
+margin_bottom = 2013.0
 size_flags_vertical = 7
 text = "element/item"
 align = 1
@@ -172,16 +172,16 @@ __meta__ = {
 }
 
 [node name="element_3" type="VBoxContainer" parent="crafting_layout/component_layout"]
-margin_left = 3086.0
+margin_left = 3090.0
 margin_right = 3840.0
-margin_bottom = 2023.0
+margin_bottom = 2013.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 3 )
 
 [node name="item" type="TextureButton" parent="crafting_layout/component_layout/element_3"]
-margin_right = 754.0
-margin_bottom = 1009.0
+margin_right = 750.0
+margin_bottom = 1002.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture_normal = ExtResource( 1 )
@@ -189,9 +189,9 @@ expand = true
 stretch_mode = 5
 
 [node name="label" type="Label" parent="crafting_layout/component_layout/element_3"]
-margin_top = 1013.0
-margin_right = 754.0
-margin_bottom = 2023.0
+margin_top = 1010.0
+margin_right = 750.0
+margin_bottom = 2013.0
 size_flags_vertical = 7
 text = "element/item"
 align = 1
@@ -205,9 +205,9 @@ __meta__ = {
 }
 
 [node name="cast_button" type="Button" parent="crafting_layout"]
-margin_left = 1813.0
-margin_top = 2027.0
-margin_right = 2027.0
+margin_left = 1807.0
+margin_top = 2021.0
+margin_right = 2033.0
 margin_bottom = 2160.0
 size_flags_horizontal = 4
 text = "Cast"
@@ -236,7 +236,7 @@ __meta__ = {
 
 [node name="result_icon" type="TextureRect" parent="result_popup/popup_layout"]
 margin_right = 1536.0
-margin_bottom = 841.0
+margin_bottom = 837.0
 size_flags_vertical = 3
 texture = ExtResource( 1 )
 expand = true
