@@ -10,9 +10,14 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Reference",
-"class": "action",
+"class": "abstract_action",
 "language": "GDScript",
 "path": "res://characters/state/ai/action.gd"
+}, {
+"base": "Reference",
+"class": "abstract_spell",
+"language": "GDScript",
+"path": "res://skills/spells/spell.gd"
 }, {
 "base": "Node",
 "class": "ai_machine",
@@ -28,6 +33,21 @@ _global_script_classes=[ {
 "class": "ai_state",
 "language": "GDScript",
 "path": "res://characters/state/ai_state.gd"
+}, {
+"base": "abstract_spell",
+"class": "blood_heal_spell",
+"language": "GDScript",
+"path": "res://skills/spells/blood/blood_heal.gd"
+}, {
+"base": "abstract_spell",
+"class": "blood_sacrifice_spell",
+"language": "GDScript",
+"path": "res://skills/spells/blood/blood_sacrifice.gd"
+}, {
+"base": "abstract_spell",
+"class": "blood_storm_spell",
+"language": "GDScript",
+"path": "res://skills/spells/blood/blood_storm.gd"
 }, {
 "base": "task",
 "class": "cancel_task",
@@ -49,15 +69,35 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://characters/state/dialogue_state.gd"
 }, {
+"base": "abstract_spell",
+"class": "do_nothing_spell",
+"language": "GDScript",
+"path": "res://skills/spells/do_nothing.gd"
+}, {
 "base": "Node",
 "class": "experience_state",
 "language": "GDScript",
 "path": "res://characters/state/experience_state.gd"
 }, {
+"base": "abstract_spell",
+"class": "fire_ring_spell",
+"language": "GDScript",
+"path": "res://skills/spells/fire/fire_ring.gd"
+}, {
+"base": "abstract_spell",
+"class": "fire_storm_spell",
+"language": "GDScript",
+"path": "res://skills/spells/fire/fire_storm.gd"
+}, {
 "base": "move_to_task",
 "class": "follow_task",
 "language": "GDScript",
 "path": "res://characters/state/ai/behavior_tree/tasks/follow.gd"
+}, {
+"base": "abstract_spell",
+"class": "heal_spell",
+"language": "GDScript",
+"path": "res://skills/spells/life/heal.gd"
 }, {
 "base": "Node",
 "class": "input_state",
@@ -142,12 +182,12 @@ _global_script_classes=[ {
 "base": "Area",
 "class": "spell_expander",
 "language": "GDScript",
-"path": "res://spells/spell_expander.gd"
+"path": "res://skills/scenes/spell_expander.gd"
 }, {
 "base": "Spatial",
 "class": "spell_spawner",
 "language": "GDScript",
-"path": "res://spells/spell_spawner.gd"
+"path": "res://skills/scenes/spell_spawner.gd"
 }, {
 "base": "Node",
 "class": "stats_state",
@@ -185,16 +225,24 @@ _global_script_classes=[ {
 "path": "res://characters/state/ai/behavior_tree/tasks/wait.gd"
 } ]
 _global_script_class_icons={
-"action": "",
+"abstract_action": "",
+"abstract_spell": "",
 "ai_machine": "",
 "ai_mind": "",
 "ai_state": "",
+"blood_heal_spell": "",
+"blood_sacrifice_spell": "",
+"blood_storm_spell": "",
 "cancel_task": "",
 "cast_task": "",
 "character": "",
 "dialogue_state": "",
+"do_nothing_spell": "",
 "experience_state": "",
+"fire_ring_spell": "",
+"fire_storm_spell": "",
 "follow_task": "",
+"heal_spell": "",
 "input_state": "",
 "interaction_state": "",
 "inventory_state": "",
@@ -241,7 +289,7 @@ game_settings="*res://scripts/settings/game_settings.gd"
 dev_settings="*res://scripts/settings/dev_settings.gd"
 settings="*res://scripts/settings/settings.gd"
 scenes="*res://scripts/scenes.gd"
-spells="*res://scripts/game/spells.gd"
+skill_data="*res://scripts/game/skill_data.gd"
 items="*res://scripts/game/items.gd"
 characters="res://scripts/game/characters.gd"
 management="res://scripts/game/management.gd"

@@ -12,20 +12,19 @@ var active_skills
 func cast(spell_id: String):
 	if(!inventory.skills.has(spell_id)):
 		return
-	var spell = spells.get_spell(spell_id)
-	var spell_focus = spells.get_focus(spell, "self")
-	var focus_per_second = spells.get_focus(spell, "self", true)
+	var spell: abstract_spell = skill_data.spells[spell_id]
+	var spell_focus = spell.self_focus()
+	var focus_per_second = spell.self_focus_per_second()
 	if(stats.focus + spell_focus < 0 || stats.focus + focus_per_second < 0):
 		return
 	stats.focus = clamp(stats.focus + spell_focus, 0, stats.max_focus())
-	stats._self_damage(spells.get_pain(spell, "self"))
-	var spell_duration = spells.get_duration(spell)
+	stats._self_damage(spell.self_pain())
+	var spell_duration = spell.duration()
 	# todo: animation
-	var scene = spells.get_scene(spell)
-	if(!scene):
+	var spell_scene = spell.scene()
+	if(!spell_scene):
 		return
-	var spell_scene = scene.instance()
-	active_skills.push_back([focus_per_second, spells.get_pain(spell, "self", true), spell_duration, spell_scene])
+	active_skills.push_back([focus_per_second, spell.self_pain_per_second(), spell_duration, spell_scene])
 	pawn.add_child(spell_scene)
 
 func cast_slot(slot_id: int):

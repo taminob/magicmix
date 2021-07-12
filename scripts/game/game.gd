@@ -22,7 +22,7 @@ func reload_game():
 		remove_child(world)
 	chars = load(game_script_path + "characters.gd").new()
 	add_child(chars)
-	char_data = chars.characters
+	char_data = chars.character_data
 	mgmt = load(game_script_path + "management.gd").new()
 	add_child(mgmt)
 	world = load(game_script_path + "world.gd").new()

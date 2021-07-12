@@ -1,4 +1,4 @@
-extends action
+extends abstract_action
 
 static func precondition() -> int:
 	return 0

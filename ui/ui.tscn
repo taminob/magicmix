@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://ui/icons/spells/circle-512.png" type="Texture" id=1]
+[ext_resource path="res://ui/icons/skills/circle-512.png" type="Texture" id=1]
 [ext_resource path="res://ui/ui.gd" type="Script" id=2]
 [ext_resource path="res://themes/ui_theme.tres" type="Theme" id=3]
 [ext_resource path="res://ui/panels/panels.tscn" type="PackedScene" id=4]

@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://skills/scenes/blood/blood_storm.gd" type="Script" id=1]
+
+[sub_resource type="ParticlesMaterial" id=1]
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+flatness = 1.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 1.0
+tangential_accel = 40.0
+scale = 0.5
+scale_random = 1.0
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.368627, 0, 0, 1 )
+
+[sub_resource type="SphereMesh" id=3]
+material = SubResource( 2 )
+radius = 0.1
+height = 0.2
+
+[sub_resource type="CylinderShape" id=4]
+radius = 10.0
+height = 1.0
+
+[node name="blood_storm" type="Area"]
+script = ExtResource( 1 )
+
+[node name="particles" type="Particles" parent="."]
+amount = 1000
+preprocess = 1.0
+visibility_aabb = AABB( -10, -0.5, -10, 20, 1, 20 )
+process_material = SubResource( 1 )
+draw_pass_1 = SubResource( 3 )
+
+[node name="collision" type="CollisionShape" parent="."]
+shape = SubResource( 4 )

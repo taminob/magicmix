@@ -8,7 +8,7 @@ func _on_skills_tree_visibility_changed():
 	if(is_visible()):
 		update_tree()
 
-func update_tree(category=""):
+func update_tree(_category: String=""):
 	pass
 
 func _on_life_pressed():
@@ -25,15 +25,14 @@ func _on_blood_pressed():
 
 func _set_slot(num: int):
 	get_node("layout/list/detail_popup/slots/slot" + 
-	str(num)).set_normal_texture(spells.get_icon(spells.get_spell(
-		game.mgmt.player.inventory.get_skill_slot(num))))
+	str(num)).set_normal_texture(skill_data.spells[game.mgmt.player.inventory.get_skill_slot(num)].icon())
 
-func _on_list_item_activated(index: int):
+func _on_skill_activated(index: int):
 	var current = index#list.get_item_metadata(index)
 	details.set_meta("current", current)
-	var spell = spells.get_spell(current)
-	detail_icon.set_texture(spells.get_icon(spell))
-	detail_label.set_text(spells.get_spell_name(spell) + "\n" + spells.get_description(spell))
+	var spell: abstract_spell = skill_data.spells[current]
+	detail_icon.set_texture(spell.icon())
+	detail_label.set_text(spell.name() + "\n" + spell.description())
 	for i in range(5):
 		_set_slot(i)
 

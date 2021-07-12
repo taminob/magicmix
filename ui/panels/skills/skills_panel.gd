@@ -10,19 +10,19 @@ func _on_skills_panel_visibility_changed():
 	if(is_visible()):
 		update_skills()
 
-func update_skills(category=""):
+func update_skills(category: String=""):
 	list.clear()
 	for x in game.mgmt.player.inventory.skills:
-		var spell = spells.get_spell(x)
-		if(spells.get_category(spell) == category || category.empty()):
-			list.add_item(spells.get_spell_name(spell), spells.get_icon(spell))
+		var spell = skill_data.spells.get(x)
+		if(spell.category() == category || category.empty()):
+			list.add_item(spell.name(), spell.icon())
 			list.set_item_metadata(list.get_item_count()-1, x)
 
 func _on_all_pressed():
 	update_skills()
 
-func _on_heal_pressed():
-	update_skills("heal")
+func _on_life_pressed():
+	update_skills("life")
 
 func _on_fire_pressed():
 	update_skills("fire")
@@ -30,21 +30,23 @@ func _on_fire_pressed():
 func _on_blood_pressed():
 	update_skills("blood")
 
-func _set_slot(num):
-	get_node("layout/list/detail_popup/slots/slot" + 
-	str(num)).set_normal_texture(spells.get_icon(spells.get_spell(
-		game.mgmt.player.inventory.get_skill_slot(num))))
+func _on_darkness_pressed():
+	update_skills("darkness")
 
-func _on_list_item_activated(index):
+func _set_slot(num: int):
+	get_node("layout/list/detail_popup/slots/slot" + 
+	str(num)).set_normal_texture(skill_data.spells[game.mgmt.player.inventory.get_skill_slot(num)].icon())
+
+func _on_list_item_activated(index: int):
 	var current = list.get_item_metadata(index)
 	detail_popup.set_meta("current", current)
-	var spell = spells.get_spell(current)
-	detail_icon.set_texture(spells.get_icon(spell))
-	detail_label.set_text(spells.get_spell_name(spell) + "\n" + spells.get_description(spell))
+	var spell = skill_data.spells[current]
+	detail_icon.set_texture(spell.icon())
+	detail_label.set_text(spell.name() + "\n" + spell.description())
 	for i in range(5):
 		_set_slot(i)
 	detail_popup.popup()
 
-func _on_slot_pressed(num):
+func _on_slot_pressed(num: int):
 	game.mgmt.player.inventory.set_skill_slot(num, detail_popup.get_meta("current"))
 	_set_slot(num)

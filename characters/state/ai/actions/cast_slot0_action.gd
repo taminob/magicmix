@@ -1,13 +1,13 @@
-extends action
+extends abstract_action
 
 const CAST_SLOT: int = 0
 
 static func _cast_data(pawn: character) -> Array:
-	var spell = spells.get_spell(pawn.inventory.get_skill_slot(CAST_SLOT))
+	var spell: abstract_spell = skill_data.spells[pawn.inventory.get_skill_slot(CAST_SLOT)]
 	var cast_data = []
-	cast_data.push_back(spells.get_focus(spell, "self"))
-	cast_data.push_back(spells.get_focus(spell, "self", true))
-	cast_data.push_back(spells.get_pain(spell, "self"))
+	cast_data.push_back(spell.self_focus())
+	cast_data.push_back(spell.self_focus_per_second())
+	cast_data.push_back(spell.self_pain())
 	return cast_data
 
 static func _can_cast(pawn: character) -> bool:
@@ -30,7 +30,7 @@ func choose_target():
 	target = pawn.ai.brain.get_any_enemy()
 
 func get_range_state() -> int:
-	var spell_range = spells.get_range(spells.get_spell(pawn.inventory.get_skill_slot(CAST_SLOT)))
+	var spell_range = skill_data.spells[pawn.inventory.get_skill_slot(CAST_SLOT)].range()
 	if(spell_range < 0):
 		return range_state.no_range_required
 	if(pawn.global_transform.origin.distance_squared_to(target.global_transform.origin) <= spell_range * spell_range):

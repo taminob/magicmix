@@ -3,7 +3,7 @@ extends Node
 const FULL_PAIN: float = 10000.0
 
 # warning-ignore:unused_class_variable
-var characters = {
+var character_data = {
 	"hans": {
 		"dialogue": {
 			"name": "Hans",

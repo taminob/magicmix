@@ -1,4 +1,4 @@
-class_name action
+class_name abstract_action
 
 enum range_state {
 	no_range_required,

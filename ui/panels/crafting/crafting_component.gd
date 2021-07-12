@@ -7,7 +7,7 @@ onready var list = $"label/list"
 var category = ""
 var selected = ""
 
-const component_icons_path = "res://ui/icons/spells/"
+const component_icons_path = "res://ui/icons/skills/"
 
 var lists = {
 	"target": [["self", component_icons_path + "self-512.png"],

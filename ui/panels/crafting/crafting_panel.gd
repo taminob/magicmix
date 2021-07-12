@@ -32,8 +32,8 @@ func is_combination(combination, element_combi):
 
 func create_skill():
 	var components = get_components()
-	for x in spells.spells.keys():
-		for combo in spells.get_combinations(spells.get_spell(x)):
+	for x in skill_data.spells.keys():
+		for combo in skill_data.spells[x].combinations():
 			if(combo["target"] == components["target"] &&
 				combo["type"] == components["type"] &&
 				is_combination(combo["elements"], components["elements"])):
@@ -44,12 +44,12 @@ func _on_cast_button_pressed():
 	var new_skill = create_skill()
 	if(new_skill != ""):
 		if(game.mgmt.player.inventory.add_skill(new_skill)):
-			result_label.set_text("New! " + spells.get_spell_name(spells.get_spell(new_skill)))
+			result_label.set_text("New! " + skill_data.spells[new_skill].name())
 		else:
-			result_label.set_text(spells.get_spell_name(spells.get_spell(new_skill)))
+			result_label.set_text(skill_data.spells[new_skill].name())
 	else:
 		result_label.set_text("Invalid Combination!")
-	result_icon.set_texture(spells.get_icon(spells.get_spell(new_skill)))
+	result_icon.set_texture(skill_data.spells[new_skill].icon())
 	result_popup.show()
 	popup_timer.start()
 
