@@ -17,9 +17,12 @@ var characters = {
 			"concentration": 1,
 			"endurance": 1
 		},
+		"stats": {
+			"focus": 70
+		},
 		"inventory": {
-			"skills": ["fire_ring", "blood_sacrifice", "heal", "blood_storm", "blood_heal"],
-			"slots": ["heal", "fire_ring", "blood_heal", "blood_storm", "blood_sacrifice"]
+			"skills": ["fire_ring", "fire_storm", "blood_sacrifice", "heal", "blood_storm", "blood_heal"],
+			"slots": ["heal", "fire_ring", "fire_storm", "blood_storm", "blood_sacrifice"]
 		},
 		"look": {
 			"mesh_path": "res://characters/meshes/patrol/body.tscn"

@@ -18,7 +18,7 @@ func _physics_process(delta: float):
 	if(_caster_affected):
 		_caster.damage(spells.get_pain(spell, "self", true) * delta)
 
-func _object_enter(body):
+func _object_enter(body: Node):
 	if(body):
 		if(body == _caster):
 			_caster_affected = true
@@ -27,7 +27,7 @@ func _object_enter(body):
 			_affected_bodies.push_back(body)
 			body.damage(spells.get_pain(spell, "target"))
 
-func _object_exit(body):
+func _object_exit(body: Node):
 	if(body == _caster):
 		_caster_affected = false
 	_affected_bodies.erase(body)

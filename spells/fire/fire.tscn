@@ -9,7 +9,7 @@ angular_velocity = 10.0
 [sub_resource type="SphereShape" id=2]
 radius = 0.5
 
-[sub_resource type="ParticlesMaterial" id=13]
+[sub_resource type="ParticlesMaterial" id=3]
 trail_divisor = 5
 emission_shape = 1
 emission_sphere_radius = 0.3
@@ -18,7 +18,7 @@ spread = 5.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 1.0
 
-[sub_resource type="Shader" id=10]
+[sub_resource type="Shader" id=4]
 code = "shader_type spatial;
 render_mode blend_mix;
 
@@ -36,16 +36,16 @@ void fragment()
 	ALPHA = smoothstep(0.0, 0.9, COLOR.a);
 }"
 
-[sub_resource type="ShaderMaterial" id=3]
-shader = SubResource( 10 )
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 4 )
 shader_param/base_color = Plane( 0.5, 0.3, 0, 0.8 )
 
-[sub_resource type="SphereMesh" id=4]
-material = SubResource( 3 )
+[sub_resource type="SphereMesh" id=6]
+material = SubResource( 5 )
 radius = 0.01
 height = 0.04
 
-[sub_resource type="ParticlesMaterial" id=11]
+[sub_resource type="ParticlesMaterial" id=7]
 trail_divisor = 3
 emission_shape = 1
 emission_sphere_radius = 0.5
@@ -55,15 +55,15 @@ gravity = Vector3( 0, 0, 0 )
 initial_velocity = 1.0
 angular_velocity = 1.0
 
-[sub_resource type="SpatialMaterial" id=5]
+[sub_resource type="SpatialMaterial" id=8]
 albedo_color = Color( 0.392157, 0, 0, 1 )
 
-[sub_resource type="SphereMesh" id=6]
-material = SubResource( 5 )
+[sub_resource type="SphereMesh" id=9]
+material = SubResource( 8 )
 radius = 0.02
 height = 0.04
 
-[sub_resource type="ParticlesMaterial" id=12]
+[sub_resource type="ParticlesMaterial" id=10]
 trail_divisor = 3
 emission_shape = 1
 emission_sphere_radius = 0.5
@@ -72,7 +72,7 @@ spread = 10.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 1.0
 
-[sub_resource type="Shader" id=7]
+[sub_resource type="Shader" id=11]
 code = "shader_type spatial;
 render_mode blend_mix;
 
@@ -90,12 +90,12 @@ void fragment()
 	ALPHA = smoothstep(0.0, 0.9, COLOR.a);
 }"
 
-[sub_resource type="ShaderMaterial" id=8]
-shader = SubResource( 7 )
+[sub_resource type="ShaderMaterial" id=12]
+shader = SubResource( 11 )
 shader_param/base_color = Plane( 0.37, 0, 0, 0.8 )
 
-[sub_resource type="SphereMesh" id=9]
-material = SubResource( 8 )
+[sub_resource type="SphereMesh" id=13]
+material = SubResource( 12 )
 radius = 0.01
 height = 0.02
 
@@ -115,17 +115,20 @@ shape = SubResource( 2 )
 [node name="particles" type="Particles" parent="."]
 amount = 100
 lifetime = 0.4
-process_material = SubResource( 13 )
-draw_pass_1 = SubResource( 4 )
+visibility_aabb = AABB( -0.337496, -0.29315, -0.372307, 0.682095, 1.0173, 0.781276 )
+process_material = SubResource( 3 )
+draw_pass_1 = SubResource( 6 )
 
 [node name="particles2" type="Particles" parent="."]
 amount = 200
 lifetime = 0.3
-process_material = SubResource( 11 )
-draw_pass_1 = SubResource( 6 )
+visibility_aabb = AABB( -0.561712, -0.528422, -0.646344, 1.10737, 1.34839, 1.27542 )
+process_material = SubResource( 7 )
+draw_pass_1 = SubResource( 9 )
 
 [node name="particles3" type="Particles" parent="."]
 amount = 500
 lifetime = 0.4
-process_material = SubResource( 12 )
-draw_pass_1 = SubResource( 9 )
+visibility_aabb = AABB( -0.528495, -0.507156, -0.664096, 1.05789, 1.40856, 1.32317 )
+process_material = SubResource( 10 )
+draw_pass_1 = SubResource( 13 )

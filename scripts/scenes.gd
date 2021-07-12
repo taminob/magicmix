@@ -25,7 +25,7 @@ func open_scene(scene: Node, clear_scene_stack: bool=false):
 	errors.log("open scene: " + scene.filename)
 	current_scene = scene
 	root.call_deferred("add_child", current_scene)
-	get_tree().set_current_scene(current_scene)
+	get_tree().call_deferred("set_current_scene", current_scene)
 
 func open_scene_from(scene_path: String, clear_scene_stack: bool=false):
 	var new_scene = load(scene_path).instance()

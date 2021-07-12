@@ -227,6 +227,8 @@ _global_script_class_icons={
 config/name="Magicmix"
 run/main_scene="res://menu/startup/startup.tscn"
 boot_splash/image="res://ui/icons/empty-512.png"
+boot_splash/fullsize=false
+boot_splash/use_filter=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 
 [autoload]

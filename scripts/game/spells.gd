@@ -137,10 +137,11 @@ var spells = {
 		},
 		"target": {
 			"focus_per_second": -5,
-			"pain_per_second": 15
+			"pain_per_second": 15,
+			"pain": 5
 		},
-		"duration": 5,
-		"range": 10,
+		"duration": 25,
+		"range": 7.5,
 		"icon": load(spell_icons_path + "magma-512.png"),
 		"anim": "",
 		"scene": load(spell_scenes_path + "fire/fire_storm.tscn")

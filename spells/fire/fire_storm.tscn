@@ -2,5 +2,5 @@
 
 [ext_resource path="res://spells/fire/fire_storm.gd" type="Script" id=2]
 
-[node name="fire_storm" type="YSort"]
+[node name="fire_storm" type="Spatial"]
 script = ExtResource( 2 )
