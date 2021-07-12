@@ -17,6 +17,10 @@ var levels = {
 		"path": "res://world/levels/town/level.tscn",
 		"death_realm": false
 	},
+	"house_inside": { # TODO: DEBUG, remove
+		"path": "res://world/levels/town/house_inside.tscn",
+		"death_realm": false
+	},
 	"death_realm": {
 		"path": "res://world/levels/death_realm/level.tscn",
 		"death_realm": true

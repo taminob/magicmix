@@ -1,11 +1,10 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://world/objects/stairs/stairs.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world/objects/stone/stone.tscn" type="PackedScene" id=2]
 [ext_resource path="res://world/shaders/stone.shader" type="Shader" id=3]
 [ext_resource path="res://world/shaders/grass.shader" type="Shader" id=4]
 [ext_resource path="res://world/shaders/rainbow.shader" type="Shader" id=5]
-[ext_resource path="res://world/objects/box/box.tscn" type="PackedScene" id=6]
 [ext_resource path="res://world/objects/stairs/stairs.shader" type="Shader" id=7]
 
 [sub_resource type="CubeMesh" id=1]
@@ -256,6 +255,3 @@ material/0 = SubResource( 16 )
 shape = SubResource( 26 )
 
 [node name="boxes" type="Spatial" parent="."]
-
-[node name="box1" parent="boxes" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.5 )

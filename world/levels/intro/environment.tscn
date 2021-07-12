@@ -1,19 +1,20 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://world/objects/stairs/stairs.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world/objects/stone/stone.tscn" type="PackedScene" id=2]
-[ext_resource path="res://world/shaders/stone.shader" type="Shader" id=3]
+[ext_resource path="res://world/materials/vertex.tres" type="Material" id=3]
 [ext_resource path="res://world/materials/simple_stone.tres" type="Material" id=4]
-[ext_resource path="res://world/shaders/rainbow.shader" type="Shader" id=5]
+[ext_resource path="res://world/materials/3d_grass.tres" type="Material" id=5]
 [ext_resource path="res://world/objects/box/box.tscn" type="PackedScene" id=6]
-[ext_resource path="res://world/objects/stairs/stairs.shader" type="Shader" id=7]
-[ext_resource path="res://world/materials/simple_grass.tres" type="Material" id=8]
 [ext_resource path="res://world/objects/door/door.tscn" type="PackedScene" id=9]
+[ext_resource path="res://world/materials/rainbow_stone.tres" type="Material" id=10]
 
-[sub_resource type="CubeMesh" id=23]
+[sub_resource type="CubeMesh" id=1]
 size = Vector3( 100, 1, 100 )
+subdivide_width = 1000
+subdivide_depth = 1000
 
-[sub_resource type="BoxShape" id=24]
+[sub_resource type="BoxShape" id=2]
 extents = Vector3( 50, 1, 50 )
 
 [sub_resource type="CubeMesh" id=3]
@@ -22,95 +23,51 @@ size = Vector3( 60, 5, 2 )
 [sub_resource type="BoxShape" id=4]
 extents = Vector3( 30, 2.5, 1 )
 
-[sub_resource type="OpenSimplexNoise" id=5]
-
-[sub_resource type="NoiseTexture" id=6]
-seamless = true
-noise = SubResource( 5 )
-
-[sub_resource type="ShaderMaterial" id=7]
-shader = ExtResource( 3 )
-shader_param/noise_lod = 1.0
-shader_param/base_color = Vector3( 0.3, 0.3, 0.3 )
-shader_param/noise = SubResource( 6 )
-
-[sub_resource type="CubeMesh" id=8]
+[sub_resource type="CubeMesh" id=5]
 size = Vector3( 9, 5, 2 )
 
-[sub_resource type="ShaderMaterial" id=9]
-shader = ExtResource( 3 )
-shader_param/noise_lod = 1.0
-shader_param/base_color = Vector3( 0.3, 0.3, 0.3 )
-shader_param/noise = SubResource( 6 )
-
-[sub_resource type="BoxShape" id=10]
+[sub_resource type="BoxShape" id=6]
 extents = Vector3( 4.5, 2.5, 1 )
 
-[sub_resource type="CubeMesh" id=11]
+[sub_resource type="CubeMesh" id=7]
 size = Vector3( 21, 10, 5 )
 
-[sub_resource type="ShaderMaterial" id=12]
-shader = ExtResource( 5 )
-
-[sub_resource type="BoxShape" id=13]
+[sub_resource type="BoxShape" id=8]
 extents = Vector3( 10.5, 5, 2.5 )
 
-[sub_resource type="CapsuleMesh" id=14]
+[sub_resource type="CapsuleMesh" id=9]
 radius = 2.0
 mid_height = 4.0
 
-[sub_resource type="Shader" id=15]
-code = "shader_type spatial;
-render_mode blend_mix;
-
-const float TAU = 6.28318530718;
-
-void vertex()
-{
-	COLOR = vec4((sin(TIME) + 1.) / 2., (sin(TIME + TAU * 1. / 3.) + 1.) / 2., (sin(TIME + TAU * 2. / 3.) + 1.) / 2., 0.);
-}
-
-void fragment()
-{
-	ALBEDO = COLOR.xyz;
-}
-"
-
-[sub_resource type="ShaderMaterial" id=16]
-shader = SubResource( 15 )
-
-[sub_resource type="CapsuleShape" id=17]
+[sub_resource type="CapsuleShape" id=10]
 radius = 2.0
 height = 4.0
 
-[sub_resource type="CubeMesh" id=18]
+[sub_resource type="CubeMesh" id=11]
 size = Vector3( 20, 1, 8 )
 
-[sub_resource type="ShaderMaterial" id=19]
-shader = ExtResource( 7 )
-
-[sub_resource type="BoxShape" id=20]
+[sub_resource type="BoxShape" id=12]
 extents = Vector3( 10, 0.5, 4 )
 
-[sub_resource type="CubeMesh" id=21]
+[sub_resource type="CubeMesh" id=13]
 size = Vector3( 40, 30, 20 )
 
-[sub_resource type="BoxShape" id=22]
+[sub_resource type="BoxShape" id=14]
 extents = Vector3( 20, 15, 10 )
 
 [node name="environment" type="Spatial"]
 
 [node name="mesh" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
-mesh = SubResource( 23 )
-material/0 = ExtResource( 8 )
+mesh = SubResource( 1 )
+material/0 = ExtResource( 5 )
 
 [node name="ground" type="StaticBody" parent="mesh"]
 collision_layer = 3
 collision_mask = 31
 
 [node name="collision_shape" type="CollisionShape" parent="mesh/ground"]
-shape = SubResource( 24 )
+shape = SubResource( 2 )
 
 [node name="stairs" type="Spatial" parent="."]
 
@@ -162,7 +119,7 @@ shape = SubResource( 4 )
 [node name="mesh_instance2" type="MeshInstance" parent="walls"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.5, -10 )
 mesh = SubResource( 3 )
-material/0 = SubResource( 7 )
+material/0 = ExtResource( 4 )
 
 [node name="static_body" type="StaticBody" parent="walls/mesh_instance2"]
 
@@ -171,23 +128,23 @@ shape = SubResource( 4 )
 
 [node name="mesh_instance3" type="MeshInstance" parent="walls"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 36, 2.5, -6.5 )
-mesh = SubResource( 8 )
-material/0 = SubResource( 9 )
+mesh = SubResource( 5 )
+material/0 = ExtResource( 4 )
 
 [node name="static_body" type="StaticBody" parent="walls/mesh_instance3"]
 
 [node name="collision_shape" type="CollisionShape" parent="walls/mesh_instance3/static_body"]
-shape = SubResource( 10 )
+shape = SubResource( 6 )
 
 [node name="mesh_instance4" type="MeshInstance" parent="walls"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 36, 2.5, 6.5 )
-mesh = SubResource( 8 )
-material/0 = SubResource( 9 )
+mesh = SubResource( 5 )
+material/0 = ExtResource( 4 )
 
 [node name="static_body" type="StaticBody" parent="walls/mesh_instance4"]
 
 [node name="collision_shape" type="CollisionShape" parent="walls/mesh_instance4/static_body"]
-shape = SubResource( 10 )
+shape = SubResource( 6 )
 
 [node name="palace_entry" type="Spatial" parent="."]
 
@@ -197,63 +154,63 @@ next_level = "palace_entry"
 
 [node name="wall_r" type="MeshInstance" parent="palace_entry"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5, 5, -6.5 )
-mesh = SubResource( 11 )
-material/0 = SubResource( 12 )
+mesh = SubResource( 7 )
+material/0 = ExtResource( 10 )
 
 [node name="static_body" type="StaticBody" parent="palace_entry/wall_r"]
 
 [node name="collision_shape" type="CollisionShape" parent="palace_entry/wall_r/static_body"]
-shape = SubResource( 13 )
+shape = SubResource( 8 )
 
 [node name="statue_r" type="MeshInstance" parent="palace_entry"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -7, 13, -6.5 )
-mesh = SubResource( 14 )
-material/0 = SubResource( 16 )
+mesh = SubResource( 9 )
+material/0 = ExtResource( 10 )
 
 [node name="static_body" type="StaticBody" parent="palace_entry/statue_r"]
 
 [node name="collision_shape" type="CollisionShape" parent="palace_entry/statue_r/static_body"]
-shape = SubResource( 17 )
+shape = SubResource( 10 )
 
 [node name="statue_l" type="MeshInstance" parent="palace_entry"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -7, 13, 6.5 )
-mesh = SubResource( 14 )
-material/0 = SubResource( 16 )
+mesh = SubResource( 9 )
+material/0 = ExtResource( 10 )
 
 [node name="static_body" type="StaticBody" parent="palace_entry/statue_l"]
 
 [node name="collision_shape" type="CollisionShape" parent="palace_entry/statue_l/static_body"]
-shape = SubResource( 17 )
+shape = SubResource( 10 )
 
 [node name="walkway" type="MeshInstance" parent="palace_entry"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.946, 2.4, 0 )
-mesh = SubResource( 18 )
-material/0 = SubResource( 19 )
+mesh = SubResource( 11 )
+material/0 = ExtResource( 3 )
 
 [node name="static_body" type="StaticBody" parent="palace_entry/walkway"]
 
 [node name="collision_shape" type="CollisionShape" parent="palace_entry/walkway/static_body"]
-shape = SubResource( 20 )
+shape = SubResource( 12 )
 
 [node name="wall_l" type="MeshInstance" parent="palace_entry"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5, 5, 6.5 )
-mesh = SubResource( 11 )
-material/0 = SubResource( 12 )
+mesh = SubResource( 7 )
+material/0 = ExtResource( 10 )
 
 [node name="static_body" type="StaticBody" parent="palace_entry/wall_l"]
 
 [node name="collision_shape" type="CollisionShape" parent="palace_entry/wall_l/static_body"]
-shape = SubResource( 13 )
+shape = SubResource( 8 )
 
 [node name="house_body" type="MeshInstance" parent="palace_entry"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -40, 5, 0 )
-mesh = SubResource( 21 )
-material/0 = SubResource( 12 )
+mesh = SubResource( 13 )
+material/0 = ExtResource( 10 )
 
 [node name="static_body" type="StaticBody" parent="palace_entry/house_body"]
 
 [node name="collision_shape" type="CollisionShape" parent="palace_entry/house_body/static_body"]
-shape = SubResource( 22 )
+shape = SubResource( 14 )
 
 [node name="boxes" type="Spatial" parent="."]
 

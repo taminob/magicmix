@@ -67,6 +67,9 @@ func revive():
 func global_body_center() -> Vector3:
 	return global_transform.origin + global_transform.basis.y * look.body_height / 2
 
+func global_body_head() -> Vector3:
+	return global_transform.origin + global_transform.basis.y * look.body_height
+
 func _update_ui():
 	if(state.is_player):
 		game.mgmt.ui.update_pain(stats.pain / stats.max_pain())

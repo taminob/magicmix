@@ -13,22 +13,23 @@ onready var planning: planner = $"../planner"
 var state_queue: Array = []
 var action_queue: Array = []
 var steps_since_idle: int = 0 # todo: remove/adjust - little hack to increase performance; only call idle() if a random amount of steps passed since last idle
-var steps_to_wait_before_idle: int = randi() % 50 + 10 # todo: adjust
+var steps_to_wait_before_idle: int = randi() % 10 + 1 # todo: adjust
 
 func process_state():
 	steps_since_idle += 1
 	match state_queue.pop_front():
 		states.idle:
-			if(steps_since_idle < steps_to_wait_before_idle):
-				return
+			#if(steps_since_idle < steps_to_wait_before_idle):
+			#	return
 			idle()
 			steps_since_idle = 0
 		states.move:
 			move()
 		states.active:
 			active()
-		null:
-			push_state(states.idle)
+		# todo: necessary?
+		#null:
+		#	push_state(states.idle)
 
 func push_state(new_state: int):
 	# todo: good idea?
@@ -72,7 +73,8 @@ func reconsider():
 func consider(know: int):
 	action_queue = planning.plan(know)
 	if(action_queue.empty()):
-		push_state(states.idle)
+		pass
+		#push_state(states.idle) # todo? necessary?
 	else:
 		push_state(states.active)
 
@@ -81,6 +83,8 @@ func idle():
 	reconsider()
 
 func move():
+	if(action_queue.empty()):
+		return
 	ai.move.current_mode = move_state.move_mode.RUNNING # todo: implement other move modes
 	var current_action = action_queue.front()
 	var nav = game.levels.current_level.get_node("navigation")
@@ -90,6 +94,8 @@ func move():
 		if(!path.empty()):
 			ai.pawn.look_at(Vector3(path[1].x, ai.pawn.global_transform.origin.y, path[1].z), Vector3.UP)
 			ai.pawn.move.input_direction = Vector3.FORWARD
+			# TODO: push move or active; but: current_action somehow null
+			push_state(states.active)
 
 func active():
 	if(action_queue.empty()):
@@ -107,6 +113,6 @@ func active():
 		if(!current_action.do()):
 			# todo? plan failed/aborted
 			push_state(states.idle)
-		action_queue.pop_front() # todo: here correct?
+		action_queue.pop_front()
 	else:
 		push_state(states.move)

@@ -64,7 +64,7 @@ func load_save(save=current_save):
 	game.char_data = save_file.get_value("characters", "characters", game.char_data)
 	game.world.boxes = save_file.get_value("world", "boxes", game.world.boxes)
 	scenes.open_new_game_scene(true)
-	game.levels.change_level(save_file.get_value("level", "current_level", "intro"))
+	game.levels.change_level(save_file.get_value("level", "current_level", settings.get_setting("dev", "start_level")))
 
 func save():
 	var save_file = ConfigFile.new()

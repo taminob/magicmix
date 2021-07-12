@@ -31,6 +31,9 @@ var commands = {
 		"handler": funcref(self, "control_handler"),
 		"possible": game.char_data.keys()
 	},
+	"respawn": {
+		"handler": funcref(self, "respawn_handler")
+	}
 }
 
 func control_handler(character_id: String):
@@ -45,6 +48,13 @@ func inspect_handler(character_id: String=""):
 
 func reload_handler():
 	game.levels.change_level(game.levels.current_level_name)
+
+func respawn_handler():
+	var spawn = game.levels.current_level.get_node_or_null("player_spawn")
+	if(spawn):
+		game.mgmt.player.transform = spawn.transform
+	else:
+		game.mgmt.player.transform = Transform.IDENTITY
 
 func quit_handler(force: bool=false):
 	if(!force):

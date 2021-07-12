@@ -34,6 +34,9 @@ func _process(_delta: float):
 func _on_sight_zone_body_entered(body: Node):
 	if(state.is_player || body == pawn || !body):
 		return
+	var result = pawn.get_world().direct_space_state.intersect_ray(pawn.global_body_head(), body.global_transform.origin)
+	if(!result || result["collider"] != body):
+		return
 	brain.in_sight(body)
 	machine.push_state(ai_machine.states.idle)
 
