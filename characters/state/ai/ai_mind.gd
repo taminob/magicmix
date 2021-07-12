@@ -13,6 +13,12 @@ var objects_out_of_sight: Array = []
 func _init(new_pawn: KinematicBody):
 	pawn = new_pawn
 
+func flush_out_of_sight():
+	allies_out_of_sight.clear()
+	enemies_out_of_sight.clear()
+	characters_out_of_sight.clear()
+	objects_out_of_sight.clear()
+
 func get_nearest_enemy() -> character:
 	var min_dist: float = INF
 	var nearest_target: character = null

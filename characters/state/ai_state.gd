@@ -12,7 +12,7 @@ onready var stats: Node = $"../stats"
 # warning-ignore:unused_class_variable
 onready var dialogue: Node = $"../dialogue"
 
-const STEPS_BEFORE_RECONSIDER = 500
+const STEPS_BEFORE_RECONSIDER = 1000
 var steps_since_consider: int = 0
 
 var brain: ai_mind
@@ -26,10 +26,42 @@ func _process(_delta: float):
 	if(state.is_player):
 		return
 	machine.process_state()
+	if(steps_since_consider == 0):
+		brain.flush_out_of_sight()
 	steps_since_consider += 1
 	if(steps_since_consider >= STEPS_BEFORE_RECONSIDER):
 		machine.push_state(ai_machine.states.idle)
 		steps_since_consider = 0
+
+func get_current_knowledge():
+	var know: int = 0
+	if(stats.pain_percentage() > 0.7):
+		know |= planner.knowledge.high_pain
+	elif(stats.pain_percentage() < 0.2):
+		know |= planner.knowledge.low_pain
+	if(stats.focus_percentage() > 0.7):
+		know |= planner.knowledge.high_focus
+	elif(stats.focus_percentage() < 0.2):
+		know |= planner.knowledge.low_focus
+	if(!brain.enemies_in_sight.empty()):
+		know |= planner.knowledge.enemy_in_sight
+		know |= planner.knowledge.enemy_in_near
+	elif(!brain.enemies_out_of_sight.empty()):
+		know |= planner.knowledge.enemy_in_near
+	if(!brain.allies_in_sight.empty()):
+		know |= planner.knowledge.ally_in_sight
+		know |= planner.knowledge.ally_in_near
+	elif(!brain.allies_out_of_sight.empty()):
+		know |= planner.knowledge.ally_in_near
+	var most_damaged = brain.get_most_damaged_enemy()
+	if(most_damaged && most_damaged.stats.pain_percentage() > 0.85):
+		know |= planner.knowledge.enemy_damaged
+	most_damaged = brain.get_most_damaged_ally()
+	if(most_damaged && most_damaged.stats.pain_percentage() > 0.7):
+		know |= planner.knowledge.ally_damaged
+	if(dialogue.is_dialogue_active()):
+		know |= planner.knowledge.talking
+	return know
 
 func _on_sight_zone_body_entered(body: Node):
 	if(state.is_player || body == pawn || !body):
