@@ -115,7 +115,7 @@ size = Vector3( 40, 30, 20 )
 [sub_resource type="BoxShape" id=26]
 extents = Vector3( 20, 15, 10 )
 
-[node name="environment" type="Spatial"]
+[node name="environment2" type="Spatial"]
 
 [node name="mesh" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
