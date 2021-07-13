@@ -8,9 +8,6 @@ var levels: Node
 var mgmt: Node
 var world: Node
 
-func _ready():
-	reload_game()
-
 func reload_game():
 	if(chars):
 		remove_child(chars)
@@ -30,12 +27,12 @@ func reload_game():
 	levels = load(game_script_path + "levels.gd").new()
 	add_child(levels)
 
-var _loading_scene: Control = null
+var _loading_scene: PackedScene = load("res://menu/loading/loading.tscn")
 var _loading_callback: FuncRef
 func load_resource(path: String, callback: FuncRef):
-	_loading_scene = preload("res://menu/loading/loading.tscn").instance()
-	scenes.open_scene(_loading_scene)
-	_loading_scene.track_loader(ResourceLoader.load_interactive(path))
+	var loading = _loading_scene.instance()
+	scenes.open_scene(loading)
+	loading.track_loader(ResourceLoader.load_interactive(path))
 	_loading_callback = callback
 	get_tree().paused = true
 

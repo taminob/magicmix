@@ -42,6 +42,7 @@ func close_scene():
 	open_scene(previous_scenes.pop_back())
 
 func close_all_scenes():
+	# todo? prevent open_scene in close_scene
 	close_scene()
 	while(!previous_scenes.empty()):
 		close_scene()
