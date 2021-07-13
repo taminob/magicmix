@@ -52,7 +52,7 @@ func skill_process(delta: float):
 			if(x[2] <= 0 || stats.focus + x[0] * delta < 0):
 				canceled_spells.push_back(x)
 				continue
-		stats.focus = clamp(stats.focus + x[0] * delta, 0, stats.max_focus())
+		stats._self_focus_damage(x[0] * delta)
 		stats._self_damage(x[1] * delta)
 	for x in canceled_spells:
 		cancel_spell(x)

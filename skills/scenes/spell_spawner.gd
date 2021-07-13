@@ -13,8 +13,7 @@ var _spawn_amount_counter: int = 0
 var _example_object: Area = null
 var _objects: Array = []
 var _affected_bodies: Array = []
-onready var _caster: character = $".."
-var _caster_affected: bool = false
+onready var _caster: KinematicBody = $".."
 var _default_collision_mask: int = game.mgmt.layer.characters  | game.mgmt.layer.enemies | game.mgmt.layer.spells
 
 # override for custom placement; return local translation
@@ -51,8 +50,6 @@ func _physics_process(delta: float):
 	for x in _affected_bodies:
 		x.damage(spell.target_pain_per_second() * delta)
 		x.damage(spell.target_focus_per_second() * delta, true)
-	if(_caster_affected):
-		_caster.damage(spell.self_pain_per_second() * delta)
 
 func set_object_active(target: Area, active: bool=true):
 	target.set_visible(active)
@@ -82,16 +79,10 @@ func spawn_object(spawn_time: float=0.0, id: int=_objects.size()):
 		spawn_timer.start()
 
 func _object_enter(body: Node, _collider: Area):
-	if(body):
-		if(body == _caster):
-			_caster_affected = true
-			body.damage(spell.self_pain())
-		elif(body.has_method("damage")):
-			_affected_bodies.push_back(body)
-			body.damage(spell.target_pain())
-			body.damage(spell.target_focus(), true)
+	if(body && body.has_method("damage")):
+		_affected_bodies.push_back(body)
+		body.damage(spell.target_pain())
+		body.damage(spell.target_focus(), true)
 
 func _object_exit(body: Node, _collider: Area):
-	if(body == _caster):
-		_caster_affected = false
 	_affected_bodies.erase(body)
