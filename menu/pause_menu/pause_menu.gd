@@ -26,7 +26,7 @@ func _enter_tree():
 		call_deferred("popup")
 
 func _input(event: InputEvent):
-	if(event.is_action_pressed("pause")):
+	if(event.is_action_pressed("pause") && get_tree().paused != hidden):
 		if(hidden):
 			pause()
 		else:
@@ -40,8 +40,8 @@ func _on_options_button_pressed():
 
 func _on_titlescreen_button_pressed():
 	prepare_leave()
-	scenes.close_scene()
-	scenes.open_scene_from("res://menu/main_menu/main_menu.tscn", true)
+	scenes.close_all_scenes()
+	loader.load_resource("res://menu/main_menu/main_menu.tscn", funcref(scenes, "create_scene"), true)
 
 func _on_quit_button_pressed():
 	prepare_leave()

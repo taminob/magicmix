@@ -99,7 +99,7 @@ func _enter_tree():
 func _input(event: InputEvent):
 	if(!settings.get_setting("dev", "console")):
 		return
-	if(event.is_action_pressed("console")):
+	if(event.is_action_pressed("console") && get_tree().paused != hidden):
 		if(hidden):
 			pause()
 		else:
