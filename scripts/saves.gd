@@ -2,8 +2,7 @@ extends Node
 
 var current_save = "0"
 const SAVE_PATH = "res://saves/" # todo: change to user://
-# warning-ignore:unused_class_variable
-var key = OS.get_unique_id().to_utf8()
+#var key = OS.get_unique_id().to_utf8()
 
 func get_latest_save():
 	var dir = Directory.new()

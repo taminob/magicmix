@@ -1,7 +1,7 @@
 extends Node
 
 var player_name: String = ""
-var player: character = null
+var player: KinematicBody = null
 var camera: Node = load("res://characters/player/camera.tscn").instance()
 var character_scene: PackedScene = load("res://characters/character.tscn")
 # warning-ignore:unused_class_variable
@@ -28,6 +28,7 @@ enum layer {
 }
 
 const sight_layers = layer.default | layer.static_world | layer.objects | layer.characters | layer.enemies
+const damage_layers = layer.objects | layer.characters | layer.enemies
 
 func is_player(node) -> bool:
 	return node == player && player

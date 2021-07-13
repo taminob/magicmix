@@ -51,8 +51,11 @@ func die():
 		pawn._update_ui() # todo: refactor? only occurence of pawn
 		game.levels.change_level("death_realm")
 
-func damage(dmg: float):
-	_self_damage(dmg)
+func damage(dmg: float, is_focus: bool=false):
+	if(is_focus):
+		_self_focus_damage(dmg)
+	else:
+		_self_damage(dmg)
 
 func _self_damage(dmg: float):
 	if(settings.get_setting("dev", "god_mode") || dead || game.levels.current_level_death_realm):
@@ -60,6 +63,11 @@ func _self_damage(dmg: float):
 	pain = clamp(pain + dmg, 0, max_pain())
 	if(pain >= max_pain()):
 		die()
+
+func _self_focus_damage(dmg: float):
+	if(settings.get_setting("dev", "god_mode")):
+		return
+	focus = clamp(focus + dmg, 0, max_focus())
 
 func revive():
 	if(undead):

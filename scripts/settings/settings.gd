@@ -11,7 +11,10 @@ var _settings = {
 
 func _ready():
 	load_settings()
+	game_settings.set_options(self)
 	display_settings.set_options(self)
+	graphics_settings.set_options(self)
+	dev_settings.set_options(self)
 
 func save_settings():
 	for section in _settings.keys():

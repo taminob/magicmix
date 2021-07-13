@@ -1,5 +1,6 @@
 extends Node
 
+# warning-ignore:unused_class_variable
 var spells = {
 	"": do_nothing_spell.new(),
 	"heal": heal_spell.new(),
