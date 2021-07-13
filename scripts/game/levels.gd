@@ -48,7 +48,7 @@ var current_level: Node = null
 var current_level_death_realm: bool = false
 
 func change_level(level_name: String):
-	game.load_resource(levels[level_name]["path"], funcref(self, "_load_callback"))
+	loader.load_resource(levels[level_name]["path"], funcref(self, "_load_callback"), true)
 	current_level_name = level_name
 	current_level_death_realm = levels[level_name].get("death_realm", false)
 

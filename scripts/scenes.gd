@@ -1,6 +1,7 @@
 extends Node
 
-var game_scene: PackedScene = load("res://main.tscn")
+# warning-ignore:unused_class_variable
+var game_scene_path: String = "res://main.tscn"
 var game_instance: Node = null
 var current_scene: Node = null
 var previous_scenes: Array = []
@@ -10,9 +11,12 @@ func _ready():
 	root = get_tree().get_root()
 	current_scene = root.get_child(root.get_child_count() - 1)
 
-func open_new_game_scene(clear_scene_stack: bool=false):
-	game_instance = game_scene.instance()
-	open_scene(game_instance, clear_scene_stack)
+func create_game_scene(scene: PackedScene):
+	open_scene(scene.instance(), true)
+	game_instance = current_scene
+
+func create_scene(scene: PackedScene):
+	open_scene(scene.instance())
 
 func open_scene(scene: Node, clear_scene_stack: bool=false):
 	if(!scene):

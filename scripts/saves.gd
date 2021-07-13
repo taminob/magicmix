@@ -51,6 +51,7 @@ func new_save(name=""):
 	else:
 		current_save = name
 
+var _next_level: String
 func load_save(save=current_save):
 	var save_file = ConfigFile.new()
 	#var error = save_file.load_encrypted(SAVE_PATH + save, key) # todo? encrypted save files
@@ -62,8 +63,12 @@ func load_save(save=current_save):
 	game.mgmt.player_name = save_file.get_value("characters", "player", "hans")
 	game.char_data = save_file.get_value("characters", "characters", game.char_data)
 	game.world.boxes = save_file.get_value("world", "boxes", game.world.boxes)
-	scenes.open_new_game_scene(true)
-	game.levels.change_level(save_file.get_value("level", "current_level", settings.get_setting("dev", "start_level")))
+	_next_level = save_file.get_value("level", "current_level", settings.get_setting("dev", "start_level"))
+	loader.load_resource(scenes.game_scene_path, funcref(self, "_game_scene_loaded"), true)
+
+func _game_scene_loaded(scene: PackedScene):
+	scenes.create_game_scene(scene)
+	game.levels.change_level(_next_level)
 
 func save():
 	var save_file = ConfigFile.new()

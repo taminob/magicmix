@@ -37,7 +37,7 @@ shader_param/noise_modifier = Plane( 1, 0.5, 0.6, 1 )
 shader_param/speed_scale = 0.2
 shader_param/noise = SubResource( 3 )
 
-[sub_resource type="ProxyTexture" id=8]
+[sub_resource type="ProxyTexture" id=11]
 
 [sub_resource type="Gradient" id=6]
 colors = PoolColorArray( 0, 0, 0, 1, 0.792157, 0.792157, 0.792157, 1 )
@@ -69,7 +69,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -1.0
 margin_right = -1.0
-texture = SubResource( 8 )
+texture = SubResource( 11 )
 expand = true
 stretch_mode = 1
 __meta__ = {
