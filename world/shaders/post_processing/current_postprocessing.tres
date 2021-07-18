@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://world/shaders/post_processing/bloom.shader" type="Shader" id=1]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/intensity = 0.8
+shader_param/radius = 1.0
+shader_param/threshold = 0.2
