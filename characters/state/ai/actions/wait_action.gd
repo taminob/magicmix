@@ -9,5 +9,5 @@ static func postcondition() -> int:
 func get_range_state() -> int:
 	return range_state.no_range_required
 
-func do():
-	pass
+func do() -> bool:
+	return true

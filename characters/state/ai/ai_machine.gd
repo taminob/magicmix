@@ -62,7 +62,7 @@ func active():
 	if(action_queue.empty()):
 		push_state(states.idle)
 		return
-	var current_action = action_queue.front()
+	var current_action: abstract_action = action_queue.front()
 	var action_range = current_action.get_range_state()
 	if(action_range == abstract_action.range_state.in_range || action_range == abstract_action.range_state.no_range_required):
 		ai.pawn.move.input_direction = Vector3.ZERO

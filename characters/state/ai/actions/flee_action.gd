@@ -25,5 +25,5 @@ func choose_target():
 	if(nav && nearest_enemy):
 		target.translation = nav.get_closest_point(pawn.translation - 10 * pawn.translation.direction_to(nearest_enemy.translation))
 
-func do():
-	pass
+func do() -> bool:
+	return true

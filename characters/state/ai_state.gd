@@ -12,28 +12,33 @@ onready var stats: Node = $"../stats"
 # warning-ignore:unused_class_variable
 onready var dialogue: Node = $"../dialogue"
 
-const STEPS_BEFORE_RECONSIDER = 1000
-var steps_since_consider: int = 0
+const STEPS_BEFORE_RECONSIDER_DURING_PLAN = 1000
+const STEPS_BEFORE_RECONSIDER_WITHOUT_PLAN = 30
+var _steps_since_consider: int = 0
 
 var brain: ai_mind
+var should_reconsider: bool = false
 
 func _ready():
 	if(state.is_player):
 		return
-	steps_since_consider = 0
+	_steps_since_consider = 0
 
 func _process(_delta: float):
-	if(state.is_player):
+	if(state.is_player || (stats.dead && !stats.undead)):
 		return
 	machine.process_state()
-	if(steps_since_consider == 0):
+	if(_steps_since_consider == 0):
 		brain.flush_out_of_sight()
-	steps_since_consider += 1
-	if(steps_since_consider >= STEPS_BEFORE_RECONSIDER):
+	_steps_since_consider += 1
+	if(machine.action_queue.empty() && _steps_since_consider >= STEPS_BEFORE_RECONSIDER_WITHOUT_PLAN ||
+		_steps_since_consider >= STEPS_BEFORE_RECONSIDER_DURING_PLAN):
+		should_reconsider = true
+	if(should_reconsider):
 		machine.push_state(ai_machine.states.idle)
-		steps_since_consider = 0
+		_steps_since_consider = 0
 
-func get_current_knowledge():
+func get_current_knowledge() -> int:
 	var know: int = 0
 	if(stats.pain_percentage() > 0.7):
 		know |= planner.knowledge.high_pain

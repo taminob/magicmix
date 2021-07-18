@@ -22,5 +22,6 @@ func get_range_state() -> int:
 		return range_state.in_range
 	return range_state.out_of_range
 
-func do():
+func do() -> bool:
 	pawn.interaction.initiate_interact()
+	return true
