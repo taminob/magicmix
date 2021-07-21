@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://world/shaders/stone.shader" type="Shader" id=1]
 [ext_resource path="res://world/objects/child_interact.gd" type="Script" id=2]
@@ -29,6 +29,12 @@ size = Vector3( 2, 6, 2 )
 [sub_resource type="BoxShape" id=7]
 extents = Vector3( 1, 3, 1 )
 
+[sub_resource type="CubeMesh" id=10]
+size = Vector3( 3, 6, 0.2 )
+
+[sub_resource type="BoxShape" id=11]
+extents = Vector3( 1.5, 3, 0.1 )
+
 [sub_resource type="BoxShape" id=8]
 extents = Vector3( 2, 3.5, 0.5 )
 
@@ -38,38 +44,58 @@ size = Vector3( 4, 7, 0.5 )
 [node name="revive_portal" type="Spatial"]
 script = ExtResource( 3 )
 
-[node name="mesh_instance" type="MeshInstance" parent="."]
+[node name="top" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0 )
 mesh = SubResource( 1 )
 material/0 = SubResource( 4 )
 
-[node name="static_body" type="StaticBody" parent="mesh_instance"]
+[node name="static_body" type="StaticBody" parent="top"]
+collision_layer = 2
+collision_mask = 63
 
-[node name="collision_shape" type="CollisionShape" parent="mesh_instance/static_body"]
+[node name="collision_shape" type="CollisionShape" parent="top/static_body"]
 shape = SubResource( 5 )
 
-[node name="mesh_instance2" type="MeshInstance" parent="."]
+[node name="right" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 3, 0 )
 mesh = SubResource( 6 )
 material/0 = SubResource( 4 )
 
-[node name="static_body" type="StaticBody" parent="mesh_instance2"]
+[node name="static_body" type="StaticBody" parent="right"]
+collision_layer = 2
+collision_mask = 63
 
-[node name="collision_shape" type="CollisionShape" parent="mesh_instance2/static_body"]
+[node name="collision_shape" type="CollisionShape" parent="right/static_body"]
 shape = SubResource( 7 )
 
-[node name="mesh_instance3" type="MeshInstance" parent="."]
+[node name="left" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 3, 0 )
 mesh = SubResource( 6 )
 material/0 = SubResource( 4 )
 
-[node name="static_body" type="StaticBody" parent="mesh_instance3"]
+[node name="static_body" type="StaticBody" parent="left"]
+collision_layer = 2
+collision_mask = 63
 
-[node name="collision_shape" type="CollisionShape" parent="mesh_instance3/static_body"]
+[node name="collision_shape" type="CollisionShape" parent="left/static_body"]
 shape = SubResource( 7 )
 
+[node name="back" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -0.9 )
+mesh = SubResource( 10 )
+material/0 = SubResource( 4 )
+
+[node name="static_body" type="StaticBody" parent="back"]
+collision_layer = 2
+collision_mask = 63
+
+[node name="collision_shape" type="CollisionShape" parent="back/static_body"]
+shape = SubResource( 11 )
+
 [node name="area" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0.5 )
+collision_layer = 2
+collision_mask = 8
 script = ExtResource( 2 )
 
 [node name="collision_shape" type="CollisionShape" parent="area"]

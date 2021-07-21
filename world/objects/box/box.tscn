@@ -52,6 +52,8 @@ mesh = SubResource( 1 )
 material = SubResource( 4 )
 
 [node name="static_body" type="StaticBody" parent="body"]
+collision_layer = 2
+collision_mask = 63
 script = ExtResource( 4 )
 
 [node name="collision" type="CollisionShape" parent="body/static_body"]
@@ -70,6 +72,8 @@ material/0 = null
 
 [node name="static_body" type="StaticBody" parent="lid"]
 transform = Transform( -4.37114e-08, 0, -1, 0, 5, 0, 1, 0, -4.37114e-08, 0, -6, 0 )
+collision_layer = 2
+collision_mask = 63
 
 [node name="collision" type="CollisionShape" parent="lid/static_body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )

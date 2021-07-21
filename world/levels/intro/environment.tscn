@@ -63,8 +63,8 @@ mesh = SubResource( 1 )
 material/0 = ExtResource( 5 )
 
 [node name="ground" type="StaticBody" parent="mesh"]
-collision_layer = 3
-collision_mask = 31
+collision_layer = 2
+collision_mask = 63
 
 [node name="collision_shape" type="CollisionShape" parent="mesh/ground"]
 shape = SubResource( 2 )
@@ -112,6 +112,8 @@ mesh = SubResource( 3 )
 material/0 = ExtResource( 4 )
 
 [node name="static_body" type="StaticBody" parent="walls/mesh_instance"]
+collision_layer = 2
+collision_mask = 63
 
 [node name="collision_shape" type="CollisionShape" parent="walls/mesh_instance/static_body"]
 shape = SubResource( 4 )
@@ -122,6 +124,8 @@ mesh = SubResource( 3 )
 material/0 = ExtResource( 4 )
 
 [node name="static_body" type="StaticBody" parent="walls/mesh_instance2"]
+collision_layer = 2
+collision_mask = 63
 
 [node name="collision_shape" type="CollisionShape" parent="walls/mesh_instance2/static_body"]
 shape = SubResource( 4 )
@@ -132,6 +136,8 @@ mesh = SubResource( 5 )
 material/0 = ExtResource( 4 )
 
 [node name="static_body" type="StaticBody" parent="walls/mesh_instance3"]
+collision_layer = 2
+collision_mask = 63
 
 [node name="collision_shape" type="CollisionShape" parent="walls/mesh_instance3/static_body"]
 shape = SubResource( 6 )
@@ -142,6 +148,8 @@ mesh = SubResource( 5 )
 material/0 = ExtResource( 4 )
 
 [node name="static_body" type="StaticBody" parent="walls/mesh_instance4"]
+collision_layer = 2
+collision_mask = 63
 
 [node name="collision_shape" type="CollisionShape" parent="walls/mesh_instance4/static_body"]
 shape = SubResource( 6 )
@@ -158,6 +166,8 @@ mesh = SubResource( 7 )
 material/0 = ExtResource( 10 )
 
 [node name="static_body" type="StaticBody" parent="palace_entry/wall_r"]
+collision_layer = 2
+collision_mask = 63
 
 [node name="collision_shape" type="CollisionShape" parent="palace_entry/wall_r/static_body"]
 shape = SubResource( 8 )
@@ -168,6 +178,8 @@ mesh = SubResource( 9 )
 material/0 = ExtResource( 10 )
 
 [node name="static_body" type="StaticBody" parent="palace_entry/statue_r"]
+collision_layer = 2
+collision_mask = 63
 
 [node name="collision_shape" type="CollisionShape" parent="palace_entry/statue_r/static_body"]
 shape = SubResource( 10 )
@@ -178,6 +190,8 @@ mesh = SubResource( 9 )
 material/0 = ExtResource( 10 )
 
 [node name="static_body" type="StaticBody" parent="palace_entry/statue_l"]
+collision_layer = 2
+collision_mask = 63
 
 [node name="collision_shape" type="CollisionShape" parent="palace_entry/statue_l/static_body"]
 shape = SubResource( 10 )
@@ -188,6 +202,8 @@ mesh = SubResource( 11 )
 material/0 = ExtResource( 3 )
 
 [node name="static_body" type="StaticBody" parent="palace_entry/walkway"]
+collision_layer = 2
+collision_mask = 63
 
 [node name="collision_shape" type="CollisionShape" parent="palace_entry/walkway/static_body"]
 shape = SubResource( 12 )
@@ -198,6 +214,8 @@ mesh = SubResource( 7 )
 material/0 = ExtResource( 10 )
 
 [node name="static_body" type="StaticBody" parent="palace_entry/wall_l"]
+collision_layer = 2
+collision_mask = 63
 
 [node name="collision_shape" type="CollisionShape" parent="palace_entry/wall_l/static_body"]
 shape = SubResource( 8 )
@@ -208,6 +226,8 @@ mesh = SubResource( 13 )
 material/0 = ExtResource( 10 )
 
 [node name="static_body" type="StaticBody" parent="palace_entry/house_body"]
+collision_layer = 2
+collision_mask = 63
 
 [node name="collision_shape" type="CollisionShape" parent="palace_entry/house_body/static_body"]
 shape = SubResource( 14 )

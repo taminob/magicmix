@@ -6,8 +6,11 @@ export var next_character_name: String
 func _ready():
 	if(next_character_name.empty()):
 		next_character_name = game.mgmt.player_name
-	assert(game.char_data.has(next_character_name), "target character name of portal does not exist")
-	assert(game.levels.levels.has(next_level), "target level of portal does not exist")
+	errors.debug_assert(game.char_data.has(next_character_name), "target character name of portal does not exist")
+	errors.debug_assert(game.levels.levels.has(next_level), "target level of portal does not exist")
+	var mesh_path = game.get_character(next_character_name).get("look", {}).get("mesh_path", "res://characters/meshes/debug/body.tscn")
+	var mesh = load(mesh_path).instance()
+	add_child(mesh)
 
 func get_interaction() -> String:
 	return game.char_data[next_character_name]["dialogue"]["name"]

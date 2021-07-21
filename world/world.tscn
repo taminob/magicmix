@@ -29,6 +29,8 @@ material/0 = null
 shape = SubResource( 2 )
 
 [node name="area" type="Area" parent="."]
+collision_layer = 2
+collision_mask = 63
 
 [node name="collision" type="CollisionShape" parent="area"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -200, 0 )

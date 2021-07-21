@@ -1539,6 +1539,7 @@ open_skill_tree={
 3d_physics/layer_5="enemies"
 3d_physics/layer_6="spirits"
 3d_physics/layer_7="spells"
+3d_physics/layer_8="camera"
 
 [node]
 

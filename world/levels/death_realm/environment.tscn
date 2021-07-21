@@ -32,6 +32,8 @@ mesh = SubResource( 1 )
 material/0 = SubResource( 4 )
 
 [node name="static_body" type="StaticBody" parent="ground"]
+collision_layer = 2
+collision_mask = 63
 
 [node name="collision_shape" type="CollisionShape" parent="ground/static_body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, 0 )
@@ -42,7 +44,7 @@ shape = SubResource( 5 )
 [node name="portals" type="Spatial" parent="."]
 
 [node name="portal1" parent="portals" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 15 )
 next_level = "intro"
 next_character_name = "hans"
 
@@ -52,7 +54,7 @@ next_level = "intro"
 next_character_name = "mary"
 
 [node name="portal3" parent="portals" instance=ExtResource( 1 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 0, 0 )
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15, 0, 0 )
 next_level = "intro"
 next_character_name = "vladimir"
 
@@ -60,5 +62,3 @@ next_character_name = "vladimir"
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15 )
 next_level = "intro"
 next_character_name = "sqlykt"
-
-[node name="walls" type="Spatial" parent="."]

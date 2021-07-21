@@ -6,6 +6,7 @@ var time: float
 var spell: abstract_spell
 var object: Area = null
 var _affected_bodies: Array = []
+# warning-ignore:unused_class_variable
 onready var _caster: KinematicBody = $".."
 
 func next_object_scale(_delta: float):
