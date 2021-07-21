@@ -1,4 +1,4 @@
-extends move
+extends move_task
 
 class_name move_to_task
 

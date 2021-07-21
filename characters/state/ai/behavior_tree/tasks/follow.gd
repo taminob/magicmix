@@ -12,7 +12,7 @@ func init():
 		target = game.mgmt.player
 	else:
 		target = game.levels.current_level.get_node(target_path)
-	assert(target, "target of follow behavior does not exist")
+	errors.debug_assert(target, "target of follow behavior does not exist")
 	location = target.translation
 	.init()
 

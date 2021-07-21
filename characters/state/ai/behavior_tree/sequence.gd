@@ -8,7 +8,7 @@ var current_child_index: int
 func init():
 	.init()
 	current_child_index = 0
-	assert(get_child_count() > 0, "behavior selector requires children")
+	errors.debug_assert(get_child_count() > 0, "behavior selector requires children")
 	init_children()
 
 func _run(delta: float) -> int:

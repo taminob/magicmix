@@ -8,7 +8,7 @@ var task_to_cancel: task
 func init():
 	.init()
 	task_to_cancel = get_node_or_null(task_path)
-	assert(task_to_cancel, "in behavior cancel_task no or invalid task assigned")
+	errors.debug_assert(task_to_cancel != null, "in behavior cancel_task no or invalid task assigned")
 
 func _run(_delta: float) -> int:
 	if(_status == task_status.CANCEL):

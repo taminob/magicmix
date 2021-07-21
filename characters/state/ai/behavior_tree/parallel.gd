@@ -8,7 +8,7 @@ var current_tasks: Array
 func init():
 	.init()
 	current_tasks = get_children()
-	assert(get_child_count() > 0, "behavior parallel requires children")
+	errors.debug_assert(get_child_count() > 0, "behavior parallel requires children")
 	init_children()
 
 func _run(delta: float) -> int:

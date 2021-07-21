@@ -134,7 +134,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://characters/state/ai/behavior_tree/tasks/move.gd"
 }, {
-"base": "move",
+"base": "move_task",
 "class": "move_to_task",
 "language": "GDScript",
 "path": "res://characters/state/ai/behavior_tree/tasks/move_to.gd"

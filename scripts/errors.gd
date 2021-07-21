@@ -18,3 +18,9 @@ func test(out):
 func error_test(error_code: int):
 	if(error_code != OK):
 		error("an unknown error occurred; code: " + str(error_code))
+
+func debug_assert(condition: bool, msg: String):
+	assert(condition, msg)
+
+func assert(condition: bool, msg: String):
+	assert(condition, msg)

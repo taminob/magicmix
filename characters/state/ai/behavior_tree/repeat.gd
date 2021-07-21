@@ -11,7 +11,7 @@ var _times_counter: int
 func init():
 	.init()
 	_times_counter = times
-	assert(get_child_count() == 1, "behavior repeat requires exactly one child")
+	errors.debug_assert(get_child_count() == 1, "behavior repeat requires exactly one child")
 	init_children()
 
 func _run(delta: float) -> int:

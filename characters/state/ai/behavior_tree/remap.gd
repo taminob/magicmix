@@ -9,7 +9,7 @@ export(task_status) var return_while_running: int = task_status.RUNNING
 
 func init():
 	.init()
-	assert(get_child_count() == 1, "behavior remap requires exactly one child")
+	errors.debug_assert(get_child_count() == 1, "behavior remap requires exactly one child")
 	init_children()
 
 func _run(delta: float) -> int:
@@ -26,5 +26,5 @@ func _run(delta: float) -> int:
 			return task_status.CANCEL
 		task_status.NEW:
 			return task_status.NEW
-	assert(false, "behavior remap does not check all possible return values")
+	errors.debug_assert(false, "behavior remap does not check all possible return values")
 	return task_status.RUNNING
