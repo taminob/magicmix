@@ -9,7 +9,6 @@ enum range_state {
 var pawn: character
 var target: Spatial
 
-# todo: remove new_pawn default argument
 func init(new_pawn: character):
 	pawn = new_pawn
 	choose_target()

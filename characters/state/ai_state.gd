@@ -71,6 +71,7 @@ func get_current_knowledge() -> int:
 func _on_sight_zone_body_entered(body: Node):
 	if(state.is_player || body == pawn || !body):
 		return
+	# todo: repeat cast after some time if fails (might be better in brain to check for everything "in sight" if it is actually visible
 	var result: Dictionary = pawn.get_world().direct_space_state.intersect_ray(pawn.global_body_head(), body.global_transform.origin)
 	if(!result || result["collider"] != body):
 		if(body is character):

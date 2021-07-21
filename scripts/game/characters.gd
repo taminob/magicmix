@@ -25,7 +25,7 @@ var character_data = {
 			"slots": ["heal", "fire_ring", "fire_storm", "blood_storm", "blood_sacrifice"]
 		},
 		"look": {
-			"mesh_path": "res://characters/meshes/patrol/body.tscn"
+			"mesh_path": "res://characters/meshes/default/body.tscn"
 		}
 	},
 	"mary": {
@@ -54,7 +54,7 @@ var character_data = {
 			"focus": 100
 		},
 		"look": {
-			"mesh_path": "res://characters/meshes/default/body.tscn"
+			"mesh_path": "res://characters/meshes/woman/body.tscn"
 		},
 	},
 	"guenther": {
