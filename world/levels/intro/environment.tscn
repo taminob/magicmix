@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://world/objects/stairs/stairs.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world/objects/stone/stone.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://world/materials/simple_stone.tres" type="Material" id=4]
 [ext_resource path="res://world/materials/3d_grass.tres" type="Material" id=5]
 [ext_resource path="res://world/objects/box/box.tscn" type="PackedScene" id=6]
+[ext_resource path="res://world/objects/curtain/curtain.tscn" type="PackedScene" id=7]
 [ext_resource path="res://world/objects/door/door.tscn" type="PackedScene" id=9]
 [ext_resource path="res://world/materials/rainbow_stone.tres" type="Material" id=10]
 
@@ -159,6 +160,15 @@ shape = SubResource( 6 )
 [node name="entry" parent="palace_entry" instance=ExtResource( 9 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -30, 5.3, 0 )
 next_level = "palace_entry"
+
+[node name="curtain" parent="palace_entry" instance=ExtResource( 7 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 4, 2.5 )
+
+[node name="curtain2" parent="palace_entry" instance=ExtResource( 7 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 4, 0.5 )
+
+[node name="curtain3" parent="palace_entry" instance=ExtResource( 7 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 4, -1.5 )
 
 [node name="wall_r" type="MeshInstance" parent="palace_entry"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5, 5, -6.5 )
