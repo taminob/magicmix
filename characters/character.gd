@@ -70,12 +70,18 @@ func global_body_center() -> Vector3:
 func global_body_head() -> Vector3:
 	return global_transform.origin + global_transform.basis.y * look.body_height
 
+func face_target(target: Spatial):
+	face_location(target.global_transform.origin)
+
+func face_location(global_location: Vector3):
+	look_at(Vector3(global_location.x, global_transform.origin.y, global_location.z), Vector3.UP)
+
 func _update_ui():
 	if(state.is_player):
 		game.mgmt.ui.update_pain(stats.pain / stats.max_pain())
 		game.mgmt.ui.update_focus(stats.focus / stats.max_focus())
 		game.mgmt.ui.update_stamina(stats.stamina / stats.max_stamina())
-		game.mgmt.ui.update_xp(0.4)
+		game.mgmt.ui.update_xp(experience.experience_progress())
 		game.mgmt.ui.update_slots()
 	if(name == settings.get_setting("dev", "debug_target")):
 		if(state.is_player):

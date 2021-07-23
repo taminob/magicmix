@@ -20,5 +20,5 @@ func choose_target():
 	target = pawn.ai.brain.get_any_enemy()
 
 func do() -> bool:
-	pawn.look_at(Vector3(target.global_transform.origin.x, pawn.global_transform.origin.y, target.global_transform.origin.z), Vector3.UP)
+	pawn.face_target(target)
 	return true

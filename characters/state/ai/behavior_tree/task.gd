@@ -21,7 +21,7 @@ func _ready():
 		parent = parent.get_parent()
 	errors.debug_assert(parent != null, "behavior tree has to be child of a character")
 	var expected_name = get_script().resource_path.get_file().split('.')[0]
-	errors.debug_assert(expected_name == name.substr(0, expected_name.length()), "behavior tree task has wrong name (does not match task class)")
+	errors.debug_assert(name.begins_with(expected_name), "behavior tree task has wrong name (does not match task class)")
 	pawn = parent
 	init()
 

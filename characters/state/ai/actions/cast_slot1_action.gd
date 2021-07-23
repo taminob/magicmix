@@ -38,5 +38,6 @@ func get_range_state() -> int:
 	return range_state.out_of_range
 
 func do() -> bool:
+	pawn.face_target(target)
 	pawn.skills.cast_slot(CAST_SLOT)
 	return true

@@ -63,13 +63,15 @@ func _self_damage(dmg: float):
 	pain = clamp(pain + dmg, 0, max_pain())
 	if(pain >= max_pain()):
 		die()
-	state.ai.should_reconsider = true
+	if(dmg >= 1): # todo: adjust value and think about better reconsider system
+		state.ai.should_reconsider = true
 
 func _self_focus_damage(dmg: float):
 	if(settings.get_setting("dev", "god_mode")):
 		return
 	focus = clamp(focus + dmg, 0, max_focus())
-	state.ai.should_reconsider = true
+	if(dmg >= 1): # todo: adjust value and think about better reconsider system
+		state.ai.should_reconsider = true
 
 func revive():
 	if(undead):

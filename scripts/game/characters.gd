@@ -21,8 +21,8 @@ var character_data = {
 			"focus": 70
 		},
 		"inventory": {
-			"skills": ["fire_ring", "fire_storm", "blood_sacrifice", "heal", "blood_storm", "blood_heal"],
-			"slots": ["heal", "fire_ring", "fire_storm", "blood_storm", "blood_sacrifice"]
+			"skills": ["fire_ball", "fire_ring", "fire_storm", "blood_sacrifice", "heal", "blood_storm", "blood_heal"],
+			"slots": ["heal", "fire_ring", "fire_ball", "blood_storm", "blood_sacrifice"]
 		},
 		"look": {
 			"mesh_path": "res://characters/meshes/default/body.tscn"
@@ -47,8 +47,8 @@ var character_data = {
 			"endurance": 1
 		},
 		"inventory": {
-			"skills": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
-			"slots": ["fire_ring", "heal", "", "", ""]
+			"skills": ["fire_ball", "fire_ring", "blood_sacrifice", "heal", "blood_storm"],
+			"slots": ["fire_ball", "fire_ring", "", "", "heal"]
 		},
 		"stats": {
 			"focus": 100
@@ -106,6 +106,10 @@ var character_data = {
 			"sturdiness": 1,
 			"concentration": 1,
 			"endurance": 1
+		},
+		"inventory": {
+			"skills": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
+			"slots": ["fire_ring", "heal", "", "", ""]
 		},
 		"look": {
 			"mesh_path": "res://characters/meshes/patrol/body.tscn"

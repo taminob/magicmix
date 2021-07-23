@@ -37,6 +37,7 @@ func _process(_delta: float):
 	if(should_reconsider):
 		machine.push_state(ai_machine.states.idle)
 		_steps_since_consider = 0
+		should_reconsider = false
 
 func get_current_knowledge() -> int:
 	var know: int = 0

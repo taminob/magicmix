@@ -31,6 +31,8 @@ mesh = SubResource( 2 )
 material/0 = SubResource( 3 )
 
 [node name="static_body" type="StaticBody" parent="navigation/navigation_mesh_instance/mesh_instance"]
+collision_layer = 2
+collision_mask = 63
 
 [node name="collision_shape" type="CollisionShape" parent="navigation/navigation_mesh_instance/mesh_instance/static_body"]
 shape = SubResource( 4 )
@@ -41,6 +43,8 @@ mesh = SubResource( 5 )
 material/0 = SubResource( 3 )
 
 [node name="static_body" type="StaticBody" parent="navigation/navigation_mesh_instance/mesh_instance2"]
+collision_layer = 2
+collision_mask = 63
 
 [node name="collision_shape" type="CollisionShape" parent="navigation/navigation_mesh_instance/mesh_instance2/static_body"]
 shape = SubResource( 6 )
@@ -54,6 +58,8 @@ mesh = SubResource( 5 )
 material/0 = SubResource( 3 )
 
 [node name="static_body" type="StaticBody" parent="navigation/navigation_mesh_instance/mesh_instance3"]
+collision_layer = 2
+collision_mask = 63
 
 [node name="collision_shape" type="CollisionShape" parent="navigation/navigation_mesh_instance/mesh_instance3/static_body"]
 shape = SubResource( 6 )

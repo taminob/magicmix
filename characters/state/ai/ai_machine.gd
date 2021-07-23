@@ -53,7 +53,7 @@ func move():
 	if(nav):
 		var path: PoolVector3Array = nav.get_simple_path(ai.pawn.global_transform.origin, destination)
 		if(!path.empty()):
-			ai.pawn.look_at(Vector3(path[1].x, ai.pawn.translation.y, path[1].z), Vector3.UP)
+			ai.pawn.face_location(path[1])
 			ai.pawn.move.input_direction = Vector3.FORWARD
 			# TODO: push move or active; but: current_action somehow null
 			push_state(states.active)

@@ -37,8 +37,10 @@ var goals: Dictionary = {
 enum actions {
 	talk_begin = 0,
 	rotate,
+	flee,
 	cast_slot0,
-	heal,
+	cast_slot1,
+	heal_spell,
 	wait,
 }
 

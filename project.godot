@@ -80,6 +80,11 @@ _global_script_classes=[ {
 "path": "res://characters/state/experience_state.gd"
 }, {
 "base": "abstract_spell",
+"class": "fire_ball_spell",
+"language": "GDScript",
+"path": "res://skills/spells/fire/fire_ball.gd"
+}, {
+"base": "abstract_spell",
 "class": "fire_ring_spell",
 "language": "GDScript",
 "path": "res://skills/spells/fire/fire_ring.gd"
@@ -239,6 +244,7 @@ _global_script_class_icons={
 "dialogue_state": "",
 "do_nothing_spell": "",
 "experience_state": "",
+"fire_ball_spell": "",
 "fire_ring_spell": "",
 "fire_storm_spell": "",
 "follow_task": "",
@@ -281,6 +287,7 @@ boot_splash/bg_color=Color( 0, 0, 0, 1 )
 
 [autoload]
 
+util="*res://scripts/util.gd"
 errors="*res://scripts/errors.gd"
 themes="*res://scripts/themes.gd"
 display_settings="*res://scripts/settings/display_settings.gd"

@@ -9,12 +9,13 @@ var spawn_timer: Timer
 var radius: float
 var spell: abstract_spell
 var can_spawn_behind_walls: bool = false
+var destroy_on_contact: bool = false
 var _spawn_amount_counter: int = 0
 var _example_object: Area = null
 var _objects: Array = []
 var _affected_bodies: Array = []
 onready var _caster: KinematicBody = $".."
-var _default_collision_mask: int = game.mgmt.layer.characters  | game.mgmt.layer.enemies | game.mgmt.layer.spells
+var _default_collision_mask: int = game.mgmt.layer.static_world | game.mgmt.layer.objects | game.mgmt.layer.characters  | game.mgmt.layer.enemies | game.mgmt.layer.spells
 
 # override for custom placement; return local translation
 func first_object_position(_object: Area, _object_id: int) -> Vector3:
@@ -25,7 +26,7 @@ func next_object_position(object: Area, _object_id: int, _object_age: float, _de
 
 func set_example_object(object: Area):
 	_example_object = object
-	_default_collision_mask = _example_object.collision_mask
+	_example_object.collision_mask = _default_collision_mask
 
 func _ready():
 	spawn_timer = Timer.new()
@@ -78,11 +79,18 @@ func spawn_object(spawn_time: float=0.0, id: int=_objects.size()):
 		_spawn_amount_counter = 0
 		spawn_timer.start()
 
-func _object_enter(body: Node, _collider: Area):
-	if(body && body.has_method("damage")):
-		_affected_bodies.push_back(body)
-		body.damage(spell.target_pain())
-		body.damage(spell.target_focus(), true)
+func _object_enter(body: Node, collider: Area):
+	if(body):
+		if(body.has_method("damage")):
+			_affected_bodies.push_back(body)
+			body.damage(spell.target_pain())
+			body.damage(spell.target_focus(), true)
+		if(destroy_on_contact):
+			collider.queue_free()
+			for i in range(_objects.size()):
+				if(_objects[i][1] == collider):
+					_objects.remove(i)
+					break
 
 func _object_exit(body: Node, _collider: Area):
 	_affected_bodies.erase(body)

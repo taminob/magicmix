@@ -5,6 +5,7 @@ class_name skills_state
 onready var pawn: KinematicBody = $"../.."
 onready var move: Node = $"../move"
 onready var stats: Node = $"../stats"
+onready var experience: Node = $"../experience"
 onready var inventory: Node = $"../inventory"
 
 var active_skills
@@ -17,7 +18,8 @@ func cast(spell_id: String):
 	var focus_per_second = spell.self_focus_per_second()
 	if(stats.focus + spell_focus < 0 || stats.focus + focus_per_second < 0):
 		return
-	stats.focus = clamp(stats.focus + spell_focus, 0, stats.max_focus())
+	experience.concentration += abs(spell_focus / 1000)
+	stats._self_focus_damage(spell_focus)
 	stats._self_damage(spell.self_pain())
 	var spell_duration = spell.duration()
 	# todo: animation

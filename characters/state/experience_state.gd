@@ -6,10 +6,9 @@ var sturdiness: float
 var concentration: float
 var endurance: float
 
-func experience(_xp: float):
-	# todo: xp system
-	#ui.update_xp(xp / 10)
-	pass
+# todo: xp system
+func experience_progress() -> float:
+	return util.max(util.fract(sturdiness), util.fract(concentration), util.fract(endurance))
 
 func save(state_dict: Dictionary):
 	var _experience_state = state_dict.get("experience", {})
