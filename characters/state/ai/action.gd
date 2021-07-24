@@ -16,17 +16,17 @@ func init(new_pawn: character):
 ### override functions below
 
 # todo: allow multiple preconditions
-static func precondition() -> int:
-	return 0
+static func precondition() -> planner.knowledge:
+	return planner.knowledge.new()
 
-static func postcondition() -> int:
-	return 0
+static func postcondition() -> planner.knowledge:
+	return planner.knowledge.new()
 
 static func precondition_mask() -> int:
-	return planner.knowledge.ALL
+	return planner.knowledge_mask.ALL
 
 static func postcondition_mask() -> int:
-	return planner.knowledge.ALL
+	return planner.knowledge_mask.ALL
 
 static func cost() -> float:
 	return 1.0

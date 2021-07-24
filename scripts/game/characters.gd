@@ -35,8 +35,8 @@ var character_data = {
 			"dialogue": "res://characters/dialogue/mary/dialogue.gd",
 			"current_dialogue": 0,
 			"relations": {
-				"hans": -2,
-				"mary": 2
+				"hans": -1,
+				"vladimir": 2
 			}
 		},
 		"experience": {
@@ -51,7 +51,8 @@ var character_data = {
 			"slots": ["fire_ball", "fire_ring", "", "", "heal"]
 		},
 		"stats": {
-			"focus": 100
+			"focus": 100,
+			"pain": 30
 		},
 		"look": {
 			"mesh_path": "res://characters/meshes/woman/body.tscn"
@@ -65,7 +66,7 @@ var character_data = {
 			"current_dialogue": 0,
 			"relations": {
 				"hans": 2,
-				"vladimir": -2
+				"vladimir": -1
 			}
 		},
 		"stats": {

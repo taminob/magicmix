@@ -1,16 +1,16 @@
 extends abstract_action
 
-static func precondition() -> int:
-	return 0
+static func precondition() -> planner.knowledge:
+	return planner.knowledge.new()
 
-static func postcondition() -> int:
-	return planner.knowledge.facing_target
+static func postcondition() -> planner.knowledge:
+	return planner.knowledge.new(0, 0, planner.knowledge_mask.facing_target)
 
 static func precondition_mask() -> int:
-	return planner.knowledge.facing_target
+	return planner.knowledge_mask.facing_target
 
 static func postcondition_mask() -> int:
-	return planner.knowledge.facing_target
+	return planner.knowledge_mask.facing_target
 
 func get_range_state() -> int:
 	return range_state.no_range_required

@@ -39,35 +39,31 @@ func _process(_delta: float):
 		_steps_since_consider = 0
 		should_reconsider = false
 
-func get_current_knowledge() -> int:
-	var know: int = 0
-	if(stats.pain_percentage() > 0.7):
-		know |= planner.knowledge.high_pain
-	elif(stats.pain_percentage() < 0.2):
-		know |= planner.knowledge.low_pain
-	if(stats.focus_percentage() > 0.7):
-		know |= planner.knowledge.high_focus
-	elif(stats.focus_percentage() < 0.2):
-		know |= planner.knowledge.low_focus
-	if(!brain.enemies_in_sight.empty()):
-		know |= planner.knowledge.enemy_in_sight
-		know |= planner.knowledge.enemy_in_near
-	elif(!brain.enemies_out_of_sight.empty()):
-		know |= planner.knowledge.enemy_in_near
-	if(!brain.allies_in_sight.empty()):
-		know |= planner.knowledge.ally_in_sight
-		know |= planner.knowledge.ally_in_near
-	elif(!brain.allies_out_of_sight.empty()):
-		know |= planner.knowledge.ally_in_near
+func get_current_knowledge() -> planner.knowledge:
+	var know = planner.knowledge.new(stats.pain, stats.focus)
+	know.enemy_in_sight = !brain.enemies_in_sight.empty()
+	know.enemy_in_near = !brain.enemies_in_sight.empty() || !brain.enemies_out_of_sight.empty()
+	know.ally_in_sight = !brain.allies_in_sight.empty()
+	know.ally_in_near = !brain.allies_in_sight.empty() || !brain.allies_out_of_sight.empty()
 	var most_damaged = brain.get_most_damaged_enemy()
-	if(most_damaged && most_damaged.stats.pain_percentage() > 0.85):
-		know |= planner.knowledge.enemy_damaged
+	know.enemy_damaged = most_damaged && most_damaged.stats.pain_percentage() > 0.85
 	most_damaged = brain.get_most_damaged_ally()
-	if(most_damaged && most_damaged.stats.pain_percentage() > 0.7):
-		know |= planner.knowledge.ally_damaged
-	if(dialogue.is_dialogue_active()):
-		know |= planner.knowledge.talking
+	know.ally_damaged = most_damaged && most_damaged.stats.pain_percentage() > 0.7
+	know.talking = dialogue.is_dialogue_active()
 	return know
+
+func get_current_goals() -> Array:
+	var survive_goal: planner.goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.pain)
+	survive_goal.requirements.pain = max(stats.pain - 10, 5) # todo? better requirements
+	var fight_goal: planner.goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.pain | planner.knowledge_mask.enemy_damaged)
+	fight_goal.requirements.pain = stats.max_pain() * 0.9
+	fight_goal.requirements.enemy_damaged = true
+	var talk_goal: planner.goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.talking)
+	talk_goal.requirements.talking = true
+	var patrol_goal: planner.goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.pain | planner.knowledge_mask.enemy_in_sight)
+	patrol_goal.requirements.pain = stats.max_pain() * 0.1
+	patrol_goal.requirements.enemy_in_sight = true
+	return [survive_goal, fight_goal, talk_goal, patrol_goal]
 
 func _on_sight_zone_body_entered(body: Node):
 	if(state.is_player || body == pawn || !body):

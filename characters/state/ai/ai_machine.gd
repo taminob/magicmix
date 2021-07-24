@@ -29,10 +29,10 @@ func push_state(new_state: int):
 	state_queue.push_back(new_state)
 
 func reconsider():
-	consider(ai.get_current_knowledge())
+	consider(ai.get_current_knowledge(), ai.get_current_goals())
 
-func consider(know: int):
-	action_queue = planning.plan(know)
+func consider(know: planner.knowledge, goals: Array):
+	action_queue = planning.plan(know, goals)
 	if(action_queue.empty()):
 		pass
 		#push_state(states.idle) # todo? necessary?

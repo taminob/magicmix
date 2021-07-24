@@ -1,16 +1,16 @@
 extends abstract_action
 
-static func precondition() -> int:
-	return planner.knowledge.high_pain
+static func precondition() -> planner.knowledge:
+	return planner.knowledge.new(80, 0)
 
-static func postcondition() -> int:
-	return 0
+static func postcondition() -> planner.knowledge:
+	return planner.knowledge.new()
 
 static func precondition_mask() -> int:
-	return planner.knowledge.high_pain
+	return planner.knowledge_mask.pain | planner.knowledge_mask.focus | planner.knowledge_mask.focus_toggle
 
 static func postcondition_mask() -> int:
-	return planner.knowledge.enemy_in_near
+	return planner.knowledge_mask.enemy_in_near
 
 func get_range_state() -> int:
 	choose_target()
