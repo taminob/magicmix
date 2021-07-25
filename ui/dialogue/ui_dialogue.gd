@@ -36,15 +36,15 @@ func change_selected_answer(num: int, offset: bool=false):
 	elif(num < 0):
 		num = 0
 	if(num - 1 >= 0):
-		answer_up.text = "> " + answer_data[num-1][0]
+		answer_up.text = "> " + answer_data[num-1].formatted_text()
 	else:
 		answer_up.text = ""
 	if(!answer_data.empty()):
-		answer.text = "* " + answer_data[num][0]
+		answer.text = "* " + answer_data[num].formatted_text()
 	else:
 		answer.text = ""
 	if(num + 1 < answer_data.size()):
-		answer_down.text = "> " + answer_data[num+1][0]
+		answer_down.text = "> " + answer_data[num+1].formatted_text()
 	else:
 		answer_down.text = ""
 	selected_answer = num
@@ -62,9 +62,9 @@ func set_dialogue_text(say_text: String, speaker: String, answers: Array=[]):
 	change_selected_answer(0)
 	text.set_visible_characters(0)
 
-func get_current_answer_data() -> Array:
+func get_current_answer_data() -> abstract_dialogue.answer:
 	if(answer_data.empty()):
-		return ["", -1] # todo: refactor answer system
+		return null # todo: refactor answer system
 	return answer_data[selected_answer]
 
 func update_dialogue(visible_chars: int, transparency: float):

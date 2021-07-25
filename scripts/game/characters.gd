@@ -33,7 +33,6 @@ var character_data = {
 			"name": "Mary",
 			"gender": "female",
 			"dialogue": "res://characters/dialogue/mary/dialogue.gd",
-			"current_dialogue": 0,
 			"relations": {
 				"hans": -1,
 				"vladimir": 2
@@ -63,7 +62,6 @@ var character_data = {
 			"name": "Günther",
 			"gender": "male",
 			"dialogue": "res://characters/dialogue/guenther/dialogue.gd",
-			"current_dialogue": 0,
 			"relations": {
 				"hans": 2,
 				"vladimir": -1
@@ -94,7 +92,6 @@ var character_data = {
 			"name": "Vlad",
 			"gender": "male",
 			"dialogue": "res://characters/dialogue/vladimir/dialogue.gd",
-			"current_dialogue": 0,
 			"relations": {
 				"hans": -2,
 				"mary": 2
