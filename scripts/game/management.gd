@@ -65,9 +65,9 @@ func create_player():
 	make_player(new_player)
 
 func save_characters():
-	for character in get_tree().get_nodes_in_group("characters"):
-		character.save_state()
-		character.reset()
+	for x in get_tree().get_nodes_in_group("characters"):
+		x.save_state()
+		x.reset()
 
 func call_delayed(caller: Object, method: String, time: float, param: Array=[]):
 	errors.error_test(get_tree().create_timer(time).connect("timeout", caller, method, param))

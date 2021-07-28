@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://world/objects/stairs/stairs.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world/objects/stone/stone.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://world/materials/3d_grass.tres" type="Material" id=5]
 [ext_resource path="res://world/objects/box/box.tscn" type="PackedScene" id=6]
 [ext_resource path="res://world/objects/curtain/curtain.tscn" type="PackedScene" id=7]
+[ext_resource path="res://world/objects/tree/tree.tscn" type="PackedScene" id=8]
 [ext_resource path="res://world/objects/door/door.tscn" type="PackedScene" id=9]
 [ext_resource path="res://world/materials/rainbow_stone.tres" type="Material" id=10]
 
@@ -100,6 +101,23 @@ transform = Transform( 0.5, 0.150384, 0.852869, 0, 0.984808, -0.173648, -0.86602
 
 [node name="stone5" parent="stones" instance=ExtResource( 2 )]
 transform = Transform( -0.133559, 0.268294, 0.954034, 0.084186, 0.96225, -0.258819, -0.987459, 0.0457486, -0.151104, 17.4212, -0.3, -7.02452 )
+
+[node name="trees" type="Spatial" parent="."]
+
+[node name="tree" parent="trees" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.41713, 0, 5.45689 )
+
+[node name="tree2" parent="trees" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2851, 0, -6.47208 )
+
+[node name="tree3" parent="trees" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08178, 0, -6.46033 )
+
+[node name="tree4" parent="trees" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24.5214, 0, 5.57014 )
+
+[node name="tree5" parent="trees" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 31.6934, 0, -6.94289 )
 
 [node name="walls" type="Spatial" parent="."]
 

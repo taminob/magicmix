@@ -172,12 +172,12 @@ class a_star_node:
 			if(after_mask & knowledge_mask.pain_toggle):
 				new_know.pain = after.pain
 			else:
-				new_know.pain = max(know.pain + after.pain, 0) # todo? limit to max_pain
+				new_know.pain = max(know.pain + after.pain, 0) # todo: limit to max_pain
 		if(after_mask & knowledge_mask.focus):
 			if(after_mask & knowledge_mask.focus_toggle):
 				new_know.focus = after.focus
 			else:
-				new_know.focus = max(know.focus + after.focus, 0) # todo? limit to max_focus
+				new_know.focus = max(know.focus + after.focus, 0) # todo: limit to max_focus
 		if(after_mask & knowledge_mask.enemy_in_sight):
 			new_know.enemy_in_sight = after.enemy_in_sight
 		if(after_mask & knowledge_mask.enemy_in_near):

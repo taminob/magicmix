@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://world/objects/revive_portal/revive_portal.tscn" type="PackedScene" id=1]
+[ext_resource path="res://world/levels/death_realm/dead_spawner.gd" type="Script" id=2]
 [ext_resource path="res://world/shaders/stone.shader" type="Shader" id=5]
 
 [sub_resource type="CylinderMesh" id=1]
@@ -62,3 +63,7 @@ next_character_name = "vladimir"
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15 )
 next_level = "intro"
 next_character_name = "sqlykt"
+
+[node name="dead_spawner" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.2193, 0, 0 )
+script = ExtResource( 2 )

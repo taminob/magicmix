@@ -45,8 +45,8 @@ func dialogue_process(delta: float):
 
 func dialogue_interact(interactor: KinematicBody):
 	if(!is_dialogue_active()):
-		start_dialogue(interactor.dialogue)
 		interactor.dialogue.start_dialogue(self)
+		start_dialogue(interactor.dialogue)
 	elif(dialogue_partners.has(interactor.dialogue)):
 		interactor.dialogue.answer_selected() # todo: rework
 
