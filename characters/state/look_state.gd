@@ -7,6 +7,7 @@ onready var move: Node = $"../move"
 
 var _default_mesh_path: String
 var mesh: Spatial = null
+var clothing: SoftBody = null
 var animations: AnimationPlayer
 var body_height: float
 
@@ -16,10 +17,10 @@ func animations_process(_delta: float):
 	else:
 		animations.play("idle")
 
-func update_look():
+func update_look(): # todo?
 	if(mesh):
 		var material = mesh.get("material")
-		if material:
+		if(material):
 			material = material.duplicate()
 			material.set("albedo_color", Color(0.9, 0.9, 0.2))
 			mesh.material_override = material
@@ -31,6 +32,29 @@ func set_mesh(path: String=_default_mesh_path):
 	mesh.rotate_y(PI) # todo: fix meshes
 	pawn.add_child(mesh)
 	animations = mesh.get_node("animations")
+	if(!clothing):
+		spawn_cloth()
+
+func spawn_cloth():
+	clothing = SoftBody.new()
+	clothing.collision_layer = game.mgmt.layer.objects
+	clothing.collision_mask = game.mgmt.physical_layers
+	clothing.set_simulation_precision(100)
+	clothing.set_linear_stiffness(0.1)
+	clothing.set_areaAngular_stiffness(0.1)
+	clothing.set_volume_stiffness(0.1)
+	clothing.set_damping_coefficient(0.05)
+	var cloth_mesh = PlaneMesh.new()
+	cloth_mesh.set_size(Vector2(4, 4))
+	cloth_mesh.set_subdivide_depth(16)
+	cloth_mesh.set_subdivide_width(16)
+	clothing.set_mesh(cloth_mesh)
+	var cloth_material = SpatialMaterial.new()
+	cloth_material.set_cull_mode(SpatialMaterial.CULL_DISABLED)
+	cloth_material.set_albedo(Color(1.0, 0.0, 0.0))
+	clothing.set_material_override(cloth_material)
+	pawn.add_child(clothing)
+	clothing.translation = Vector3.UP * 2
 
 func set_height(new_height: float=body_height):
 	# todo: rotate collision if width > height

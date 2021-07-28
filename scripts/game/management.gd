@@ -14,7 +14,8 @@ enum layer_bit {
 	characters = 3,
 	enemies = 4,
 	spirits = 5,
-	spells = 6
+	spells = 6,
+	camera = 7,
 }
 
 enum layer {
@@ -25,9 +26,12 @@ enum layer {
 	enemies = 1 << layer_bit.enemies,
 	spirits = 1 << layer_bit.spirits,
 	spells = 1 << layer_bit.spells,
+	camera = 1 << layer_bit.camera,
+
+	ALL = 0xFFFF
 }
 
-const sight_layers = layer.default | layer.static_world | layer.objects | layer.characters | layer.enemies
+const physical_layers = layer.default | layer.static_world | layer.objects | layer.characters | layer.enemies
 const damage_layers = layer.objects | layer.characters | layer.enemies
 
 func is_player(node) -> bool:
