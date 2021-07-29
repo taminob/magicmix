@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://ui/slots.gd" type="Script" id=1]
+[ext_resource path="res://ui/slots/slots.gd" type="Script" id=1]
 [ext_resource path="res://ui/icons/empty_slot_frame-512.png" type="Texture" id=2]
 
 [node name="slots" type="GridContainer"]
@@ -13,16 +13,16 @@ __meta__ = {
 }
 
 [node name="space1" type="Label" parent="."]
-margin_top = 351.0
-margin_right = 1277.0
-margin_bottom = 365.0
+margin_top = 344.0
+margin_right = 1274.0
+margin_bottom = 369.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
 
 [node name="slot1" type="TextureRect" parent="."]
-margin_left = 1281.0
-margin_right = 2558.0
-margin_bottom = 717.0
+margin_left = 1282.0
+margin_right = 2556.0
+margin_bottom = 714.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 2 )
@@ -38,16 +38,16 @@ expand = true
 stretch_mode = 6
 
 [node name="space2" type="Label" parent="."]
-margin_left = 2562.0
-margin_right = 3839.0
-margin_bottom = 717.0
+margin_left = 2564.0
+margin_right = 3838.0
+margin_bottom = 714.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="slot2" type="TextureRect" parent="."]
-margin_top = 721.0
-margin_right = 1277.0
-margin_bottom = 1438.0
+margin_top = 722.0
+margin_right = 1274.0
+margin_bottom = 1436.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 2 )
@@ -66,10 +66,10 @@ __meta__ = {
 }
 
 [node name="space3" type="Label" parent="."]
-margin_left = 1281.0
-margin_top = 721.0
-margin_right = 2558.0
-margin_bottom = 1438.0
+margin_left = 1282.0
+margin_top = 722.0
+margin_right = 2556.0
+margin_bottom = 1436.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -99,10 +99,10 @@ __meta__ = {
 }
 
 [node name="slot3" type="TextureRect" parent="."]
-margin_left = 2562.0
-margin_top = 721.0
-margin_right = 3839.0
-margin_bottom = 1438.0
+margin_left = 2564.0
+margin_top = 722.0
+margin_right = 3838.0
+margin_bottom = 1436.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 2 )
@@ -118,17 +118,17 @@ expand = true
 stretch_mode = 6
 
 [node name="space4" type="Label" parent="."]
-margin_top = 1442.0
-margin_right = 1277.0
-margin_bottom = 2159.0
+margin_top = 1444.0
+margin_right = 1274.0
+margin_bottom = 2158.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="slot4" type="TextureRect" parent="."]
-margin_left = 1281.0
-margin_top = 1442.0
-margin_right = 2558.0
-margin_bottom = 2159.0
+margin_left = 1282.0
+margin_top = 1444.0
+margin_right = 2556.0
+margin_bottom = 2158.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 2 )
@@ -144,9 +144,9 @@ expand = true
 stretch_mode = 6
 
 [node name="space5" type="Label" parent="."]
-margin_left = 2562.0
-margin_top = 1442.0
-margin_right = 3839.0
-margin_bottom = 2159.0
+margin_left = 2564.0
+margin_top = 1444.0
+margin_right = 3838.0
+margin_bottom = 2158.0
 size_flags_horizontal = 3
 size_flags_vertical = 3

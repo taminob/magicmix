@@ -21,7 +21,7 @@ var relations: Dictionary
 
 enum relation {
 	enemy = -2,
-	rival = -1,
+	rival = -1, # todo? remove rival/friend level?
 	neutral = 0,
 	friend = 1,
 	ally = 2

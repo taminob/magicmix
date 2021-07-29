@@ -6,15 +6,16 @@ uniform sampler2D color_noise;
 uniform float color_noise_lod = 0;
 uniform float color_noise_scale = 5.;
 uniform float grass_height = 0.9;
-uniform float grass_amount = 1000.; // should be equal to subdivision of mesh
+uniform float grass_amount = 1000.;
 
 void vertex()
 {
-	VERTEX.y += cos(VERTEX.x * grass_amount) * sin(VERTEX.z * grass_amount) * grass_height;
+	VERTEX.y += abs(cos(VERTEX.x * grass_amount) * sin(VERTEX.z * grass_amount)) * grass_height;
 }
 
 void fragment()
 {
-	ALBEDO = base_color * textureLod(color_noise, UV * color_noise_scale, color_noise_lod).xyz;
+	vec2 wind =  vec2(cos(TIME) + 1., 0.) * 0.005;
+	ALBEDO = base_color * textureLod(color_noise, UV * color_noise_scale + wind, color_noise_lod).xyz;
 	//ALPHA = 1.;
 }

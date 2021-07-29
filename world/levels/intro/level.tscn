@@ -22,7 +22,7 @@ navmesh = SubResource( 1 )
 [node name="environment" parent="navigation/navigation_mesh_instance" instance=ExtResource( 2 )]
 
 [node name="guenther" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 31.1689, 0, -6.0761 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.1792, 0, -2.78108 )
 
 [node name="vladimir" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16.9572, 3.47923, 0.570404 )
