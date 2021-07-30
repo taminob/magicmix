@@ -22,10 +22,10 @@ func self_focus() -> float:
 	return -5.0
 
 func self_focus_per_second() -> float:
-	return -5.0
+	return -10.0
 
 func target_pain() -> float:
-	return 10.0
+	return 5.0
 
 func target_pain_per_second() -> float:
 	return 1.0
@@ -34,7 +34,7 @@ func target_focus_per_second() -> float:
 	return -10.0
 
 func duration() -> float:
-	return 25.0
+	return 10.0
 
 func range() -> float:
 	return 5.0

@@ -5,3 +5,6 @@ func fract(value: float) -> float:
 
 func max(first: float, second: float, third: float) -> float:
 	return max(first, max(second, third))
+
+func random_element(array: Array):
+	return array[randi() % array.size()]

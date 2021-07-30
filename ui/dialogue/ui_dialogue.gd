@@ -9,7 +9,10 @@ onready var answer: RichTextLabel = $"answer"
 onready var answer_down: RichTextLabel = $"answer_down"
 
 var selected_answer: int = 0
-var answer_data: Array = []
+var answer_data: Array
+
+func listen(statement: abstract_dialogue.statement):
+	set_dialogue_text(statement.formatted_text(), statement.receiver.dialogue.get_call_name(statement.speaker.name), statement.get_valid_answers())
 
 func _unhandled_key_input(event: InputEventKey):
 	if(!is_visible()):
