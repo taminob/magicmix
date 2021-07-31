@@ -37,19 +37,19 @@ const damage_layers = layer.objects | layer.characters | layer.enemies
 func is_player(node) -> bool:
 	return node == player && player
 
-func _set_player_flag(target, is_player):
+func _set_player_flag(target: KinematicBody, is_player: bool):
 	if(target.state):
 		target.set_player(is_player)
 	else:
 		errors.error_test(target.connect("ready", target, "set_player", [is_player]))
 
-func make_player(character):
-	if(!character):
+func make_player(new_player: KinematicBody):
+	if(!new_player):
 		return
 	if(player):
 		unmake_player()
-	player_name = character.name
-	player = character
+	player_name = new_player.name
+	player = new_player
 	player.call_deferred("add_child", camera)
 	player.get_node("health_bar").set_visible(false)
 	_set_player_flag(player, true)
@@ -63,10 +63,13 @@ func unmake_player():
 	player = null
 
 func create_player():
-	var new_player = character_scene.instance()
-	new_player.name = player_name
-	new_player.add_to_group("characters")
-	make_player(new_player)
+	make_player(create_character(player_name))
+
+func create_character(character_name: String) -> KinematicBody:
+	var new_character = character_scene.instance()
+	new_character.name = character_name
+	new_character.add_to_group("characters")
+	return new_character
 
 func save_characters():
 	for x in get_tree().get_nodes_in_group("characters"):
