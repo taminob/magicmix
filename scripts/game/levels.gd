@@ -52,6 +52,7 @@ var current_level: Node = null
 var current_level_death_realm: bool = false
 
 func change_level(level_name: String):
+	game.mgmt.save_characters()
 	loader.load_resource(levels[level_name]["path"], funcref(self, "_load_callback"), true)
 	current_level_name = level_name
 	current_level_death_realm = levels[level_name].get("death_realm", false)
@@ -59,7 +60,6 @@ func change_level(level_name: String):
 func _load_callback(new_level: Resource):
 	var world = scenes.game_instance.get_node("world_container/viewport/world")
 	if(current_level):
-		game.mgmt.save_characters()
 		current_level.name = "_level"
 		game.mgmt.unmake_player()
 		world.call_deferred("remove_child", current_level)

@@ -44,7 +44,7 @@ func action_input(event: InputEvent):
 	if(event.is_action_pressed("interact")):
 		interaction.initiate_interact()
 	if(event.is_action_pressed("ui_accept")):
-		dialogue.answer_selected()
+		dialogue.answer()
 	if(event.is_action_pressed("slot0")):
 		skills.cast_slot(0)
 	if(event.is_action_pressed("slot1")):

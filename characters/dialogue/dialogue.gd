@@ -7,12 +7,15 @@ class statement:
 	var speaker: character
 	var receiver: character
 
-	func _init(new_speaker: character, new_receiver: character, new_text: String, new_effects: Array=[], new_answers: Array=[]):
-		speaker = new_speaker
-		receiver = new_receiver
+	func _init(new_text: String, new_effects: Array=[], new_answers: Array=[]):
 		text = new_text
 		effects = new_effects
 		answers = new_answers
+		update(null, null)
+
+	func update(new_speaker: character, new_receiver: character):
+		speaker = new_speaker
+		receiver = new_receiver
 		for x in answers:
 			x.current_statement = self
 
@@ -48,11 +51,11 @@ class answer:
 	}
 	var text: String
 	var current_statement: statement
-	var next_statement: statement
+	var next_statement: Array
 	var effects: Array # array of FuncRefs
 	var requires: int
 
-	func _init(new_text: String, new_next_statement: statement, new_effects: Array=[], new_requirements: int=requirements.ALL):
+	func _init(new_text: String, new_next_statement: Array, new_effects: Array=[], new_requirements: int=requirements.ALL):
 		text = new_text
 		next_statement = new_next_statement
 		effects = new_effects
@@ -61,7 +64,7 @@ class answer:
 	func formatted_text() -> String:
 		return text.format({"self": current_statement.speaker_name(), "partner": current_statement.receiver_name()}) # todo
 
-	func next() -> statement:
+	func next() -> Array:
 		return next_statement if next_statement else current_statement
 
 	func requirements_satisfied() -> bool:
@@ -72,8 +75,8 @@ class answer:
 			x.call_func()
 
 var _start_statements: Dictionary
-var _inactive_partners: Dictionary
-var _wants_to_say_queue: Array # contains all currently valid statement indices, sorted by priority (last element highest priority)
+var _statements: Dictionary
+var _partners: Dictionary
 
 var pawn: character
 var partner: character
@@ -85,15 +88,20 @@ func _introduce(receiver: character=partner):
 	if(receiver):
 		receiver.dialogue.call_names[pawn.name] = pawn.dialogue.display_name
 
-func _unimplemented_statement() -> statement:
-	return statement.new(pawn, partner, "Hey {partner}, I'm {self}. :)\nYou actually found an unimplemented dialogue, feel free to contact the devs and help improving the game!", [
+func _unimplemented_statement() -> Array:
+	_statements["unimplemented"] = statement.new("Hey {partner}, I'm {self}. :)\nYou actually found an unimplemented dialogue, feel free to contact the devs and help improving the game!", [
 		funcref(self, "_introduce")], [
-		answer.new("Alright, on my way!", null, [funcref(self, "_end_dialogue")]), 
-		answer.new("Definitely not going to do that, hate this game!", null, [funcref(self, "_end_dialogue")]), 
-		answer.new("Bye!", null, [funcref(self, "_end_dialogue")])])
+		answer.new("Alright, on my way!", [], [funcref(self, "_end_dialogue")]), 
+		answer.new("Definitely not going to do that, hate this game!", [], [funcref(self, "_end_dialogue")]), 
+		answer.new("Bye!", [], [funcref(self, "_end_dialogue")])])
+	return ["unimplemented"]
 
-func murder_witness_statement() -> statement:
-	return statement.new(pawn, partner, _murder_witness())
+func default_statement() -> Array:
+	return _unimplemented_statement()
+
+func murder_witness_statement() -> Array:
+	_statements["murder_witness"] = statement.new(_murder_witness())
+	return ["murder_witness"]
 
 func _stranger_greeting() -> String:
 	return util.random_element([
@@ -137,34 +145,39 @@ func _no_time() -> String:
 
 func init(new_pawn: character, new_dialogue_status: Dictionary):
 	pawn = new_pawn
-	_inactive_partners = new_dialogue_status
+	_partners = new_dialogue_status
 	_init_statements()
 
 func _init_statements():
 	pass
 
 func change_partner(new_partner: character):
-	if(partner):
-		_inactive_partners[partner.name] = _wants_to_say_queue
 	partner = new_partner
-	_wants_to_say_queue = _inactive_partners.get(partner.name, [])
-	if(_wants_to_say_queue.empty()):
-		add_want_to_say(_start_statements.get(partner.name, _unimplemented_statement()), 1)
+	if(!_partners.has(partner.name)):
+		_partners[partner.name] = []
+		add_want_to_say(_start_statements.get(partner.name, default_statement()), 1)
 
 func formatted_text(text: String) -> String:
 	return text.format({"self": pawn.dialogue.display_name, "partner": pawn.dialogue.call_names[partner.name]}) # todo
 
 func dialogue() -> statement:
-	return _wants_to_say_queue.pop_back()[1]
+	var a = _partners[partner.name].back()[1]
+	var s = _statements
+	for x in a:
+		s = s[x]
+	if(s):
+		s.update(pawn, partner)
+	return s
 
-func add_want_to_say(say: statement, priority: int):
-	for i in range(_wants_to_say_queue.size()):
-		if(_wants_to_say_queue[i][0] > priority):
-			_wants_to_say_queue.insert(i, [priority, say])
+func add_want_to_say(statement_keys: Array, priority: int):
+	for i in range(_partners[partner.name].size()):
+		if(_partners[partner.name][i][0] > priority):
+			_partners[partner.name].insert(i, [priority, statement_keys])
 			return
-	_wants_to_say_queue.push_back([priority, say])
+	_partners[partner.name].push_back([priority, statement_keys])
 
 func transition(answer: answer):
 	errors.debug_assert(answer.requirements_satisfied(), "requirements of answer not satisfied!")
 	answer.execute_effects()
+	_partners[partner.name].pop_back()
 	add_want_to_say(answer.next(), 1)

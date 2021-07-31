@@ -39,22 +39,29 @@ func spawn_cloth():
 	clothing = SoftBody.new()
 	clothing.collision_layer = game.mgmt.layer.objects
 	clothing.collision_mask = game.mgmt.physical_layers
+	#clothing.parent_collision_ignore = pawn.get_path()
 	clothing.set_simulation_precision(100)
 	clothing.set_linear_stiffness(0.1)
 	clothing.set_areaAngular_stiffness(0.1)
 	clothing.set_volume_stiffness(0.1)
 	clothing.set_damping_coefficient(0.05)
-	var cloth_mesh = PlaneMesh.new()
-	cloth_mesh.set_size(Vector2(4, 4))
-	cloth_mesh.set_subdivide_depth(16)
-	cloth_mesh.set_subdivide_width(16)
+	clothing.set_total_mass(0.1)
+	#var cloth_mesh = PlaneMesh.new()
+	#cloth_mesh.set_size(Vector2(4, 4))
+	#cloth_mesh.set_subdivide_depth(16)
+	#cloth_mesh.set_subdivide_width(16)
+	var cloth_mesh = load("res://characters/meshes/new_cloth_mesh.tres")
 	clothing.set_mesh(cloth_mesh)
+	clothing.scale = Vector3(0.1, 0.1, 0.1)
 	var cloth_material = SpatialMaterial.new()
 	cloth_material.set_cull_mode(SpatialMaterial.CULL_DISABLED)
 	cloth_material.set_albedo(Color(1.0, 0.0, 0.0))
 	clothing.set_material_override(cloth_material)
 	pawn.add_child(clothing)
 	clothing.translation = Vector3.UP * 2
+	#clothing.scale = Vector3(0.1, 0.1, 0.1)
+	#clothing.rotate_x(deg2rad(90))
+	clothing.rotate_y(deg2rad(180))
 
 func set_height(new_height: float=body_height):
 	# todo: rotate collision if width > height

@@ -13,7 +13,7 @@ func _ready():
 		if(dead_characters.has(x.name)):
 			spawned_characters.push_back(x)
 		else:
-			errors.assert(false, "character in death_realm is not dead!")
+			errors.assert(false, "character " + x.name + " in death_realm is not dead!")
 
 	for x in dead_characters:
 		if(!spawned_characters.has(x)):

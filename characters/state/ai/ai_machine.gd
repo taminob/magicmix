@@ -48,6 +48,8 @@ func move():
 		return
 	ai.move.current_mode = move_state.move_mode.RUNNING # todo: implement other move modes
 	var current_action = action_queue.front()
+	if(!current_action.target):
+		return # todo? check why check is necessary
 	var nav: Navigation = game.levels.current_level.get_node("navigation")
 	var destination = current_action.target.global_transform.origin
 	if(nav):

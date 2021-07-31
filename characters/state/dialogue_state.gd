@@ -51,7 +51,7 @@ func dialogue_interact(interactor: KinematicBody):
 		interactor.dialogue.start_dialogue(pawn)
 		ask()
 	elif(partner == interactor):
-		answer_selected() # todo: rework
+		partner.dialogue.answer() # todo: rework
 
 func is_dialogue_active() -> bool:
 	return partner != null
@@ -78,30 +78,33 @@ func ask():
 	current_statement.execute_effects(partner)
 
 func answer():
-	partner.answer_selected()
-
-func listen(statement: abstract_dialogue.statement):
-	if(!state.is_player):
-		if(partner):
-			answer()
-
-func answer_selected():
 	if(!is_dialogue_active()):
 		return
-	if(_dialogue_progress < _dialogue_length):
-		_dialogue_progress = _dialogue_length
+	if(partner.dialogue._dialogue_progress < partner.dialogue._dialogue_length):
+		partner.dialogue._dialogue_progress = partner.dialogue._dialogue_length
 		return
 	var selected_answer: abstract_dialogue.answer = null
 	if(state.is_player):
 		selected_answer = game.mgmt.ui.dialogue.get_current_answer_data()
-	var other_dialogue: abstract_dialogue = partner.dialogue.dialogue_data
-	if(selected_answer):
-		other_dialogue.transition(selected_answer)
+	else:
+		selected_answer = null # todo: ai select answer
+	partner.dialogue.answer_received(selected_answer)
+
+func answer_received(answer: abstract_dialogue.answer):
+	if(!is_dialogue_active()):
+		return
+	if(answer):
+		dialogue_data.transition(answer)
 		if(is_dialogue_active()):
 			ask()
 	else:
 		# warning-ignore:return_value_discarded
 		end_dialogue()
+
+func listen(_statement: abstract_dialogue.statement):
+	if(!state.is_player):
+		if(partner):
+			answer()
 
 func end_dialogue():
 	if(!is_dialogue_active()):
@@ -119,7 +122,7 @@ func end_dialogue():
 		listener.end_dialogue()
 
 func get_call_name(id: String) -> String:
-	return call_names.get(id, "???") # todo: add question for name
+	return call_names.get(id, "???") # todo: add question for name if unknown
 
 func get_relationship(id: String) -> float:
 	return relationships.get(id, base_relationship)
@@ -132,13 +135,13 @@ func save(state_dict: Dictionary):
 	_dialogue_state["name"] = display_name
 	_dialogue_state["gender"] = gender
 	_dialogue_state["job"] = job
-	_dialogue_state["dialogue_partner"] = partner
-	_dialogue_state["dialogue_listeners"] = listeners
+	#_dialogue_state["dialogue_partner"] = partner # todo? save currently active dialogue
+	#_dialogue_state["dialogue_listeners"] = listeners
 	_dialogue_state["call_names"] = call_names
 	_dialogue_state["relationships"] = relationships
 	_dialogue_state["base_relationship"] = base_relationship
 	_dialogue_state["relations"] = relations
-	_dialogue_state["current_dialogues"] = dialogue_data._inactive_partners
+	_dialogue_state["current_dialogues"] = dialogue_data._partners
 	state_dict["dialogue"] = _dialogue_state
 
 func init(state_dict: Dictionary):
@@ -146,8 +149,8 @@ func init(state_dict: Dictionary):
 	display_name = _dialogue_state.get("name", "")
 	gender = _dialogue_state.get("gender", "")
 	job = _dialogue_state.get("job", "")
-	partner = _dialogue_state.get("dialogue_partner", null)
-	listeners = _dialogue_state.get("dialogue_listeners", [])
+	#partner = _dialogue_state.get("dialogue_partner", null)
+	#listeners = _dialogue_state.get("dialogue_listeners", [])
 	call_names = _dialogue_state.get("call_names", {})
 	relationships = _dialogue_state.get("relationships", {})
 	base_relationship = _dialogue_state.get("base_relationship", 0)
