@@ -36,20 +36,22 @@ func dialogue_process(delta: float):
 	if(!is_dialogue_active()):
 		return
 	_dialogue_progress = min(_dialogue_progress + delta * DIALOGUE_SPEED, _dialogue_length)
-	var dist = partner.translation.distance_squared_to(pawn.translation)
+	var dist = partner.global_transform.origin.distance_squared_to(pawn.global_transform.origin)
 	dist = (dist - DIALOGUE_NO_FADE_DISTANCE_SQRD) / DIALOGUE_END_DISTANCE_SQRD
 	var dialogue_intensity = 1 - clamp(dist, 0, 1)
 	if(dialogue_intensity <= 0):
-		# warning-ignore:return_value_discarded
 		end_dialogue()
 	elif(partner.state.is_player):
 		game.mgmt.ui.dialogue.update_dialogue(_dialogue_progress, dialogue_intensity)
 
 func dialogue_interact(interactor: KinematicBody):
-	if(!is_dialogue_active() && can_talk()):
+	if(!is_dialogue_active() && can_talk() && interactor.dialogue.can_talk()):
 		start_dialogue(interactor)
 		interactor.dialogue.start_dialogue(pawn)
-		ask()
+		if(interactor.state.is_player):
+			ask()
+		else:
+			interactor.dialogue.ask()
 	elif(partner == interactor):
 		partner.dialogue.answer() # todo: rework
 
@@ -57,7 +59,7 @@ func is_dialogue_active() -> bool:
 	return partner != null
 
 func can_talk() -> bool:
-	return !stats.dead || stats.undead
+	return !stats.dead || stats.undead || game.levels.current_level_death_realm
 
 func start_dialogue(new_partner: KinematicBody):
 	end_dialogue()

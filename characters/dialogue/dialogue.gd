@@ -84,13 +84,16 @@ var partner: character
 func _end_dialogue():
 	pawn.dialogue.end_dialogue()
 
-func _introduce(receiver: character=partner):
+func _introduce_self(receiver: character=partner):
 	if(receiver):
 		receiver.dialogue.call_names[pawn.name] = pawn.dialogue.display_name
 
+func _introduce_partner():
+	pawn.dialogue.call_names[partner.name] = partner.dialogue.display_name
+
 func _unimplemented_statement() -> Array:
 	_statements["unimplemented"] = statement.new("Hey {partner}, I'm {self}. :)\nYou actually found an unimplemented dialogue, feel free to contact the devs and help improving the game!", [
-		funcref(self, "_introduce")], [
+		funcref(self, "_introduce_self")], [
 		answer.new("Alright, on my way!", [], [funcref(self, "_end_dialogue")]), 
 		answer.new("Definitely not going to do that, hate this game!", [], [funcref(self, "_end_dialogue")]), 
 		answer.new("Bye!", [], [funcref(self, "_end_dialogue")])])
@@ -151,6 +154,26 @@ func init(new_pawn: character, new_dialogue_status: Dictionary):
 func _init_statements():
 	pass
 
+func _create_statements_from_dict(statement_dict: Dictionary, path: Array) -> Dictionary:
+	var new_dict: Dictionary = {}
+	for x in statement_dict.keys():
+		if(statement_dict[x].has("say")):
+			var new_statement: statement = statement.new(statement_dict[x]["say"])
+			for effect in statement_dict[x].get("effects", []):
+				new_statement.effects.push_back(funcref(self, effect))
+			for answer_data in statement_dict[x].get("answers", []):
+				var new_next = answer_data.get("next", path + [x])
+				if(new_next is String):
+					new_next = path + [new_next]
+				var new_answer: answer = answer.new(answer_data.get("say", ""), new_next)
+				for effect in answer_data.get("effects", []):
+					new_answer.effects.push_back(funcref(self, effect))
+				new_statement.answers.push_back(new_answer)
+			new_dict[x] = new_statement
+		else:
+			new_dict[x] = _create_statements_from_dict(statement_dict[x], path + [x])
+	return new_dict
+
 func change_partner(new_partner: character):
 	partner = new_partner
 	if(!_partners.has(partner.name)):
@@ -179,5 +202,6 @@ func add_want_to_say(statement_keys: Array, priority: int):
 func transition(answer: answer):
 	errors.debug_assert(answer.requirements_satisfied(), "requirements of answer not satisfied!")
 	answer.execute_effects()
-	_partners[partner.name].pop_back()
-	add_want_to_say(answer.next(), 1)
+	if(!answer.next_statement.empty()):
+		_partners[partner.name].pop_back()
+		add_want_to_say(answer.next_statement, 1)
