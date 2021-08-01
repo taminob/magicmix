@@ -355,6 +355,8 @@ texture={
 "svg/scale": 1.0
 }
 scene={
+null: null,
+null: null,
 "animation/clip_1/end_frame": 0,
 "animation/clip_1/loops": false,
 "animation/clip_1/name": "",
@@ -570,7 +572,6 @@ scene={
 "animation/clip_147/end_frame": 0,
 "animation/clip_147/loops": false,
 "animation/clip_147/name": "",
-"animation/clip_147/start_frame": 0,
 "animation/clip_148/end_frame": 0,
 "animation/clip_148/loops": false,
 "animation/clip_148/name": "",

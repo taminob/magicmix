@@ -66,7 +66,10 @@ func _process(_delta: float):
 			total_stages += x.get_stage_count()
 			current_progress += x.get_stage()
 		_queue_mutex.unlock()
-		_loading_instance.set_progress(current_progress / total_stages)
+		if(total_stages > 0):
+			_loading_instance.set_progress(current_progress / total_stages)
+		else:
+			_loading_instance.set_progress(1)
 
 func _thread_process(_a):
 	while !_load_queue.empty():

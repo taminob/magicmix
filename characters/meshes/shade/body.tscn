@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://characters/meshes/shade/shade_cape.glb" type="PackedScene" id=1]
+[ext_resource path="res://world/shaders/shadow_body.shader" type="Shader" id=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+params_cull_mode = 2
+albedo_color = Color( 0.431373, 0, 0, 1 )
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 2 )
+
+[node name="shade_cape" instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+
+[node name="Plane" parent="." index="0"]
+material/0 = SubResource( 1 )
+
+[node name="second" parent="metarig/Skeleton" index="0"]
+material/0 = SubResource( 2 )
+
+[node name="animations" type="AnimationPlayer" parent="." index="2"]

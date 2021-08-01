@@ -25,7 +25,7 @@ var character_data = {
 			"slots": ["heal", "fire_ring", "fire_ball", "blood_storm", "blood_sacrifice"]
 		},
 		"look": {
-			"mesh_path": "res://characters/meshes/default/body.tscn"
+			"mesh_path": "res://characters/meshes/shade/body.tscn"
 		}
 	},
 	"mary": {

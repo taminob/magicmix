@@ -64,9 +64,6 @@ class answer:
 	func formatted_text() -> String:
 		return text.format({"self": current_statement.speaker_name(), "partner": current_statement.receiver_name()}) # todo
 
-	func next() -> Array:
-		return next_statement if next_statement else current_statement
-
 	func requirements_satisfied() -> bool:
 		return true # todo: implement answer requirements
 
