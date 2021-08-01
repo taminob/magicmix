@@ -46,22 +46,22 @@ shape = SubResource( 5 )
 
 [node name="portal1" parent="portals" instance=ExtResource( 1 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 15 )
-next_level = "intro"
+next_level = "town"
 next_character_name = "hans"
 
 [node name="portal2" parent="portals" instance=ExtResource( 1 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 0, 0 )
-next_level = "intro"
+next_level = "town"
 next_character_name = "mary"
 
 [node name="portal3" parent="portals" instance=ExtResource( 1 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15, 0, 0 )
-next_level = "intro"
+next_level = "town"
 next_character_name = "vladimir"
 
 [node name="portal4" parent="portals" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15 )
-next_level = "intro"
+next_level = "town"
 next_character_name = "sqlykt"
 
 [node name="dead_spawner" type="Spatial" parent="."]

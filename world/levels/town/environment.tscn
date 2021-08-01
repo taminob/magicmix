@@ -1,153 +1,42 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://world/levels/town/house_outside.tscn" type="PackedScene" id=1]
-[ext_resource path="res://world/objects/stone/stone.tscn" type="PackedScene" id=2]
-[ext_resource path="res://world/shaders/stone.shader" type="Shader" id=3]
-[ext_resource path="res://world/materials/simple_stone.tres" type="Material" id=4]
-[ext_resource path="res://world/objects/door/door.tscn" type="PackedScene" id=9]
+[ext_resource path="res://world/levels/town/garden.tscn" type="PackedScene" id=2]
+[ext_resource path="res://world/materials/wall_stone.tres" type="Material" id=3]
+[ext_resource path="res://world/materials/street_stone.tres" type="Material" id=4]
 
 [sub_resource type="CubeMesh" id=1]
-size = Vector3( 1000, 1, 1000 )
-subdivide_width = 1000
-subdivide_depth = 1000
+size = Vector3( 150, 10, 2 )
 
-[sub_resource type="Shader" id=23]
-code = "shader_type spatial;
-render_mode blend_mix;
-
-uniform sampler2D noise;
-uniform float noise_lod = 0;
-uniform float noise_scale = 5.;
-
-void fragment()
-{
-	ALBEDO = vec3(0.3) * textureLod(noise, UV * noise_scale, noise_lod).xyz;
-	//ALPHA = 1.;
-}
-"
-
-[sub_resource type="OpenSimplexNoise" id=25]
-
-[sub_resource type="NoiseTexture" id=26]
-width = 4096
-height = 4096
-seamless = true
-noise = SubResource( 25 )
-
-[sub_resource type="ShaderMaterial" id=24]
-shader = SubResource( 23 )
-shader_param/noise_lod = 0.0
-shader_param/noise_scale = 5.0
-shader_param/noise = SubResource( 26 )
-
-[sub_resource type="BoxShape" id=27]
-extents = Vector3( 500, 1, 500 )
+[sub_resource type="ConcavePolygonShape" id=2]
+data = PoolVector3Array( -75, 5, 1, 75, 5, 1, -75, -5, 1, 75, 5, 1, 75, -5, 1, -75, -5, 1, 75, 5, -1, -75, 5, -1, 75, -5, -1, -75, 5, -1, -75, -5, -1, 75, -5, -1, 75, 5, 1, 75, 5, -1, 75, -5, 1, 75, 5, -1, 75, -5, -1, 75, -5, 1, -75, 5, -1, -75, 5, 1, -75, -5, -1, -75, 5, 1, -75, -5, 1, -75, -5, -1, 75, 5, 1, -75, 5, 1, 75, 5, -1, -75, 5, 1, -75, 5, -1, 75, 5, -1, -75, -5, 1, 75, -5, 1, -75, -5, -1, 75, -5, 1, 75, -5, -1, -75, -5, -1 )
 
 [sub_resource type="CubeMesh" id=3]
-size = Vector3( 30, 5, 2 )
+size = Vector3( 100, 1, 10 )
 
-[sub_resource type="BoxShape" id=4]
-extents = Vector3( 15, 2.5, 1 )
+[sub_resource type="ConcavePolygonShape" id=4]
+data = PoolVector3Array( -50, 0.5, 5, 50, 0.5, 5, -50, -0.5, 5, 50, 0.5, 5, 50, -0.5, 5, -50, -0.5, 5, 50, 0.5, -5, -50, 0.5, -5, 50, -0.5, -5, -50, 0.5, -5, -50, -0.5, -5, 50, -0.5, -5, 50, 0.5, 5, 50, 0.5, -5, 50, -0.5, 5, 50, 0.5, -5, 50, -0.5, -5, 50, -0.5, 5, -50, 0.5, -5, -50, 0.5, 5, -50, -0.5, -5, -50, 0.5, 5, -50, -0.5, 5, -50, -0.5, -5, 50, 0.5, 5, -50, 0.5, 5, 50, 0.5, -5, -50, 0.5, 5, -50, 0.5, -5, 50, 0.5, -5, -50, -0.5, 5, 50, -0.5, 5, -50, -0.5, -5, 50, -0.5, 5, 50, -0.5, -5, -50, -0.5, -5 )
 
-[sub_resource type="OpenSimplexNoise" id=5]
+[sub_resource type="CubeMesh" id=5]
+size = Vector3( 6, 1, 6 )
 
-[sub_resource type="NoiseTexture" id=6]
-seamless = true
-noise = SubResource( 5 )
+[sub_resource type="ConcavePolygonShape" id=6]
+data = PoolVector3Array( -3, 0.5, 3, 3, 0.5, 3, -3, -0.5, 3, 3, 0.5, 3, 3, -0.5, 3, -3, -0.5, 3, 3, 0.5, -3, -3, 0.5, -3, 3, -0.5, -3, -3, 0.5, -3, -3, -0.5, -3, 3, -0.5, -3, 3, 0.5, 3, 3, 0.5, -3, 3, -0.5, 3, 3, 0.5, -3, 3, -0.5, -3, 3, -0.5, 3, -3, 0.5, -3, -3, 0.5, 3, -3, -0.5, -3, -3, 0.5, 3, -3, -0.5, 3, -3, -0.5, -3, 3, 0.5, 3, -3, 0.5, 3, 3, 0.5, -3, -3, 0.5, 3, -3, 0.5, -3, 3, 0.5, -3, -3, -0.5, 3, 3, -0.5, 3, -3, -0.5, -3, 3, -0.5, 3, 3, -0.5, -3, -3, -0.5, -3 )
 
-[sub_resource type="ShaderMaterial" id=7]
-shader = ExtResource( 3 )
-shader_param/noise_lod = 1.0
-shader_param/base_color = Vector3( 0.3, 0.3, 0.3 )
-shader_param/noise = SubResource( 6 )
+[sub_resource type="CubeMesh" id=7]
+size = Vector3( 25, 1, 6 )
 
-[sub_resource type="CubeMesh" id=8]
-size = Vector3( 9, 5, 2 )
-
-[sub_resource type="ShaderMaterial" id=9]
-shader = ExtResource( 3 )
-shader_param/noise_lod = 1.0
-shader_param/base_color = Vector3( 0.3, 0.3, 0.3 )
-shader_param/noise = SubResource( 6 )
-
-[sub_resource type="BoxShape" id=10]
-extents = Vector3( 4.5, 2.5, 1 )
+[sub_resource type="ConcavePolygonShape" id=8]
+data = PoolVector3Array( -12.5, 0.5, 3, 12.5, 0.5, 3, -12.5, -0.5, 3, 12.5, 0.5, 3, 12.5, -0.5, 3, -12.5, -0.5, 3, 12.5, 0.5, -3, -12.5, 0.5, -3, 12.5, -0.5, -3, -12.5, 0.5, -3, -12.5, -0.5, -3, 12.5, -0.5, -3, 12.5, 0.5, 3, 12.5, 0.5, -3, 12.5, -0.5, 3, 12.5, 0.5, -3, 12.5, -0.5, -3, 12.5, -0.5, 3, -12.5, 0.5, -3, -12.5, 0.5, 3, -12.5, -0.5, -3, -12.5, 0.5, 3, -12.5, -0.5, 3, -12.5, -0.5, -3, 12.5, 0.5, 3, -12.5, 0.5, 3, 12.5, 0.5, -3, -12.5, 0.5, 3, -12.5, 0.5, -3, 12.5, 0.5, -3, -12.5, -0.5, 3, 12.5, -0.5, 3, -12.5, -0.5, -3, 12.5, -0.5, 3, 12.5, -0.5, -3, -12.5, -0.5, -3 )
 
 [node name="environment" type="Spatial"]
 
-[node name="mesh" type="MeshInstance" parent="."]
-mesh = SubResource( 1 )
-material/0 = SubResource( 24 )
-
-[node name="ground" type="StaticBody" parent="mesh"]
-
-[node name="collision" type="CollisionShape" parent="mesh/ground"]
-shape = SubResource( 27 )
-
-[node name="stones" type="Spatial" parent="."]
-
-[node name="stone1" parent="stones" instance=ExtResource( 2 )]
-transform = Transform( -0.00606028, -0.984808, -0.173542, 0.999391, -4.36848e-08, -0.0348995, 0.0343693, -0.173648, 0.984208, 8.21543, 0, 3.27185 )
-
-[node name="stone2" parent="stones" instance=ExtResource( 2 )]
-transform = Transform( 0.604023, -0.219846, 0.766044, 0.34202, 0.939693, 0, -0.719846, 0.262003, 0.642788, -1.68788, 0, 5.31859 )
-
-[node name="stone3" parent="stones" instance=ExtResource( 2 )]
-transform = Transform( 0.642788, -0.0667652, -0.763129, 0, 0.996195, -0.0871557, 0.766044, 0.0560226, 0.640342, 19.1908, -0.200002, 5.20662 )
-
-[node name="stone4" parent="stones" instance=ExtResource( 2 )]
-transform = Transform( 0.5, 0.150384, 0.852869, 0, 0.984808, -0.173648, -0.866025, 0.0868241, 0.492404, -1.34115, -0.200001, -6.44559 )
-
-[node name="stone5" parent="stones" instance=ExtResource( 2 )]
-transform = Transform( -0.133559, 0.268294, 0.954034, 0.084186, 0.96225, -0.258819, -0.987459, 0.0457486, -0.151104, 17.4212, -0.3, -7.02452 )
-
-[node name="walls" type="Spatial" parent="."]
-
-[node name="mesh_instance" type="MeshInstance" parent="walls"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11, 2.5, -25 )
-mesh = SubResource( 3 )
-material/0 = ExtResource( 4 )
-
-[node name="static_body" type="StaticBody" parent="walls/mesh_instance"]
-
-[node name="collision_shape" type="CollisionShape" parent="walls/mesh_instance/static_body"]
-shape = SubResource( 4 )
-
-[node name="mesh_instance2" type="MeshInstance" parent="walls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.5, -11 )
-mesh = SubResource( 3 )
-material/0 = SubResource( 7 )
-
-[node name="static_body" type="StaticBody" parent="walls/mesh_instance2"]
-
-[node name="collision_shape" type="CollisionShape" parent="walls/mesh_instance2/static_body"]
-shape = SubResource( 4 )
-
-[node name="mesh_instance4" type="MeshInstance" parent="walls"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21.0779, 2.5, -14.588 )
-mesh = SubResource( 8 )
-material/0 = SubResource( 9 )
-
-[node name="static_body" type="StaticBody" parent="walls/mesh_instance4"]
-
-[node name="collision_shape" type="CollisionShape" parent="walls/mesh_instance4/static_body"]
-shape = SubResource( 10 )
-
-[node name="entry" parent="walls" instance=ExtResource( 9 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21.0779, 2.5, -21.088 )
-next_level = "intro_outside"
-
-[node name="mesh_instance3" type="MeshInstance" parent="walls"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21.0779, 2.5, -27.588 )
-mesh = SubResource( 8 )
-material/0 = SubResource( 9 )
-
-[node name="static_body" type="StaticBody" parent="walls/mesh_instance3"]
-
-[node name="collision_shape" type="CollisionShape" parent="walls/mesh_instance3/static_body"]
-shape = SubResource( 10 )
-
 [node name="boxes" type="Spatial" parent="."]
+
+[node name="gardens" type="Spatial" parent="."]
+
+[node name="garden" parent="gardens" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, -26 )
 
 [node name="houses" type="Spatial" parent="."]
 
@@ -165,3 +54,105 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -25, 0,
 
 [node name="house_outside4" parent="houses" instance=ExtResource( 1 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -25, 0, -10 )
+
+[node name="town_walls" type="Spatial" parent="."]
+
+[node name="mesh_instance" type="MeshInstance" parent="town_walls"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -50, 5, 30 )
+mesh = SubResource( 1 )
+material/0 = ExtResource( 3 )
+
+[node name="static_body" type="StaticBody" parent="town_walls/mesh_instance"]
+
+[node name="collision_shape" type="CollisionShape" parent="town_walls/mesh_instance/static_body"]
+shape = SubResource( 2 )
+
+[node name="mesh_instance4" type="MeshInstance" parent="town_walls"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 100, 5, 28 )
+mesh = SubResource( 1 )
+material/0 = ExtResource( 3 )
+
+[node name="static_body" type="StaticBody" parent="town_walls/mesh_instance4"]
+
+[node name="collision_shape" type="CollisionShape" parent="town_walls/mesh_instance4/static_body"]
+shape = SubResource( 2 )
+
+[node name="mesh_instance2" type="MeshInstance" parent="town_walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 5, -46 )
+mesh = SubResource( 1 )
+material/0 = ExtResource( 3 )
+
+[node name="static_body" type="StaticBody" parent="town_walls/mesh_instance2"]
+
+[node name="collision_shape" type="CollisionShape" parent="town_walls/mesh_instance2/static_body"]
+shape = SubResource( 2 )
+
+[node name="mesh_instance3" type="MeshInstance" parent="town_walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 5, 104 )
+mesh = SubResource( 1 )
+material/0 = ExtResource( 3 )
+
+[node name="static_body" type="StaticBody" parent="town_walls/mesh_instance3"]
+
+[node name="collision_shape" type="CollisionShape" parent="town_walls/mesh_instance3/static_body"]
+shape = SubResource( 2 )
+
+[node name="main_street" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, -0.5, 0 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 4 )
+
+[node name="static_body" type="StaticBody" parent="main_street"]
+
+[node name="collision_shape" type="CollisionShape" parent="main_street/static_body"]
+shape = SubResource( 4 )
+
+[node name="street1" type="MeshInstance" parent="."]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -25, -0.5, 8.025 )
+mesh = SubResource( 5 )
+material/0 = ExtResource( 4 )
+
+[node name="static_body" type="StaticBody" parent="street1"]
+
+[node name="collision_shape" type="CollisionShape" parent="street1/static_body"]
+shape = SubResource( 6 )
+
+[node name="street3" type="MeshInstance" parent="."]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.5, 8.025 )
+mesh = SubResource( 5 )
+material/0 = ExtResource( 4 )
+
+[node name="static_body" type="StaticBody" parent="street3"]
+
+[node name="collision_shape" type="CollisionShape" parent="street3/static_body"]
+shape = SubResource( 6 )
+
+[node name="street4" type="MeshInstance" parent="."]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 25, -0.5, 8.025 )
+mesh = SubResource( 5 )
+material/0 = ExtResource( 4 )
+
+[node name="static_body" type="StaticBody" parent="street4"]
+
+[node name="collision_shape" type="CollisionShape" parent="street4/static_body"]
+shape = SubResource( 6 )
+
+[node name="street2" type="MeshInstance" parent="."]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -25, -0.5, -8 )
+mesh = SubResource( 5 )
+material/0 = ExtResource( 4 )
+
+[node name="static_body" type="StaticBody" parent="street2"]
+
+[node name="collision_shape" type="CollisionShape" parent="street2/static_body"]
+shape = SubResource( 6 )
+
+[node name="street5" type="MeshInstance" parent="."]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 25, -0.5, -17.5 )
+mesh = SubResource( 7 )
+material/0 = ExtResource( 4 )
+
+[node name="static_body" type="StaticBody" parent="street5"]
+
+[node name="collision_shape" type="CollisionShape" parent="street5/static_body"]
+shape = SubResource( 8 )

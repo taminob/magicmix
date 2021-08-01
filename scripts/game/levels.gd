@@ -1,10 +1,6 @@
 extends Node
 
 var levels = {
-	"intro": {
-		"path": "res://world/levels/intro/level.tscn",
-		"death_realm": false
-	},
 	"intro_outside": {
 		"path": "res://world/levels/intro_outside/level.tscn",
 		"death_realm": false
@@ -41,10 +37,14 @@ var levels = {
 		"path": "res://world/levels/debug2/level.tscn",
 		"death_realm": false
 	},
+	"debug3": {
+		"path": "res://world/levels/debug3/level.tscn",
+		"death_realm": false
+	},
 	"debug_ai": {
 		"path": "res://world/levels/debug_ai/level.tscn",
 		"death_realm": false
-	}
+	},
 }
 
 var current_level_name: String = ""

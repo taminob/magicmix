@@ -12,7 +12,7 @@ cell/height = 0.3
 [node name="level" type="Spatial"]
 
 [node name="player_spawn" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 46.3205, 1.72577, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 51.8941, 1.72577, 0 )
 
 [node name="navigation" type="Navigation" parent="."]
 
@@ -22,7 +22,7 @@ navmesh = SubResource( 1 )
 [node name="environment" parent="navigation/navigation_mesh_instance" instance=ExtResource( 2 )]
 
 [node name="guenther" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 38.6696, 0, 7.66933 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 38.6696, 0, 4.04013 )
 
 [node name="vladimir" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.21516, 3.47923, -17.5732 )
