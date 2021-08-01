@@ -60,7 +60,7 @@ func load_save(save=current_save):
 		errors.error("unable to read save file %s: %s" % [save, error])
 	current_save = save
 	game.reload_game()
-	game.mgmt.player_name = save_file.get_value("characters", "player", "hans")
+	game.mgmt.player_name = save_file.get_value("characters", "player", settings.get_setting("dev", "start_character"))
 	game.char_data = save_file.get_value("characters", "characters", game.char_data)
 	game.world.boxes = save_file.get_value("world", "boxes", game.world.boxes)
 	_next_level = save_file.get_value("level", "current_level", settings.get_setting("dev", "start_level"))

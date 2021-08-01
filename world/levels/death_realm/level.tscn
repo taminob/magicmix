@@ -20,5 +20,5 @@ navmesh = SubResource( 1 )
 
 [node name="environment" parent="navigation/navigation_mesh_instance" instance=ExtResource( 1 )]
 
-[node name="sqlay" parent="." instance=ExtResource( 2 )]
-transform = Transform( -0.796825, 0, 0.60421, 0, 1, 0, -0.60421, 0, -0.796825, 15.3211, 1, -17.8666 )
+[node name="gress" parent="." instance=ExtResource( 2 )]
+transform = Transform( -0.796825, 0, 0.60421, 0, 1, 0, -0.60421, 0, -0.796825, 4.60077, 1, -8.21984 )

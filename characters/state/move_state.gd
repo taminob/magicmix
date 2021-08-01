@@ -35,7 +35,7 @@ func max_speed(mode: int=current_mode) -> float:
 	return WALK_SPEED * speed_factor()
 
 func stamina_cost(mode: int=current_mode) -> float:
-	if(is_moving()):
+	if(is_moving() && !state.is_spirit):
 		match mode:
 			move_mode.WALKING:
 				return 0.0

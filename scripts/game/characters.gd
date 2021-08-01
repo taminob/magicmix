@@ -4,6 +4,25 @@ const FULL_PAIN: float = 10000.0
 
 # warning-ignore:unused_class_variable
 var character_data = {
+	"gerhard": {
+		"dialogue": {
+			"name": "Gerhard",
+			"gender": "male",
+		},
+		"experience": {
+			"intelligence": 100,
+			"strength": 100,
+			"sturdiness": 100,
+			"concentration": 100,
+			"endurance": 100
+		},
+		"stats": {
+			"dead": true
+		},
+		"look": {
+			"mesh_path": "res://characters/meshes/patrol/body.tscn"
+		},
+	},
 	"hans": {
 		"dialogue": {
 			"name": "Hans",
@@ -26,15 +45,14 @@ var character_data = {
 		},
 		"look": {
 			"mesh_path": "res://characters/meshes/shade/body.tscn"
-		}
+		},
 	},
 	"mary": {
 		"dialogue": {
 			"name": "Mary",
 			"gender": "female",
-			"dialogue": "res://characters/dialogue/mary/dialogue.gd",
 			"relations": {
-				"hans": -1,
+				"hans": 1,
 				"vladimir": 2
 			}
 		},
@@ -61,7 +79,6 @@ var character_data = {
 		"dialogue": {
 			"name": "Günther",
 			"gender": "male",
-			"dialogue": "res://characters/dialogue/guenther/dialogue.gd",
 			"relations": {
 				"hans": 2,
 				"vladimir": -1
@@ -87,11 +104,38 @@ var character_data = {
 			"mesh_path": "res://characters/meshes/patrol/body.tscn"
 		}
 	},
+	"gress": {
+		"dialogue": {
+			"name": "Gress",
+			"gender": "male",
+			"relations": {
+				"hans": 2,
+				"vladimir": -1
+			}
+		},
+		"stats": {
+			"dead": true,
+			"pain": FULL_PAIN
+		},
+		"experience": {
+			"intelligence": 1,
+			"strength": 1,
+			"sturdiness": 1,
+			"concentration": 1,
+			"endurance": 1
+		},
+		"inventory": {
+			"skills": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
+			"slots": ["blood_storm", "fire_ring", "", "", ""]
+		},
+		"look": {
+			"mesh_path": "res://characters/meshes/patrol/body.tscn"
+		}
+	},
 	"vladimir": {
 		"dialogue": {
 			"name": "Vlad",
 			"gender": "male",
-			"dialogue": "res://characters/dialogue/vladimir/dialogue.gd",
 			"relations": {
 				"hans": -2,
 				"mary": 2

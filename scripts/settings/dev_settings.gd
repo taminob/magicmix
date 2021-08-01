@@ -7,7 +7,8 @@ var options = {
 
 	# not visible in ui (debug settings)
 	"debug_target": "",
-	"start_level": "debug", # TODO: remove, just for debugging
+	"start_level": "death_realm", # TODO: remove, just for debugging
+	"start_character": "gerhard",
 }
 
 func set_options(set: Node):

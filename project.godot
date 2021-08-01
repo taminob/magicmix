@@ -356,7 +356,6 @@ texture={
 }
 scene={
 null: null,
-null: null,
 "animation/clip_1/end_frame": 0,
 "animation/clip_1/loops": false,
 "animation/clip_1/name": "",

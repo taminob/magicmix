@@ -36,6 +36,7 @@ func set_mesh(path: String=_default_mesh_path):
 		spawn_cloth()
 
 func spawn_cloth():
+	return
 	clothing = SoftBody.new()
 	clothing.collision_layer = game.mgmt.layer.objects
 	clothing.collision_mask = game.mgmt.physical_layers
@@ -66,11 +67,9 @@ func spawn_cloth():
 
 func set_height(new_height: float=body_height):
 	# todo: rotate collision if width > height
-	#var width = pawn.collision.shape.radius * 2
-	#pawn.collision.shape.height = new_height - width
-	#pawn.collision.translation.y = new_height / 2
-	#pawn.collision.shape = load("res://characters/meshes/shade/shade_collision.tres")
-	pass
+	var width = pawn.collision.shape.radius * 2
+	pawn.collision.shape.height = new_height - width
+	pawn.collision.translation.y = new_height / 2
 
 func save(state_dict: Dictionary):
 	var _look_state = state_dict.get("look", {})

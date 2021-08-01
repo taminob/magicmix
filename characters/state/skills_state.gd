@@ -45,7 +45,10 @@ func cancel_spell(active_spell=[]):
 		active_skills.erase(active_spell)
 
 func skill_process(delta: float):
-	stats.stamina = clamp(stats.stamina + (stats.stamina_per_second() + move.stamina_cost()) * delta, 0, stats.max_stamina())
+	stats.stamina = min(stats.stamina + (stats.stamina_per_second() + move.stamina_cost()) * delta, stats.max_stamina())
+	if(stats.stamina < 0):
+		move.current_mode = move_state.move_mode.RUNNING
+		stats.stamina = 0
 	active_skills[0] = [stats.focus_per_second(), stats.pain_per_second()]
 	var canceled_spells = []
 	for x in active_skills:
