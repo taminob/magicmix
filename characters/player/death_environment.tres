@@ -10,6 +10,7 @@ background_sky_rotation = Vector3( 0, 0, 3.14159 )
 background_sky_rotation_degrees = Vector3( 0, 0, 180 )
 background_color = Color( 0.835294, 0.835294, 0.835294, 1 )
 background_energy = 0.5
+ambient_light_color = Color( 0.364706, 0.364706, 0.364706, 1 )
 fog_enabled = true
 fog_color = Color( 0.203922, 0.203922, 0.203922, 1 )
 fog_sun_color = Color( 0.545098, 0.545098, 0.545098, 1 )
