@@ -65,5 +65,5 @@ next_level = "town"
 next_character_name = "sqlykt"
 
 [node name="dead_spawner" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.2193, 0, 0 )
 script = ExtResource( 2 )
+radius = 25.0

@@ -10,6 +10,7 @@ func _ready():
 	errors.debug_assert(game.levels.levels.has(next_level), "target level of portal does not exist")
 	var mesh_path = game.get_character(next_character_name).get("look", {}).get("mesh_path", "res://characters/meshes/debug/body.tscn")
 	var mesh = load(mesh_path).instance()
+	mesh.rotate_y(PI)
 	add_child(mesh)
 
 func get_interaction() -> String:

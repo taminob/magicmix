@@ -20,7 +20,8 @@ var character_data = {
 			"dead": true
 		},
 		"look": {
-			"mesh_path": "res://characters/meshes/patrol/body.tscn"
+			"mesh_path": "res://characters/meshes/shade/body.tscn",
+			"color": Color(1, 1, 0)
 		},
 	},
 	"hans": {
@@ -44,7 +45,8 @@ var character_data = {
 			"slots": ["heal", "fire_ring", "fire_ball", "blood_storm", "blood_sacrifice"]
 		},
 		"look": {
-			"mesh_path": "res://characters/meshes/shade/body.tscn"
+			"mesh_path": "res://characters/meshes/shade/body.tscn",
+			"color": Color(0.45, 0, 0)
 		},
 	},
 	"mary": {
@@ -72,7 +74,8 @@ var character_data = {
 			"pain": 30
 		},
 		"look": {
-			"mesh_path": "res://characters/meshes/woman/body.tscn"
+			"mesh_path": "res://characters/meshes/shade/body.tscn",
+			"color": Color(0, 0.8, 0)
 		},
 	},
 	"guenther": {
@@ -101,7 +104,8 @@ var character_data = {
 			"slots": ["blood_storm", "fire_ring", "", "", ""]
 		},
 		"look": {
-			"mesh_path": "res://characters/meshes/patrol/body.tscn"
+			"mesh_path": "res://characters/meshes/shade/body.tscn",
+			"color": Color(0.5, 0, 0.5)
 		}
 	},
 	"gress": {
@@ -129,7 +133,8 @@ var character_data = {
 			"slots": ["blood_storm", "fire_ring", "", "", ""]
 		},
 		"look": {
-			"mesh_path": "res://characters/meshes/patrol/body.tscn"
+			"mesh_path": "res://characters/meshes/shade/body.tscn",
+			"color": Color(0, 0, 1)
 		}
 	},
 	"vladimir": {
@@ -154,7 +159,8 @@ var character_data = {
 			"slots": ["fire_ring", "heal", "", "", ""]
 		},
 		"look": {
-			"mesh_path": "res://characters/meshes/patrol/body.tscn"
+			"mesh_path": "res://characters/meshes/shade/body.tscn",
+			"color": Color(0.5, 0.5, 1)
 		},
 	},
 	"sqlykt": {
@@ -173,7 +179,8 @@ var character_data = {
 			"spells": ["blood_sacrifice"]
 		},
 		"look": {
-			"mesh_path": "res://characters/meshes/debug/body.tscn"
+			"mesh_path": "res://characters/meshes/debug/body.tscn",
+			"color": Color(0.3, 0.3, 0.3)
 		},
 	},
 	"sqlay": {
@@ -196,7 +203,8 @@ var character_data = {
 			"spells": ["blood_sacrifice"]
 		},
 		"look": {
-			"mesh_path": "res://characters/meshes/debug/body.tscn"
+			"mesh_path": "res://characters/meshes/debug/body.tscn",
+			"color": Color(0.5, 0.5, 0.5)
 		},
 	}
 }

@@ -29,7 +29,7 @@ func set_mesh(path: String=_default_mesh_path):
 	if(mesh):
 		mesh.queue_free()
 	mesh = load(path).instance()
-	mesh.rotate_y(PI) # todo: fix meshes
+	#mesh.rotate_y(PI) # todo: fix meshes
 	pawn.add_child(mesh)
 	animations = mesh.get_node("animations")
 	if(!clothing):
@@ -65,11 +65,27 @@ func spawn_cloth():
 	#clothing.rotate_x(deg2rad(90))
 	#clothing.rotate_y(deg2rad(180))
 
-func set_height(new_height: float=body_height):
+func update_collision(new_height: float=body_height):
+#	if(mesh && mesh.has_method("get_collision_shape")):
+#		pawn.collision.shape = mesh.get_collision_shape()
+#		pawn.collision.translation = Vector3.ZERO
+#		pawn.collision.rotation_degrees = Vector3.ZERO
+	if(mesh && mesh.has_method("get_collision_size")):
+		var body_size: Vector2 = mesh.get_collision_size()
+		pawn.collision.shape.radius = body_size.x / 2
+		new_height = body_size.y
 	# todo: rotate collision if width > height
 	var width = pawn.collision.shape.radius * 2
 	pawn.collision.shape.height = new_height - width
 	pawn.collision.translation.y = new_height / 2
+
+func set_color(color: Color):
+	if(mesh && mesh.has_method("set_cape_color")):
+		mesh.set_cape_color(color)
+	if(mesh.has_method("set_material_override")):
+		var mat: Material = SpatialMaterial.new()
+		mat.set_albedo(color)
+		mesh.set_material_override(mat)
 
 func save(state_dict: Dictionary):
 	var _look_state = state_dict.get("look", {})
@@ -81,5 +97,6 @@ func init(state_dict: Dictionary):
 	var _look_state = state_dict.get("look", {})
 	_default_mesh_path = _look_state.get("mesh_path", "res://characters/meshes/debug/body.tscn")
 	set_mesh()
+	set_color(_look_state.get("color", Color(0, 0, 0)))
 	body_height = _look_state.get("height", 1.8)
-	set_height()
+	update_collision()

@@ -135,7 +135,7 @@ script = ExtResource( 13 )
 script = ExtResource( 14 )
 
 [node name="health_bar" type="CSGMesh" parent="."]
-transform = Transform( 1.25, 0, 0, 0, 0.25, 0, 0, 0, 0.1, 0, 2.18982, 0 )
+transform = Transform( 1.25, 0, 0, 0, 0.25, 0, 0, 0, 0.1, 0, 2.9773, 0 )
 mesh = SubResource( 3 )
 material = SubResource( 5 )
 

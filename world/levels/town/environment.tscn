@@ -80,6 +80,8 @@ mesh = SubResource( 1 )
 material/0 = ExtResource( 3 )
 
 [node name="static_body" type="StaticBody" parent="town_walls/mesh_instance"]
+collision_layer = 2
+collision_mask = 63
 
 [node name="collision_shape" type="CollisionShape" parent="town_walls/mesh_instance/static_body"]
 shape = SubResource( 2 )
@@ -90,6 +92,8 @@ mesh = SubResource( 1 )
 material/0 = ExtResource( 3 )
 
 [node name="static_body" type="StaticBody" parent="town_walls/mesh_instance4"]
+collision_layer = 2
+collision_mask = 63
 
 [node name="collision_shape" type="CollisionShape" parent="town_walls/mesh_instance4/static_body"]
 shape = SubResource( 2 )
@@ -100,6 +104,8 @@ mesh = SubResource( 1 )
 material/0 = ExtResource( 3 )
 
 [node name="static_body" type="StaticBody" parent="town_walls/mesh_instance2"]
+collision_layer = 2
+collision_mask = 63
 
 [node name="collision_shape" type="CollisionShape" parent="town_walls/mesh_instance2/static_body"]
 shape = SubResource( 2 )
@@ -110,6 +116,8 @@ mesh = SubResource( 1 )
 material/0 = ExtResource( 3 )
 
 [node name="static_body" type="StaticBody" parent="town_walls/mesh_instance3"]
+collision_layer = 2
+collision_mask = 63
 
 [node name="collision_shape" type="CollisionShape" parent="town_walls/mesh_instance3/static_body"]
 shape = SubResource( 2 )
