@@ -8,7 +8,7 @@
 [ext_resource path="res://world/materials/simple_fog.tres" type="Material" id=6]
 [ext_resource path="res://world/objects/stairs/stairs.shader" type="Shader" id=7]
 [ext_resource path="res://world/materials/simple_grass.tres" type="Material" id=8]
-[ext_resource path="res://world/objects/door/door.tscn" type="PackedScene" id=9]
+[ext_resource path="res://world/objects/door_portal/door_portal.tscn" type="PackedScene" id=9]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 50, 1, 200 )

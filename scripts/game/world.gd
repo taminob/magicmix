@@ -14,5 +14,10 @@ var boxes = {
 	},
 	"palace_entry": {
 		"box1": ["fire_token"]
+	},
+	"town": {
+		"garden_box1": ["deadly_poison", "deadly_poison"],
+		"garden_box2": ["dark_token", "fire_token"],
+		"garden_box3": ["dark_potion", "dark_potion"],
 	}
 }

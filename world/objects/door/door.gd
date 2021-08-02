@@ -1,14 +1,35 @@
 extends Spatial
 
-export var next_level: String
+export var is_open: bool = false
+
+onready var mesh: MeshInstance = $"door_mesh"
+
+var _closed_transform: Transform
+var _opened_transform: Transform
 
 func _ready():
-	errors.debug_assert(game.levels.levels.has(next_level), "target level of door does not exist")
+	_closed_transform = mesh.transform
+	_opened_transform = mesh.transform
+	_opened_transform = _opened_transform.translated(Vector3(2, 0, -2)).rotated(Vector3.UP, deg2rad(-70))
+	if(is_open):
+		open_door()
 
 func get_interaction() -> String:
-	return "Enter"
+	return "Close" if is_open else "Open"
 
-func interact(interactor: character):
-	# todo: allow ai to transfer between levels
-	if(game.mgmt.is_player(interactor)):
-		game.levels.change_level(next_level)
+func interact(_interactor: character):
+	toggle_open()
+
+func toggle_open():
+	if(is_open):
+		close_door()
+	else:
+		open_door()
+
+func open_door():
+	mesh.transform = _opened_transform
+	is_open = true
+
+func close_door():
+	mesh.transform = _closed_transform
+	is_open = false
