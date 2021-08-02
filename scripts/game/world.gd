@@ -9,7 +9,7 @@ var boxes = {
 	"debug_death1": {
 		"box1": ["dark_token", "deadly_poison"]
 	},
-	"intro": {
+	"debug3": {
 		"box1": ["deadly_poison", "deadly_poison"],
 	},
 	"palace_entry": {

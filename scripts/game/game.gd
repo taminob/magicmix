@@ -27,5 +27,6 @@ func reload_game():
 	levels = load(game_script_path + "levels.gd").new()
 	add_child(levels)
 
-func get_character(id) -> Dictionary:
+func get_character(id: String) -> Dictionary:
+	errors.debug_assert(char_data.has(id), "trying to access character data for " + id + " who does not exist!")
 	return char_data.get(id, {})

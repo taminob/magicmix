@@ -15,11 +15,13 @@ func initiate_interact():
 		interact_target.interact(pawn)
 
 func consume(item: String, remove_from_inventory: bool=true):
-	if(items.items[item]["category"] != "consumable"):
+	if(item_data.items[item].category() != "consumable"):
 		return
 	if(remove_from_inventory):
 		inventory.things.erase(item)
-	stats._self_damage(items.items[item]["self"]["pain"])
+	stats._self_damage(item_data.items[item].self_pain())
+	stats._self_focus_damage(item_data.items[item].self_focus())
+	# todo: damage over time
 
 func toggle_spirit():
 	state.is_spirit = !state.is_spirit

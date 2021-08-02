@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://characters/dialogue/dialogue.gd"
 }, {
 "base": "Reference",
+"class": "abstract_item",
+"language": "GDScript",
+"path": "res://items/item.gd"
+}, {
+"base": "Reference",
 "class": "abstract_spell",
 "language": "GDScript",
 "path": "res://skills/spells/spell.gd"
@@ -69,6 +74,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://characters/character.gd"
 }, {
+"base": "abstract_item",
+"class": "dark_potion_item",
+"language": "GDScript",
+"path": "res://items/consumable/dark_potion.gd"
+}, {
+"base": "abstract_item",
+"class": "dark_token_item",
+"language": "GDScript",
+"path": "res://items/token/dark_token.gd"
+}, {
+"base": "abstract_item",
+"class": "deadly_poison_item",
+"language": "GDScript",
+"path": "res://items/consumable/deadly_poison.gd"
+}, {
 "base": "Node",
 "class": "dialogue_state",
 "language": "GDScript",
@@ -98,6 +118,11 @@ _global_script_classes=[ {
 "class": "fire_storm_spell",
 "language": "GDScript",
 "path": "res://skills/spells/fire/fire_storm.gd"
+}, {
+"base": "abstract_item",
+"class": "fire_token_item",
+"language": "GDScript",
+"path": "res://items/token/fire_token.gd"
 }, {
 "base": "move_to_task",
 "class": "follow_task",
@@ -148,6 +173,11 @@ _global_script_classes=[ {
 "class": "move_to_task",
 "language": "GDScript",
 "path": "res://characters/state/ai/behavior_tree/tasks/move_to.gd"
+}, {
+"base": "abstract_item",
+"class": "nothing_item",
+"language": "GDScript",
+"path": "res://items/nothing.gd"
 }, {
 "base": "task",
 "class": "parallel",
@@ -237,6 +267,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "abstract_action": "",
 "abstract_dialogue": "",
+"abstract_item": "",
 "abstract_spell": "",
 "ai_machine": "",
 "ai_mind": "",
@@ -247,12 +278,16 @@ _global_script_class_icons={
 "cancel_task": "",
 "cast_task": "",
 "character": "",
+"dark_potion_item": "",
+"dark_token_item": "",
+"deadly_poison_item": "",
 "dialogue_state": "",
 "do_nothing_spell": "",
 "experience_state": "",
 "fire_ball_spell": "",
 "fire_ring_spell": "",
 "fire_storm_spell": "",
+"fire_token_item": "",
 "follow_task": "",
 "heal_spell": "",
 "input_state": "",
@@ -263,6 +298,7 @@ _global_script_class_icons={
 "move_state": "",
 "move_task": "",
 "move_to_task": "",
+"nothing_item": "",
 "parallel": "",
 "planner": "",
 "raycast_hit_task": "",
@@ -304,7 +340,7 @@ settings="*res://scripts/settings/settings.gd"
 scenes="*res://scripts/scenes.gd"
 loader="*res://scripts/loader.gd"
 skill_data="*res://scripts/game/skill_data.gd"
-items="*res://scripts/game/items.gd"
+item_data="*res://scripts/game/item_data.gd"
 characters="res://scripts/game/characters.gd"
 management="res://scripts/game/management.gd"
 levels="res://scripts/game/levels.gd"

@@ -1,5 +1,7 @@
 extends Node
 
+# todo: improve loader design in general, increase robustness; maybe use signals instead of callbacks?
+
 var _loading_scene: PackedScene = load("res://menu/loading/loading.tscn")
 var _loading_instance: Control
 var _load_thread
