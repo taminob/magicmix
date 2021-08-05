@@ -1,4 +1,6 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://world/textures/flames-170.png" type="Texture" id=1]
 
 [sub_resource type="ParticlesMaterial" id=1]
 flag_rotate_y = true
@@ -9,95 +11,46 @@ angular_velocity = 10.0
 [sub_resource type="SphereShape" id=2]
 radius = 0.5
 
-[sub_resource type="ParticlesMaterial" id=3]
-trail_divisor = 5
-emission_shape = 1
-emission_sphere_radius = 0.3
-direction = Vector3( 0, 1, 0 )
-spread = 5.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 1.0
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.390681, 0.487455, 1 )
+colors = PoolColorArray( 0.4, 0, 0, 1, 0.705882, 0.545098, 0, 1, 0.882353, 0.670588, 0, 1, 0.403922, 0.0470588, 0, 1 )
 
-[sub_resource type="Shader" id=4]
-code = "shader_type spatial;
-render_mode blend_mix;
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
 
-uniform vec4 base_color = vec4(0.37, 0., 0., 0.8);
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.745033, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-void vertex()
-{
-	COLOR = base_color;
-}
-
-void fragment()
-{
-	ALBEDO = COLOR.rgb;
-	EMISSION = ALBEDO * 20.;
-	ALPHA = smoothstep(0.0, 0.9, COLOR.a);
-}"
-
-[sub_resource type="ShaderMaterial" id=5]
-shader = SubResource( 4 )
-shader_param/base_color = Plane( 0.5, 0.3, 0, 0.8 )
-
-[sub_resource type="SphereMesh" id=6]
-material = SubResource( 5 )
-radius = 0.01
-height = 0.04
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 5 )
 
 [sub_resource type="ParticlesMaterial" id=7]
-trail_divisor = 3
 emission_shape = 1
-emission_sphere_radius = 0.5
-direction = Vector3( 0, 1, 0 )
-spread = 15.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 1.0
-angular_velocity = 1.0
-
-[sub_resource type="SpatialMaterial" id=8]
-albedo_color = Color( 0.392157, 0, 0, 1 )
-
-[sub_resource type="SphereMesh" id=9]
-material = SubResource( 8 )
-radius = 0.02
-height = 0.04
-
-[sub_resource type="ParticlesMaterial" id=10]
-trail_divisor = 3
-emission_shape = 1
-emission_sphere_radius = 0.5
+emission_sphere_radius = 0.4
 direction = Vector3( 0, 1, 0 )
 spread = 10.0
 gravity = Vector3( 0, 0, 0 )
-initial_velocity = 1.0
+tangential_accel = 1.0
+tangential_accel_random = 1.0
+angle = 360.0
+angle_random = 1.0
+scale_random = 0.75
+scale_curve = SubResource( 6 )
+color_ramp = SubResource( 4 )
 
-[sub_resource type="Shader" id=11]
-code = "shader_type spatial;
-render_mode blend_mix;
+[sub_resource type="SpatialMaterial" id=8]
+flags_transparent = true
+vertex_color_use_as_albedo = true
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_color = Color( 1, 1, 1, 0.392157 )
+albedo_texture = ExtResource( 1 )
 
-uniform vec4 base_color = vec4(0.37, 0., 0., 0.8);
-
-void vertex()
-{
-	COLOR = base_color;
-}
-
-void fragment()
-{
-	ALBEDO = COLOR.rgb;
-	EMISSION = ALBEDO * 20.;
-	ALPHA = smoothstep(0.0, 0.9, COLOR.a);
-}"
-
-[sub_resource type="ShaderMaterial" id=12]
-shader = SubResource( 11 )
-shader_param/base_color = Plane( 0.37, 0, 0, 0.8 )
-
-[sub_resource type="SphereMesh" id=13]
-material = SubResource( 12 )
-radius = 0.01
-height = 0.02
+[sub_resource type="QuadMesh" id=9]
+material = SubResource( 8 )
+size = Vector2( 0.5, 0.5 )
 
 [node name="fire" type="Area"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
@@ -114,21 +67,6 @@ shape = SubResource( 2 )
 
 [node name="particles" type="Particles" parent="."]
 amount = 100
-lifetime = 0.4
-visibility_aabb = AABB( -0.337496, -0.29315, -0.372307, 0.682095, 1.0173, 0.781276 )
-process_material = SubResource( 3 )
-draw_pass_1 = SubResource( 6 )
-
-[node name="particles2" type="Particles" parent="."]
-amount = 200
-lifetime = 0.3
 visibility_aabb = AABB( -0.561712, -0.528422, -0.646344, 1.10737, 1.34839, 1.27542 )
 process_material = SubResource( 7 )
 draw_pass_1 = SubResource( 9 )
-
-[node name="particles3" type="Particles" parent="."]
-amount = 500
-lifetime = 0.4
-visibility_aabb = AABB( -0.528495, -0.507156, -0.664096, 1.05789, 1.40856, 1.32317 )
-process_material = SubResource( 10 )
-draw_pass_1 = SubResource( 13 )
