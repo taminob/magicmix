@@ -11,10 +11,11 @@ const WALK_SPEED: float = 7.0
 const SPRINT_SPEED: float = 15.0
 const ACCELERATION: float = 7.0
 const DE_ACCELERATION: float = 8.0
-const GRAVITY: float = -9.81
+const GRAVITY: float = 9.81
 const JUMP_VELOCITY: float = 5.0
 const SPIRIT_RANGE_SQUARED: float = 500.0
 
+var gravity_direction: Vector3 = Vector3.DOWN
 var velocity: Vector3 = Vector3.ZERO
 var spirit_velocity: Vector3 = Vector3.ZERO
 var immovable: bool = false
@@ -51,7 +52,6 @@ func can_move() -> bool:
 func is_moving() -> bool:
 	return !input_direction.is_equal_approx(Vector3.ZERO)
 
-var _move_direction: Vector3 = Vector3.ZERO
 func move_process(delta: float):
 	if(state.is_spirit):
 		_move_spirit(delta)
@@ -63,9 +63,10 @@ func move_process_dead(delta: float):
 	# gravity and friction even when dead
 	var hv = Vector3(velocity.x, 0, velocity.z)
 	hv = hv.linear_interpolate(Vector3.ZERO, DE_ACCELERATION * delta)
-	velocity.y += GRAVITY * delta
+	velocity += gravity_direction * GRAVITY * delta
 	velocity = pawn.move_and_slide(Vector3(hv.x, velocity.y, hv.z), Vector3.UP, true)
 
+var _move_direction: Vector3 = Vector3.ZERO
 func _move_normal(delta: float):
 	if(pawn.is_on_floor()):
 		if(jump_requested):
@@ -79,7 +80,7 @@ func _move_normal(delta: float):
 	var accel = ACCELERATION if(_move_direction.dot(hv) > 0) else DE_ACCELERATION
 	hv = hv.linear_interpolate(new_pos, accel * delta)
 
-	velocity.y += GRAVITY * delta
+	velocity += gravity_direction * GRAVITY * delta
 	velocity = pawn.move_and_slide(Vector3(hv.x, velocity.y, hv.z), Vector3.UP, true)
 
 func _move_spirit(delta: float):

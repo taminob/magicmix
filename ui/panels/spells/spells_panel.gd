@@ -5,33 +5,33 @@ onready var detail_popup = $"layout/list/detail_popup"
 onready var detail_icon = $"layout/list/detail_popup/icon"
 onready var detail_label = $"layout/list/detail_popup/label"
 
-func _on_skills_panel_visibility_changed():
+func _on_spells_panel_visibility_changed():
 	detail_popup.hide()
 	if(is_visible()):
-		update_skills()
+		update_spells()
 
-func update_skills(category: String=""):
+func update_spells(category: String=""):
 	list.clear()
-	for x in game.mgmt.player.inventory.skills:
+	for x in game.mgmt.player.inventory.spells:
 		var spell = skill_data.spells.get(x)
 		if(spell.category() == category || category.empty()):
 			list.add_item(spell.name(), spell.icon())
 			list.set_item_metadata(list.get_item_count()-1, x)
 
 func _on_all_pressed():
-	update_skills()
+	update_spells()
 
 func _on_life_pressed():
-	update_skills("life")
+	update_spells("life")
 
 func _on_fire_pressed():
-	update_skills("fire")
+	update_spells("fire")
 
 func _on_blood_pressed():
-	update_skills("blood")
+	update_spells("blood")
 
 func _on_darkness_pressed():
-	update_skills("darkness")
+	update_spells("darkness")
 
 func _set_slot(num: int):
 	get_node("layout/list/detail_popup/slots/slot" + 

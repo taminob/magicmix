@@ -4,7 +4,7 @@ var current_save = "0"
 const SAVE_PATH = "res://saves/" # todo: change to user://
 #var key = OS.get_unique_id().to_utf8()
 
-func get_latest_save():
+func get_latest_save() -> String:
 	var dir = Directory.new()
 	var file = File.new()
 	dir.open(SAVE_PATH)
@@ -22,11 +22,11 @@ func get_latest_save():
 	dir.list_dir_end()
 	return last_save[0]
 
-func get_save_list():
+func get_save_list() -> Array:
 	var dir = Directory.new()
 	dir.open(SAVE_PATH)
 	dir.list_dir_begin()
-	var list = []
+	var list: Array = []
 	while true:
 		var file = dir.get_next()
 		if(file.empty()):

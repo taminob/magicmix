@@ -29,5 +29,5 @@ func _input(event):
 		toggle_open(1)
 	if(event.is_action_pressed("open_skill_tree")):
 		toggle_open(2)
-	if(event.is_action_pressed("open_skills")):
+	if(event.is_action_pressed("open_spells")):
 		toggle_open(3)

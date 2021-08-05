@@ -9,7 +9,7 @@ var _affected_bodies: Array = []
 # warning-ignore:unused_class_variable
 onready var _caster: KinematicBody = $".."
 
-func next_object_scale(_delta: float):
+func next_object_scale(_delta: float) -> Vector3:
 	return object.scale
 
 func do_on_end():

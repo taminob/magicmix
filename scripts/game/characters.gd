@@ -41,7 +41,7 @@ var character_data = {
 			"focus": 70
 		},
 		"inventory": {
-			"skills": ["fire_ball", "fire_ring", "fire_storm", "blood_sacrifice", "heal", "blood_storm", "blood_heal"],
+			"spells": ["fire_ball", "fire_ring", "fire_storm", "blood_sacrifice", "heal", "blood_storm", "blood_heal"],
 			"slots": ["heal", "fire_ring", "fire_ball", "blood_storm", "blood_sacrifice"]
 		},
 		"look": {
@@ -66,7 +66,7 @@ var character_data = {
 			"endurance": 1
 		},
 		"inventory": {
-			"skills": ["fire_ball", "fire_ring", "blood_sacrifice", "heal", "blood_storm"],
+			"spells": ["fire_ball", "fire_ring", "blood_sacrifice", "heal", "blood_storm"],
 			"slots": ["fire_ball", "fire_ring", "", "", "heal"]
 		},
 		"stats": {
@@ -100,7 +100,7 @@ var character_data = {
 			"endurance": 1
 		},
 		"inventory": {
-			"skills": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
+			"spells": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
 			"slots": ["blood_storm", "fire_ring", "", "", ""]
 		},
 		"look": {
@@ -129,7 +129,7 @@ var character_data = {
 			"endurance": 1
 		},
 		"inventory": {
-			"skills": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
+			"spells": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
 			"slots": ["blood_storm", "fire_ring", "", "", ""]
 		},
 		"look": {
@@ -155,7 +155,7 @@ var character_data = {
 			"endurance": 1
 		},
 		"inventory": {
-			"skills": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
+			"spells": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
 			"slots": ["fire_ring", "heal", "", "", ""]
 		},
 		"look": {

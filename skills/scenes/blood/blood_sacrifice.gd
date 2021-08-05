@@ -9,7 +9,7 @@ func _ready():
 	connect_object()
 	time = spell.duration()
 
-func next_object_scale(delta: float):
+func next_object_scale(delta: float) -> Vector3:
 	return object.scale * (1 + growth_per_second * delta)
 
 var used = false

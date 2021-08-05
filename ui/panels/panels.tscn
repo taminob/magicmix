@@ -4,10 +4,11 @@
 [ext_resource path="res://ui/panels/crafting/crafting_panel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ui/panels/panels.gd" type="Script" id=3]
 [ext_resource path="res://ui/panels/inventory/inventory_panel.tscn" type="PackedScene" id=4]
-[ext_resource path="res://ui/panels/skills/skills_panel.tscn" type="PackedScene" id=5]
-[ext_resource path="res://ui/panels/skill_tree/skill_tree.tscn" type="PackedScene" id=6]
+[ext_resource path="res://ui/panels/spells/spells_panel.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ui/panels/skill_tree/skill_tree_panel.tscn" type="PackedScene" id=6]
 
 [node name="panels" type="Popup"]
+visible = true
 anchor_left = 0.05
 anchor_top = 0.05
 anchor_right = 0.95
@@ -47,7 +48,7 @@ margin_top = 163.0
 margin_right = -8.0
 margin_bottom = -8.0
 
-[node name="Skills" parent="tabs" instance=ExtResource( 5 )]
+[node name="Spells" parent="tabs" instance=ExtResource( 5 )]
 visible = false
 margin_left = 8.0
 margin_top = 163.0

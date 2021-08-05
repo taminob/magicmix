@@ -13,11 +13,10 @@ __meta__ = {
 }
 
 [node name="space1" type="Label" parent="."]
-margin_top = 344.0
 margin_right = 1274.0
-margin_bottom = 369.0
+margin_bottom = 714.0
 size_flags_horizontal = 3
-size_flags_vertical = 6
+size_flags_vertical = 3
 
 [node name="slot1" type="TextureRect" parent="."]
 margin_left = 1282.0
@@ -36,6 +35,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 expand = true
 stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="space2" type="Label" parent="."]
 margin_left = 2564.0

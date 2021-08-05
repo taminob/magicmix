@@ -11,3 +11,9 @@ var spells = {
 	"fire_ring": fire_ring_spell.new(),
 	"fire_storm": fire_storm_spell.new(),
 }
+
+var skills = {
+	"": do_nothing_skill.new(),
+	"focus_sprint": focus_sprint_skill.new(),
+	"invert_gravity": invert_gravity_skill.new(),
+}

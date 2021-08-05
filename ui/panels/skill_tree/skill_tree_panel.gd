@@ -4,7 +4,7 @@ onready var details = $"layout/split/details"
 onready var detail_icon = $"layout/split/details/icon"
 onready var detail_label = $"layout/split/details/label"
 
-func _on_skills_tree_visibility_changed():
+func _on_skill_tree_panel_visibility_changed():
 	if(is_visible()):
 		update_tree()
 

@@ -14,8 +14,8 @@ func category() -> String:
 func combinations() -> Array:
 	return [{
 		"target": "area",
-		"type": "attack",
-		"elements": ["fire", "fire", "darkness"]
+		"type": "defense",
+		"elements": ["life"]
 	}]
 
 func self_pain() -> float:
@@ -25,4 +25,4 @@ func self_focus() -> float:
 	return -10.0
 
 func icon() -> Resource:
-	return load(SKILL_ICONS_PATH + "circle-512.png")
+	return load(SPELL_ICONS_PATH + "circle-512.png")

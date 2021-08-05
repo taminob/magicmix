@@ -43,7 +43,7 @@ func range() -> float:
 	return 10.0
 
 func icon() -> Resource:
-	return load(SKILL_ICONS_PATH + "blood_storm-512.png")
+	return load(SPELL_ICONS_PATH + "blood_storm-512.png")
 
 func scene() -> PackedScene:
-	return load(SKILL_SCENES_PATH + "blood/blood_storm.tscn").instance()
+	return load(SPELL_SCENES_PATH + "blood/blood_storm.tscn").instance()

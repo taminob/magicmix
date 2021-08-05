@@ -1,9 +1,9 @@
 class_name abstract_spell
 
 const FULL: float = 10000.0
-const SKILL_ICONS_PATH: String = "res://ui/icons/skills/"
-const SKILL_SCENES_PATH: String = "res://skills/scenes/"
-const SKILL_ANIMS_PATH: String = "res://skills/"
+const SPELL_ICONS_PATH: String = "res://ui/icons/skills/"
+const SPELL_SCENES_PATH: String = "res://skills/scenes/"
+const SPELL_ANIMS_PATH: String = "res://skills/"
 
 func name() -> String:
 	return ""
@@ -48,10 +48,10 @@ func range() -> float:
 	return -1.0
 
 func icon() -> Resource:
-	return load(SKILL_ICONS_PATH + "../empty_slot_frame-512.png")
+	return load(SPELL_ICONS_PATH + "../empty_slot_frame-512.png")
 
 func anim() -> String:
-	return ""#SKILL_ANIMS_PATH
+	return ""#SPELL_ANIMS_PATH
 
 func scene() -> PackedScene:
 	return null
