@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://ui/icons/empty_slot_frame-512.png" type="Texture" id=1]
 [ext_resource path="res://themes/ui_theme.tres" type="Theme" id=2]
 [ext_resource path="res://ui/panels/skill_tree/straight_connection-4096.png" type="Texture" id=3]
 [ext_resource path="res://ui/panels/skill_tree/skill_tree_panel.gd" type="Script" id=4]
+[ext_resource path="res://ui/panels/skill_tree/r_diagonal_connection-4096.png" type="Texture" id=5]
+[ext_resource path="res://ui/panels/skill_tree/l_diagonal_connection-4096.png" type="Texture" id=6]
 
 [node name="skill_tree_panel" type="Control"]
 anchor_right = 1.0
@@ -71,6 +73,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="scroll_container" type="ScrollContainer" parent="layout/split/tree"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -87,7 +90,7 @@ __meta__ = {
 }
 
 [node name="1" type="HBoxContainer" parent="layout/split/tree/scroll_container/v_box_container"]
-margin_right = 1908.0
+margin_right = 1920.0
 margin_bottom = 280.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -96,6 +99,7 @@ __meta__ = {
 }
 
 [node name="slot5" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/1"]
+visible = false
 margin_right = 375.0
 margin_bottom = 280.0
 size_flags_horizontal = 3
@@ -108,8 +112,8 @@ __meta__ = {
 }
 
 [node name="slot6" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/1"]
-margin_left = 383.0
-margin_right = 758.0
+visible = false
+margin_right = 471.0
 margin_bottom = 280.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -121,8 +125,8 @@ __meta__ = {
 }
 
 [node name="slot7" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/1"]
-margin_left = 766.0
-margin_right = 1141.0
+visible = false
+margin_right = 630.0
 margin_bottom = 280.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -134,8 +138,8 @@ __meta__ = {
 }
 
 [node name="slot8" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/1"]
-margin_left = 1149.0
-margin_right = 1524.0
+visible = false
+margin_right = 950.0
 margin_bottom = 280.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -147,8 +151,7 @@ __meta__ = {
 }
 
 [node name="slot9" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/1"]
-margin_left = 1532.0
-margin_right = 1908.0
+margin_right = 1920.0
 margin_bottom = 280.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -161,13 +164,13 @@ __meta__ = {
 
 [node name="connection1" type="MarginContainer" parent="layout/split/tree/scroll_container/v_box_container"]
 margin_top = 288.0
-margin_right = 1908.0
+margin_right = 1920.0
 margin_bottom = 569.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="texture_progress" type="TextureProgress" parent="layout/split/tree/scroll_container/v_box_container/connection1"]
-margin_right = 1908.0
+margin_right = 1920.0
 margin_bottom = 281.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -181,7 +184,7 @@ nine_patch_stretch = true
 
 [node name="2" type="HBoxContainer" parent="layout/split/tree/scroll_container/v_box_container"]
 margin_top = 577.0
-margin_right = 1908.0
+margin_right = 1920.0
 margin_bottom = 858.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -190,6 +193,7 @@ __meta__ = {
 }
 
 [node name="slot7" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/2"]
+visible = false
 margin_right = 375.0
 margin_bottom = 281.0
 size_flags_horizontal = 3
@@ -202,8 +206,8 @@ __meta__ = {
 }
 
 [node name="slot8" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/2"]
-margin_left = 383.0
-margin_right = 758.0
+visible = false
+margin_right = 471.0
 margin_bottom = 281.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -215,8 +219,8 @@ __meta__ = {
 }
 
 [node name="slot9" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/2"]
-margin_left = 766.0
-margin_right = 1141.0
+visible = false
+margin_right = 630.0
 margin_bottom = 281.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -228,8 +232,7 @@ __meta__ = {
 }
 
 [node name="slot10" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/2"]
-margin_left = 1149.0
-margin_right = 1524.0
+margin_right = 956.0
 margin_bottom = 281.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -241,8 +244,8 @@ __meta__ = {
 }
 
 [node name="slot11" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/2"]
-margin_left = 1532.0
-margin_right = 1908.0
+margin_left = 964.0
+margin_right = 1920.0
 margin_bottom = 281.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -255,14 +258,14 @@ __meta__ = {
 
 [node name="connection2" type="MarginContainer" parent="layout/split/tree/scroll_container/v_box_container"]
 margin_top = 866.0
-margin_right = 1908.0
+margin_right = 1920.0
 margin_bottom = 1146.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="3" type="HBoxContainer" parent="layout/split/tree/scroll_container/v_box_container"]
 margin_top = 1154.0
-margin_right = 1908.0
+margin_right = 1920.0
 margin_bottom = 1435.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -271,7 +274,7 @@ __meta__ = {
 }
 
 [node name="slot10" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/3"]
-margin_right = 375.0
+margin_right = 377.0
 margin_bottom = 281.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -283,8 +286,8 @@ __meta__ = {
 }
 
 [node name="slot11" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/3"]
-margin_left = 383.0
-margin_right = 758.0
+margin_left = 385.0
+margin_right = 763.0
 margin_bottom = 281.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -296,8 +299,8 @@ __meta__ = {
 }
 
 [node name="slot12" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/3"]
-margin_left = 766.0
-margin_right = 1141.0
+margin_left = 771.0
+margin_right = 1148.0
 margin_bottom = 281.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -309,8 +312,8 @@ __meta__ = {
 }
 
 [node name="slot13" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/3"]
-margin_left = 1149.0
-margin_right = 1524.0
+margin_left = 1156.0
+margin_right = 1534.0
 margin_bottom = 281.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -322,8 +325,8 @@ __meta__ = {
 }
 
 [node name="slot14" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/3"]
-margin_left = 1532.0
-margin_right = 1908.0
+margin_left = 1542.0
+margin_right = 1920.0
 margin_bottom = 281.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -336,14 +339,14 @@ __meta__ = {
 
 [node name="connection3" type="MarginContainer" parent="layout/split/tree/scroll_container/v_box_container"]
 margin_top = 1443.0
-margin_right = 1908.0
+margin_right = 1920.0
 margin_bottom = 1724.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="4" type="HBoxContainer" parent="layout/split/tree/scroll_container/v_box_container"]
 margin_top = 1732.0
-margin_right = 1908.0
+margin_right = 1920.0
 margin_bottom = 2013.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -352,7 +355,7 @@ __meta__ = {
 }
 
 [node name="slot12" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/4"]
-margin_right = 375.0
+margin_right = 377.0
 margin_bottom = 281.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -364,8 +367,8 @@ __meta__ = {
 }
 
 [node name="slot13" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/4"]
-margin_left = 383.0
-margin_right = 758.0
+margin_left = 385.0
+margin_right = 763.0
 margin_bottom = 281.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -377,8 +380,8 @@ __meta__ = {
 }
 
 [node name="slot14" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/4"]
-margin_left = 766.0
-margin_right = 1141.0
+margin_left = 771.0
+margin_right = 1148.0
 margin_bottom = 281.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -390,8 +393,8 @@ __meta__ = {
 }
 
 [node name="slot15" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/4"]
-margin_left = 1149.0
-margin_right = 1524.0
+margin_left = 1156.0
+margin_right = 1534.0
 margin_bottom = 281.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -403,9 +406,129 @@ __meta__ = {
 }
 
 [node name="slot16" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/4"]
-margin_left = 1532.0
-margin_right = 1908.0
+margin_left = 1542.0
+margin_right = 1920.0
 margin_bottom = 281.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="slot17" type="TextureButton" parent="layout/split/tree"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 0.2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="texture_progress2" type="TextureProgress" parent="layout/split/tree"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.2
+anchor_right = 0.85
+anchor_bottom = 0.3
+margin_left = -4.0
+margin_top = -3.05176e-05
+margin_right = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+value = 50.0
+texture_under = ExtResource( 5 )
+texture_progress = ExtResource( 5 )
+fill_mode = 2
+tint_under = Color( 0.0823529, 0.0823529, 0.0823529, 1 )
+tint_progress = Color( 0.831373, 0.831373, 0.831373, 1 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="texture_progress4" type="TextureProgress" parent="layout/split/tree"]
+visible = false
+anchor_left = 0.25
+anchor_top = 0.2
+anchor_right = 0.5
+anchor_bottom = 0.3
+margin_left = -4.0
+margin_top = -3.05176e-05
+margin_right = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+value = 50.0
+texture_under = ExtResource( 6 )
+texture_progress = ExtResource( 6 )
+fill_mode = 2
+tint_under = Color( 0.0823529, 0.0823529, 0.0823529, 1 )
+tint_progress = Color( 0.831373, 0.831373, 0.831373, 1 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="texture_progress3" type="TextureProgress" parent="layout/split/tree"]
+visible = false
+anchor_left = 0.4
+anchor_top = 0.2
+anchor_right = 0.6
+anchor_bottom = 0.3
+size_flags_horizontal = 3
+size_flags_vertical = 3
+value = 50.0
+texture_under = ExtResource( 3 )
+texture_progress = ExtResource( 3 )
+fill_mode = 2
+tint_under = Color( 0.0823529, 0.0823529, 0.0823529, 1 )
+tint_progress = Color( 0.831373, 0.831373, 0.831373, 1 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="slot18" type="TextureButton" parent="layout/split/tree"]
+visible = false
+anchor_left = 0.7
+anchor_top = 0.3
+anchor_right = 1.0
+anchor_bottom = 0.5
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="slot19" type="TextureButton" parent="layout/split/tree"]
+visible = false
+anchor_top = 0.3
+anchor_right = 0.3
+anchor_bottom = 0.5
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="slot20" type="TextureButton" parent="layout/split/tree"]
+visible = false
+anchor_left = 0.3
+anchor_top = 0.3
+anchor_right = 0.7
+anchor_bottom = 0.5
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture_normal = ExtResource( 1 )
@@ -523,6 +646,10 @@ stretch_mode = 5
 [connection signal="pressed" from="layout/split/tree/scroll_container/v_box_container/4/slot14" to="." method="_on_slot_pressed" binds= [ 0 ]]
 [connection signal="pressed" from="layout/split/tree/scroll_container/v_box_container/4/slot15" to="." method="_on_slot_pressed" binds= [ 0 ]]
 [connection signal="pressed" from="layout/split/tree/scroll_container/v_box_container/4/slot16" to="." method="_on_slot_pressed" binds= [ 0 ]]
+[connection signal="pressed" from="layout/split/tree/slot17" to="." method="_on_slot_pressed" binds= [ 0 ]]
+[connection signal="pressed" from="layout/split/tree/slot18" to="." method="_on_slot_pressed" binds= [ 0 ]]
+[connection signal="pressed" from="layout/split/tree/slot19" to="." method="_on_slot_pressed" binds= [ 0 ]]
+[connection signal="pressed" from="layout/split/tree/slot20" to="." method="_on_slot_pressed" binds= [ 0 ]]
 [connection signal="pressed" from="layout/split/details/slots/slot0" to="." method="_on_slot_pressed" binds= [ 0 ]]
 [connection signal="pressed" from="layout/split/details/slots/slot1" to="." method="_on_slot_pressed" binds= [ 1 ]]
 [connection signal="pressed" from="layout/split/details/slots/slot2" to="." method="_on_slot_pressed" binds= [ 2 ]]

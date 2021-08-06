@@ -18,7 +18,7 @@ func effect(pawn: character, delta: float):
 	pawn.stats.damage(pawn.move.velocity.length_squared(), true)
 
 func icon() -> Resource:
-	return load(SKILL_ICONS_PATH + "star_fall-512.png")
+	return load(SKILL_ICONS_PATH + "blue_star-512.png")
 
 func anim() -> String:
 	return ""#SKILL_ANIMS_PATH

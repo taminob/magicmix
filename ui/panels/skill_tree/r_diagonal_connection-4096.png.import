@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/diagonal_connection-4096.png-ef158679373636ee232fa3f2e17d613d.stex"
+path="res://.import/r_diagonal_connection-4096.png-7f2d16226c09c8d4c7ba71fa93fb7d79.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/panels/skill_tree/diagonal_connection-4096.png"
-dest_files=[ "res://.import/diagonal_connection-4096.png-ef158679373636ee232fa3f2e17d613d.stex" ]
+source_file="res://ui/panels/skill_tree/r_diagonal_connection-4096.png"
+dest_files=[ "res://.import/r_diagonal_connection-4096.png-7f2d16226c09c8d4c7ba71fa93fb7d79.stex" ]
 
 [params]
 

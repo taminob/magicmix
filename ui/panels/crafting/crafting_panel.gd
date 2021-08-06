@@ -43,7 +43,7 @@ func create_spell() -> String:
 func _on_cast_button_pressed():
 	var new_spell = create_spell()
 	if(new_spell != ""):
-		if(game.mgmt.player.inventory.add_skill(new_spell)):
+		if(game.mgmt.player.inventory.add_spell(new_spell)):
 			result_label.set_text("New! " + skill_data.spells[new_spell].name())
 		else:
 			result_label.set_text(skill_data.spells[new_spell].name())
