@@ -1,13 +1,14 @@
 extends abstract_action
 
-const SPELL_NAME = "fire_ball"
+static func spell_id() -> String:
+	return fire_ball_spell.id()
 
 static func precondition() -> planner.knowledge:
-	var spell = skill_data.spells[SPELL_NAME]
+	var spell = skill_data.spells[spell_id()]
 	return planner.knowledge.new(spell.self_pain(), -spell.self_focus(), planner.knowledge_mask.enemy_in_sight)
 
 static func postcondition() -> planner.knowledge:
-	var spell = skill_data.spells[SPELL_NAME]
+	var spell = skill_data.spells[spell_id()]
 	return planner.knowledge.new(spell.self_pain(), spell.self_focus(), planner.knowledge_mask.enemy_damaged)
 
 static func precondition_mask() -> int:
@@ -20,7 +21,7 @@ func choose_target():
 	target = pawn.ai.brain.get_any_enemy()
 
 func get_range_state() -> int:
-	var spell_range = skill_data.spells[SPELL_NAME].range()
+	var spell_range = skill_data.spells[spell_id()].range()
 	if(spell_range < 0):
 		return range_state.no_range_required
 	if(pawn.global_transform.origin.distance_squared_to(target.global_transform.origin) <= spell_range * spell_range):
@@ -29,5 +30,5 @@ func get_range_state() -> int:
 
 func do() -> bool:
 	pawn.face_target(target)
-	pawn.skills.cast(SPELL_NAME)
+	pawn.skills.cast(spell_id())
 	return true

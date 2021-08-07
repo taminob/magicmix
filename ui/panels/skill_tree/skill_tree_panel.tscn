@@ -72,354 +72,14 @@ margin_bottom = 2013.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="scroll_container" type="ScrollContainer" parent="layout/split/tree"]
-visible = false
+[node name="example" type="Control" parent="layout/split/tree"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="v_box_container" type="VBoxContainer" parent="layout/split/tree/scroll_container"]
-margin_right = 1908.0
-margin_bottom = 2013.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="1" type="HBoxContainer" parent="layout/split/tree/scroll_container/v_box_container"]
-margin_right = 1920.0
-margin_bottom = 280.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="slot5" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/1"]
-visible = false
-margin_right = 375.0
-margin_bottom = 280.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 1 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="slot6" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/1"]
-visible = false
-margin_right = 471.0
-margin_bottom = 280.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 1 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="slot7" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/1"]
-visible = false
-margin_right = 630.0
-margin_bottom = 280.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 1 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="slot8" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/1"]
-visible = false
-margin_right = 950.0
-margin_bottom = 280.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 1 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="slot9" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/1"]
-margin_right = 1920.0
-margin_bottom = 280.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 1 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="connection1" type="MarginContainer" parent="layout/split/tree/scroll_container/v_box_container"]
-margin_top = 288.0
-margin_right = 1920.0
-margin_bottom = 569.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="texture_progress" type="TextureProgress" parent="layout/split/tree/scroll_container/v_box_container/connection1"]
-margin_right = 1920.0
-margin_bottom = 281.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-value = 50.0
-texture_under = ExtResource( 3 )
-texture_progress = ExtResource( 3 )
-fill_mode = 2
-tint_under = Color( 0.0823529, 0.0823529, 0.0823529, 1 )
-tint_progress = Color( 0.831373, 0.831373, 0.831373, 1 )
-nine_patch_stretch = true
-
-[node name="2" type="HBoxContainer" parent="layout/split/tree/scroll_container/v_box_container"]
-margin_top = 577.0
-margin_right = 1920.0
-margin_bottom = 858.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="slot7" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/2"]
-visible = false
-margin_right = 375.0
-margin_bottom = 281.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 1 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="slot8" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/2"]
-visible = false
-margin_right = 471.0
-margin_bottom = 281.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 1 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="slot9" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/2"]
-visible = false
-margin_right = 630.0
-margin_bottom = 281.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 1 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="slot10" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/2"]
-margin_right = 956.0
-margin_bottom = 281.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 1 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="slot11" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/2"]
-margin_left = 964.0
-margin_right = 1920.0
-margin_bottom = 281.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 1 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="connection2" type="MarginContainer" parent="layout/split/tree/scroll_container/v_box_container"]
-margin_top = 866.0
-margin_right = 1920.0
-margin_bottom = 1146.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="3" type="HBoxContainer" parent="layout/split/tree/scroll_container/v_box_container"]
-margin_top = 1154.0
-margin_right = 1920.0
-margin_bottom = 1435.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="slot10" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/3"]
-margin_right = 377.0
-margin_bottom = 281.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 1 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="slot11" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/3"]
-margin_left = 385.0
-margin_right = 763.0
-margin_bottom = 281.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 1 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="slot12" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/3"]
-margin_left = 771.0
-margin_right = 1148.0
-margin_bottom = 281.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 1 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="slot13" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/3"]
-margin_left = 1156.0
-margin_right = 1534.0
-margin_bottom = 281.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 1 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="slot14" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/3"]
-margin_left = 1542.0
-margin_right = 1920.0
-margin_bottom = 281.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 1 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="connection3" type="MarginContainer" parent="layout/split/tree/scroll_container/v_box_container"]
-margin_top = 1443.0
-margin_right = 1920.0
-margin_bottom = 1724.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="4" type="HBoxContainer" parent="layout/split/tree/scroll_container/v_box_container"]
-margin_top = 1732.0
-margin_right = 1920.0
-margin_bottom = 2013.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="slot12" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/4"]
-margin_right = 377.0
-margin_bottom = 281.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 1 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="slot13" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/4"]
-margin_left = 385.0
-margin_right = 763.0
-margin_bottom = 281.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 1 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="slot14" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/4"]
-margin_left = 771.0
-margin_right = 1148.0
-margin_bottom = 281.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 1 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="slot15" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/4"]
-margin_left = 1156.0
-margin_right = 1534.0
-margin_bottom = 281.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 1 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="slot16" type="TextureButton" parent="layout/split/tree/scroll_container/v_box_container/4"]
-margin_left = 1542.0
-margin_right = 1920.0
-margin_bottom = 281.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 1 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="slot17" type="TextureButton" parent="layout/split/tree"]
-visible = false
+[node name="slot17" type="TextureButton" parent="layout/split/tree/example"]
 anchor_right = 1.0
 anchor_bottom = 0.2
 size_flags_horizontal = 3
@@ -431,15 +91,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="texture_progress2" type="TextureProgress" parent="layout/split/tree"]
-visible = false
+[node name="texture_progress2" type="TextureProgress" parent="layout/split/tree/example"]
 anchor_left = 0.5
 anchor_top = 0.2
 anchor_right = 0.85
 anchor_bottom = 0.3
-margin_left = -4.0
-margin_top = -3.05176e-05
-margin_right = -4.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 value = 50.0
@@ -453,15 +109,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="texture_progress4" type="TextureProgress" parent="layout/split/tree"]
-visible = false
-anchor_left = 0.25
+[node name="texture_progress4" type="TextureProgress" parent="layout/split/tree/example"]
+anchor_left = 0.15
 anchor_top = 0.2
 anchor_right = 0.5
 anchor_bottom = 0.3
-margin_left = -4.0
-margin_top = -3.05176e-05
-margin_right = -4.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 value = 50.0
@@ -475,8 +127,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="texture_progress3" type="TextureProgress" parent="layout/split/tree"]
-visible = false
+[node name="texture_progress3" type="TextureProgress" parent="layout/split/tree/example"]
 anchor_left = 0.4
 anchor_top = 0.2
 anchor_right = 0.6
@@ -494,8 +145,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="slot18" type="TextureButton" parent="layout/split/tree"]
-visible = false
+[node name="slot18" type="TextureButton" parent="layout/split/tree/example"]
 anchor_left = 0.7
 anchor_top = 0.3
 anchor_right = 1.0
@@ -509,8 +159,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="slot19" type="TextureButton" parent="layout/split/tree"]
-visible = false
+[node name="slot19" type="TextureButton" parent="layout/split/tree/example"]
 anchor_top = 0.3
 anchor_right = 0.3
 anchor_bottom = 0.5
@@ -523,8 +172,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="slot20" type="TextureButton" parent="layout/split/tree"]
-visible = false
+[node name="slot20" type="TextureButton" parent="layout/split/tree/example"]
 anchor_left = 0.3
 anchor_top = 0.3
 anchor_right = 0.7
@@ -626,30 +274,10 @@ stretch_mode = 5
 [connection signal="pressed" from="layout/buttons/fire" to="." method="_on_fire_pressed"]
 [connection signal="pressed" from="layout/buttons/blood" to="." method="_on_blood_pressed"]
 [connection signal="pressed" from="layout/buttons/darkness" to="." method="_on_darkness_pressed"]
-[connection signal="pressed" from="layout/split/tree/scroll_container/v_box_container/1/slot5" to="." method="_on_slot_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="layout/split/tree/scroll_container/v_box_container/1/slot6" to="." method="_on_slot_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="layout/split/tree/scroll_container/v_box_container/1/slot7" to="." method="_on_slot_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="layout/split/tree/scroll_container/v_box_container/1/slot8" to="." method="_on_slot_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="layout/split/tree/scroll_container/v_box_container/1/slot9" to="." method="_on_slot_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="layout/split/tree/scroll_container/v_box_container/2/slot7" to="." method="_on_slot_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="layout/split/tree/scroll_container/v_box_container/2/slot8" to="." method="_on_slot_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="layout/split/tree/scroll_container/v_box_container/2/slot9" to="." method="_on_slot_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="layout/split/tree/scroll_container/v_box_container/2/slot10" to="." method="_on_slot_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="layout/split/tree/scroll_container/v_box_container/2/slot11" to="." method="_on_slot_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="layout/split/tree/scroll_container/v_box_container/3/slot10" to="." method="_on_slot_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="layout/split/tree/scroll_container/v_box_container/3/slot11" to="." method="_on_slot_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="layout/split/tree/scroll_container/v_box_container/3/slot12" to="." method="_on_slot_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="layout/split/tree/scroll_container/v_box_container/3/slot13" to="." method="_on_slot_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="layout/split/tree/scroll_container/v_box_container/3/slot14" to="." method="_on_slot_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="layout/split/tree/scroll_container/v_box_container/4/slot12" to="." method="_on_slot_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="layout/split/tree/scroll_container/v_box_container/4/slot13" to="." method="_on_slot_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="layout/split/tree/scroll_container/v_box_container/4/slot14" to="." method="_on_slot_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="layout/split/tree/scroll_container/v_box_container/4/slot15" to="." method="_on_slot_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="layout/split/tree/scroll_container/v_box_container/4/slot16" to="." method="_on_slot_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="layout/split/tree/slot17" to="." method="_on_slot_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="layout/split/tree/slot18" to="." method="_on_slot_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="layout/split/tree/slot19" to="." method="_on_slot_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="layout/split/tree/slot20" to="." method="_on_slot_pressed" binds= [ 0 ]]
+[connection signal="pressed" from="layout/split/tree/example/slot17" to="." method="_on_slot_pressed" binds= [ 0 ]]
+[connection signal="pressed" from="layout/split/tree/example/slot18" to="." method="_on_slot_pressed" binds= [ 0 ]]
+[connection signal="pressed" from="layout/split/tree/example/slot19" to="." method="_on_slot_pressed" binds= [ 0 ]]
+[connection signal="pressed" from="layout/split/tree/example/slot20" to="." method="_on_slot_pressed" binds= [ 0 ]]
 [connection signal="pressed" from="layout/split/details/slots/slot0" to="." method="_on_slot_pressed" binds= [ 0 ]]
 [connection signal="pressed" from="layout/split/details/slots/slot1" to="." method="_on_slot_pressed" binds= [ 1 ]]
 [connection signal="pressed" from="layout/split/details/slots/slot2" to="." method="_on_slot_pressed" binds= [ 2 ]]

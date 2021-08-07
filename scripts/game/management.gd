@@ -72,6 +72,8 @@ func create_character(character_name: String) -> KinematicBody:
 	return new_character
 
 func save_characters():
+	# todo? performance difference between call_group and get_nodes_in_group?
+	#get_tree().call_group_flags(SceneTree.GROUP_CALL_REALTIME, "characters", "save_state")
 	for x in get_tree().get_nodes_in_group("characters"):
 		x.save_state()
 		x.reset()

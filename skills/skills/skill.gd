@@ -5,6 +5,9 @@ const SKILL_ICONS_PATH: String = "res://ui/icons/skills/"
 const SKILL_SCENES_PATH: String = "res://skills/scenes/"
 const SKILL_ANIMS_PATH: String = "res://skills/"
 
+static func id() -> String:
+	return ""
+
 func name() -> String:
 	return ""
 

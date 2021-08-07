@@ -2,6 +2,9 @@ extends abstract_skill
 
 class_name invert_gravity_skill
 
+static func id() -> String:
+	return "invert_gravity"
+
 func name() -> String:
 	return "Invert Gravity"
 
@@ -12,7 +15,7 @@ func category() -> String:
 	return "life"
 
 func requirements() -> Array:
-	return []
+	return [base_life_skill.id()]
 
 func start_effect(pawn: character):
 	pawn.move.gravity_direction *= -1

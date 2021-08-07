@@ -2,6 +2,9 @@ extends abstract_spell
 
 class_name fire_ring_spell
 
+static func id() -> String:
+	return "fire_ring"
+
 func name() -> String:
 	return "Fire Ring"
 

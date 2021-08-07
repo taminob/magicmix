@@ -2,6 +2,9 @@ extends abstract_spell
 
 class_name blood_heal_spell
 
+static func id() -> String:
+	return "blood_heal"
+
 func name() -> String:
 	return "Blood Heal"
 
