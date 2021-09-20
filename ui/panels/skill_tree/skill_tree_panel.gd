@@ -74,6 +74,8 @@ func create_tree(skill_ids: Array, nodes: Array, level: int) -> Array:
 	nodes.push_back({})
 	for i in range(skill_ids.size()):
 		var skill: abstract_skill = skill_data.skills[skill_ids[i]]
+		if(skill.category().empty()):
+			continue
 		for x in skill.requirements():
 			if(nodes[max(level - 1, 0)].has(x)):
 				if(to_connect_skills.has(skill_ids[i])):

@@ -15,8 +15,8 @@ func next_object_scale(delta: float) -> Vector3:
 func _object_enter(body: Node):
 	if(body):
 		if(body != _caster && body.has_method("damage")):
-			body.damage(spell.target_pain())
-			body.damage(spell.target_focus(), true)
+			body.damage(spell.target_pain(), stats_state.element_type.raw) # todo
+			body.damage(spell.target_focus(), stats_state.element_type.focus)
 
 func _object_exit(_body: Node):
 	pass

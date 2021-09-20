@@ -49,8 +49,8 @@ func _physics_process(delta: float):
 			i += 1
 
 	for x in _affected_bodies:
-		x.damage(spell.target_pain_per_second() * delta)
-		x.damage(spell.target_focus_per_second() * delta, true)
+		x.damage(spell.target_pain_per_second() * delta, stats_state.element_type.raw) # todo
+		x.damage(spell.target_focus_per_second() * delta, stats_state.element_type.focus)
 
 func set_object_active(target: Area, active: bool=true):
 	target.set_visible(active)
@@ -83,8 +83,8 @@ func _object_enter(body: Node, collider: Area):
 	if(body):
 		if(body.has_method("damage")):
 			_affected_bodies.push_back(body)
-			body.damage(spell.target_pain())
-			body.damage(spell.target_focus(), true)
+			body.damage(spell.target_pain(), stats_state.element_type.raw) # todo
+			body.damage(spell.target_focus(), stats_state.element_type.focus)
 		if(destroy_on_contact):
 			collider.queue_free()
 			for i in range(_objects.size()):

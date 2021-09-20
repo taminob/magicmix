@@ -14,6 +14,14 @@ var focus: float
 var stamina: float
 var undead: bool
 
+enum element_type {
+	raw,
+	focus,
+	life,
+	darkness,
+	fire
+}
+
 func pain_percentage() -> float:
 	return pain / max_pain()
 
@@ -51,13 +59,19 @@ func die():
 		pawn._update_ui() # todo: refactor? only occurence of pawn
 		game.levels.change_level("death_realm")
 
-func damage(dmg: float, is_focus: bool=false):
-	if(is_focus):
-		_self_focus_damage(dmg)
-	else:
-		_self_damage(dmg)
+func damage(dmg: float, element: int):
+	match element:
+		element_type.focus:
+			_self_focus_damage(dmg)
+		element_type.raw:
+			_self_raw_damage(dmg)
+		_:
+			_self_elemental_damage(dmg, element)
 
-func _self_damage(dmg: float):
+func _self_elemental_damage(dmg: float, element: int):
+	pass # TODO
+
+func _self_raw_damage(dmg: float):
 	if(settings.get_setting("dev", "god_mode") || dead || game.levels.current_level_death_realm):
 		return
 	pain = clamp(pain + dmg, 0, max_pain())

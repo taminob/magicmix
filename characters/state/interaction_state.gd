@@ -19,6 +19,7 @@ func consume(item: String, remove_from_inventory: bool=true):
 		return
 	if(remove_from_inventory):
 		inventory.things.erase(item)
+	# todo? elemental damage from item
 	stats._self_damage(item_data.items[item].self_pain())
 	stats._self_focus_damage(item_data.items[item].self_focus())
 	# todo: damage over time

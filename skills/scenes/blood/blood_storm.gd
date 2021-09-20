@@ -13,14 +13,14 @@ func _ready():
 
 func _physics_process(delta: float):
 	for x in _affected_bodies:
-		x.damage(spell.target_pain_per_second() * delta)
-		x.damage(spell.target_focus_per_second() * delta, true)
+		x.damage(spell.target_pain_per_second() * delta, stats_state.element_type.raw) # todo
+		x.damage(spell.target_focus_per_second() * delta, stats_state.element_type.focus)
 
 func _object_enter(body: Node):
 	if(body && body != _caster && body.has_method("damage")):
 		_affected_bodies.push_back(body)
-		body.damage(spell.target_pain())
-		body.damage(spell.target_focus(), true)
+		body.damage(spell.target_pain(), stats_state.element_type.raw) # todo
+		body.damage(spell.target_focus(), stats_state.element_type.focus)
 
 func _object_exit(body: Node):
 	_affected_bodies.erase(body)

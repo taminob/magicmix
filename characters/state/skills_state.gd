@@ -19,7 +19,7 @@ func cast(spell_id: String):
 		return
 	experience.concentration += abs(spell_focus / 1000)
 	stats._self_focus_damage(spell_focus)
-	stats._self_damage(spell.self_pain())
+	stats._self_raw_damage(spell.self_pain()) # todo: elemental damage
 	var spell_duration = spell.duration()
 	# todo: animation
 	var spell_scene = spell.scene()
@@ -57,7 +57,7 @@ func skill_process(delta: float):
 				canceled_spells.push_back(x)
 				continue
 		stats._self_focus_damage(x[0] * delta)
-		stats._self_damage(x[1] * delta)
+		stats._self_raw_damage(x[1] * delta) # todo: elemental self damage from skills?
 	for x in canceled_spells:
 		cancel_spell(x)
 

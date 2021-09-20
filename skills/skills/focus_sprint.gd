@@ -18,7 +18,7 @@ func requirements() -> Array:
 	return [base_fire_skill.id()]
 
 func effect(pawn: character, delta: float):
-	pawn.stats.damage(pawn.move.velocity.length_squared(), true)
+	pawn.stats.damage(pawn.move.velocity.length_squared(), stats_state.element_type.focus)
 
 func icon() -> Resource:
 	return load(SKILL_ICONS_PATH + "blue_star-512.png")
