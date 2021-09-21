@@ -8,22 +8,28 @@ onready var experience: Node = $"../experience"
 onready var skills: Node = $"../skills"
 onready var look: Node = $"../look"
 
-var dead: bool
-var pain: float
-var focus: float
-var stamina: float
-var undead: bool
-
 enum element_type {
 	raw,
 	focus,
+	physical, # todo?
 	life,
 	darkness,
 	fire
 }
 
+var dead: bool
+var pain: float
+var shield: float
+var shield_element: int
+var focus: float
+var stamina: float
+var undead: bool
+
 func pain_percentage() -> float:
 	return pain / max_pain()
+
+func shield_percentage() -> float:
+	return shield / max_shield()
 
 func focus_percentage() -> float:
 	return focus / max_focus()
@@ -33,6 +39,9 @@ func stamina_percentage() -> float:
 
 func max_pain() -> float:
 	return experience.sturdiness * 100.0
+
+func max_shield() -> float:
+	return min(experience.sturdiness, experience.concentration) * 100.0
 
 func max_focus() -> float:
 	return experience.concentration * 100.0
@@ -69,7 +78,13 @@ func damage(dmg: float, element: int):
 			_self_elemental_damage(dmg, element)
 
 func _self_elemental_damage(dmg: float, element: int):
-	pass # TODO
+	if(element == shield_element):
+		shield -= dmg
+		if(shield < 0):
+			_self_raw_damage(-shield)
+			shield = 0
+	else:
+		_self_raw_damage(dmg)
 
 func _self_raw_damage(dmg: float):
 	if(settings.get_setting("dev", "god_mode") || dead || game.levels.current_level_death_realm):
@@ -100,6 +115,8 @@ func save(state_dict: Dictionary):
 	_stats_state["dead"] = dead
 	_stats_state["undead"] = undead
 	_stats_state["pain"] = pain
+	_stats_state["shield"] = shield
+	_stats_state["shield_element"] = shield_element
 	_stats_state["focus"] = focus
 	_stats_state["stamina"] = stamina
 	state_dict["stats"] = _stats_state
@@ -110,5 +127,7 @@ func init(state_dict: Dictionary):
 	if(_stats_state.get("dead", false)):
 		die()
 	pain = _stats_state.get("pain", 0.0)
+	shield = _stats_state.get("shield", 0.0)
+	shield_element = _stats_state.get("shield_element", element_type.raw)
 	focus = _stats_state.get("focus", 0.0)
 	stamina = _stats_state.get("stamina", 0.0)

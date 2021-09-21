@@ -6,7 +6,7 @@ var sturdiness: float
 var concentration: float
 var endurance: float
 
-# todo: xp system
+# TODO: xp system
 func experience_progress() -> float:
 	return util.max(util.fract(sturdiness), util.fract(concentration), util.fract(endurance))
 

@@ -3,6 +3,7 @@ extends Control
 class_name ui
 
 onready var pain_bar: TextureProgress = $"pain_bar"
+onready var shield_bar: TextureProgress = $"shield_bar"
 onready var focus_bar: TextureProgress = $"focus_bar"
 onready var stamina_bar: TextureProgress = $"stamina_bar"
 onready var xp_bar: ProgressBar = $"xp_bar"
@@ -29,6 +30,9 @@ func reset():
 
 func update_pain(percentage: float):
 	pain_bar.set_value(percentage * 100)
+
+func update_shield(percentage: float):
+	shield_bar.set_value(percentage * 100)
 
 func update_focus(percentage: float):
 	focus_bar.set_value(percentage * 100)
