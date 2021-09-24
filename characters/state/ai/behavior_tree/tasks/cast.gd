@@ -7,5 +7,5 @@ export(String) var spell: String
 func _run(_delta: float) -> int:
 	if(_status == task_status.CANCEL):
 		return task_status.CANCEL
-	pawn.skills.cast(spell)
+	pawn.skills.cast_spell(spell)
 	return task_status.SUCCESS

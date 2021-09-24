@@ -18,7 +18,7 @@ func requirements() -> Array:
 	return ["base_fire"]
 
 func start_effect(pawn: character):
-	pawn.stats.shield_element = stats_state.element_type.fire
+	pawn.stats.shield_element = abstract_spell.element_type.fire
 	pawn.stats.shield = pawn.stats.max_shield()
 
 func icon() -> Resource:

@@ -8,15 +8,6 @@ onready var experience: Node = $"../experience"
 onready var skills: Node = $"../skills"
 onready var look: Node = $"../look"
 
-enum element_type {
-	raw,
-	focus,
-	physical, # todo?
-	life,
-	darkness,
-	fire
-}
-
 var dead: bool
 var pain: float
 var shield: float
@@ -52,6 +43,9 @@ func max_stamina() -> float:
 func pain_per_second() -> float:
 	return experience.sturdiness * focus_percentage() * -3
 
+func shield_per_second() -> float:
+	return 0.0
+
 func focus_per_second() -> float:
 	return experience.concentration * (1 - pain_percentage()) * 6
 
@@ -70,9 +64,9 @@ func die():
 
 func damage(dmg: float, element: int):
 	match element:
-		element_type.focus:
+		abstract_spell.element_type.focus:
 			_self_focus_damage(dmg)
-		element_type.raw:
+		abstract_spell.element_type.raw:
 			_self_raw_damage(dmg)
 		_:
 			_self_elemental_damage(dmg, element)
@@ -128,6 +122,6 @@ func init(state_dict: Dictionary):
 		die()
 	pain = _stats_state.get("pain", 0.0)
 	shield = _stats_state.get("shield", 0.0)
-	shield_element = _stats_state.get("shield_element", element_type.raw)
+	shield_element = _stats_state.get("shield_element", abstract_spell.element_type.raw) # todo: do not allow raw shield
 	focus = _stats_state.get("focus", 0.0)
 	stamina = _stats_state.get("stamina", 0.0)

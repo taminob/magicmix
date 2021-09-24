@@ -5,6 +5,16 @@ const SPELL_ICONS_PATH: String = "res://ui/icons/skills/"
 const SPELL_SCENES_PATH: String = "res://skills/scenes/"
 const SPELL_ANIMS_PATH: String = "res://skills/"
 
+enum element_type {
+	raw,
+	focus,
+	physical, # todo?
+	life,
+	darkness,
+	fire,
+	ice
+}
+
 static func id() -> String:
 	return ""
 
@@ -20,6 +30,9 @@ func category() -> String:
 func combinations() -> Array:
 	return []
 
+func self_element() -> int:
+	return element_type.raw
+
 func self_pain() -> float:
 	return 0.0
 
@@ -31,6 +44,9 @@ func self_focus() -> float:
 
 func self_focus_per_second() -> float:
 	return 0.0
+
+func target_element() -> int:
+	return element_type.raw
 
 func target_pain() -> float:
 	return 0.0

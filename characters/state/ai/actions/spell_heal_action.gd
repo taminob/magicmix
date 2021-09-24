@@ -26,5 +26,5 @@ func get_range_state() -> int:
 	return range_state.out_of_range
 
 func do() -> bool:
-	pawn.skills.cast(spell_id())
+	pawn.skills.cast_spell(spell_id())
 	return true

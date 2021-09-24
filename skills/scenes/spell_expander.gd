@@ -34,14 +34,14 @@ func _physics_process(delta: float):
 	object.scale = next_object_scale(delta)
 
 	for x in _affected_bodies:
-		x.damage(spell.target_pain_per_second() * delta, stats_state.element_type.raw) # todo
-		x.damage(spell.target_focus_per_second() * delta, stats_state.element_type.focus)
+		x.damage(spell.target_pain_per_second() * delta, spell.target_element())
+		x.damage(spell.target_focus_per_second() * delta, abstract_spell.element_type.focus)
 
 func _object_enter(body: Node):
 	if(body && body.has_method("damage")):
 		_affected_bodies.push_back(body)
-		body.damage(spell.target_pain(), stats_state.element_type.raw) # todo
-		body.damage(spell.target_focus(), stats_state.element_type.focus)
+		body.damage(spell.target_pain(), spell.target_element())
+		body.damage(spell.target_focus(), abstract_spell.element_type.focus)
 
 func _object_exit(body: Node):
 	_affected_bodies.erase(body)

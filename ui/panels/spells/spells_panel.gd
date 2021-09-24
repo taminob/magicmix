@@ -35,7 +35,7 @@ func _on_darkness_pressed():
 
 func _set_slot(num: int):
 	get_node("layout/list/detail_popup/slots/slot" + 
-		str(num)).set_normal_texture(skill_data.spells[game.mgmt.player.inventory.get_skill_slot(num)].icon())
+		str(num)).set_normal_texture(skill_data.spells[game.mgmt.player.inventory.get_spell_slot(num)].icon())
 
 func _on_list_item_activated(index: int):
 	var current = list.get_item_metadata(index)
@@ -48,5 +48,5 @@ func _on_list_item_activated(index: int):
 	detail_popup.popup()
 
 func _on_slot_pressed(num: int):
-	game.mgmt.player.inventory.set_skill_slot(num, detail_popup.get_meta("current"))
+	game.mgmt.player.inventory.set_spell_slot(num, detail_popup.get_meta("current"))
 	_set_slot(num)

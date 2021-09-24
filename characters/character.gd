@@ -79,6 +79,8 @@ func face_location(global_location: Vector3):
 func _update_ui():
 	if(state.is_player):
 		game.mgmt.ui.update_pain(stats.pain / stats.max_pain())
+		game.mgmt.ui.update_shield(stats.shield / stats.max_shield())
+		game.mgmt.ui.update_shield_element(stats.shield_element)
 		game.mgmt.ui.update_focus(stats.focus / stats.max_focus())
 		game.mgmt.ui.update_stamina(stats.stamina / stats.max_stamina())
 		game.mgmt.ui.update_xp(experience.experience_progress())

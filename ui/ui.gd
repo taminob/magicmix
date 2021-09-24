@@ -4,6 +4,7 @@ class_name ui
 
 onready var pain_bar: TextureProgress = $"pain_bar"
 onready var shield_bar: TextureProgress = $"shield_bar"
+onready var shield_element_icon: TextureRect = $"shield_bar/shield_element_icon"
 onready var focus_bar: TextureProgress = $"focus_bar"
 onready var stamina_bar: TextureProgress = $"stamina_bar"
 onready var xp_bar: ProgressBar = $"xp_bar"
@@ -33,6 +34,20 @@ func update_pain(percentage: float):
 
 func update_shield(percentage: float):
 	shield_bar.set_value(percentage * 100)
+
+func update_shield_element(element: int):
+	var ICON_PATH: String = "res://ui/icons/"
+	match element:
+		abstract_spell.element_type.physical:
+			shield_element_icon.set_texture(load(ICON_PATH + "skills/defense-512.png"))
+		abstract_spell.element_type.life:
+			shield_element_icon.set_texture(load(ICON_PATH + "skills/circle-512.png"))
+		abstract_spell.element_type.darkness:
+			shield_element_icon.set_texture(load(ICON_PATH + "skills/darkness-512.png"))
+		abstract_spell.element_type.fire:
+			shield_element_icon.set_texture(load(ICON_PATH + "skills/flame-512.png"))
+		_:
+			shield_element_icon.set_texture(load(ICON_PATH + "empty-512.png"))
 
 func update_focus(percentage: float):
 	focus_bar.set_value(percentage * 100)

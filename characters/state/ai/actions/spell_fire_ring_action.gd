@@ -30,5 +30,5 @@ func get_range_state() -> int:
 
 func do() -> bool:
 	pawn.face_target(target)
-	pawn.skills.cast(spell_id())
+	pawn.skills.cast_spell(spell_id())
 	return true
