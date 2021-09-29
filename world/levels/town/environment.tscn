@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://world/levels/town/house_outside.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world/levels/town/garden.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://world/objects/meshlibs/ground.meshlib" type="MeshLibrary" id=5]
 [ext_resource path="res://world/objects/stone/stone.tscn" type="PackedScene" id=6]
 [ext_resource path="res://world/objects/tree/tree.tscn" type="PackedScene" id=7]
+[ext_resource path="res://world/objects/fire/fire.tscn" type="PackedScene" id=8]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 150, 10, 2 )
@@ -269,3 +270,11 @@ transform = Transform( 0.968839, 0, 0.247692, 0, 1, 0, -0.247692, 0, 0.968839, 1
 
 [node name="stone4" parent="stones" instance=ExtResource( 6 )]
 transform = Transform( 0.918101, 0, -0.396347, 0.137838, 0.93758, 0.319288, 0.371607, -0.34777, 0.860793, 12.6163, -0.568328, -6.23225 )
+
+[node name="others" type="Spatial" parent="."]
+
+[node name="fire" parent="others" instance=ExtResource( 8 )]
+
+[node name="fire2" parent="others" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.55213 )
+damage_element = 6

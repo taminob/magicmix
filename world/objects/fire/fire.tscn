@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://skills/scenes/fire/fire.tscn" type="PackedScene" id=1]
+[ext_resource path="res://world/objects/fire/fire.gd" type="Script" id=2]
+
+[node name="fire" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="fire" parent="." instance=ExtResource( 1 )]
+
+[connection signal="body_entered" from="fire" to="." method="_object_enter"]
+[connection signal="body_exited" from="fire" to="." method="_object_exit"]

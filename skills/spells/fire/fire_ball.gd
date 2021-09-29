@@ -24,6 +24,9 @@ func combinations() -> Array:
 func self_focus() -> float:
 	return -20.0
 
+func target_element() -> int:
+	return element_type.fire
+
 func target_pain() -> float:
 	return 30.0
 

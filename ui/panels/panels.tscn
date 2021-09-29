@@ -8,7 +8,6 @@
 [ext_resource path="res://ui/panels/skill_tree/skill_tree_panel.tscn" type="PackedScene" id=6]
 
 [node name="panels" type="Popup"]
-visible = true
 anchor_left = 0.05
 anchor_top = 0.05
 anchor_right = 0.95

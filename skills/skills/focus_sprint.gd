@@ -17,7 +17,7 @@ func category() -> String:
 func requirements() -> Array:
 	return [base_fire_skill.id()]
 
-func effect(pawn: character, delta: float):
+func effect(pawn: character, _delta: float):
 	pawn.stats.damage(pawn.move.velocity.length_squared(), abstract_spell.element_type.focus)
 
 func icon() -> Resource:

@@ -20,16 +20,16 @@ func category() -> String:
 func requirements() -> Array:
 	return []
 
-func passive_effect(pawn: character):
+func passive_effect(_pawn: character):
 	pass
 
-func start_effect(pawn: character):
+func start_effect(_pawn: character):
 	pass
 
-func end_effect(pawn: character):
+func end_effect(_pawn: character):
 	pass
 
-func effect(pawn: character, delta: float):
+func effect(_pawn: character, _delta: float):
 	pass
 
 func duration() -> float:

@@ -45,13 +45,19 @@ func action_input(event: InputEvent):
 		interaction.initiate_interact()
 	if(event.is_action_pressed("ui_accept")):
 		dialogue.answer()
+	if(event.is_action_pressed("skill0")):
+		skills.activate_skill("")
+	if(event.is_action_pressed("skill1")):
+		skills.activate_skill("")
+	if(event.is_action_pressed("skill2")):
+		skills.rotate_element()
 	if(event.is_action_pressed("slot0")):
-		skills.cast_slot(0)
+		skills.cast_spell_slot(0)
 	if(event.is_action_pressed("slot1")):
-		skills.cast_slot(1)
+		skills.cast_spell_slot(1)
 	if(event.is_action_pressed("slot2")):
-		skills.cast_slot(2)
+		skills.cast_spell_slot(2)
 	if(event.is_action_pressed("slot3")):
-		skills.cast_slot(3)
+		skills.cast_spell_slot(3)
 	if(event.is_action_pressed("slot4")):
-		skills.cast_slot(4)
+		skills.cast_spell_slot(4)

@@ -32,7 +32,7 @@ func max_pain() -> float:
 	return experience.sturdiness * 100.0
 
 func max_shield() -> float:
-	return min(experience.sturdiness, experience.concentration) * 100.0
+	return min(experience.sturdiness, experience.concentration) * 50.0
 
 func max_focus() -> float:
 	return experience.concentration * 100.0
@@ -44,7 +44,7 @@ func pain_per_second() -> float:
 	return experience.sturdiness * focus_percentage() * -3
 
 func shield_per_second() -> float:
-	return 0.0
+	return -0.2 * max_shield() # todo: balance shield gain
 
 func focus_per_second() -> float:
 	return experience.concentration * (1 - pain_percentage()) * 6
@@ -55,7 +55,7 @@ func stamina_per_second() -> float:
 func die():
 	skills.cancel_spell()
 	look.update_look()
-	
+
 	dead = true
 	# todo: animation
 	if(state.is_player && !game.levels.current_level_death_realm):

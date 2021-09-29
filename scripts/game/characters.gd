@@ -42,7 +42,7 @@ var character_data = {
 		},
 		"inventory": {
 			"spells": ["fire_ball", "fire_ring", "fire_storm", "blood_sacrifice", "heal", "blood_storm", "blood_heal"],
-			"slots": ["heal", "fire_ring", "fire_ball", "blood_storm", "blood_sacrifice"]
+			"spell_slots": ["heal", "fire_ring", "fire_ball", "blood_storm", "blood_sacrifice"]
 		},
 		"look": {
 			"mesh_path": "res://characters/meshes/shade/body.tscn",
@@ -67,7 +67,7 @@ var character_data = {
 		},
 		"inventory": {
 			"spells": ["fire_ball", "fire_ring", "blood_sacrifice", "heal", "blood_storm"],
-			"slots": ["fire_ball", "fire_ring", "", "", "heal"]
+			"spell_slots": ["fire_ball", "fire_ring", "", "", "heal"]
 		},
 		"stats": {
 			"focus": 100,
@@ -101,7 +101,7 @@ var character_data = {
 		},
 		"inventory": {
 			"spells": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
-			"slots": ["blood_storm", "fire_ring", "", "", ""]
+			"spell_slots": ["blood_storm", "fire_ring", "", "", ""]
 		},
 		"look": {
 			"mesh_path": "res://characters/meshes/shade/body.tscn",
@@ -130,7 +130,7 @@ var character_data = {
 		},
 		"inventory": {
 			"spells": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
-			"slots": ["blood_storm", "fire_ring", "", "", ""]
+			"spell_slots": ["blood_storm", "fire_ring", "", "", ""]
 		},
 		"look": {
 			"mesh_path": "res://characters/meshes/shade/body.tscn",
@@ -156,7 +156,7 @@ var character_data = {
 		},
 		"inventory": {
 			"spells": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
-			"slots": ["fire_ring", "heal", "", "", ""]
+			"spell_slots": ["fire_ring", "heal", "", "", ""]
 		},
 		"look": {
 			"mesh_path": "res://characters/meshes/shade/body.tscn",

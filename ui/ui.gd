@@ -9,6 +9,7 @@ onready var focus_bar: TextureProgress = $"focus_bar"
 onready var stamina_bar: TextureProgress = $"stamina_bar"
 onready var xp_bar: ProgressBar = $"xp_bar"
 onready var slots: Control = $"slots"
+onready var skill_slots: Control = $"skill_slots"
 onready var dialogue: ui_dialogue = $"dialogue"
 onready var interaction: Control = $"interaction"
 onready var debug_label: Label = $"debug_info_label"
@@ -46,6 +47,8 @@ func update_shield_element(element: int):
 			shield_element_icon.set_texture(load(ICON_PATH + "skills/darkness-512.png"))
 		abstract_spell.element_type.fire:
 			shield_element_icon.set_texture(load(ICON_PATH + "skills/flame-512.png"))
+		abstract_spell.element_type.ice:
+			shield_element_icon.set_texture(load(ICON_PATH + "skills/blue_star-512.png"))
 		_:
 			shield_element_icon.set_texture(load(ICON_PATH + "empty-512.png"))
 
@@ -63,6 +66,10 @@ func update_xp(percentage: float):
 
 func update_slots():
 	slots.update_slots()
+
+func update_skill_slots():
+	skill_slots.update_skills()
+	skill_slots.update_element()
 
 func start_dialogue():
 	interaction.anchor_top = 0.53

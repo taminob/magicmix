@@ -14,6 +14,7 @@ var spells = {
 	fire_storm_spell.id(): fire_storm_spell.new(),
 }
 
+# warning-ignore:unused_class_variable
 var skills = {
 	do_nothing_skill.id(): do_nothing_skill.new(),
 	base_life_skill.id(): base_life_skill.new(),
