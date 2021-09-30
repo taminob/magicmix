@@ -46,9 +46,9 @@ func action_input(event: InputEvent):
 	if(event.is_action_pressed("ui_accept")):
 		dialogue.answer()
 	if(event.is_action_pressed("skill0")):
-		skills.activate_skill("")
+		skills.activate_skill_slot(0)
 	if(event.is_action_pressed("skill1")):
-		skills.activate_skill("")
+		skills.activate_skill_slot(1)
 	if(event.is_action_pressed("skill2")):
 		skills.rotate_element()
 	if(event.is_action_pressed("slot0")):

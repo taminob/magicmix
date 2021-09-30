@@ -24,7 +24,7 @@ func end_effect(pawn: character):
 	pawn.move.gravity_direction *= -1
 
 func duration() -> float:
-	return 10.0
+	return 3.0
 
 func icon() -> Resource:
 	return load(SKILL_ICONS_PATH + "star_fall-512.png")

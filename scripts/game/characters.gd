@@ -8,6 +8,10 @@ var character_data = {
 		"dialogue": {
 			"name": "Gerhard",
 			"gender": "male",
+			"relations": {
+				"guenther": 2,
+				"gress": 2
+			}
 		},
 		"experience": {
 			"intelligence": 100,
@@ -84,7 +88,9 @@ var character_data = {
 			"gender": "male",
 			"relations": {
 				"hans": 2,
-				"vladimir": -1
+				"vladimir": -1,
+				"gerhard": 2,
+				"gress": 2
 			}
 		},
 		"stats": {
@@ -114,7 +120,9 @@ var character_data = {
 			"gender": "male",
 			"relations": {
 				"hans": 2,
-				"vladimir": -1
+				"vladimir": -1,
+				"gerhard": 2,
+				"guenther": 2
 			}
 		},
 		"stats": {

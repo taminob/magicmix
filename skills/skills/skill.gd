@@ -20,9 +20,6 @@ func category() -> String:
 func requirements() -> Array:
 	return []
 
-func passive_effect(_pawn: character):
-	pass
-
 func start_effect(_pawn: character):
 	pass
 
@@ -36,7 +33,7 @@ func duration() -> float:
 	return -1.0
 
 func icon() -> Resource:
-	return load(SKILL_ICONS_PATH + "../empty_slot_frame-512.png")
+	return load(SKILL_ICONS_PATH + "../empty-512.png")
 
 func anim() -> String:
 	return ""#SKILL_ANIMS_PATH

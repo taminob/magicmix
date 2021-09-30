@@ -148,7 +148,6 @@ __meta__ = {
 }
 
 [node name="panels" parent="." instance=ExtResource( 4 )]
-visible = false
 
 [node name="slots" parent="." instance=ExtResource( 5 )]
 anchor_top = 0.87

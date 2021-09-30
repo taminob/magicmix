@@ -57,6 +57,7 @@ func die():
 	look.update_look()
 
 	dead = true
+	pain = max_pain()
 	# todo: animation
 	if(state.is_player && !game.levels.current_level_death_realm):
 		pawn._update_ui() # todo: refactor? only occurence of pawn
@@ -95,6 +96,9 @@ func _self_focus_damage(dmg: float):
 	focus = clamp(focus + dmg, 0, max_focus())
 	if(dmg >= 1): # todo: adjust value and think about better reconsider system
 		state.ai.should_reconsider = true
+
+func add_shield(num: float):
+	shield = clamp(shield + num, 0, max_shield())
 
 func revive():
 	if(undead):

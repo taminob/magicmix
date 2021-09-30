@@ -85,6 +85,7 @@ func _update_ui():
 		game.mgmt.ui.update_stamina(stats.stamina / stats.max_stamina())
 		game.mgmt.ui.update_xp(experience.experience_progress())
 		game.mgmt.ui.update_slots()
+		game.mgmt.ui.update_skill_slots()
 	if(name == settings.get_setting("dev", "debug_target")):
 		if(state.is_player):
 			game.mgmt.ui.update_debug(str(move.velocity))

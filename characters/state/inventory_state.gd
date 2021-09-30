@@ -20,11 +20,23 @@ func set_spell_slot(num: int, spell: String):
 func get_spell_slot(num: int) -> String:
 	return spell_slots[num]
 
+func get_skill_slot(num: int) -> String:
+	return skill_slots[num]
+
 func add_spell(spell: String) -> bool:
-	if(!spells.has(spell)):
-		spells.push_back(spell)
-		return true
-	return false
+	if(spells.has(spell)):
+		return false
+	spells.push_back(spell)
+	return true
+
+func has_base_skill(element: int) -> bool:
+	var base_skills = {
+		abstract_spell.element_type.life: "base_life",
+		abstract_spell.element_type.darkness: "base_darkness",
+		abstract_spell.element_type.fire: "base_fire",
+		abstract_spell.element_type.ice: "base_ice"
+	}
+	return skills.has(base_skills[element])
 
 func save(state_dict: Dictionary):
 	var _inventory_state = state_dict.get("inventory", {})

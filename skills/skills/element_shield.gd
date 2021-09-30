@@ -1,24 +1,24 @@
 extends abstract_skill
 
-class_name shield_fire_skill
+class_name element_shield_skill
 
 static func id() -> String:
-	return "shield_fire"
+	return "element_shield"
 
 func name() -> String:
-	return "Fire Shield"
+	return "Elemental Shield"
 
 func description() -> String:
-	return "Embrace the fire and learn to deflect heat!"
+	return "Embrace an element and learn to deflect its effects!"
 
 func category() -> String:
-	return "fire"
+	return "life"
 
 func requirements() -> Array:
-	return ["base_fire"]
+	return [base_life_skill.id()]
 
 func start_effect(pawn: character):
-	pawn.stats.shield_element = abstract_spell.element_type.fire
+	pawn.stats.shield_element = pawn.skills.current_element
 	pawn.stats.shield = pawn.stats.max_shield()
 
 func icon() -> Resource:

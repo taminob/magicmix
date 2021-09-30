@@ -1,25 +1,25 @@
 extends abstract_skill
 
-class_name focus_sprint_skill
+class_name shield_sprint_skill
 
 static func id() -> String:
-	return "focus_sprint"
+	return "shield_sprint"
 
 func name() -> String:
-	return "Focused Sprint"
+	return "Defensive Sprint"
 
 func description() -> String:
-	return "Use kinematic energy to regain focus!"
+	return "Use kinematic energy to fuel your defenses!"
 
 func category() -> String:
 	return "fire"
 
 func requirements() -> Array:
-	return [base_fire_skill.id()]
+	return [focus_sprint_skill.id()]
 
-const EFFECT_FACTOR: float = 0.1
+const EFFECT_FACTOR: float = 0.5
 func effect(pawn: character, _delta: float):
-	pawn.stats.damage(pawn.move.velocity.length_squared() * EFFECT_FACTOR, abstract_spell.element_type.focus)
+	pawn.stats.add_shield(pawn.move.velocity.length_squared() * EFFECT_FACTOR)
 
 func duration() -> float:
 	return 10.0

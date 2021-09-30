@@ -25,40 +25,48 @@ margin_right = 3840.0
 margin_bottom = 139.0
 
 [node name="all" type="Button" parent="layout/buttons"]
-margin_left = 325.0
-margin_right = 435.0
+margin_left = 261.0
+margin_right = 371.0
 margin_bottom = 139.0
 size_flags_horizontal = 6
 text = "All"
 expand_icon = true
 
 [node name="life" type="Button" parent="layout/buttons"]
-margin_left = 1054.0
-margin_right = 1245.0
+margin_left = 862.0
+margin_right = 1053.0
 margin_bottom = 139.0
 size_flags_horizontal = 6
 text = "Life"
 expand_icon = true
 
 [node name="fire" type="Button" parent="layout/buttons"]
-margin_left = 1830.0
-margin_right = 2008.0
+margin_left = 1509.0
+margin_right = 1687.0
 margin_bottom = 139.0
 size_flags_horizontal = 6
 text = "Fire"
 expand_icon = true
 
-[node name="blood" type="Button" parent="layout/buttons"]
-margin_left = 2558.0
-margin_right = 2819.0
+[node name="ice" type="Button" parent="layout/buttons"]
+margin_left = 2169.0
+margin_right = 2311.0
 margin_bottom = 139.0
 size_flags_horizontal = 6
-text = "Blood"
+text = "Ice"
 expand_icon = true
 
 [node name="darkness" type="Button" parent="layout/buttons"]
-margin_left = 3328.0
-margin_right = 3589.0
+margin_left = 2667.0
+margin_right = 3095.0
+margin_bottom = 139.0
+size_flags_horizontal = 6
+text = "Darkness"
+expand_icon = true
+
+[node name="blood" type="Button" parent="layout/buttons"]
+margin_left = 3392.0
+margin_right = 3653.0
 margin_bottom = 139.0
 size_flags_horizontal = 6
 text = "Blood"
@@ -156,8 +164,9 @@ stretch_mode = 5
 [connection signal="pressed" from="layout/buttons/all" to="." method="_on_all_pressed"]
 [connection signal="pressed" from="layout/buttons/life" to="." method="_on_life_pressed"]
 [connection signal="pressed" from="layout/buttons/fire" to="." method="_on_fire_pressed"]
-[connection signal="pressed" from="layout/buttons/blood" to="." method="_on_blood_pressed"]
+[connection signal="pressed" from="layout/buttons/ice" to="." method="_on_fire_pressed"]
 [connection signal="pressed" from="layout/buttons/darkness" to="." method="_on_darkness_pressed"]
+[connection signal="pressed" from="layout/buttons/blood" to="." method="_on_blood_pressed"]
 [connection signal="item_activated" from="layout/list" to="." method="_on_list_item_activated"]
 [connection signal="pressed" from="layout/list/detail_popup/slots/slot0" to="." method="_on_slot_pressed" binds= [ 0 ]]
 [connection signal="pressed" from="layout/list/detail_popup/slots/slot1" to="." method="_on_slot_pressed" binds= [ 1 ]]

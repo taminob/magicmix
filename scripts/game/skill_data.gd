@@ -18,9 +18,12 @@ var spells = {
 var skills = {
 	do_nothing_skill.id(): do_nothing_skill.new(),
 	base_life_skill.id(): base_life_skill.new(),
+	element_shield_skill.id(): element_shield_skill.new(),
 	invert_gravity_skill.id(): invert_gravity_skill.new(),
+	become_undead_skill.id(): become_undead_skill.new(),
 	base_darkness_skill.id(): base_darkness_skill.new(),
 	base_fire_skill.id(): base_fire_skill.new(),
-	shield_fire_skill.id(): shield_fire_skill.new(),
 	focus_sprint_skill.id(): focus_sprint_skill.new(),
+	shield_sprint_skill.id(): shield_sprint_skill.new(),
+	base_ice_skill.id(): base_ice_skill.new(),
 }

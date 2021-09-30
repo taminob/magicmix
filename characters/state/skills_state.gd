@@ -48,25 +48,42 @@ func cancel_spell(active_spell=[]):
 		# todo? performance: inefficient array erase, optimization prob required
 		active_spells.erase(active_spell)
 
-func set_element(new_element: int):
-	current_element = new_element
-	game.mgmt.ui.update_skill_slots()
+func set_element(new_element: int) -> bool:
+	if(inventory.has_base_skill(new_element)):
+		current_element = new_element
+		game.mgmt.ui.update_skill_slots()
+		return true
+	return false
 
+func _try_set_element(new_element: int):
+	var start_index: int = max(0, element_order.find(new_element))
+	if(!set_element(element_order[start_index])):
+		var run_index: int = (start_index + 1) % element_order.size()
+		while !set_element(element_order[run_index]):
+			run_index = (run_index + 1) % element_order.size()
+			if(run_index == start_index):
+				break
+
+var element_order: Array = [abstract_spell.element_type.life, abstract_spell.element_type.fire, abstract_spell.element_type.ice, abstract_spell.element_type.darkness]
 func rotate_element():
 	match current_element:
+		abstract_spell.element_type.raw:
+			_try_set_element(abstract_spell.element_type.life)
 		abstract_spell.element_type.darkness:
-			set_element(abstract_spell.element_type.life)
+			_try_set_element(abstract_spell.element_type.life)
 		abstract_spell.element_type.life:
-			set_element(abstract_spell.element_type.fire)
+			_try_set_element(abstract_spell.element_type.fire)
 		abstract_spell.element_type.fire:
-			set_element(abstract_spell.element_type.ice)
+			_try_set_element(abstract_spell.element_type.ice)
 		abstract_spell.element_type.ice:
-			set_element(abstract_spell.element_type.darkness)
+			_try_set_element(abstract_spell.element_type.darkness)
 		_:
 			pass
 
 func invert_element():
 	match current_element:
+		abstract_spell.element_type.raw:
+			set_element(abstract_spell.element_type.life)
 		abstract_spell.element_type.darkness:
 			set_element(abstract_spell.element_type.life)
 		abstract_spell.element_type.life:
@@ -79,7 +96,7 @@ func invert_element():
 			pass
 
 func activate_skill(skill_id: String):
-	if(!inventory.skills.has(skill_id)):
+	if(!inventory.skills.has(skill_id) || current_element == abstract_spell.element_type.raw):
 		return
 	var skill = skill_data.skills[skill_id] # todo? type abstract_skill
 	var skill_duration = skill.duration()
@@ -89,6 +106,9 @@ func activate_skill(skill_id: String):
 		active_skills.push_back([skill, skill_duration])
 	skill.start_effect(pawn)
 	# todo: animation? scene?
+
+func activate_skill_slot(slot_id: int):
+	activate_skill(inventory.get_skill_slot(slot_id))
 
 func deactivate_skill(active_skill: Array = []):
 	if(active_skill.empty()):
@@ -145,5 +165,5 @@ func save(state_dict: Dictionary):
 
 func init(state_dict: Dictionary):
 	var _skills_state = state_dict.get("skills", {})
-	current_element = _skills_state.get("current_element", abstract_spell.element_type.life) # todo? set element (update ui)
+	current_element = _skills_state.get("current_element", abstract_spell.element_type.raw) # todo? set element (update ui)
 	active_spells = _skills_state.get("active_spells", [[]])

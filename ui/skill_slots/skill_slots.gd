@@ -6,7 +6,7 @@ onready var skill_slots = [$"slot0/slot", $"slot5/slot"]
 
 func update_skills():
 	for i in range(skill_slots.size()):
-		var skill = skill_data.skills[game.mgmt.player.inventory.skill_slots[i]]
+		var skill = skill_data.skills[game.mgmt.player.inventory.get_skill_slot(i)]
 		skill_slots[i].set_normal_texture(skill.icon())
 
 func update_element():
@@ -14,9 +14,9 @@ func update_element():
 		abstract_spell.element_type.darkness:
 			_highlight_element(1)
 		abstract_spell.element_type.life:
-			_highlight_element(2)
-		abstract_spell.element_type.fire:
 			_highlight_element(0)
+		abstract_spell.element_type.fire:
+			_highlight_element(2)
 		abstract_spell.element_type.ice:
 			_highlight_element(3)
 
