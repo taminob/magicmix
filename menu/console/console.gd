@@ -8,7 +8,7 @@ var commands = {
 	},
 	"load": {
 		"handler": funcref(game.levels, "change_level"),
-		"possible": game.levels.levels.keys()
+		"possible": game.levels.level_data.keys()
 	},
 	"exit": {
 		"handler": funcref(self, "unpause")

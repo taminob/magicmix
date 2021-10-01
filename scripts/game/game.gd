@@ -17,7 +17,7 @@ func reload_game():
 		remove_child(levels)
 	if(world):
 		remove_child(world)
-	chars = load(game_script_path + "characters.gd").new()
+	chars = load(game_script_path + "character_data.gd").new()
 	add_child(chars)
 	char_data = chars.character_data
 	mgmt = load(game_script_path + "management.gd").new()

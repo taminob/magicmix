@@ -56,7 +56,9 @@ func set_element(new_element: int) -> bool:
 	return false
 
 func _try_set_element(new_element: int):
-	var start_index: int = max(0, element_order.find(new_element))
+	var start_index: int = element_order.find(new_element)
+	if(start_index < 0):
+		start_index = 0
 	if(!set_element(element_order[start_index])):
 		var run_index: int = (start_index + 1) % element_order.size()
 		while !set_element(element_order[run_index]):
@@ -80,17 +82,22 @@ func rotate_element():
 		_:
 			pass
 
-func invert_element():
+func invert_element(): # todo? remove unused function
 	match current_element:
 		abstract_spell.element_type.raw:
+# warning-ignore:return_value_discarded
 			set_element(abstract_spell.element_type.life)
 		abstract_spell.element_type.darkness:
+# warning-ignore:return_value_discarded
 			set_element(abstract_spell.element_type.life)
 		abstract_spell.element_type.life:
+# warning-ignore:return_value_discarded
 			set_element(abstract_spell.element_type.darkness)
 		abstract_spell.element_type.fire:
+# warning-ignore:return_value_discarded
 			set_element(abstract_spell.element_type.ice)
 		abstract_spell.element_type.ice:
+# warning-ignore:return_value_discarded
 			set_element(abstract_spell.element_type.fire)
 		_:
 			pass

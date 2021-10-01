@@ -124,7 +124,8 @@ func init(state_dict: Dictionary):
 	undead = _stats_state.get("undead", false)
 	if(_stats_state.get("dead", false)):
 		die()
-	pain = _stats_state.get("pain", 0.0)
+	else:
+		pain = _stats_state.get("pain", 0.0)
 	shield = _stats_state.get("shield", 0.0)
 	shield_element = _stats_state.get("shield_element", abstract_spell.element_type.raw) # todo: do not allow raw shield
 	focus = _stats_state.get("focus", 0.0)

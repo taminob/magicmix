@@ -1,6 +1,6 @@
 extends Node
 
-var levels = {
+var level_data = {
 	"intro_outside": {
 		"path": "res://world/levels/intro_outside/level.tscn",
 		"death_realm": false
@@ -53,9 +53,9 @@ var current_level_death_realm: bool = false
 
 func change_level(level_name: String):
 	game.mgmt.save_characters()
-	loader.load_resource(levels[level_name]["path"], funcref(self, "_load_callback"), true)
+	loader.load_resource(level_data[level_name]["path"], funcref(self, "_load_callback"), true)
 	current_level_name = level_name
-	current_level_death_realm = levels[level_name].get("death_realm", false)
+	current_level_death_realm = level_data[level_name].get("death_realm", false)
 
 func _load_callback(new_level: Resource):
 	var world = scenes.game_instance.get_node("world_container/viewport/world")

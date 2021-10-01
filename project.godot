@@ -25,6 +25,11 @@ _global_script_classes=[ {
 "path": "res://items/item.gd"
 }, {
 "base": "Reference",
+"class": "abstract_person",
+"language": "GDScript",
+"path": "res://characters/persons/person.gd"
+}, {
+"base": "Reference",
 "class": "abstract_skill",
 "language": "GDScript",
 "path": "res://skills/skills/skill.gd"
@@ -174,6 +179,26 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://characters/state/ai/behavior_tree/tasks/follow.gd"
 }, {
+"base": "abstract_person",
+"class": "gerhard_person",
+"language": "GDScript",
+"path": "res://characters/persons/gerhard.gd"
+}, {
+"base": "abstract_person",
+"class": "gress_person",
+"language": "GDScript",
+"path": "res://characters/persons/gress.gd"
+}, {
+"base": "abstract_person",
+"class": "guenther_person",
+"language": "GDScript",
+"path": "res://characters/persons/guenther.gd"
+}, {
+"base": "abstract_person",
+"class": "hans_person",
+"language": "GDScript",
+"path": "res://characters/persons/hans.gd"
+}, {
 "base": "abstract_spell",
 "class": "heal_spell",
 "language": "GDScript",
@@ -208,6 +233,11 @@ _global_script_classes=[ {
 "class": "main_state",
 "language": "GDScript",
 "path": "res://characters/state/state.gd"
+}, {
+"base": "abstract_person",
+"class": "mary_person",
+"language": "GDScript",
+"path": "res://characters/persons/mary.gd"
 }, {
 "base": "Node",
 "class": "move_state",
@@ -284,6 +314,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://skills/scenes/spell_spawner.gd"
 }, {
+"base": "abstract_person",
+"class": "sqlay_person",
+"language": "GDScript",
+"path": "res://characters/persons/sqlay.gd"
+}, {
+"base": "abstract_person",
+"class": "sqlykt_person",
+"language": "GDScript",
+"path": "res://characters/persons/sqlykt.gd"
+}, {
 "base": "Node",
 "class": "stats_state",
 "language": "GDScript",
@@ -314,6 +354,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ui/dialogue/ui_dialogue.gd"
 }, {
+"base": "abstract_person",
+"class": "vladimir_person",
+"language": "GDScript",
+"path": "res://characters/persons/vladimir.gd"
+}, {
 "base": "task",
 "class": "wait_task",
 "language": "GDScript",
@@ -323,6 +368,7 @@ _global_script_class_icons={
 "abstract_action": "",
 "abstract_dialogue": "",
 "abstract_item": "",
+"abstract_person": "",
 "abstract_skill": "",
 "abstract_spell": "",
 "ai_machine": "",
@@ -353,6 +399,10 @@ _global_script_class_icons={
 "fire_token_item": "",
 "focus_sprint_skill": "",
 "follow_task": "",
+"gerhard_person": "",
+"gress_person": "",
+"guenther_person": "",
+"hans_person": "",
 "heal_spell": "",
 "input_state": "",
 "interaction_state": "",
@@ -360,6 +410,7 @@ _global_script_class_icons={
 "invert_gravity_skill": "",
 "look_state": "",
 "main_state": "",
+"mary_person": "",
 "move_state": "",
 "move_task": "",
 "move_to_task": "",
@@ -375,12 +426,15 @@ _global_script_class_icons={
 "skills_state": "",
 "spell_expander": "",
 "spell_spawner": "",
+"sqlay_person": "",
+"sqlykt_person": "",
 "stats_state": "",
 "task": "",
 "toggle_spirit_task": "",
 "turn_task": "",
 "ui": "",
 "ui_dialogue": "",
+"vladimir_person": "",
 "wait_task": ""
 }
 
@@ -407,7 +461,7 @@ scenes="*res://scripts/scenes.gd"
 loader="*res://scripts/loader.gd"
 skill_data="*res://scripts/game/skill_data.gd"
 item_data="*res://scripts/game/item_data.gd"
-characters="res://scripts/game/characters.gd"
+character_data="res://scripts/game/character_data.gd"
 management="res://scripts/game/management.gd"
 levels="res://scripts/game/levels.gd"
 game="*res://scripts/game/game.gd"
