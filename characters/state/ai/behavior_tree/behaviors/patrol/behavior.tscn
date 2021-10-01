@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://characters/behavior/patrol/cross_patrolling.tscn" type="PackedScene" id=1]
+[ext_resource path="res://characters/state/ai/behavior_tree/behaviors/patrol/cross_patrolling.tscn" type="PackedScene" id=1]
 [ext_resource path="res://characters/state/ai/behavior_tree/sequence.gd" type="Script" id=4]
 
 [node name="sequence" type="Node"]
