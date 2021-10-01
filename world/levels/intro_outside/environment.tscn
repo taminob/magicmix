@@ -112,7 +112,7 @@ gravity = Vector3( 0, 0, 0 )
 initial_velocity = 1.0
 scale_random = 1.0
 
-[sub_resource type="QuadMesh" id=28]
+[sub_resource type="QuadMesh" id=26]
 material = ExtResource( 6 )
 size = Vector2( 5, 5 )
 
@@ -313,7 +313,7 @@ preprocess = 600.0
 randomness = 1.0
 visibility_aabb = AABB( -65.7517, -14.9844, -43.4606, 131.966, 54.7875, 86.3883 )
 process_material = SubResource( 25 )
-draw_pass_1 = SubResource( 28 )
+draw_pass_1 = SubResource( 26 )
 
 [node name="particles2" type="Particles" parent="."]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -61.1309, 0, 61.0879 )
@@ -323,7 +323,7 @@ preprocess = 600.0
 randomness = 1.0
 visibility_aabb = AABB( -66.2055, -14.993, -43.7963, 134.435, 54.8009, 87.0347 )
 process_material = SubResource( 25 )
-draw_pass_1 = SubResource( 28 )
+draw_pass_1 = SubResource( 26 )
 
 [node name="particles3" type="Particles" parent="."]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 22.0064, 0, 61.0879 )
@@ -333,7 +333,7 @@ preprocess = 600.0
 randomness = 1.0
 visibility_aabb = AABB( -66.6978, -14.9912, -43.3377, 133.118, 54.6207, 86.6968 )
 process_material = SubResource( 25 )
-draw_pass_1 = SubResource( 28 )
+draw_pass_1 = SubResource( 26 )
 
 [node name="particles4" type="Particles" parent="."]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 22.0064, 0, -35.9731 )
@@ -343,7 +343,7 @@ preprocess = 600.0
 randomness = 1.0
 visibility_aabb = AABB( -65.6383, -14.997, -42.741, 131.784, 54.9824, 86.104 )
 process_material = SubResource( 25 )
-draw_pass_1 = SubResource( 28 )
+draw_pass_1 = SubResource( 26 )
 
 [node name="particles5" type="Particles" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.83104, 0, -107.349 )
@@ -353,7 +353,7 @@ preprocess = 600.0
 randomness = 1.0
 visibility_aabb = AABB( -67.8522, -14.988, -43.1991, 134.981, 54.7474, 86.6139 )
 process_material = SubResource( 25 )
-draw_pass_1 = SubResource( 28 )
+draw_pass_1 = SubResource( 26 )
 
 [node name="particles6" type="Particles" parent="."]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -66.3221, 0, -61.0257 )
@@ -363,4 +363,4 @@ preprocess = 600.0
 randomness = 1.0
 visibility_aabb = AABB( -67.0407, -14.9802, -42.4601, 133.641, 54.7571, 85.4102 )
 process_material = SubResource( 25 )
-draw_pass_1 = SubResource( 28 )
+draw_pass_1 = SubResource( 26 )

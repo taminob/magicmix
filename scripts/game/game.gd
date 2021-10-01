@@ -2,24 +2,24 @@ extends Node
 
 const game_script_path = "res://scripts/game/"
 
-var chars: Node
+var _char_data_node: Node
 var char_data: Dictionary
 var levels: Node
 var mgmt: Node
 var world: Node
 
 func reload_game():
-	if(chars):
-		remove_child(chars)
+	if(_char_data_node):
+		remove_child(_char_data_node)
 	if(mgmt):
 		remove_child(mgmt)
 	if(levels):
 		remove_child(levels)
 	if(world):
 		remove_child(world)
-	chars = load(game_script_path + "character_data.gd").new()
-	add_child(chars)
-	char_data = chars.character_data
+	_char_data_node = load(game_script_path + "character_data.gd").new()
+	add_child(_char_data_node)
+	char_data = _char_data_node.character_data
 	mgmt = load(game_script_path + "management.gd").new()
 	add_child(mgmt)
 	world = load(game_script_path + "world.gd").new()
