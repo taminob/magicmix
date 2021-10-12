@@ -16,6 +16,7 @@ var lists = {
 	"type": [["defense", component_icons_path + "defense-512.png"],
 		["attack", component_icons_path + "attack-512.png"]],
 	"element": [["fire", component_icons_path + "flame-512.png"],
+		["ice", component_icons_path + "blue_star-512.png"],
 		["life", component_icons_path + "circle-512.png"],
 		["darkness", component_icons_path + "darkness-512.png"]],
 	"item": [["dagger", component_icons_path + "../empty-512.png"],

@@ -15,6 +15,13 @@ enum element_type {
 	ice
 }
 
+enum spell_type {
+	shield,
+	area,
+	target,
+	special
+}
+
 static func id() -> String:
 	return ""
 
@@ -26,6 +33,9 @@ func description() -> String:
 
 func category() -> String:
 	return ""
+
+func type() -> int:
+	return spell_type.special
 
 func combinations() -> Array:
 	return []

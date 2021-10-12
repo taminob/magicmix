@@ -1,0 +1,172 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://themes/ui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://ui/panels/character/character_panel.gd" type="Script" id=2]
+[ext_resource path="res://ui/icons/empty_slot_frame-512.png" type="Texture" id=3]
+[ext_resource path="res://ui/icons/items/body-512.png" type="Texture" id=4]
+[ext_resource path="res://ui/icons/items/left_shoe-512.png" type="Texture" id=5]
+[ext_resource path="res://ui/icons/items/right_hand-512.png" type="Texture" id=6]
+[ext_resource path="res://ui/icons/items/right_shoe-512.png" type="Texture" id=7]
+[ext_resource path="res://ui/icons/items/left_hand-512.png" type="Texture" id=8]
+[ext_resource path="res://ui/icons/items/head-512.png" type="Texture" id=9]
+
+[node name="character_panel" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="head" type="TextureRect" parent="."]
+anchor_left = 0.4
+anchor_top = 0.05
+anchor_right = 0.6
+anchor_bottom = 0.3
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="slot" type="TextureButton" parent="head"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 9 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="body" type="TextureRect" parent="."]
+anchor_left = 0.4
+anchor_top = 0.35
+anchor_right = 0.6
+anchor_bottom = 0.65
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="slot" type="TextureButton" parent="body"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="left_shoe" type="TextureRect" parent="."]
+anchor_left = 0.3
+anchor_top = 0.7
+anchor_right = 0.475
+anchor_bottom = 0.95
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="slot" type="TextureButton" parent="left_shoe"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="right_shoe" type="TextureRect" parent="."]
+anchor_left = 0.525
+anchor_top = 0.7
+anchor_right = 0.7
+anchor_bottom = 0.95
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="slot" type="TextureButton" parent="right_shoe"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="left_glove" type="TextureRect" parent="."]
+anchor_left = 0.2
+anchor_top = 0.4
+anchor_right = 0.35
+anchor_bottom = 0.65
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="slot" type="TextureButton" parent="left_glove"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 8 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="right_glove" type="TextureRect" parent="."]
+anchor_left = 0.65
+anchor_top = 0.4
+anchor_right = 0.8
+anchor_bottom = 0.65
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="slot" type="TextureButton" parent="right_glove"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="visibility_changed" from="." to="." method="_on_inventory_panel_visibility_changed"]
