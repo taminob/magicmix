@@ -52,6 +52,7 @@ func make_player(new_player: KinematicBody):
 	player = new_player
 	player.call_deferred("add_child", camera)
 	player.get_node("health_bar").set_visible(false)
+	player.get_node("shield_bar").set_visible(false)
 	_set_player_flag(player, true)
 
 func unmake_player():
@@ -59,6 +60,7 @@ func unmake_player():
 		return
 	player.call_deferred("remove_child", camera)
 	player.get_node("health_bar").set_visible(true)
+	player.get_node("shield_bar").set_visible(true)
 	_set_player_flag(player, false)
 	player = null
 

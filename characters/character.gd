@@ -96,8 +96,13 @@ func _update_ui():
 			for x in machine.action_queue:
 				debug_output += x.get_script().get_path().get_file() + "; "
 			game.mgmt.ui.update_debug(debug_output)
-	var health_bar: Spatial = $"health_bar"
-	health_bar.material = health_bar.material.duplicate()
-	health_bar.material.set_shader_param("percentage", 1 - stats.pain / stats.max_pain())
+	var health_bar: MeshInstance = $"health_bar"
+	if(!health_bar.material_override):
+		health_bar.material_override = health_bar.get_active_material(0).duplicate()
+	health_bar.material_override.set_shader_param("percentage", 1 - stats.pain / stats.max_pain())
 	health_bar.look_at(game.mgmt.camera.camera.global_transform.origin, Vector3.UP)
-	$"health_bar2".region_rect.size.x = 1 - stats.pain / stats.max_pain()
+	var shield_bar: MeshInstance = $"shield_bar"
+	if(!shield_bar.material_override):
+		shield_bar.material_override = shield_bar.get_active_material(0).duplicate()
+	shield_bar.get_active_material(0).set_shader_param("percentage", stats.shield / stats.max_shield())
+	shield_bar.look_at(game.mgmt.camera.camera.global_transform.origin, Vector3.UP)

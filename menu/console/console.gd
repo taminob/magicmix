@@ -33,6 +33,9 @@ var commands = {
 	},
 	"respawn": {
 		"handler": funcref(self, "respawn_handler")
+	},
+	"give_all": {
+		"handler": funcref(self, "give_all_handler")
 	}
 }
 
@@ -71,6 +74,10 @@ func help_handler(command: String="", clear_output: bool=true):
 			invalid_argument("help")
 		new_text += "Possible arguments for '" + command + ": " + str(command_entry.get("possible", []))
 	output.set_text(new_text)
+
+func give_all_handler():
+	game.mgmt.player.inventory.spells = skill_data.spells.keys()
+	game.mgmt.player.inventory.skills = skill_data.skills.keys()
 
 onready var output = $"output_background/output"
 onready var input = $"command_input"

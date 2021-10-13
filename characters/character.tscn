@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://characters/character.gd" type="Script" id=1]
 [ext_resource path="res://characters/state/state.gd" type="Script" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://characters/state/interaction_state.gd" type="Script" id=12]
 [ext_resource path="res://characters/state/ai/planner.gd" type="Script" id=13]
 [ext_resource path="res://characters/state/ai/ai_machine.gd" type="Script" id=14]
+[ext_resource path="res://world/shaders/percentage_bar.shader" type="Shader" id=15]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.3
@@ -23,51 +24,19 @@ height = 1.1
 extents = Vector3( 0.25, 0.5, 0.5 )
 
 [sub_resource type="CubeMesh" id=3]
+subdivide_height = 50
 
-[sub_resource type="Shader" id=4]
-code = "shader_type spatial;
-
-uniform float percentage = 0.5;
-uniform float angle = 0.0;
-
-void vertex()
-{
-	//float angle = cosh(dot(dir.xz, BINORMAL.xz) / length(BINORMAL.xz) * length(dir.xz));
-	float old_x = VERTEX.x;
-	VERTEX.x = 1.0-2.0*percentage;
-	if(VERTEX.x < old_x)
-		VERTEX.x = old_x;
-	VERTEX = (inverse(WORLD_MATRIX) * mat4(vec4(cos(angle), 0.0, sin(angle), 0.0),
-			vec4(0.0, 1.0, 0.0, 0.0),
-			vec4(-sin(angle), 0.0, cos(angle), 0.0),
-			vec4(0.0, 0.0, 0.0, 1.0)) * WORLD_MATRIX * vec4(VERTEX, 1.0)).xyz;
-	//COLOR = vec4(1.0, 0.0, 0.0, 1.0);
-}
-
-void fragment()
-{
-	ALBEDO = vec3(1.0, 0.0, 0.0);
-	if(percentage <= 0.0)
-		ALPHA = 0.0;
-}"
-
-[sub_resource type="ShaderMaterial" id=5]
-shader = SubResource( 4 )
+[sub_resource type="ShaderMaterial" id=6]
+shader = ExtResource( 15 )
+shader_param/color = Vector3( 1, 1, 0 )
 shader_param/percentage = 0.0
 shader_param/angle = 0.0
 
-[sub_resource type="Gradient" id=6]
-colors = PoolColorArray( 0, 0, 0, 1, 1, 0, 0, 1 )
-
-[sub_resource type="GradientTexture" id=7]
-gradient = SubResource( 6 )
-
-[sub_resource type="SpatialMaterial" id=8]
-params_billboard_mode = 1
-params_billboard_keep_scale = true
-albedo_texture = SubResource( 7 )
-
-[sub_resource type="ProxyTexture" id=9]
+[sub_resource type="ShaderMaterial" id=7]
+shader = ExtResource( 15 )
+shader_param/color = Vector3( 1, 0, 0 )
+shader_param/percentage = 0.0
+shader_param/angle = 0.0
 
 [node name="character" type="KinematicBody" groups=[
 "characters",
@@ -134,19 +103,15 @@ script = ExtResource( 13 )
 [node name="ai_machine" type="Node" parent="state/ai"]
 script = ExtResource( 14 )
 
-[node name="health_bar" type="CSGMesh" parent="."]
-transform = Transform( 1.25, 0, 0, 0, 0.25, 0, 0, 0, 0.1, 0, 2.9773, 0 )
+[node name="shield_bar" type="MeshInstance" parent="."]
+transform = Transform( 1.25, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 3.15, 0 )
 mesh = SubResource( 3 )
-material = SubResource( 5 )
+material/0 = SubResource( 6 )
 
-[node name="health_bar2" type="Sprite3D" parent="."]
-transform = Transform( 2, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 2.91832, 0 )
-visible = false
-material_override = SubResource( 8 )
-pixel_size = 1.0
-texture = SubResource( 9 )
-region_enabled = true
-region_rect = Rect2( 0, 0, 1, 1 )
+[node name="health_bar" type="MeshInstance" parent="."]
+transform = Transform( 1.25, 0, 0, 0, 0.15, 0, 0, 0, 0.1, 0, 2.9, 0 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 7 )
 
 [connection signal="body_entered" from="sight_zone" to="state/ai" method="_on_sight_zone_body_entered"]
 [connection signal="body_exited" from="sight_zone" to="state/ai" method="_on_sight_zone_body_exited"]
