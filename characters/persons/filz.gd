@@ -1,21 +1,16 @@
 extends abstract_person
 
-class_name vladimir_person
+class_name filz_person
 
 static func id() -> String:
-	return "vladimir"
+	return "filz"
 
 func _init():
 	data = {
 		"dialogue": {
-			"name": "Vlad",
+			"name": "Filz",
 			"gender": "male",
-			"relations": {
-				"hans": -2,
-				"filz": -1,
-				"mary": 2
-			},
-			"job": "guard"
+			"job": "thief"
 		},
 		"experience": {
 			"intelligence": 1,
@@ -24,12 +19,15 @@ func _init():
 			"concentration": 1,
 			"endurance": 1
 		},
+		"stats": {
+			"pain": 45
+		},
 		"inventory": {
-			"spells": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
-			#"spell_slots": ["fire_ring", "heal", "", "", ""]
+			"spells": ["fire_storm", "heal"],
+			"spell_slots": ["heal", "fire_storm", "", "", ""]
 		},
 		"look": {
 			"mesh_path": "res://characters/meshes/shade/body.tscn",
-			"color": Color(0.5, 0.5, 1)
+			"color": Color(0.8, 0.6, 0.1)
 		},
 	}

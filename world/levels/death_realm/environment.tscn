@@ -62,7 +62,7 @@ next_character_name = "vladimir"
 [node name="portal4" parent="portals" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15 )
 next_level = "town"
-next_character_name = "sqlykt"
+next_character_name = "filz"
 
 [node name="dead_spawner" type="Spatial" parent="."]
 script = ExtResource( 2 )

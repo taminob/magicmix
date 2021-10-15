@@ -11,7 +11,7 @@ func _init():
 			"name": "Günther",
 			"gender": "male",
 			"relations": {
-				"hans": 2,
+				"filz": 2,
 				"vladimir": -1,
 				"gerhard": 2,
 				"gress": 2

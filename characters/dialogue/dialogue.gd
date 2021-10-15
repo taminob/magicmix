@@ -180,6 +180,7 @@ func change_partner(new_partner: character):
 func formatted_text(text: String) -> String:
 	return text.format({"self": pawn.dialogue.display_name, "partner": pawn.dialogue.call_names[partner.name]}) # todo
 
+# TODO: (BUG) _statements is empty but _partners is not if partner dies during dialogue
 func dialogue() -> statement:
 	var a = _partners[partner.name].back()[1]
 	var s = _statements

@@ -25,10 +25,22 @@ navmesh = SubResource( 1 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 38.6696, 0, 4.04013 )
 
 [node name="vladimir" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.21516, 3.47923, -17.5732 )
+transform = Transform( 0.378342, 0, 0.925666, 0, 1, 0, -0.925666, 0, 0.378342, 44.422, 0, 0.923 )
+
+[node name="filz" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.0636267, 0, 0.997974, 0, 1, 0, -0.997974, 0, -0.0636267, 42.078, 0, -1.2 )
 
 [node name="mary" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.2423, 1.23471, -15.3544 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.242, 0, -15.354 )
 
 [node name="hans" parent="." instance=ExtResource( 1 )]
-transform = Transform( -0.0646717, 0, -0.997907, 0, 1, 0, 0.997907, 0, -0.0646717, -7.21466, 1.23471, -37.4569 )
+transform = Transform( -0.0646717, 0, -0.997907, 0, 1, 0, 0.997907, 0, -0.0646717, -7.215, 0, -37.457 )
+
+[node name="god_mage" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.0646717, 0, -0.997907, 0, 1, 0, 0.997907, 0, -0.0646717, -33.9168, 0, -0.242371 )
+
+[node name="ice_mage" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.0646717, 0, -0.997907, 0, 1, 0, 0.997907, 0, -0.0646717, -36.9264, 0, 2.35838 )
+
+[node name="fire_mage" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.0646717, 0, -0.997907, 0, 1, 0, 0.997907, 0, -0.0646717, -36.9264, 0, -3.06754 )

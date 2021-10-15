@@ -22,7 +22,7 @@ func get_spell_slot(element: int, num: int) -> String:
 func get_skill_slot(num: int) -> String:
 	return skill_slots[num]
 
-func add_spell(spell_id: String) -> bool:
+func add_spell(spell_id: String) -> bool: # todo? return value necessary?
 	if(spells.has(spell_id)):
 		return false
 	spells.push_back(spell_id)
@@ -85,5 +85,11 @@ func init(state_dict: Dictionary):
 	skills = _inventory_state.get("skills", [""]) # todo? enable do_nothing skill?
 	skill_points = _inventory_state.get("skill_points", 5) # TODO? balance start skill points?
 	things = _inventory_state.get("things", [])
+<<<<<<< HEAD
 	spell_slots = _inventory_state.get("spell_slots", DEFAULT_SPELL_SLOTS)
+=======
+	spell_slots = _inventory_state.get("spell_slots", ["", "", "", "", ""])
+	errors.debug_assert(spell_slots.size() == 5, "invalid spell_slots size")
+>>>>>>> bdff283 (new personas for god_mage, ice_mage, fire_mage and filz added)
 	skill_slots = _inventory_state.get("skill_slots", ["", ""])
+	errors.debug_assert(skill_slots.size() == 2, "invalid skill_slots size")

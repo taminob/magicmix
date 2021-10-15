@@ -84,8 +84,6 @@ func _on_skill_activated(skill_id: String):
 func _on_skill_point_invested():
 	if(details.has_meta("current")):
 		var skill_id: String = details.get_meta("current")
-		if(game.mgmt.player.inventory.add_skill(skill_id)):
-			update_panel(false)
-		else:
+		if(!game.mgmt.player.inventory.add_skill(skill_id)):
 			game.mgmt.player.inventory.remove_skill(skill_id)
-			update_panel(false)
+		update_panel(false)
