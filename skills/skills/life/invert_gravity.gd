@@ -18,6 +18,7 @@ func requirements() -> Array:
 	return [base_life_skill.id()]
 
 func on_allocated(pawn: character):
+# warning-ignore:return_value_discarded
 	pawn.inventory.add_spell(invert_gravity_spell.id())
 
 func on_retracted(pawn: character):

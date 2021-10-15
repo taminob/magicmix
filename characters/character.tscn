@@ -104,12 +104,12 @@ script = ExtResource( 13 )
 script = ExtResource( 14 )
 
 [node name="shield_bar" type="MeshInstance" parent="."]
-transform = Transform( 1.25, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 2.59112, 0 )
+transform = Transform( 1.25, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 2.9447, 0 )
 mesh = SubResource( 3 )
 material/0 = SubResource( 4 )
 
 [node name="health_bar" type="MeshInstance" parent="."]
-transform = Transform( 1.25, 0, 0, 0, 0.15, 0, 0, 0, 0.1, 0, 2.34112, 0 )
+transform = Transform( 1.25, 0, 0, 0, 0.15, 0, 0, 0, 0.1, 0, 2.6947, 0 )
 mesh = SubResource( 3 )
 material/0 = SubResource( 5 )
 

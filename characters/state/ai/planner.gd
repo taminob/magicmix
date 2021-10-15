@@ -72,6 +72,7 @@ class goal:
 
 enum actions {
 	talk_begin = 0,
+	roam,
 	rotate,
 	flee,
 	spell_heal,

@@ -20,6 +20,7 @@ func get_range_state() -> int:
 
 func choose_target():
 	target = Spatial.new()
+	game.levels.current_level.add_child(target)
 	var nav: Navigation = game.levels.current_level.get_node("navigation")
 	var nearest_enemy = pawn.ai.brain.get_nearest_enemy()
 	if(nav && game.is_valid(nearest_enemy)):

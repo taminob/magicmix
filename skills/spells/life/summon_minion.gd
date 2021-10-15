@@ -30,8 +30,8 @@ func self_focus() -> float:
 func start_effect(pawn: KinematicBody):
 	var new_minion: KinematicBody = game.mgmt.create_character("minion")
 	new_minion.remove_from_group("characters")
-	new_minion.global_transform.origin = pawn.global_transform.origin + pawn.global_transform.basis.xform(Vector3.RIGHT + Vector3.FORWARD)
 	game.levels.current_level.add_child(new_minion)
+	new_minion.global_transform.origin = pawn.global_transform.origin + pawn.global_transform.basis.xform(Vector3.RIGHT + Vector3.FORWARD)
 	new_minion.dialogue.relations = pawn.dialogue.relations
 	new_minion.dialogue.set_relation(pawn.name, dialogue_state.relation.ally)
 	new_minion.inventory.add_spell(fire_ball_spell.id()) # todo: special minion attacks?

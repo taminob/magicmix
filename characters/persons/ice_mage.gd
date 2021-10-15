@@ -24,7 +24,7 @@ func _init():
 		},
 		"inventory": {
 			"spells": ["heal"],
-			"spell_slots": ["heal", "", "", "", ""]
+			#"spell_slots": ["heal", "", "", "", ""]
 		},
 		"look": {
 			"mesh_path": "res://characters/meshes/shade/body.tscn",

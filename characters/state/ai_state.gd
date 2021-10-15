@@ -65,6 +65,22 @@ func get_current_goals() -> Array:
 	patrol_goal.requirements.enemy_in_sight = true
 	return [survive_goal, fight_goal, talk_goal, patrol_goal]
 
+func get_idle_action() -> abstract_action:
+	var idle_action: abstract_action
+	match dialogue.job:
+		"thief":
+			#idle_action = load("res://characters/state/ai/actions/wait_action.gd").new()
+			idle_action = load("res://characters/state/ai/actions/roam_action.gd").new()
+		"guard":
+			idle_action = load("res://characters/state/ai/actions/roam_action.gd").new()
+		"mage":
+			idle_action = load("res://characters/state/ai/actions/wait_action.gd").new()
+		_:
+			idle_action = load("res://characters/state/ai/actions/roam_action.gd").new()
+			#idle_action = load("res://characters/state/ai/actions/wait_action.gd").new()
+	idle_action.init(pawn)
+	return idle_action
+
 func _on_sight_zone_body_entered(body: Node):
 	if(state.is_player || body == pawn || !body):
 		return

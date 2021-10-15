@@ -34,7 +34,8 @@ func reconsider():
 func consider(know: planner.knowledge, goals: Array):
 	action_queue = planning.plan(know, goals)
 	if(action_queue.empty()):
-		pass
+		action_queue.push_back(ai.get_idle_action())
+		push_state(states.active)
 		#push_state(states.idle) # todo? necessary?
 	else:
 		push_state(states.active)

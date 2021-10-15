@@ -24,7 +24,7 @@ func _init():
 		},
 		"inventory": {
 			"spells": ["fire_storm", "heal"],
-			"spell_slots": ["heal", "fire_storm", "", "", ""]
+			#"spell_slots": ["heal", "fire_storm", "", "", ""]
 		},
 		"look": {
 			"mesh_path": "res://characters/meshes/shade/body.tscn",
