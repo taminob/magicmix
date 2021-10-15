@@ -74,7 +74,7 @@ func save(state_dict: Dictionary):
 
 var DEFAULT_SPELL_SLOTS: Dictionary = {
 	abstract_spell.element_type.raw: ["", "", "", "", ""],
-	abstract_spell.element_type.life: ["element_shield", "", "summon_minion", "", "invert_gravity"],
+	abstract_spell.element_type.life: ["element_shield", "heal", "summon_minion", "", "invert_gravity"],
 	abstract_spell.element_type.fire: ["element_shield", "", "fire_ball", "fire_storm", "fire_ring"],
 	abstract_spell.element_type.ice: ["element_shield", "", "ice_ball", "ice_wave", ""],
 	abstract_spell.element_type.darkness: ["element_shield", "", "", "", ""],
@@ -83,6 +83,8 @@ func init(state_dict: Dictionary):
 	var _inventory_state = state_dict.get("inventory", {})
 	spells = _inventory_state.get("spells", [""])
 	skills = _inventory_state.get("skills", [""]) # todo? enable do_nothing skill?
+	for x in skills:
+		skill_data.skills[x].on_allocated(pawn)
 	skill_points = _inventory_state.get("skill_points", 5) # TODO? balance start skill points?
 	things = _inventory_state.get("things", [])
 	spell_slots = _inventory_state.get("spell_slots", DEFAULT_SPELL_SLOTS)

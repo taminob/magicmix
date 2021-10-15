@@ -5,6 +5,8 @@ class_name planner
 class knowledge:
 	var pain: float
 	var focus: float
+	var stamina: float
+	var shield: float
 	var enemy_in_sight: bool
 	var enemy_in_near: bool
 	var enemy_damaged: bool
@@ -14,9 +16,11 @@ class knowledge:
 	var talking: bool
 	var facing_target: bool
 
-	func _init(new_pain: float=0.0, new_focus: float=0.0, bool_mask: int=0):
+	func _init(new_pain: float=0.0, new_focus: float=0.0, new_stamina: float=0.0, new_shield: float=0.0, bool_mask: int=0):
 		pain = new_pain
 		focus = new_focus
+		stamina = new_stamina
+		shield = new_shield
 		enemy_in_sight = bool_mask & knowledge_mask.enemy_in_sight
 		enemy_in_near = bool_mask & knowledge_mask.enemy_in_near
 		enemy_damaged = bool_mask & knowledge_mask.enemy_damaged
@@ -30,6 +34,8 @@ class knowledge:
 		var know: knowledge = knowledge.new()
 		know.pain = pain
 		know.focus = focus
+		know.stamina = stamina
+		know.shield = shield
 		know.enemy_in_sight = enemy_in_sight
 		know.enemy_in_near = enemy_in_near
 		know.enemy_damaged = enemy_damaged
@@ -53,10 +59,14 @@ enum knowledge_mask {
 	#_b				= 0x20000000,
 	#_c				= 0x40000000,
 	#_d				= 0x80000000,
-	pain			= 0x01000000,
-	pain_toggle		= 0x02000000, # if set in precondition, pain has to be lower; if set in postcondition, pain is absolute
-	focus			= 0x04000000,
-	focus_toggle	= 0x08000000,
+	pain			= 0x00100000,
+	pain_toggle		= 0x00200000, # if set in precondition, pain has to be lower; if set in postcondition, pain is absolute
+	focus			= 0x00400000,
+	focus_toggle	= 0x00800000,
+	stamina			= 0x01000000,
+	stamina_toggle	= 0x02000000,
+	shield			= 0x04000000,
+	shield_toggle	= 0x08000000,
 
 	lock			= 0x80000000,
 	ALL				= 0x7FFFFFFF
@@ -76,10 +86,11 @@ enum actions {
 	rotate,
 	flee,
 	spell_heal,
+	spell_element_shield,
 	spell_fire_ring,
 	spell_fire_ball,
 	spell_blood_storm,
-#	wait,
+	wait,
 }
 
 var planning_graph: Array # contains all a_star_node instances; index of node equals position in array
@@ -140,6 +151,20 @@ class a_star_node:
 					return false
 			else:
 				if(before.focus < know.focus):
+					return false
+		if(before_mask & knowledge_mask.stamina):
+			if(before_mask & knowledge_mask.stamina_toggle):
+				if(before.stamina > know.stamina):
+					return false
+			else:
+				if(before.stamina < know.stamina):
+					return false
+		if(before_mask & knowledge_mask.shield):
+			if(before_mask & knowledge_mask.shield_toggle):
+				if(before.shield > know.shield):
+					return false
+			else:
+				if(before.shield < know.shield):
 					return false
 		if(before_mask & knowledge_mask.enemy_in_sight):
 			if(before.enemy_in_sight != know.enemy_in_sight):

@@ -25,7 +25,7 @@ class active_spell:
 		spell.start_effect(pawn)
 
 	func can_tick(pawn: KinematicBody, delta: float) -> bool:
-		return duration > 0 && pawn.stats.focus + spell.self_focus_per_second() * delta >= 0
+		return duration > 0 && (pawn.stats.focus + spell.self_focus_per_second() * delta >= 0 || game.levels.current_level_death_realm)
 
 	func tick(pawn: KinematicBody, delta: float) -> bool:
 		duration -= delta

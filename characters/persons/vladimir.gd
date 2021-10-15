@@ -25,7 +25,8 @@ func _init():
 			"endurance": 1
 		},
 		"inventory": {
-			"spells": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
+			"spells": ["blood_sacrifice", "blood_storm"],
+			"skills": ["base_fire", "base_life", "base_ice", "base_darkness"]
 			#"spell_slots": ["fire_ring", "heal", "", "", ""]
 		},
 		"look": {

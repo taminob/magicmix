@@ -1,10 +1,10 @@
 extends abstract_action
 
 static func precondition() -> planner.knowledge:
-	return planner.knowledge.new(0, 0, planner.knowledge_mask.ally_in_sight)
+	return planner.knowledge.new(0, 0, 0, 0, planner.knowledge_mask.ally_in_sight)
 
 static func postcondition() -> planner.knowledge:
-	return planner.knowledge.new(0, 0, planner.knowledge_mask.talking)
+	return planner.knowledge.new(0, 0, 0, 0, planner.knowledge_mask.talking)
 
 static func precondition_mask() -> int:
 	return planner.knowledge_mask.ally_in_sight | planner.knowledge_mask.talking

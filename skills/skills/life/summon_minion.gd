@@ -1,15 +1,15 @@
 extends abstract_skill
 
-class_name invert_gravity_skill
+class_name summon_minion_skill
 
 static func id() -> String:
-	return "invert_gravity"
+	return "summon_minion"
 
 func name() -> String:
-	return "Invert Gravity"
+	return "Summon Minion"
 
 func description() -> String:
-	return "Use the natural forces and turn upside down!"
+	return "Learn to breath life into a minion!"
 
 func category() -> String:
 	return "life"
@@ -19,10 +19,10 @@ func requirements() -> Array:
 
 func on_allocated(pawn: character):
 # warning-ignore:return_value_discarded
-	pawn.inventory.add_spell(invert_gravity_spell.id())
+	pawn.inventory.add_spell(summon_minion_spell.id())
 
 func on_retracted(pawn: character):
-	pawn.inventory.remove_spell(invert_gravity_spell.id())
+	pawn.inventory.remove_spell(summon_minion_spell.id())
 
 func icon() -> Resource:
 	return load(SKILL_ICONS_PATH + "../symbols/exclamation_mark-512.png")

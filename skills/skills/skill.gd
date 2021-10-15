@@ -29,9 +29,6 @@ func on_retracted(_pawn: character):
 func effect(_pawn: character, _delta: float):
 	pass
 
-func duration() -> float:
-	return -1.0
-
 func icon() -> Resource:
 	return load(SKILL_ICONS_PATH + "../empty-512.png")
 

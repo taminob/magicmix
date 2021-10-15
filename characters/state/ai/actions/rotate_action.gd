@@ -4,7 +4,7 @@ static func precondition() -> planner.knowledge:
 	return planner.knowledge.new()
 
 static func postcondition() -> planner.knowledge:
-	return planner.knowledge.new(0, 0, planner.knowledge_mask.facing_target)
+	return planner.knowledge.new(0, 0, 0, 0, planner.knowledge_mask.facing_target)
 
 static func precondition_mask() -> int:
 	return planner.knowledge_mask.facing_target

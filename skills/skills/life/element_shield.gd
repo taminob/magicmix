@@ -17,9 +17,12 @@ func category() -> String:
 func requirements() -> Array:
 	return [base_life_skill.id()]
 
-func start_effect(pawn: character):
-	pawn.stats.shield_element = pawn.skills.current_element
-	pawn.stats.shield = pawn.stats.max_shield()
+func on_allocated(pawn: character):
+# warning-ignore:return_value_discarded
+	pawn.inventory.add_spell(element_shield_spell.id())
+
+func on_retracted(pawn: character):
+	pawn.inventory.remove_spell(element_shield_spell.id())
 
 func icon() -> Resource:
 	return load(SKILL_ICONS_PATH + "shield-512.png")

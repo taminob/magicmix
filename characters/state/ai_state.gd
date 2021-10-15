@@ -25,7 +25,7 @@ func _ready():
 	_steps_since_consider = 0
 
 func _process(_delta: float):
-	if(state.is_player || (stats.dead && !stats.undead)):
+	if(state.is_player || (stats.dead && !stats.undead && !game.levels.current_level_death_realm)):
 		return
 	machine.process_state()
 	if(_steps_since_consider == 0):
@@ -40,7 +40,7 @@ func _process(_delta: float):
 		should_reconsider = false
 
 func get_current_knowledge() -> planner.knowledge:
-	var know = planner.knowledge.new(stats.pain, stats.focus)
+	var know = planner.knowledge.new(stats.pain, stats.focus, stats.stamina, stats.shield)
 	know.enemy_in_sight = !brain.enemies_in_sight.empty()
 	know.enemy_in_near = !brain.enemies_in_sight.empty() || !brain.enemies_out_of_sight.empty()
 	know.ally_in_sight = !brain.allies_in_sight.empty()
@@ -69,15 +69,13 @@ func get_idle_action() -> abstract_action:
 	var idle_action: abstract_action
 	match dialogue.job:
 		"thief":
-			#idle_action = load("res://characters/state/ai/actions/wait_action.gd").new()
-			idle_action = load("res://characters/state/ai/actions/roam_action.gd").new()
+			idle_action = load("res://characters/state/ai/actions/wait_action.gd").new()
 		"guard":
 			idle_action = load("res://characters/state/ai/actions/roam_action.gd").new()
 		"mage":
 			idle_action = load("res://characters/state/ai/actions/wait_action.gd").new()
 		_:
-			idle_action = load("res://characters/state/ai/actions/roam_action.gd").new()
-			#idle_action = load("res://characters/state/ai/actions/wait_action.gd").new()
+			idle_action = load("res://characters/state/ai/actions/wait_action.gd").new()
 	idle_action.init(pawn)
 	return idle_action
 
