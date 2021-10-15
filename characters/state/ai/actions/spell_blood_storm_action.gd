@@ -21,6 +21,8 @@ func choose_target():
 	target = pawn.ai.brain.get_any_enemy()
 
 func get_range_state() -> int:
+	if(!game.is_valid(target)):
+		return range_state.unreachable
 	var spell_range = skill_data.spells[spell_id()].range()
 	if(spell_range < 0):
 		return range_state.no_range_required

@@ -52,16 +52,23 @@ func focus_per_second() -> float:
 func stamina_per_second() -> float:
 	return experience.endurance * focus_percentage() * 6
 
-func die():
-	skills.cancel_spell()
+func die(save_state: bool=true):
+	pain = max_pain()
+	dead = true
+	if(undead):
+		return
+	skills.cancel_spells()
 	look.update_look()
 
-	dead = true
-	pain = max_pain()
 	# todo: animation
-	if(state.is_player && !game.levels.current_level_death_realm):
-		pawn._update_ui() # todo: refactor? only occurence of pawn
-		game.levels.change_level("death_realm")
+	if(!game.levels.current_level_death_realm):
+		if(state.is_player): # todo: better undead concept
+			pawn._update_ui() # todo: refactor? only occurence of pawn
+			game.levels.change_level("death_realm")
+		else:
+			if(save_state):
+				pawn.save_state()
+			pawn.queue_free()
 
 func damage(dmg: float, element: int):
 	match element:
@@ -73,13 +80,13 @@ func damage(dmg: float, element: int):
 			_self_elemental_damage(dmg, element)
 
 func _self_elemental_damage(dmg: float, element: int):
-	if(element == shield_element):
-		shield -= dmg
+	if(element == abstract_spell.element_type.raw || element != shield_element):
+		_self_raw_damage(dmg)
+	else:
+		shield = min(shield - dmg, max_shield())
 		if(shield < 0):
 			_self_raw_damage(-shield)
 			shield = 0
-	else:
-		_self_raw_damage(dmg)
 
 func _self_raw_damage(dmg: float):
 	if(settings.get_setting("dev", "god_mode") || dead || game.levels.current_level_death_realm):
@@ -98,7 +105,8 @@ func _self_focus_damage(dmg: float):
 		state.ai.should_reconsider = true
 
 func add_shield(num: float):
-	shield = clamp(shield + num, 0, max_shield())
+	if(shield_element != abstract_spell.element_type.raw):
+		shield = clamp(shield + num, 0, max_shield())
 
 func revive():
 	if(undead):
@@ -123,7 +131,7 @@ func init(state_dict: Dictionary):
 	var _stats_state = state_dict.get("stats", {})
 	undead = _stats_state.get("undead", false)
 	if(_stats_state.get("dead", false)):
-		die()
+		die(false)
 	else:
 		pain = _stats_state.get("pain", 0.0)
 	shield = _stats_state.get("shield", 0.0)

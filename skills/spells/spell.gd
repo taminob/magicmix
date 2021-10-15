@@ -8,6 +8,7 @@ const SPELL_ANIMS_PATH: String = "res://skills/"
 enum element_type {
 	raw,
 	focus,
+	stamina,
 	physical, # todo?
 	life,
 	darkness,
@@ -33,6 +34,18 @@ func description() -> String:
 
 func category() -> String:
 	return ""
+
+func base_element() -> int:
+	match category():
+		"life":
+			return element_type.life
+		"fire":
+			return element_type.fire
+		"ice":
+			return element_type.ice
+		"darkness":
+			return element_type.darkness
+	return element_type.raw
 
 func type() -> int:
 	return spell_type.special
@@ -70,6 +83,15 @@ func target_focus() -> float:
 func target_focus_per_second() -> float:
 	return 0.0
 
+func start_effect(_pawn: KinematicBody):
+	pass
+
+func end_effect(_pawn: KinematicBody):
+	pass
+
+func effect(_pawn: KinematicBody, _delta: float):
+	pass
+
 func duration() -> float:
 	return -1.0
 
@@ -82,5 +104,5 @@ func icon() -> Resource:
 func anim() -> String:
 	return ""#SPELL_ANIMS_PATH
 
-func scene() -> PackedScene:
+func scene() -> Node:
 	return null

@@ -22,7 +22,7 @@ func choose_target():
 	target = Spatial.new()
 	var nav: Navigation = game.levels.current_level.get_node("navigation")
 	var nearest_enemy = pawn.ai.brain.get_nearest_enemy()
-	if(nav && nearest_enemy):
+	if(nav && game.is_valid(nearest_enemy)):
 		target.global_transform.origin = nav.get_closest_point(pawn.global_transform.origin - 10 * pawn.global_transform.origin.direction_to(nearest_enemy.global_transform.origin))
 
 func do() -> bool:

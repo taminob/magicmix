@@ -76,8 +76,11 @@ func help_handler(command: String="", clear_output: bool=true):
 	output.set_text(new_text)
 
 func give_all_handler():
-	game.mgmt.player.inventory.spells = skill_data.spells.keys()
-	game.mgmt.player.inventory.skills = skill_data.skills.keys()
+	for x in skill_data.spells.keys():
+		game.mgmt.player.inventory.add_spell(x)
+	game.mgmt.player.inventory.skill_points = skill_data.skills.keys().size()
+	for x in skill_data.skills.keys():
+		game.mgmt.player.inventory.add_skill(x)
 
 onready var output = $"output_background/output"
 onready var input = $"command_input"

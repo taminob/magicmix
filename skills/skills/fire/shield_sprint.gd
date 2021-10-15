@@ -25,10 +25,10 @@ func duration() -> float:
 	return 10.0
 
 func icon() -> Resource:
-	return load(SKILL_ICONS_PATH + "../todo-512.png")
+	return load(SKILL_ICONS_PATH + "../symbols/letter_d-512.png")
 
 func anim() -> String:
 	return ""#SKILL_ANIMS_PATH
 
-func scene() -> PackedScene:
+func scene() -> Node:
 	return null

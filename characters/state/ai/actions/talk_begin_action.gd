@@ -16,6 +16,8 @@ func choose_target():
 	target = pawn.ai.brain.get_any_ally()
 
 func get_range_state() -> int:
+	if(!game.is_valid(target)):
+		return range_state.unreachable
 	# todo: decide if based on distance or actual interaction target
 	#if(pawn.global_transform.origin.distance_squared_to(target.global_transform.origin) <= 2):
 	if(pawn.interaction.interact_target == target):

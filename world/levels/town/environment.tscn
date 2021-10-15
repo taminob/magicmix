@@ -275,6 +275,5 @@ transform = Transform( 0.918101, 0, -0.396347, 0.137838, 0.93758, 0.319288, 0.37
 
 [node name="fire" parent="others" instance=ExtResource( 8 )]
 
-[node name="fire2" parent="others" instance=ExtResource( 8 )]
+[node name="ice" parent="others" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.55213 )
-damage_element = 6

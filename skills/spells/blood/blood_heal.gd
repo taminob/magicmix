@@ -42,5 +42,5 @@ func range() -> float:
 func icon() -> Resource:
 	return load(SPELL_ICONS_PATH + "blood_scratch-512.png")
 
-func scene() -> PackedScene:
+func scene() -> Node:
 	return load(SPELL_SCENES_PATH + "blood/blood_heal.tscn").instance()

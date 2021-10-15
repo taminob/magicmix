@@ -18,6 +18,8 @@ static func postcondition_mask() -> int:
 	return planner.knowledge_mask.focus | planner.knowledge_mask.pain
 
 func get_range_state() -> int:
+	if(!game.is_valid(target)):
+		return range_state.unreachable
 	var spell_range = skill_data.spells[spell_id()].range()
 	if(spell_range < 0):
 		return range_state.no_range_required

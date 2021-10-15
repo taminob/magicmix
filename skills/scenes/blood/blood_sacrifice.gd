@@ -15,15 +15,15 @@ func next_object_scale(delta: float) -> Vector3:
 var used = false
 func do_on_end():
 	if(!used):
-		_caster.die()
+		caster.die()
 
 func _object_enter(body: Node):
 	if(!used && body):
 		# todo: only try to revive if dead?
-		if(body != _caster && body.has_method("revive")):
+		if(body != caster && body.has_method("revive")):
 			used = true
 			body.revive()
-			_caster.die()
+			caster.die()
 
 func _object_exit(_body: Node):
 	pass

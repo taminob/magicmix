@@ -28,5 +28,10 @@ func reload_game():
 	add_child(levels)
 
 func get_character(id: String) -> Dictionary:
+	if(id.find("minion") >= 0):
+		id = ""
 	errors.debug_assert(char_data.has(id), "trying to access character data for " + id + " who does not exist!")
 	return char_data.get(id, {})
+
+func is_valid(object: Node):
+	return object && !object.is_queued_for_deletion()

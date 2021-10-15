@@ -56,7 +56,7 @@ func dialogue_interact(interactor: KinematicBody):
 		partner.dialogue.answer() # todo: rework
 
 func is_dialogue_active() -> bool:
-	return partner != null
+	return game.is_valid(partner)
 
 func can_talk() -> bool:
 	return !stats.dead || stats.undead || game.levels.current_level_death_realm
@@ -123,14 +123,17 @@ func end_dialogue():
 		listeners.remove(i)
 		listener.end_dialogue()
 
-func get_call_name(id: String) -> String:
-	return call_names.get(id, "???") # todo: add question for name if unknown
+func get_call_name(character_id: String) -> String:
+	return call_names.get(character_id, "???") # todo: add question for name if unknown
 
-func get_relationship(id: String) -> float:
-	return relationships.get(id, base_relationship)
+func get_relationship(character_id: String) -> float:
+	return relationships.get(character_id, base_relationship)
 
-func get_relation(id: String) -> int:
-	return relations.get(id, relation.neutral) # todo: check for tags (e.g. criminal)
+func get_relation(character_id: String) -> int:
+	return relations.get(character_id, relation.neutral) # todo: check for tags (e.g. criminal)
+
+func set_relation(character_id: String, relation: int):
+	relations[character_id] = relation
 
 func save(state_dict: Dictionary):
 	var _dialogue_state = state_dict.get("dialogue", {})

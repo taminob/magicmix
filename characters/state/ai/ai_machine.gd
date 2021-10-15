@@ -74,5 +74,7 @@ func active():
 			return
 		action_queue.pop_front()
 		active()
+	elif(action_range == abstract_action.range_state.unreachable):
+		push_state(states.idle)
 	else:
 		push_state(states.move)

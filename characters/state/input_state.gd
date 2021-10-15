@@ -46,18 +46,26 @@ func action_input(event: InputEvent):
 	if(event.is_action_pressed("ui_accept")):
 		dialogue.answer()
 	if(event.is_action_pressed("skill0")):
-		skills.activate_skill_slot(0)
-	if(event.is_action_pressed("skill1")):
-		skills.activate_skill_slot(1)
-	if(event.is_action_pressed("skill2")):
-		skills.rotate_element()
-	if(event.is_action_pressed("slot0")):
 		skills.cast_spell_slot(0)
-	if(event.is_action_pressed("slot1")):
+		#skills.activate_skill_slot(0)
+	if(event.is_action_pressed("skill1")):
 		skills.cast_spell_slot(1)
-	if(event.is_action_pressed("slot2")):
+		#skills.activate_skill_slot(1)
+	if(event.is_action_pressed("skill2")):
 		skills.cast_spell_slot(2)
-	if(event.is_action_pressed("slot3")):
+		#skills.rotate_element()
+	if(event.is_action_pressed("skill3")):
 		skills.cast_spell_slot(3)
-	if(event.is_action_pressed("slot4")):
+	if(event.is_action_pressed("skill4")):
 		skills.cast_spell_slot(4)
+	if(event.is_action_pressed("slot0")):
+		skills.set_element(abstract_spell.element_type.life)
+	if(event.is_action_pressed("slot1")):
+		skills.set_element(abstract_spell.element_type.fire)
+	if(event.is_action_pressed("slot2")):
+		skills.set_element(abstract_spell.element_type.ice)
+	if(event.is_action_pressed("slot3")):
+		skills.set_element(abstract_spell.element_type.darkness)
+	if(event.is_action_pressed("slot4")):
+		pass
+		#skills.cast_spell_slot(4)

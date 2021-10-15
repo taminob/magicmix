@@ -29,15 +29,24 @@ func _highlight_current_button():
 		buttons[button_index].pressed = true
 
 func _update_invest_button():
-	if(!details.has_meta("current") || game.mgmt.player.inventory.skill_points <= 0):
+	if(details.has_meta("current")):
+		var skill_id: String = details.get_meta("current")
+		if(game.mgmt.player.inventory.can_remove_skill(skill_id)):
+			invest_button.set_text("Retract Skill Point")
+			invest_button.disabled = false
+		else:
+			invest_button.set_text("Invest Skill Point")
+			if(game.mgmt.player.inventory.skill_points <= 0):
+				invest_button.disabled = true
+			else:
+				var skill: abstract_skill = skill_data.skills[skill_id]
+				invest_button.disabled = game.mgmt.player.inventory.skills.has(skill_id)
+				for x in skill.requirements():
+					if(!game.mgmt.player.inventory.skills.has(x)):
+						invest_button.disabled = true
+	else:
+		invest_button.set_text("Invest Skill Point")
 		invest_button.disabled = true
-		return
-	var skill_id: String = details.get_meta("current")
-	var skill: abstract_skill = skill_data.skills[skill_id]
-	invest_button.disabled = game.mgmt.player.inventory.skills.has(skill_id)
-	for x in skill.requirements():
-		if(!game.mgmt.player.inventory.skills.has(x)):
-			invest_button.disabled = true
 
 func _on_life_pressed():
 	current_category = "life"
@@ -75,8 +84,8 @@ func _on_skill_activated(skill_id: String):
 func _on_skill_point_invested():
 	if(details.has_meta("current")):
 		var skill_id: String = details.get_meta("current")
-		if(game.mgmt.player.inventory.skill_points > 0 &&
-			!game.mgmt.player.inventory.skills.has(skill_id)):
-			game.mgmt.player.inventory.skill_points -= 1
-			game.mgmt.player.inventory.skills.push_back(skill_id)
+		if(game.mgmt.player.inventory.add_skill(skill_id)):
+			update_panel(false)
+		else:
+			game.mgmt.player.inventory.remove_skill(skill_id)
 			update_panel(false)

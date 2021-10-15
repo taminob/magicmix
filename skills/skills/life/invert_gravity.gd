@@ -17,20 +17,20 @@ func category() -> String:
 func requirements() -> Array:
 	return [base_life_skill.id()]
 
-func start_effect(pawn: character):
-	pawn.move.gravity_direction *= -1
+func on_allocated(pawn: character):
+	pawn.inventory.add_spell(invert_gravity_spell.id())
 
-func end_effect(pawn: character):
-	pawn.move.gravity_direction *= -1
+func on_retracted(pawn: character):
+	pawn.inventory.remove_spell(invert_gravity_spell.id())
 
 func duration() -> float:
 	return 3.0
 
 func icon() -> Resource:
-	return load(SKILL_ICONS_PATH + "star_fall-512.png")
+	return load(SKILL_ICONS_PATH + "../symbols/exclamation_mark-512.png")
 
 func anim() -> String:
 	return ""#SKILL_ANIMS_PATH
 
-func scene() -> PackedScene:
+func scene() -> Node:
 	return null

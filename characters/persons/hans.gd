@@ -10,7 +10,10 @@ func _init():
 		"dialogue": {
 			"name": "Hans",
 			"gender": "male",
-			"job": "thief"
+			"job": "thief",
+			"relations": {
+				"vladimir": -2
+			}
 		},
 		"experience": {
 			"intelligence": 1,
@@ -24,7 +27,7 @@ func _init():
 		},
 		"inventory": {
 			"spells": ["fire_ball", "fire_ring", "fire_storm", "blood_sacrifice", "heal", "blood_storm", "blood_heal"],
-			"spell_slots": ["heal", "fire_ring", "fire_ball", "blood_storm", "blood_sacrifice"]
+			#"spell_slots": ["heal", "fire_ring", "fire_ball", "blood_storm", "blood_sacrifice"]
 		},
 		"look": {
 			"mesh_path": "res://characters/meshes/shade/body.tscn",

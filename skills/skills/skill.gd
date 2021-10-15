@@ -20,10 +20,10 @@ func category() -> String:
 func requirements() -> Array:
 	return []
 
-func start_effect(_pawn: character):
+func on_allocated(_pawn: character):
 	pass
 
-func end_effect(_pawn: character):
+func on_retracted(_pawn: character):
 	pass
 
 func effect(_pawn: character, _delta: float):
@@ -38,5 +38,5 @@ func icon() -> Resource:
 func anim() -> String:
 	return ""#SKILL_ANIMS_PATH
 
-func scene() -> PackedScene:
+func scene() -> Node:
 	return null

@@ -2,7 +2,7 @@ extends Area
 
 var spell: abstract_spell
 var _affected_bodies: Array = []
-onready var _caster: KinematicBody = $".."
+onready var caster: KinematicBody
 onready var _collision: CollisionShape = $"collision" # todo: expand collision radius (no pre-processed particles)
 
 func _ready():
@@ -17,7 +17,7 @@ func _physics_process(delta: float):
 		x.damage(spell.target_focus_per_second() * delta, abstract_spell.element_type.focus)
 
 func _object_enter(body: Node):
-	if(body && body != _caster && body.has_method("damage")):
+	if(body && body != caster && body.has_method("damage")):
 		_affected_bodies.push_back(body)
 		body.damage(spell.target_pain(), spell.target_element())
 		body.damage(spell.target_focus(), abstract_spell.element_type.focus)

@@ -4,6 +4,7 @@ enum range_state {
 	no_range_required,
 	in_range,
 	out_of_range,
+	unreachable
 }
 
 var pawn: character

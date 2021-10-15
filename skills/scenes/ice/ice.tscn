@@ -2,7 +2,7 @@
 
 [ext_resource path="res://world/textures/smoke/smoke_atlas-12x1-512x512.png" type="Texture" id=1]
 
-[sub_resource type="SphereShape" id=9]
+[sub_resource type="SphereShape" id=1]
 
 [sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0, 0.390681, 0.487455, 1 )
@@ -17,7 +17,7 @@ _data = [ Vector2( 0, 0.827273 ), 0.0, 0.0, 0, 0, Vector2( 0.241722, 0.6 ), 0.0,
 [sub_resource type="CurveTexture" id=5]
 curve = SubResource( 4 )
 
-[sub_resource type="ParticlesMaterial" id=10]
+[sub_resource type="ParticlesMaterial" id=6]
 emission_shape = 1
 emission_sphere_radius = 0.9
 direction = Vector3( 0, 0, 0 )
@@ -51,10 +51,10 @@ collision_layer = 64
 collision_mask = 24
 
 [node name="collision" type="CollisionShape" parent="."]
-shape = SubResource( 9 )
+shape = SubResource( 1 )
 
 [node name="particles" type="Particles" parent="."]
 amount = 1000
 visibility_aabb = AABB( -0.561712, -0.528422, -0.646344, 1.10737, 1.34839, 1.27542 )
-process_material = SubResource( 10 )
+process_material = SubResource( 6 )
 draw_pass_1 = SubResource( 8 )

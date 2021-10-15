@@ -48,5 +48,5 @@ func range() -> float:
 func icon() -> Resource:
 	return load(SPELL_ICONS_PATH + "/magma-512.png")
 
-func scene() -> PackedScene:
+func scene() -> Node:
 	return load(SPELL_SCENES_PATH + "fire/fire_storm.tscn").instance()

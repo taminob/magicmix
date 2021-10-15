@@ -5,48 +5,81 @@ class_name skills_state
 onready var pawn: KinematicBody = $"../.."
 onready var move: Node = $"../move"
 onready var stats: Node = $"../stats"
-onready var experience: Node = $"../experience"
 onready var inventory: Node = $"../inventory"
+
+class active_spell:
+	var spell_id: String
+	var spell: abstract_spell
+	var duration: float
+	var scene: Node
+
+	func _init(new_spell_id: String, new_duration: float, pawn: KinematicBody):
+		spell_id = new_spell_id
+		duration = new_duration
+		spell = skill_data.spells[spell_id]
+		scene = spell.scene()
+		if(scene):
+			if("caster" in scene):
+				scene.caster = pawn
+			game.levels.current_level.add_child(scene)
+		spell.start_effect(pawn)
+
+	func can_tick(pawn: KinematicBody, delta: float) -> bool:
+		return duration > 0 && pawn.stats.focus + spell.self_focus_per_second() * delta >= 0
+
+	func tick(pawn: KinematicBody, delta: float) -> bool:
+		duration -= delta
+		if(can_tick(pawn, delta)):
+			pawn.stats._self_focus_damage(spell.self_focus_per_second() * delta)
+			pawn.stats._self_elemental_damage(spell.self_pain_per_second() * delta, spell.self_element()) # todo: elemental self damage from skills?
+			spell.effect(pawn, delta)
+			return true
+		cancel(pawn)
+		return false
+
+	func cancel(pawn: KinematicBody):
+		spell.end_effect(pawn)
+		if(scene):
+			scene.queue_free()
+
+	func to_dict() -> Dictionary:
+		return {
+			"spell_id": spell_id,
+			"remaining": duration
+		}
+
+	static func from_dict(dict: Dictionary, pawn: KinematicBody) -> active_spell:
+		# todo? smart to repeat start_effect when restoring?
+		var new_spell: active_spell = active_spell.new(dict["spell_id"], dict["remaining"], pawn)
+		return new_spell
 
 var active_spells: Array
 var current_element: int
-var active_skills: Array
 
 func cast_spell(spell_id: String):
 	if(!inventory.spells.has(spell_id)):
 		return
 	var spell: abstract_spell = skill_data.spells[spell_id]
-	var spell_focus = spell.self_focus()
-	if(stats.focus + spell_focus < 0 || stats.focus + spell.self_focus_per_second() < 0):
+	if(!can_cast(spell_id)):
 		return
-	experience.concentration += abs(spell_focus / 1000)
-	stats._self_focus_damage(spell_focus)
-	stats._self_raw_damage(spell.self_pain()) # todo: elemental damage
-	var active_spell = [spell.self_focus_per_second(), spell.self_pain_per_second()]
-	var spell_duration = spell.duration()
-	if(spell_duration > 0):
-		active_spell.push_back(spell_duration)
+	stats._self_focus_damage(spell.self_focus())
+	stats._self_elemental_damage(spell.self_pain(), spell.self_element()) # todo: elemental damage
+	active_spells.push_back(active_spell.new(spell_id, spell.duration(), pawn))
 	# todo: animation
-	var spell_scene = spell.scene()
-	if(spell_scene):
-		active_spell.push_back(spell_scene)
-	active_spells.push_back(active_spell)
-	pawn.add_child(spell_scene)
+
+func can_cast(spell_id: String) -> bool:
+	if(game.levels.current_level_death_realm):
+		return true # todo? remove?
+	var spell: abstract_spell = skill_data.spells[spell_id]
+	return stats.focus + spell.self_focus() >= 0 && stats.focus + spell.self_focus_per_second() >= 0
 
 func cast_spell_slot(slot_id: int):
-	cast_spell(inventory.get_spell_slot(slot_id))
+	cast_spell(inventory.get_spell_slot(current_element, slot_id))
 
-func cancel_spell(active_spell=[]):
-	if(active_spell.empty()):
-		for x in active_spells:
-			if(x.size() > 3):
-				x[3].queue_free()
-		active_spells = [[]]
-	else:
-		if(active_spell.size() > 3):
-			active_spell[3].queue_free()
-		# todo? performance: inefficient array erase, optimization prob required
-		active_spells.erase(active_spell)
+func cancel_spells():
+	for x in active_spells:
+		x.cancel(pawn)
+	active_spells.clear()
 
 func set_element(new_element: int) -> bool:
 	if(inventory.has_base_skill(new_element)):
@@ -102,75 +135,42 @@ func invert_element(): # todo? remove unused function
 		_:
 			pass
 
-func activate_skill(skill_id: String):
-	if(!inventory.skills.has(skill_id) || current_element == abstract_spell.element_type.raw):
-		return
-	var skill = skill_data.skills[skill_id] # todo? type abstract_skill
-	var skill_duration = skill.duration()
-	if(skill_duration < 0):
-		active_skills.push_back([skill])
-	else:
-		active_skills.push_back([skill, skill_duration])
-	skill.start_effect(pawn)
-	# todo: animation? scene?
-
-func activate_skill_slot(slot_id: int):
-	activate_skill(inventory.get_skill_slot(slot_id))
-
-func deactivate_skill(active_skill: Array = []):
-	if(active_skill.empty()):
-		for x in active_skills:
-			x.end_effect(pawn)
-		active_skills = [[]]
-	else:
-		active_skill[0].end_effect(pawn)
-		# todo? performance: inefficient array erase, optimization prob required
-		active_skills.erase(active_skill)
-
 func skill_process(delta: float):
 	stats.stamina = min(stats.stamina + (stats.stamina_per_second() + move.stamina_cost()) * delta, stats.max_stamina())
 	if(stats.stamina < 0):
 		move.current_mode = move_state.move_mode.RUNNING
 		stats.stamina = 0
 	stats.shield = clamp(stats.shield + stats.shield_per_second() * delta, 0, stats.max_shield())
-	active_spells[0] = [stats.focus_per_second(), stats.pain_per_second()]
+	stats._self_focus_damage(stats.focus_per_second() * delta)
+	stats._self_raw_damage(stats.pain_per_second() * delta)
 	_active_spells_process(delta)
 	_active_skills_process(delta)
 	# todo: passive skills process?
 
-func _active_skills_process(delta: float):
-	var canceled_skills = []
-	for x in active_skills:
-		if(x.size() > 1):
-			x[1] -= delta
-			if(x[1] <= 0):
-				canceled_skills.push_back(x)
-				continue
-		x[0].effect(pawn, delta)
-	for x in canceled_skills:
-		deactivate_skill(x)
-
 func _active_spells_process(delta: float):
-	var canceled_spells = []
-	for x in active_spells:
-		if(x.size() > 3):
-			x[2] -= delta
-			if(x[2] <= 0 || stats.focus + x[0] * delta < 0):
-				canceled_spells.push_back(x)
-				continue
-		stats._self_focus_damage(x[0] * delta)
-		stats._self_raw_damage(x[1] * delta) # todo: elemental self damage from skills?
-	for x in canceled_spells:
-		cancel_spell(x)
+	var i: int = 0
+	while i < active_spells.size():
+		if(!active_spells[i].tick(pawn, delta)):
+			active_spells.remove(i)
+		else:
+			i += 1
+
+func _active_skills_process(delta: float):
+	for x in inventory.skills:
+		skill_data.skills[x].effect(pawn, delta)
 
 func save(state_dict: Dictionary):
-	# todo? save active_spells (crash when saving with skill scene active)
 	var _skills_state = state_dict.get("skills", {})
 	_skills_state["current_element"] = current_element
-	_skills_state["active_spells"] = [[]]#active_spells
+	var to_store_active_spells: Array = []
+	for x in active_spells:
+		to_store_active_spells.push_back(x.to_dict())
+	_skills_state["active_spells"] = to_store_active_spells
 	state_dict["skills"] = _skills_state
 
 func init(state_dict: Dictionary):
 	var _skills_state = state_dict.get("skills", {})
 	current_element = _skills_state.get("current_element", abstract_spell.element_type.raw) # todo? set element (update ui)
-	active_spells = _skills_state.get("active_spells", [[]])
+	var stored_active_spells = _skills_state.get("active_spells", [])
+	for x in stored_active_spells:
+		active_spells.push_back(active_spell.from_dict(x, pawn))

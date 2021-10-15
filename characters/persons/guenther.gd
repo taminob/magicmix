@@ -30,7 +30,7 @@ func _init():
 		},
 		"inventory": {
 			"spells": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
-			"spell_slots": ["blood_storm", "fire_ring", "", "", ""]
+			#"spell_slots": ["blood_storm", "fire_ring", "", "", ""]
 		},
 		"look": {
 			"mesh_path": "res://characters/meshes/shade/body.tscn",

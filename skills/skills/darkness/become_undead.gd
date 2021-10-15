@@ -17,8 +17,11 @@ func category() -> String:
 func requirements() -> Array:
 	return [base_darkness_skill.id()]
 
-func start_effect(pawn: character):
+func on_allocated(pawn: character):
 	pawn.stats.undead = true
+
+func on_retracted(pawn: character):
+	pawn.stats.undead = false
 
 func icon() -> Resource:
 	return load(SKILL_ICONS_PATH + "self_dark-512.png")
@@ -26,5 +29,5 @@ func icon() -> Resource:
 func anim() -> String:
 	return ""#SKILL_ANIMS_PATH
 
-func scene() -> PackedScene:
+func scene() -> Node:
 	return null

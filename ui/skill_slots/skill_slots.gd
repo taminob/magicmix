@@ -19,6 +19,8 @@ func update_element():
 			_highlight_element(2)
 		abstract_spell.element_type.ice:
 			_highlight_element(3)
+		_:
+			_highlight_element(-1)
 
 func _highlight_element(index: int):
 	for x in element_slot_backgrounds:

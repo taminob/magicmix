@@ -7,7 +7,10 @@ var spell: abstract_spell
 var object: Area = null
 var _affected_bodies: Array = []
 # warning-ignore:unused_class_variable
-onready var _caster: KinematicBody = $".."
+onready var caster: KinematicBody
+
+func position() -> Vector3:
+	return caster.global_transform.origin
 
 func next_object_scale(_delta: float) -> Vector3:
 	return object.scale
@@ -22,6 +25,7 @@ func connect_object():
 func init_object():
 	connect_object()
 	add_child(object)
+	object.global_transform.origin = position()
 
 func _physics_process(delta: float):
 	if(!object || !spell):

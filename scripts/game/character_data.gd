@@ -2,6 +2,7 @@ extends Node
 
 # warning-ignore:unused_class_variable
 var character_data = {
+	abstract_person.id(): abstract_person.new().data,
 	gerhard_person.id(): gerhard_person.new().data,
 	hans_person.id(): hans_person.new().data,
 	mary_person.id(): mary_person.new().data,

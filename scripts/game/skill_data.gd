@@ -5,7 +5,10 @@ extends Node
 # warning-ignore:unused_class_variable
 var spells = {
 	do_nothing_spell.id(): do_nothing_spell.new(),
+	element_shield_spell.id(): element_shield_spell.new(),
 	heal_spell.id(): heal_spell.new(),
+	invert_gravity_spell.id(): invert_gravity_spell.new(),
+	summon_minion_spell.id(): summon_minion_spell.new(),
 	blood_heal_spell.id(): blood_heal_spell.new(),
 	blood_sacrifice_spell.id(): blood_sacrifice_spell.new(),
 	blood_storm_spell.id(): blood_storm_spell.new(),
@@ -22,8 +25,9 @@ var skills = {
 	base_life_skill.id(): base_life_skill.new(),
 	element_shield_skill.id(): element_shield_skill.new(),
 	invert_gravity_skill.id(): invert_gravity_skill.new(),
-	become_undead_skill.id(): become_undead_skill.new(),
 	base_darkness_skill.id(): base_darkness_skill.new(),
+	element_embrace_skill.id(): element_embrace_skill.new(),
+	become_undead_skill.id(): become_undead_skill.new(),
 	base_fire_skill.id(): base_fire_skill.new(),
 	focus_sprint_skill.id(): focus_sprint_skill.new(),
 	shield_sprint_skill.id(): shield_sprint_skill.new(),
