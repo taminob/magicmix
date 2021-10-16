@@ -242,8 +242,8 @@ func get_graph_index(node: a_star_node):
 func heuristic_by_index(_index: int) -> float:
 	return 0.0
 
-func weight(from: a_star_node, to: a_star_node) -> float:
-	return from.cost + to.cost
+func weight(_from: a_star_node, to: a_star_node) -> float:
+	return to.cost
 
 func weight_by_index(from: int, to: int) -> float:
 	return weight(get_graph_node(from), get_graph_node(to))
@@ -259,7 +259,7 @@ func a_star(start: a_star_node, end: a_star_node) -> Array:
 	var start_index = get_graph_index(start)
 	var end_index = get_graph_index(end)
 	var discovered: Array = [start_index]
-	var predecessors: Dictionary = {}
+	var predecessors: Dictionary = {} # TODO: allow loops
 	var costs: Dictionary = {start_index: 0}
 	var costs_over: Dictionary = {start_index: heuristic_by_index(start_index)}
 	var state_after: Dictionary = {start_index: start.after}

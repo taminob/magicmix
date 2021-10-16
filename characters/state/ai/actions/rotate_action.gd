@@ -12,6 +12,9 @@ static func precondition_mask() -> int:
 static func postcondition_mask() -> int:
 	return planner.knowledge_mask.facing_target
 
+static func cost() -> float:
+	return 0.25
+
 func get_range_state() -> int:
 	return range_state.no_range_required
 

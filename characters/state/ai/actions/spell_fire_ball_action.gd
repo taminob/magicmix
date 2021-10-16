@@ -5,17 +5,20 @@ static func spell_id() -> String:
 
 static func precondition() -> planner.knowledge:
 	var spell = skill_data.spells[spell_id()]
-	return planner.knowledge.new(spell.self_pain() + spell.self_pain_per_second() * spell.duration(), -(spell.self_focus() + spell.self_focus_per_second() * spell.duration()), 0, 0, planner.knowledge_mask.enemy_in_sight)
+	return planner.knowledge.new(spell.self_pain() + spell.self_pain_per_second() * spell.duration(), -(spell.self_focus() + spell.self_focus_per_second() * spell.duration()), 0, 0, planner.knowledge_mask.enemy_in_sight | planner.knowledge_mask.facing_target)
 
 static func postcondition() -> planner.knowledge:
 	var spell = skill_data.spells[spell_id()]
 	return planner.knowledge.new(spell.self_pain() + spell.self_pain_per_second() * spell.duration(), spell.self_focus() + spell.self_focus_per_second() * spell.duration(), 0, 0, planner.knowledge_mask.enemy_damaged)
 
 static func precondition_mask() -> int:
-	return planner.knowledge_mask.focus | planner.knowledge_mask.focus_toggle | planner.knowledge_mask.pain | planner.knowledge_mask.enemy_in_sight
+	return planner.knowledge_mask.focus | planner.knowledge_mask.focus_toggle | planner.knowledge_mask.pain | planner.knowledge_mask.enemy_in_sight | planner.knowledge_mask.facing_target
 
 static func postcondition_mask() -> int:
 	return planner.knowledge_mask.focus | planner.knowledge_mask.pain | planner.knowledge_mask.enemy_damaged
+
+static func cost() -> float:
+	return 0.9
 
 func choose_target():
 	target = pawn.ai.brain.get_any_enemy()

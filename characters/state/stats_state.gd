@@ -88,25 +88,34 @@ func _self_elemental_damage(dmg: float, element: int):
 			_self_raw_damage(-shield)
 			shield = 0
 
+var dmg_change_since_reconsider: Dictionary = {"pain": 0, "focus": 0, "shield": 0}
 func _self_raw_damage(dmg: float):
 	if(settings.get_setting("dev", "god_mode") || dead || game.levels.current_level_death_realm):
 		return
 	pain = clamp(pain + dmg, 0, max_pain())
 	if(pain >= max_pain()):
 		die()
-	if(dmg >= 1): # todo: adjust value and think about better reconsider system
+	dmg_change_since_reconsider["pain"] += abs(dmg)
+	if(dmg_change_since_reconsider["pain"] > 0.1 * max_pain()): # todo: adjust value and think about better reconsider system
 		state.ai.should_reconsider = true
+		dmg_change_since_reconsider["pain"] = 0
 
 func _self_focus_damage(dmg: float):
 	if(settings.get_setting("dev", "god_mode")):
 		return
 	focus = clamp(focus + dmg, 0, max_focus())
-	if(dmg >= 1): # todo: adjust value and think about better reconsider system
+	dmg_change_since_reconsider["focus"] += abs(dmg)
+	if(dmg_change_since_reconsider["focus"] > 0.1 * max_focus()): # todo: adjust value and think about better reconsider system
 		state.ai.should_reconsider = true
+		dmg_change_since_reconsider["focus"] = 0
 
 func add_shield(num: float):
 	if(shield_element != abstract_spell.element_type.raw):
 		shield = clamp(shield + num, 0, max_shield())
+		dmg_change_since_reconsider["shield"] += abs(num)
+		if(dmg_change_since_reconsider["shield"] > 0.1 * max_shield()): # todo: adjust value and think about better reconsider system
+			state.ai.should_reconsider = true
+			dmg_change_since_reconsider["shield"] = 0
 
 func revive():
 	if(undead):

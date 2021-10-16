@@ -23,7 +23,8 @@ func _init():
 			"focus": 100
 		},
 		"inventory": {
-			"spells": ["heal"],
+			"spells": [""],
+			"skills": ["base_life"]
 			#"spell_slots": ["heal", "", "", "", ""]
 		},
 		"look": {

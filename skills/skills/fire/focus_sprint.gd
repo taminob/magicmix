@@ -15,7 +15,7 @@ func category() -> String:
 	return "fire"
 
 func requirements() -> Array:
-	return [base_fire_skill.id()]
+	return [shield_sprint_skill.id()]
 
 const EFFECT_FACTOR: float = 0.1
 func effect(pawn: character, _delta: float):

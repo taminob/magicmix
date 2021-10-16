@@ -12,6 +12,9 @@ static func precondition_mask() -> int:
 static func postcondition_mask() -> int:
 	return planner.knowledge_mask.enemy_in_near
 
+static func cost() -> float:
+	return 0.75
+
 func get_range_state() -> int:
 	choose_target()
 	if(pawn.ai.brain.enemies_out_of_sight.empty()):

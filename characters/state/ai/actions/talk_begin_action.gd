@@ -12,6 +12,9 @@ static func precondition_mask() -> int:
 static func postcondition_mask() -> int:
 	return planner.knowledge_mask.talking
 
+static func cost() -> float:
+	return 1.0
+
 func choose_target():
 	target = pawn.ai.brain.get_any_ally()
 

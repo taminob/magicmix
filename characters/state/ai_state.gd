@@ -12,7 +12,7 @@ onready var stats: Node = $"../stats"
 # warning-ignore:unused_class_variable
 onready var dialogue: Node = $"../dialogue"
 
-const STEPS_BEFORE_RECONSIDER_DURING_PLAN = 1000
+const STEPS_BEFORE_RECONSIDER_DURING_PLAN = 100
 const STEPS_BEFORE_RECONSIDER_WITHOUT_PLAN = 30
 var _steps_since_consider: int = 0
 
@@ -53,17 +53,37 @@ func get_current_knowledge() -> planner.knowledge:
 	return know
 
 func get_current_goals() -> Array:
+#	var all_goals: Array = [survive_goal]
+#	var current_goals: Array = []
+#	for x in all_goals:
+#		var score: float = x.score()
+#		if(score > 0):
+#			var i: int = 0
+#			while i <= current_goals.size():
+#				if(current_goals[i][1] < score || i == current_goals.size()):
+#					current_goals.insert(i, [x, score])
+#					break
+#	for x in current_goals:
+#		x = x[0]
+#	return current_goals
+	var goals: Array = []
 	var survive_goal: planner.goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.pain)
 	survive_goal.requirements.pain = max(stats.pain - 10, 5) # todo? better requirements
+	if(!stats.undead):
+		goals.push_back(survive_goal)
 	var fight_goal: planner.goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.pain | planner.knowledge_mask.enemy_damaged)
 	fight_goal.requirements.pain = stats.max_pain() * 0.9
 	fight_goal.requirements.enemy_damaged = true
+	goals.push_back(fight_goal)
 	var talk_goal: planner.goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.talking)
 	talk_goal.requirements.talking = true
+	goals.push_back(talk_goal)
 	var patrol_goal: planner.goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.pain | planner.knowledge_mask.enemy_in_sight)
 	patrol_goal.requirements.pain = stats.max_pain() * 0.1
 	patrol_goal.requirements.enemy_in_sight = true
-	return [survive_goal, fight_goal, talk_goal, patrol_goal]
+	if(dialogue.job == "guard"):
+		goals.push_back(patrol_goal)
+	return goals
 
 func get_idle_action() -> abstract_action:
 	var idle_action: abstract_action
