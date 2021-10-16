@@ -5,8 +5,8 @@ export var radius: float = 1.0
 func _ready():
 	var dead_characters: Array = []
 	for x in game.char_data.keys():
-		if(game.get_character(x).get("stats", {}).get("dead", false) &&
-			!game.get_character(x).get("stats", {}).get("undead", false)):
+		if(game.get_character_data(x).get("stats", {}).get("dead", false) &&
+			!game.get_character_data(x).get("stats", {}).get("undead", false)):
 			dead_characters.push_back(x)
 
 	var spawned_characters: Array = []

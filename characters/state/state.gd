@@ -3,7 +3,7 @@ extends Node
 class_name main_state
 
 onready var pawn: KinematicBody = $".."
-onready var _state: Dictionary = game.get_character(pawn.name)
+onready var _state: Dictionary = game.get_character_data(pawn.name)
 onready var move: move_state = $"move"
 onready var experience: experience_state = $"experience"
 onready var inventory: inventory_state = $"inventory"

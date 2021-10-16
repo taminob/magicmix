@@ -27,11 +27,18 @@ func reload_game():
 	levels = load(game_script_path + "levels.gd").new()
 	add_child(levels)
 
-func get_character(id: String) -> Dictionary:
+func get_character_data(id: String) -> Dictionary:
 	if(id.find("minion") >= 0):
 		id = ""
 	errors.debug_assert(char_data.has(id), "trying to access character data for " + id + " who does not exist!")
 	return char_data.get(id, {})
+
+func get_character(id: String) -> KinematicBody:
+	if(!id.empty()):
+		for x in get_tree().get_nodes_in_group("characters"):
+			if(x.name == id):
+				return x
+	return null
 
 func is_valid(object: Node):
 	return object && !object.is_queued_for_deletion()
