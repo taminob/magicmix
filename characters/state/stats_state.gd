@@ -66,7 +66,7 @@ func die(save_state: bool=true):
 			pawn._update_ui() # todo: refactor? only occurence of pawn
 			game.levels.change_level("death_realm")
 		else:
-			if(save_state):
+			if(save_state && !state.is_minion):
 				pawn.save_state()
 			pawn.queue_free()
 

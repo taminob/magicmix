@@ -19,6 +19,8 @@ onready var ai: ai_state = $"ai"
 var is_player: bool = false
 # warning-ignore:unused_class_variable
 var is_spirit: bool = false
+# warning-ignore:unused_class_variable
+var is_minion: bool = false
 
 func save():
 	move.save(_state)
@@ -41,3 +43,4 @@ func init():
 	#interaction.init(_state)
 	look.init(_state)
 	ai.init(_state)
+	is_minion = pawn.name.find("minion") >= 0

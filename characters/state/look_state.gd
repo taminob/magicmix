@@ -32,38 +32,6 @@ func set_mesh(path: String=_default_mesh_path):
 	#mesh.rotate_y(PI) # todo: fix meshes
 	pawn.add_child(mesh)
 	animations = mesh.get_node("animations")
-	if(!clothing):
-		spawn_cloth()
-
-func spawn_cloth():
-	pass
-#	clothing = SoftBody.new()
-#	clothing.collision_layer = game.mgmt.layer.objects
-#	clothing.collision_mask = game.mgmt.physical_layers
-#	#clothing.parent_collision_ignore = pawn.get_path()
-#	clothing.set_ray_pickable(false)
-#	clothing.set_simulation_precision(100)
-#	clothing.set_linear_stiffness(0.5)
-#	clothing.set_areaAngular_stiffness(0.5)
-#	clothing.set_volume_stiffness(0.5)
-#	clothing.set_damping_coefficient(0.08)
-#	clothing.set_total_mass(1)
-#	#var cloth_mesh = PlaneMesh.new()
-#	#cloth_mesh.set_size(Vector2(4, 4))
-#	#cloth_mesh.set_subdivide_depth(16)
-#	#cloth_mesh.set_subdivide_width(16)
-#	var cloth_mesh = load("res://characters/meshes/shade_cloth_mesh.tres")
-#	clothing.set_mesh(cloth_mesh)
-#	#clothing.scale = Vector3(0.1, 0.1, 0.1)
-#	var cloth_material = SpatialMaterial.new()
-#	cloth_material.set_cull_mode(SpatialMaterial.CULL_DISABLED)
-#	cloth_material.set_albedo(Color(1.0, 0.0, 0.0))
-#	clothing.set_material_override(cloth_material)
-#	pawn.add_child(clothing)
-#	#clothing.translation = Vector3.UP * 2
-#	#clothing.scale = Vector3(0.1, 0.1, 0.1)
-#	#clothing.rotate_x(deg2rad(90))
-#	#clothing.rotate_y(deg2rad(180))
 
 func update_collision(new_height: float=body_height):
 #	if(mesh && mesh.has_method("get_collision_shape")):
@@ -80,12 +48,15 @@ func update_collision(new_height: float=body_height):
 	pawn.collision.translation.y = new_height / 2
 
 func set_color(color: Color):
-	if(mesh && mesh.has_method("set_cape_color")):
-		mesh.set_cape_color(color)
-	if(mesh.has_method("set_material_override")):
-		var mat: Material = SpatialMaterial.new()
-		mat.set_albedo(color)
-		mesh.set_material_override(mat)
+	if(mesh):
+		if(mesh.has_method("set_cape_color")):
+			mesh.set_cape_color(color)
+		elif(mesh.has_method("set_character_color")):
+			mesh.set_character_color(color)
+		elif(mesh.has_method("set_material_override")):
+			var mat: Material = SpatialMaterial.new()
+			mat.set_albedo(color)
+			mesh.set_material_override(mat)
 
 func save(state_dict: Dictionary):
 	var _look_state = state_dict.get("look", {})

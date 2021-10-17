@@ -3,6 +3,7 @@ extends Node
 # warning-ignore:unused_class_variable
 var character_data = {
 	abstract_person.id(): abstract_person.new().data,
+	minion_person.id(): minion_person.new().data,
 	god_mage_person.id(): god_mage_person.new().data,
 	fire_mage_person.id(): fire_mage_person.new().data,
 	ice_mage_person.id(): ice_mage_person.new().data,

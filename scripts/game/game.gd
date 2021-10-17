@@ -29,7 +29,7 @@ func reload_game():
 
 func get_character_data(id: String) -> Dictionary:
 	if(id.find("minion") >= 0):
-		id = ""
+		id = "minion"
 	errors.debug_assert(char_data.has(id), "trying to access character data for " + id + " who does not exist!")
 	return char_data.get(id, {})
 
