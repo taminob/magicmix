@@ -2,6 +2,8 @@ extends Node
 
 var player_name: String = ""
 var player: KinematicBody = null
+var player_history: Array
+var player_logs: Dictionary
 var camera: Node = load("res://characters/player/camera.tscn").instance()
 var character_scene: PackedScene = load("res://characters/character.tscn")
 # warning-ignore:unused_class_variable

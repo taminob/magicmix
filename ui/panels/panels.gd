@@ -5,6 +5,7 @@ onready var tabs = $"tabs"
 
 enum {
 	character_tab = 0,
+	log_tab,
 	inventory_tab,
 	crafting_tab,
 	tree_tab,
@@ -33,6 +34,8 @@ func _input(event):
 		toggle_open()
 	if(event.is_action_pressed("open_character")):
 		toggle_open(character_tab)
+	if(event.is_action_pressed("open_log")):
+		toggle_open(log_tab)
 	if(event.is_action_pressed("open_inventory")):
 		toggle_open(inventory_tab)
 	if(event.is_action_pressed("open_crafting")):

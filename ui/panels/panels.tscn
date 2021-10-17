@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://themes/ui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://ui/panels/crafting/crafting_panel.tscn" type="PackedScene" id=2]
@@ -7,9 +7,9 @@
 [ext_resource path="res://ui/panels/spells/spells_panel.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ui/panels/skill_tree/skill_tree_panel.tscn" type="PackedScene" id=6]
 [ext_resource path="res://ui/panels/character/character_panel.tscn" type="PackedScene" id=7]
+[ext_resource path="res://ui/panels/log/log_panel.tscn" type="PackedScene" id=8]
 
 [node name="panels" type="Popup"]
-visible = true
 anchor_left = 0.05
 anchor_top = 0.05
 anchor_right = 0.95
@@ -36,6 +36,13 @@ margin_right = -8.0
 margin_bottom = -8.0
 
 [node name="Inventory" parent="tabs" instance=ExtResource( 4 )]
+visible = false
+margin_left = 8.0
+margin_top = 163.0
+margin_right = -8.0
+margin_bottom = -8.0
+
+[node name="Log" parent="tabs" instance=ExtResource( 8 )]
 visible = false
 margin_left = 8.0
 margin_top = 163.0

@@ -1,5 +1,10 @@
 class_name abstract_dialogue
 
+class quest:
+	var name: String
+	var description: String
+	var reward: FuncRef
+
 class statement:
 	var text: String
 	var effects: Array

@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://themes/ui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://ui/panels/log/log_panel.gd" type="Script" id=2]
+
+[node name="log_panel" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="layout" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="buttons" type="VBoxContainer" parent="layout"]
+margin_bottom = 2160.0
+alignment = 1
+
+[node name="list" type="ItemList" parent="layout"]
+margin_left = 8.0
+margin_right = 3840.0
+margin_bottom = 2160.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+max_columns = 10
+icon_mode = 0
+
+[connection signal="visibility_changed" from="." to="." method="_on_inventory_panel_visibility_changed"]
+[connection signal="item_activated" from="layout/list" to="." method="_on_list_item_activated"]

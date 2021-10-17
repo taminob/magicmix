@@ -35,6 +35,8 @@ func set_player(is_player: bool):
 	errors.log(name + " is now player-controlled!")
 	# todo? switch between input/ai state
 	state.is_player = is_player
+	if(!game.mgmt.player_history.has(name)):
+		game.mgmt.player_history.push_back(name)
 
 func _physics_process(delta: float):
 	if(move.can_move()):
