@@ -21,7 +21,7 @@ func _unhandled_key_input(event: InputEventKey):
 		change_selected_answer(-1, true)
 	elif(event.is_action_pressed("ui_accept")):
 		if(answer_ids.empty() || text.get_visible_characters() >= 0):
-			set_dialogue_progress(-1)
+			set_progress(-1)
 		# todo: remove? (moved to character)
 	elif(event.is_action_pressed("ui_page_down")):
 		change_selected_answer(answer_ids.size() - 1)
@@ -29,7 +29,7 @@ func _unhandled_key_input(event: InputEventKey):
 		change_selected_answer(0)
 
 func change_selected_answer(num: int, offset: bool=false):
-	set_dialogue_progress(-1)
+	set_progress(-1)
 	num = selected_answer + num if offset else num
 	if(num >= answer_ids.size()):
 		num = answer_ids.size() - 1
@@ -58,9 +58,8 @@ func set_dialogue_text(say_text: String, speaker: String, answers: Array=[]):
 	name_text.set_text(speaker)
 	text.set_bbcode(say_text)
 	answer_ids = answers
-	set_answer_visible(!answer_ids.empty())
 	change_selected_answer(0)
-	text.set_visible_characters(0)
+	set_progress(0)
 
 func get_current_answer_id() -> String:
 	if(answer_ids.empty()):
@@ -69,16 +68,25 @@ func get_current_answer_id() -> String:
 
 func update_dialogue(visible_chars: int, transparency: float):
 	set_transparency(transparency)
-	set_dialogue_progress(visible_chars)
+	set_progress(visible_chars)
 
-func set_dialogue_progress(progress: int):
-	var text_length = text.get_total_character_count()
-	if(progress < text_length && progress >= 0):
-		text.set_visible_characters(progress)
-		set_answer_visible(false)
-	else:
-		text.set_visible_characters(-1)
-		set_answer_visible(true)
+const DIALOGUE_SPEED = 20
+var progress: float = 0.0
+func _process(delta: float):
+	if(fully_visible()):
+		return
+	var text_length: int = text.get_total_character_count()
+	if(text_length > 0):
+		progress += DIALOGUE_SPEED * delta
+		set_progress(progress if progress < text_length else -1)
+
+func set_progress(new_progress: float):
+	progress = new_progress
+	text.set_visible_characters(progress)
+	set_answer_visible(progress < 0)
+
+func fully_visible() -> bool:
+	return text.get_visible_characters() < 0
 
 func set_transparency(percentage: float):
 	set_modulate(Color(1, 1, 1, percentage))

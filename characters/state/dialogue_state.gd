@@ -8,7 +8,6 @@ onready var stats: Node = $"../stats"
 
 const DIALOGUE_NO_FADE_DISTANCE_SQRD = 25;
 const DIALOGUE_END_DISTANCE_SQRD = 100;
-const DIALOGUE_SPEED = 10;
 
 var display_name: String
 var call_names: Dictionary
@@ -31,19 +30,14 @@ enum relation {
 }
 
 var _current_statement: abstract_dialogue.statement
-var _dialogue_progress: float = 0
-var _dialogue_length: int = 0
 func dialogue_process(delta: float):
 	if(!is_dialogue_active()):
-		return
-	_dialogue_progress = min(_dialogue_progress + delta * DIALOGUE_SPEED, _dialogue_length)
+		return # TODO: fade if listener goes away
 	var dist = partner.global_transform.origin.distance_squared_to(pawn.global_transform.origin)
 	dist = (dist - DIALOGUE_NO_FADE_DISTANCE_SQRD) / DIALOGUE_END_DISTANCE_SQRD
 	var dialogue_intensity = 1 - clamp(dist, 0, 1)
 	if(dialogue_intensity <= 0):
 		interrupt_dialogue()
-	elif(partner.state.is_player):
-		game.mgmt.ui.dialogue.update_dialogue(_dialogue_progress, dialogue_intensity)
 
 func dialogue_interacted(interactor: KinematicBody):
 	if(!can_talk()):
@@ -56,16 +50,7 @@ func dialogue_interacted(interactor: KinematicBody):
 	elif(partner == interactor):
 		partner.dialogue.choose_statement() # todo: rework
 	else:
-		if(!listeners.has(interactor)):
-			listeners.push_back(interactor)
-		if(interactor.state.is_player):
-			game.mgmt.ui.start_dialogue()
-			if(_current_statement):
-				say("")
-		if(_current_statement):
-			update_listeners(_current_statement)
-		elif(is_dialogue_active() && partner.dialogue._current_statement):
-			update_listeners(partner.dialogue._current_statement)
+		add_listener(interactor)
 
 func is_dialogue_active() -> bool:
 	return game.is_valid(partner)
@@ -84,10 +69,6 @@ func start_dialogue(new_partner: KinematicBody):
 	partner.dialogue.accept_dialogue(pawn)
 	if(player_in_dialogue()):
 		game.mgmt.ui.start_dialogue()
-#		listeners.push_back(game.mgmt.ui)
-#	if(state.is_player):
-#		game.mgmt.ui.start_dialogue()
-#		partner.dialogue.listeners.push_back(game.mgmt.ui)
 	say(data.get_conversation()["start"])
 
 func accept_dialogue(new_partner: KinematicBody):
@@ -96,8 +77,6 @@ func accept_dialogue(new_partner: KinematicBody):
 func say(statement_id: String):
 	_current_statement = data.get_statement(statement_id)
 	_current_statement.update(pawn, partner)
-	_dialogue_progress = 0
-	_dialogue_length = _current_statement.formatted_text().length()
 	partner.dialogue.listen(_current_statement, data.get_responses(statement_id))
 	_current_statement.execute_effects(partner)
 	update_listeners(_current_statement)
@@ -105,8 +84,8 @@ func say(statement_id: String):
 func choose_statement():
 	if(!is_dialogue_active()):
 		return
-	if(partner.dialogue._dialogue_progress < partner.dialogue._dialogue_length):
-		partner.dialogue._dialogue_progress = partner.dialogue._dialogue_length
+	if(!game.mgmt.ui.dialogue.fully_visible()):
+		game.mgmt.ui.dialogue.set_progress(-1)
 		return
 	var selected_id: String
 	if(state.is_player):
@@ -132,6 +111,18 @@ func listen(statement: abstract_dialogue.statement, responses: Array):
 	else:
 		if(is_dialogue_active()):
 			pass # TODO: ai answer selection, wait for player
+
+func add_listener(listener: KinematicBody):
+	if(!listeners.has(listener)):
+		listeners.push_back(listener)
+	if(listener.state.is_player):
+		game.mgmt.ui.start_dialogue()
+		if(_current_statement):
+			say("")
+	if(_current_statement):
+		update_listeners(_current_statement)
+	elif(is_dialogue_active() && partner.dialogue._current_statement):
+		update_listeners(partner.dialogue._current_statement)
 
 func update_listeners(statement: abstract_dialogue.statement):
 	if(statement):

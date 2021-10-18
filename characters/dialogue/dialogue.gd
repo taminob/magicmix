@@ -116,7 +116,7 @@ func init_conversations():
 	conversations["silent_introduction"] = silent_introduction_conversation
 
 func init_partners():
-	partners["gress"] = "silent_introduction" # TODO: DEBUG
+	partners["gerhard"] = "silent_introduction" # TODO: DEBUG
 
 func default_conversation() -> String:
 	return "unimplemented"
