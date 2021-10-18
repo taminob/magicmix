@@ -59,7 +59,7 @@ func die(save_state: bool=true):
 	if(undead):
 		return
 	skills.cancel_spells()
-	dialogue.end_dialogue()
+	dialogue.interrupt_dialogue()
 	look.update_look()
 
 	# todo: animation

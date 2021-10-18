@@ -36,12 +36,6 @@ func set_player(is_player: bool):
 	# todo? switch between input/ai state
 	state.is_player = is_player
 
-	if(is_player && !dialogue.listeners.has(game.mgmt.ui)):
-		dialogue.listeners.push_back(game.mgmt.ui)
-	else:
-		dialogue.listeners.erase(game.mgmt.ui)
-
-
 	if(!game.mgmt.player_history.has(name)):
 		game.mgmt.player_history.push_back(name)
 

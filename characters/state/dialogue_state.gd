@@ -53,17 +53,15 @@ func dialogue_interacted(interactor: KinematicBody):
 			start_dialogue(interactor)
 		else:
 			interactor.dialogue.start_dialogue(pawn)
-#		if(interactor.state.is_player):
-#			ask()
-#		else:
-#			interactor.dialogue.ask()
 	elif(partner == interactor):
-		partner.dialogue.answer() # todo: rework
+		partner.dialogue.choose_statement() # todo: rework
 	else:
 		if(!listeners.has(interactor)):
 			listeners.push_back(interactor)
-		if(game.mgmt.is_player(interactor)):
+		if(interactor.state.is_player):
 			game.mgmt.ui.start_dialogue()
+			if(_current_statement):
+				say("")
 		if(_current_statement):
 			update_listeners(_current_statement)
 		elif(is_dialogue_active() && partner.dialogue._current_statement):
@@ -76,7 +74,7 @@ func can_talk() -> bool:
 	return !stats.dead || stats.undead || game.levels.current_level_death_realm
 
 func player_in_dialogue() -> bool:
-	return state.is_player || partner.state.is_player
+	return is_dialogue_active() && (state.is_player || partner.state.is_player)
 
 func start_dialogue(new_partner: KinematicBody):
 	interrupt_dialogue()
@@ -90,59 +88,59 @@ func start_dialogue(new_partner: KinematicBody):
 #	if(state.is_player):
 #		game.mgmt.ui.start_dialogue()
 #		partner.dialogue.listeners.push_back(game.mgmt.ui)
-	ask()
+	say(data.get_conversation()["start"])
 
 func accept_dialogue(new_partner: KinematicBody):
 	partner = new_partner
 
-func ask():
-	_current_statement = data.dialogue()
+func say(statement_id: String):
+	_current_statement = data.get_statement(statement_id)
+	_current_statement.update(pawn, partner)
 	_dialogue_progress = 0
 	_dialogue_length = _current_statement.formatted_text().length()
-	partner.dialogue.listen(_current_statement)
+	partner.dialogue.listen(_current_statement, data.get_responses(statement_id))
 	_current_statement.execute_effects(partner)
-	if(!player_in_dialogue()):
-		_current_statement.answers = []
 	update_listeners(_current_statement)
 
-func answer():
+func choose_statement():
 	if(!is_dialogue_active()):
 		return
 	if(partner.dialogue._dialogue_progress < partner.dialogue._dialogue_length):
 		partner.dialogue._dialogue_progress = partner.dialogue._dialogue_length
 		return
-	var selected_answer: abstract_dialogue.answer = null
+	var selected_id: String
 	if(state.is_player):
-		selected_answer = game.mgmt.ui.dialogue.get_current_answer_data()
+		selected_id = game.mgmt.ui.dialogue.get_current_answer_id()
 	else:
-		selected_answer = null # todo: ai select answer
-	partner.dialogue.answer_received(selected_answer)
+		selected_id = "" # todo: ai select answer
+	partner.dialogue.statement_received(selected_id)
 
-func answer_received(answer: abstract_dialogue.answer):
+func statement_received(statement_id: String):
 	if(!is_dialogue_active()):
 		return
-	if(answer):
-		data.transition(answer)
+	if(statement_id.empty()):
 		if(is_dialogue_active()):
-			ask()
+			say("")
 	else:
 		# warning-ignore:return_value_discarded
 		end_dialogue()
 
-func listen(statement: abstract_dialogue.statement):
+func listen(statement: abstract_dialogue.statement, responses: Array):
 	update_listeners(statement)
-	if(!state.is_player):
+	if(state.is_player):
+		game.mgmt.ui.dialogue.set_dialogue_text(statement.formatted_text(), get_call_name(statement.speaker.name), responses) # TODO: check is_valid for statements in responses
+	else:
 		if(is_dialogue_active()):
-			pass#answer() # TODO: ai answer selection, wait for player
+			pass # TODO: ai answer selection, wait for player
 
 func update_listeners(statement: abstract_dialogue.statement):
 	if(statement):
 		for x in listeners:
-			x.dialogue.listen(statement)
+			x.dialogue.listen(statement, [])
 			statement.execute_effects(x)
 		if(partner):
 			for x in partner.dialogue.listeners:
-				x.dialogue.listen(statement)
+				x.dialogue.listen(statement, [])
 				statement.execute_effects(x)
 
 func interrupt_dialogue():
@@ -151,6 +149,7 @@ func interrupt_dialogue():
 func end_dialogue():
 	if(!is_dialogue_active()):
 		return
+	_current_statement = null
 	if(state.is_player):
 		game.mgmt.ui.end_dialogue()
 	if(partner):
@@ -163,8 +162,6 @@ func end_dialogue():
 #		listeners.remove(i)
 #		listener.end_dialogue()
 	listeners.clear()
-	if(state.is_player):
-		listeners.push_back(game.mgmt.ui)
 
 func get_call_name(character_id: String) -> String:
 	return call_names.get(character_id, "???") # todo: add question for name if unknown
@@ -190,7 +187,7 @@ func save(state_dict: Dictionary):
 	_dialogue_state["relationships"] = relationships
 	_dialogue_state["base_relationship"] = base_relationship
 	_dialogue_state["relations"] = relations
-	_dialogue_state["current_dialogues"] = data._partners
+	_dialogue_state["current_dialogues"] = data.partners
 	state_dict["dialogue"] = _dialogue_state
 
 func init(state_dict: Dictionary):
@@ -205,7 +202,8 @@ func init(state_dict: Dictionary):
 	base_relationship = _dialogue_state.get("base_relationship", 0)
 	relations = _dialogue_state.get("relations", {}) # todo? fix enum type, json parsing might result in floats instead of ints
 	#_dialogue = load(_dialogue_state.get("dialogue", "res://characters/dialogue/default/dialogue.gd")).new()
-	if(ResourceLoader.exists("res://characters/dialogue/" + pawn.name + "/dialogue.gd")):
+	#if(ResourceLoader.exists("res://characters/dialogue/" + pawn.name + "/dialogue.gd")):
+	if(false):
 		data = load("res://characters/dialogue/" + pawn.name + "/dialogue.gd").new()
 	else:
 		data = load("res://characters/dialogue/default/dialogue.gd").new()

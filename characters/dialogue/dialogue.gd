@@ -1,50 +1,6 @@
 class_name abstract_dialogue
 
-class quest:
-	var name: String
-	var description: String
-	var reward: FuncRef
-
 class statement:
-	var text: String
-	var effects: Array
-	var answers: Array
-	var speaker: character
-	var receiver: character
-
-	func _init(new_text: String, new_effects: Array=[], new_answers: Array=[]):
-		text = new_text
-		effects = new_effects
-		answers = new_answers
-		update(null, null)
-
-	func update(new_speaker: character, new_receiver: character):
-		speaker = new_speaker
-		receiver = new_receiver
-		for x in answers:
-			x.current_statement = self
-
-	func formatted_text() -> String:
-		return text.format({"self": speaker_name(), "partner": receiver_name()}) # todo
-
-	func execute_effects(receive: character=receiver):
-		for x in effects:
-			x.call_func(receive)
-
-	func get_valid_answers() -> Array:
-		var valid_answers: Array = []
-		for x in answers:
-			if(x.requirements_satisfied()):
-				valid_answers.push_back(x)
-		return valid_answers
-
-	func speaker_name() -> String:
-		return speaker.dialogue.display_name
-
-	func receiver_name() -> String:
-		return speaker.dialogue.get_call_name(receiver.name)
-
-class answer:
 	enum requirements {
 		relationship_enemy		= 0x0001,
 		relationship_rival		= 0x0002,
@@ -55,30 +11,38 @@ class answer:
 		ALL						= 0xFFFF
 	}
 	var text: String
-	var current_statement: statement
-	var next_statement: Array
-	var effects: Array # array of FuncRefs
+	var effects: Array
+	var speaker: character
+	var receiver: character
 	var requires: int
 
-	func _init(new_text: String, new_next_statement: Array, new_effects: Array=[], new_requirements: int=requirements.ALL):
+	func _init(new_text: String, new_effects: Array=[]):
 		text = new_text
-		next_statement = new_next_statement
 		effects = new_effects
-		requires = new_requirements
+		update(null, null)
+
+	func update(new_speaker: character, new_receiver: character):
+		speaker = new_speaker
+		receiver = new_receiver
 
 	func formatted_text() -> String:
-		return text.format({"self": current_statement.speaker_name(), "partner": current_statement.receiver_name()}) # todo
+		return text.format({"self": speaker_name(), "partner": receiver_name()}) # todo
 
-	func requirements_satisfied() -> bool:
+	func execute_effects(receiv: character=receiver):
+		for x in effects:
+			x.call_func(receiv)
+
+	func speaker_name() -> String:
+		return speaker.dialogue.display_name
+
+	func receiver_name() -> String:
+		return speaker.dialogue.get_call_name(receiver.name)
+
+	func is_valid() -> bool:
 		return true # todo: implement answer requirements
 
-	func execute_effects():
-		for x in effects:
-			x.call_func()
-
-var _start_statements: Dictionary
-var _statements: Dictionary
-var _partners: Dictionary
+var partners: Dictionary
+var wants_to_talk_to: Array
 
 var pawn: character
 var partner: character
@@ -93,118 +57,85 @@ func _introduce_self(receiver: character=partner):
 func _introduce_partner():
 	pawn.dialogue.call_names[partner.name] = partner.dialogue.display_name
 
-func _unimplemented_statement() -> Array:
-	_statements["unimplemented"] = statement.new("Hey {partner}, I'm {self}. :)\nYou actually found an unimplemented dialogue, feel free to contact the devs and help improving the game!", [
-		funcref(self, "_introduce_self")], [
-		answer.new("Alright, on my way!", [], [funcref(self, "_end_dialogue")]), 
-		answer.new("Definitely not going to do that, hate this game!", [], [funcref(self, "_end_dialogue")]), 
-		answer.new("Bye!", [], [funcref(self, "_end_dialogue")])])
-	return ["unimplemented"]
+var default_statement_texts: Dictionary = {
+	"silent": "...",
+	"greeting_introduction": ["Hello, my name is {self}! How can I help you?", funcref(self, "_introduce_self")],
+	"come_back_silent": ["Come back when you're willing to talk to me!", funcref(self, "_end_dialogue")],
+	"welcome_back_speak_now": "Welcome back! Want to speak now?",
+	"still_not": ["Still silent? Next time, see you!", funcref(self, "_end_dialogue")],
+}
+var silent_introduction_conversation: Dictionary = {
+	"start": "greeting_introduction",
+	"greeting_introduction": ["silent"],
+	"silent": ["come_back_silent"],
+	"come_back_silent": ["welcome_back_speak_now"],
+	"welcome_back_speak_now": ["silent@"],
+	"silent@": ["still_not"],
+	"still_not": ["welcome_back_speak_now"]
+}
 
-func default_statement() -> Array:
-	return _unimplemented_statement()
+var unimplemented_texts: Dictionary = {
+	"on_my_way": ["On my way!", funcref(self, "_end_dialogue")],
+	"unimplemented": ["Hey {partner}, I'm {self}. :)\nYou actually found an unimplemented dialogue, feel free to contact the devs and help improving the game!", funcref(self, "_introduce_self")],
+	"unimplemented_hate": ["Definitely not going to do that, hate this game!", funcref(self, "_end_dialogue")],
+	"bye": ["Bye!", funcref(self, "_end_dialogue")],
+}
+var unimplemented_conversation: Dictionary = {
+	"start": "unimplemented",
+	"unimplemented": ["on_my_way", "unimplemented_hate", "bye"],
+	"on_my_way": ["unimplmeneted"],
+	"unimplemented_hate": ["unimplmeneted"],
+	"bye": ["unimplmeneted"],
+}
 
-func murder_witness_statement() -> Array:
-	_statements["murder_witness"] = statement.new(_murder_witness())
-	return ["murder_witness"]
+var statements: Dictionary = {}
+var conversations: Dictionary = {}
 
-func _stranger_greeting() -> String:
-	return util.random_element([
-		"Hello, stranger!",
-		"A pleasure to meet you, stranger!"
-	])
-
-func _friendly_greeting() -> String:
-	return util.random_element([
-		"Hello, my friend!",
-		"Hello, {partner}!"
-	])
-
-func _neutral_greetings() -> String:
-	return util.random_element([
-		"I greet you!"
-	])
-
-func _hostile_greetings() -> String:
-	return util.random_element([
-		"What do you want?"
-	])
-
-func _murder_witness() -> String:
-	return util.random_element([
-		"M U R D E R E R !"
-	])
-
-func _long_time_not_seen() -> String:
-	return util.random_element([
-		"Oh, it's you - has been a long time!",
-		"Where were you?"
-	])
-
-func _no_time() -> String:
-	return util.random_element([
-		"No time, later!",
-		"Later!",
-		"Another time!"
-	])
+func create_statements(dict: Dictionary):
+	for x in dict.keys():
+		if(dict[x] is Dictionary):
+			create_statements(dict[x])
+		elif(dict[x] is String):
+			statements[x] = statement.new(dict[x])
+		elif(dict[x] is Array && !dict[x].empty()):
+			statements[x] = statement.new(dict[x][0], dict[x].slice(1, dict[x].size()))
+		else:
+			errors.debug_assert(false, "dict contains invalid type")
 
 func init(new_pawn: character, new_dialogue_status: Dictionary):
 	pawn = new_pawn
-	_partners = new_dialogue_status
-	_init_statements()
+	partners = new_dialogue_status
+	create_statements(unimplemented_texts) # todo? unimplemented conversation for everyone?
+	conversations["unimplemented"] = unimplemented_conversation
+	init_statements()
 
-func _init_statements():
-	pass
+func init_statements():
+	create_statements(default_statement_texts)
 
-func _create_statements_from_dict(statement_dict: Dictionary, path: Array) -> Dictionary:
-	var new_dict: Dictionary = {}
-	for x in statement_dict.keys():
-		if(statement_dict[x].has("say")):
-			var new_statement: statement = statement.new(statement_dict[x]["say"])
-			for effect in statement_dict[x].get("effects", []):
-				new_statement.effects.push_back(funcref(self, effect))
-			for answer_data in statement_dict[x].get("answers", []):
-				var new_next = answer_data.get("next", path + [x])
-				if(new_next is String):
-					new_next = path + [new_next]
-				var new_answer: answer = answer.new(answer_data.get("say", ""), new_next)
-				for effect in answer_data.get("effects", []):
-					new_answer.effects.push_back(funcref(self, effect))
-				new_statement.answers.push_back(new_answer)
-			new_dict[x] = new_statement
-		else:
-			new_dict[x] = _create_statements_from_dict(statement_dict[x], path + [x])
-	return new_dict
+func init_conversations():
+	conversations["silent_introduction"] = silent_introduction_conversation
+
+func init_partners():
+	partners["gress"] = "silent_introduction" # TODO: DEBUG
+
+func default_conversation() -> String:
+	return "unimplemented"
 
 func change_partner(new_partner: character):
 	partner = new_partner
-	if(!_partners.has(partner.name)):
-		_partners[partner.name] = []
-		add_want_to_say(_start_statements.get(partner.name, default_statement()), 1)
 
-func formatted_text(text: String) -> String:
-	return text.format({"self": pawn.dialogue.display_name, "partner": pawn.dialogue.call_names[partner.name]}) # todo
+func get_statement(statement_id: String) -> statement:
+	var marker: int = statement_id.find("@")
+	if(marker < 0):
+		return statements[statement_id]
+	else:
+		return statements[statement_id.left(marker)]
 
-# TODO: (BUG) _statements is empty but _partners is not if partner dies during dialogue
-func dialogue() -> statement:
-	var a = _partners[partner.name].back()[1]
-	var s = _statements
-	for x in a:
-		s = s[x]
-	if(s):
-		s.update(pawn, partner)
-	return s
+func get_responses(statement_id: String) -> Array:
+	return get_conversation()[statement_id]
 
-func add_want_to_say(statement_keys: Array, priority: int):
-	for i in range(_partners[partner.name].size()):
-		if(_partners[partner.name][i][0] > priority):
-			_partners[partner.name].insert(i, [priority, statement_keys])
-			return
-	_partners[partner.name].push_back([priority, statement_keys])
+func get_conversation_id() -> String:
+	return partners.get(partner.name, default_conversation())
 
-func transition(answer: answer):
-	errors.debug_assert(answer.requirements_satisfied(), "requirements of answer not satisfied!")
-	answer.execute_effects()
-	if(!answer.next_statement.empty()):
-		_partners[partner.name].pop_back()
-		add_want_to_say(answer.next_statement, 1)
+func get_conversation() -> Dictionary:
+	return conversations[get_conversation_id()]

@@ -73,13 +73,23 @@ func default_statement() -> Array:
 
 func player_meet_first_time() -> Array:
 	var statement_name: String = "player_meet_first_time"
+	var start = statement.new("Ah, you're awake. So the ritual actually worked.")
+	var silent1 = statement.new("A silent one, I like you.")
+	var ritual_explaination = statement.new("I summoned you from another world, a realm far away. You probably lost all the memories of it, but trust me, it was a horrible place.")
+	var where = statement.new("You are in the Death Realm of our world.")
+	var why = statement.new("You are here to help me and save our world.")
+	var who = statement.new("I am just a humble servant of our world, here to guide you through difficult choices.")
+	var reason_threat = statement.new("Because now you are here with us and you will be doomed as we are if our world dies.")
+	var no_way_back = statement.new("You won't because there is none. But good luck. But in the meantime, you can save our world and you will be rewarded with fortunes you can only dream of.")
+	var task = statement.new("Enter this portal here and there will be someone who can help you with the details on the other side.\nBe wary though, the portal will send you to the realm of the living. Meaning you can die.")
+
 	_statements[statement_name] = _create_statements_from_dict({
 		"start": {
 			"say": "Ah, you're awake. So the ritual actually worked.",
 			"effect": ["_introduce_self"],
 			"answers": [
 				{
-					"say": "",
+					"say": "...",
 					"next": "silent1"
 				},
 				{
@@ -96,7 +106,7 @@ func player_meet_first_time() -> Array:
 			"say": "A silent one, I like you.",
 			"answers": [
 				{
-					"say": "",
+					"say": "...",
 					"next": "ritual_explanation"
 				},
 				{
@@ -113,7 +123,7 @@ func player_meet_first_time() -> Array:
 			"say": "I summoned you from another world, a realm far away. You probably lost all the memories of it, but trust me, it was a horrible place.",
 			"answers": [
 				{
-					"say": "",
+					"say": "...",
 					"next": "why"
 				},
 				{
