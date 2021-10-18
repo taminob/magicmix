@@ -5,8 +5,8 @@ onready var tabs = $"tabs"
 
 enum {
 	character_tab = 0,
-	log_tab,
 	inventory_tab,
+	log_tab,
 	crafting_tab,
 	tree_tab,
 	spell_tab

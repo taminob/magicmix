@@ -6,6 +6,7 @@ onready var state: Node = get_parent()
 onready var pawn: KinematicBody = $"../.."
 onready var experience: Node = $"../experience"
 onready var skills: Node = $"../skills"
+onready var dialogue: Node = $"../dialogue"
 onready var look: Node = $"../look"
 
 var dead: bool
@@ -58,6 +59,7 @@ func die(save_state: bool=true):
 	if(undead):
 		return
 	skills.cancel_spells()
+	dialogue.end_dialogue()
 	look.update_look()
 
 	# todo: animation

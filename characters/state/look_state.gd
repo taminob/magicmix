@@ -7,7 +7,6 @@ onready var move: Node = $"../move"
 
 var _default_mesh_path: String
 var mesh: Spatial = null
-var clothing: SoftBody = null
 var animations: AnimationPlayer
 var body_height: float
 
