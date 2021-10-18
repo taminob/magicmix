@@ -35,6 +35,13 @@ func set_player(is_player: bool):
 	errors.log(name + " is now player-controlled!")
 	# todo? switch between input/ai state
 	state.is_player = is_player
+
+	if(is_player && !dialogue.listeners.has(game.mgmt.ui)):
+		dialogue.listeners.push_back(game.mgmt.ui)
+	else:
+		dialogue.listeners.erase(game.mgmt.ui)
+
+
 	if(!game.mgmt.player_history.has(name)):
 		game.mgmt.player_history.push_back(name)
 
@@ -50,10 +57,10 @@ func _physics_process(delta: float):
 	_update_ui()
 
 func get_interaction() -> String:
-	return "Talk"
+	return "Talk" if dialogue.can_talk() else ""
 
 func interact(interactor: Node):
-	dialogue.dialogue_interact(interactor)
+	dialogue.dialogue_interacted(interactor)
 
 func damage(dmg: float, element: int):
 	stats.damage(dmg, element)
