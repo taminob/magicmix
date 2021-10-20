@@ -36,6 +36,7 @@ func _process(_delta: float):
 		should_reconsider = true
 	if(should_reconsider):
 		machine.push_state(ai_machine.states.idle)
+		brain.update_characters()
 		_steps_since_consider = 0
 		should_reconsider = false
 
@@ -71,8 +72,12 @@ func get_current_goals() -> Array:
 	survive_goal.requirements.pain = max(stats.pain - 10, 5) # todo? better requirements
 	if(!stats.undead):
 		goals.push_back(survive_goal)
-	var fight_goal: planner.goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.pain | planner.knowledge_mask.enemy_damaged)
-	fight_goal.requirements.pain = stats.max_pain() * 0.9
+	var fight_goal: planner.goal
+	if(stats.undead):
+		fight_goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.enemy_damaged)
+	else:
+		fight_goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.pain | planner.knowledge_mask.enemy_damaged)
+		fight_goal.requirements.pain = stats.max_pain() * 0.9
 	fight_goal.requirements.enemy_damaged = true
 	goals.push_back(fight_goal)
 	var talk_goal: planner.goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.talking)
@@ -112,13 +117,13 @@ func _on_sight_zone_body_entered(body: Node):
 		else:
 			return
 	brain.in_sight(body)
-	machine.push_state(ai_machine.states.idle)
+	should_reconsider = true
 
 func _on_sight_zone_body_exited(body: Node):
 	if(!body):
 		return
 	brain.out_of_sight(body)
-	machine.push_state(ai_machine.states.idle)
+	should_reconsider = true
 
 func save(state_dict: Dictionary):
 	var _ai_state = state_dict.get("ai", {})

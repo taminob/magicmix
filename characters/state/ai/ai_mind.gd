@@ -13,6 +13,21 @@ var objects_out_of_sight: Array = []
 func _init(new_pawn: KinematicBody):
 	pawn = new_pawn
 
+func update_characters():
+	var all: Array = allies_in_sight + enemies_in_sight + characters_in_sight
+	allies_in_sight.clear()
+	enemies_in_sight.clear()
+	characters_in_sight.clear()
+	for x in all:
+		in_sight(x)
+	all = allies_out_of_sight + enemies_out_of_sight + characters_out_of_sight
+	allies_out_of_sight.clear()
+	enemies_out_of_sight.clear()
+	characters_out_of_sight.clear()
+	for x in all:
+		out_of_sight(x)
+
+
 func flush_out_of_sight():
 	allies_out_of_sight.clear()
 	enemies_out_of_sight.clear()
@@ -76,7 +91,7 @@ func get_most_damaged_ally() -> character:
 			most_damaged_target = x
 	return most_damaged_target
 
-# todo: refactor? currently depends on pass-by-reference for Array
+# todo? refactor? currently depends on pass-by-reference for Array
 func _add_in_sight(body: Node, destination: Array, remove_from: Array=[]):
 	if(remove_from.has(body)):
 		remove_from.erase(body)
