@@ -15,21 +15,28 @@ class statement:
 	var speaker: character
 	var receiver: character
 	var requires: int
+	var responses: Array
+	var next_statement: Array
 
-	func _init(new_text: String, new_effects: Array=[]):
+	func _init(new_text: String, new_effects: Array=[], new_responses: Array=[]):
 		text = new_text
 		effects = new_effects
+		responses = new_responses
 		update(null, null)
 
 	func update(new_speaker: character, new_receiver: character):
 		speaker = new_speaker
 		receiver = new_receiver
+		for x in responses:
+			x.speaker = receiver
+			x.receiver = speaker
 
 	func formatted_text() -> String:
 		return text.format({"self": speaker_name(), "partner": receiver_name()}) # todo
 
 	func execute_effects(receiv: character=receiver):
 		for x in effects:
+			errors.debug_assert(x.is_valid(), "object or function of effect \"" + x.get_function() + "\" for text \"" + text + "\" not valid!")
 			x.call_func(receiv)
 
 	func speaker_name() -> String:
@@ -41,101 +48,135 @@ class statement:
 	func is_valid() -> bool:
 		return true # todo: implement answer requirements
 
+func create_statements_from_dict(statement_dict: Dictionary, path: Array) -> Dictionary:
+	var new_dict: Dictionary = {}
+	for x in statement_dict.keys():
+		if(statement_dict[x].has("say")):
+			var new_statement: statement = statement.new(statement_dict[x]["say"])
+			var new_effects = statement_dict[x].get("effects", [])
+			if(new_effects is String):
+				new_statement.effects.push_back(funcref(self, new_effects))
+			elif(new_effects is Array):
+				for effect in new_effects:
+					new_statement.effects.push_back(funcref(self, effect))
+			elif(new_effects is FuncRef):
+				new_statement.effects.push_back(new_effects)
+			else:
+				errors.debug_assert(false, "invalid type for new_effects")
+			for response_data in statement_dict[x].get("responses", []):
+				var new_response: statement = statement.new(response_data.get("say", ""))
+				var new_next = response_data.get("next", path + [x])
+				if(new_next is String):
+					new_next = path + [new_next]
+				new_response.next_statement = new_next
+				for effect in response_data.get("effects", []):
+					new_response.effects.push_back(funcref(self, effect))
+				new_statement.responses.push_back(new_response)
+			var new_next = statement_dict[x].get("next", path + [x])
+			if(new_next is String):
+				new_next = path + [new_next]
+			new_statement.next_statement = new_next
+			new_dict[x] = new_statement
+		else:
+			new_dict[x] = create_statements_from_dict(statement_dict[x], path + [x])
+	return new_dict
+
 var partners: Dictionary
-var wants_to_talk_to: Array
+var wants_to_talk_to: Array # TODO
 
 var pawn: character
 var partner: character
 
-func _end_dialogue():
-	pawn.dialogue.end_dialogue()
+func _end_dialogue(receiver: character):
+	receiver.dialogue.end_dialogue = true
 
 func _introduce_self(receiver: character=partner):
 	if(receiver):
 		receiver.dialogue.call_names[pawn.name] = pawn.dialogue.display_name
 
-func _introduce_partner():
+func _introduce_partner(_receiver: character):
 	pawn.dialogue.call_names[partner.name] = partner.dialogue.display_name
 
-var default_statement_texts: Dictionary = {
-	"silent": "...",
-	"greeting_introduction": ["Hello, my name is {self}! How can I help you?", funcref(self, "_introduce_self")],
-	"come_back_silent": ["Come back when you're willing to talk to me!", funcref(self, "_end_dialogue")],
-	"welcome_back_speak_now": "Welcome back! Want to speak now?",
-	"still_not": ["Still silent? Next time, see you!", funcref(self, "_end_dialogue")],
-}
-var silent_introduction_conversation: Dictionary = {
-	"start": "greeting_introduction",
-	"greeting_introduction": ["silent"],
-	"silent": ["come_back_silent"],
-	"come_back_silent": ["welcome_back_speak_now"],
-	"welcome_back_speak_now": ["silent@"],
-	"silent@": ["still_not"],
-	"still_not": ["welcome_back_speak_now"]
-}
+func introduction_silent_conversation() -> Array:
+	var statement_name: String = "introduction_silent"
+	statements[statement_name] = create_statements_from_dict({
+		"start": {
+			"say": "Hello, my name is {self}! How can I help you?",
+			"effects": ["_introduce_self"],
+			"responses": [
+				{
+					"say": "...",
+					"next": "was_silent"
+				},
+			]
+		},
+		"was_silent": {
+			"say": "Come back when you're willing to talk to me!",
+			"effects": "_end_dialogue",
+			"next": "welcome_back"
+		},
+		"welcome_back": {
+			"say": "Welcome back! Want to speak now?",
+			"responses": [
+				{
+					"say": "...",
+					"next": "still_not"
+				},
+			]
+		},
+		"still_not": {
+			"say": "Still silent? Next time, see you!",
+			"effects": "_end_dialogue",
+			"next": "welcome_back"
+		}
+	}, [statement_name])
+	return [statement_name, "start"]
 
-var unimplemented_texts: Dictionary = {
-	"on_my_way": ["On my way!", funcref(self, "_end_dialogue")],
-	"unimplemented": ["Hey {partner}, I'm {self}. :)\nYou actually found an unimplemented dialogue, feel free to contact the devs and help improving the game!", funcref(self, "_introduce_self")],
-	"unimplemented_hate": ["Definitely not going to do that, hate this game!", funcref(self, "_end_dialogue")],
-	"bye": ["Bye!", funcref(self, "_end_dialogue")],
-}
-var unimplemented_conversation: Dictionary = {
-	"start": "unimplemented",
-	"unimplemented": ["on_my_way", "unimplemented_hate", "bye"],
-	"on_my_way": ["unimplmeneted"],
-	"unimplemented_hate": ["unimplmeneted"],
-	"bye": ["unimplmeneted"],
-}
+func unimplemented_conversation() -> Array:
+	statements["unimplemented"] = statement.new("Hey {partner}, I'm {self}. :)\nYou actually found an unimplemented dialogue, feel free to contact the devs and help improving the game!", [
+		funcref(self, "_introduce_self")], [
+		statement.new("Alright, on my way!", [funcref(self, "_end_dialogue")]), 
+		statement.new("Definitely not going to do that, hate this game!", [funcref(self, "_end_dialogue")]), 
+		statement.new("Bye!", [funcref(self, "_end_dialogue")])])
+	return ["unimplemented"]
 
 var statements: Dictionary = {}
 var conversations: Dictionary = {}
 
-func create_statements(dict: Dictionary):
-	for x in dict.keys():
-		if(dict[x] is Dictionary):
-			create_statements(dict[x])
-		elif(dict[x] is String):
-			statements[x] = statement.new(dict[x])
-		elif(dict[x] is Array && !dict[x].empty()):
-			statements[x] = statement.new(dict[x][0], dict[x].slice(1, dict[x].size()))
-		else:
-			errors.debug_assert(false, "dict contains invalid type")
-
 func init(new_pawn: character, new_dialogue_status: Dictionary):
 	pawn = new_pawn
 	partners = new_dialogue_status
-	create_statements(unimplemented_texts) # todo? unimplemented conversation for everyone?
-	conversations["unimplemented"] = unimplemented_conversation
+	conversations["unimplemented"] = unimplemented_conversation()
 	init_statements()
+	init_conversations()
+	init_partners()
 
 func init_statements():
-	create_statements(default_statement_texts)
+	pass
 
-func init_conversations():
-	conversations["silent_introduction"] = silent_introduction_conversation
+func init_conversations(): # TODO? remove?
+	conversations["introduction_silent"] = introduction_silent_conversation()
 
 func init_partners():
-	partners["gerhard"] = "silent_introduction" # TODO: DEBUG
+	partners["gerhard"] = ["introduction_silent", "start"] # TODO: DEBUG (remove)
 
-func default_conversation() -> String:
-	return "unimplemented"
+func default_conversation() -> Array:
+	return ["unimplemented"]
 
 func change_partner(new_partner: character):
 	partner = new_partner
 
-func get_statement(statement_id: String) -> statement:
-	var marker: int = statement_id.find("@")
-	if(marker < 0):
-		return statements[statement_id]
-	else:
-		return statements[statement_id.left(marker)]
+func set_response(response: statement):
+	if(!response.next_statement.empty()):
+		partners[partner.name] = response.next_statement
 
-func get_responses(statement_id: String) -> Array:
-	return get_conversation()[statement_id]
+func get_statement() -> statement:
+	return statement_path_to_statement(partners.get(partner.name, default_conversation()))
 
-func get_conversation_id() -> String:
-	return partners.get(partner.name, default_conversation())
-
-func get_conversation() -> Dictionary:
-	return conversations[get_conversation_id()]
+func statement_path_to_statement(path: Array) -> statement:
+	var s = statements
+	for x in path:
+		s = s[x]
+	if(s):
+		s.update(pawn, partner)
+	return s

@@ -8,8 +8,8 @@ onready var answer_up: RichTextLabel = $"answer_up"
 onready var answer: RichTextLabel = $"answer"
 onready var answer_down: RichTextLabel = $"answer_down"
 
-var selected_answer: int = 0
-var answer_ids: Array
+var selected_response: int = 0
+var responses: Array
 
 func _unhandled_key_input(event: InputEventKey):
 	if(!is_visible()):
@@ -20,51 +20,51 @@ func _unhandled_key_input(event: InputEventKey):
 	elif(event.is_action_pressed("ui_up")):
 		change_selected_answer(-1, true)
 	elif(event.is_action_pressed("ui_accept")):
-		if(answer_ids.empty() || text.get_visible_characters() >= 0):
+		if(responses.empty() || text.get_visible_characters() >= 0):
 			set_progress(-1)
 		# todo: remove? (moved to character)
 	elif(event.is_action_pressed("ui_page_down")):
-		change_selected_answer(answer_ids.size() - 1)
+		change_selected_answer(responses.size() - 1)
 	elif(event.is_action_pressed("ui_page_up")):
 		change_selected_answer(0)
 
 func change_selected_answer(num: int, offset: bool=false):
 	set_progress(-1)
-	num = selected_answer + num if offset else num
-	if(num >= answer_ids.size()):
-		num = answer_ids.size() - 1
+	num = selected_response + num if offset else num
+	if(num >= responses.size()):
+		num = responses.size() - 1
 	elif(num < 0):
 		num = 0
 	if(num - 1 >= 0):
-		answer_up.text = "> " + answer_ids[num-1]#.formatted_text()
+		answer_up.text = "> " + responses[num-1].formatted_text()
 	else:
 		answer_up.text = ""
-	if(!answer_ids.empty()):
-		answer.text = "* " + answer_ids[num]#.formatted_text()
+	if(!responses.empty()):
+		answer.text = "* " + responses[num].formatted_text()
 	else:
 		answer.text = ""
-	if(num + 1 < answer_ids.size()):
-		answer_down.text = "> " + answer_ids[num+1]#.formatted_text()
+	if(num + 1 < responses.size()):
+		answer_down.text = "> " + responses[num+1].formatted_text()
 	else:
 		answer_down.text = ""
-	selected_answer = num
+	selected_response = num
 
 func set_answer_visible(is_visible: bool):
 	answer_up.set_visible(is_visible)
 	answer.set_visible(is_visible)
 	answer_down.set_visible(is_visible)
 
-func set_dialogue_text(say_text: String, speaker: String, answers: Array=[]):
+func set_dialogue_text(say_text: String, speaker: String, new_responses: Array=[]):
 	name_text.set_text(speaker)
 	text.set_bbcode(say_text)
-	answer_ids = answers
+	responses = new_responses
 	change_selected_answer(0)
 	set_progress(0)
 
-func get_current_answer_id() -> String:
-	if(answer_ids.empty()):
+func get_current_response() -> String:
+	if(responses.empty()):
 		return "" # todo: refactor answer system
-	return answer_ids[selected_answer]
+	return responses[selected_response]
 
 func update_dialogue(visible_chars: int, transparency: float):
 	set_transparency(transparency)

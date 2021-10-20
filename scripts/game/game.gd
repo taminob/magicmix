@@ -19,7 +19,7 @@ func reload_game():
 		remove_child(world)
 	_char_data_node = load(game_script_path + "character_data.gd").new()
 	add_child(_char_data_node)
-	char_data = _char_data_node.character_data
+	char_data = _char_data_node.characters
 	mgmt = load(game_script_path + "management.gd").new()
 	add_child(mgmt)
 	world = load(game_script_path + "world.gd").new()

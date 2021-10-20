@@ -1,13 +1,13 @@
 extends abstract_dialogue
 
-func _init_statements():
-	_start_statements["gerhard"] = player_meet_first_time()
+func init_statements():
+	partners["gerhard"] = player_meet_first_time()
 # warning-ignore:return_value_discarded
 	default_statement()
 
 func default_statement() -> Array:
 	var statement_name: String = "default"
-	_statements[statement_name] = _create_statements_from_dict({
+	statements[statement_name] = create_statements_from_dict({
 		"start": {
 			"say": "How can I help you?",
 			"answers": [
@@ -83,7 +83,7 @@ func player_meet_first_time() -> Array:
 	var no_way_back = statement.new("You won't because there is none. But good luck. But in the meantime, you can save our world and you will be rewarded with fortunes you can only dream of.")
 	var task = statement.new("Enter this portal here and there will be someone who can help you with the details on the other side.\nBe wary though, the portal will send you to the realm of the living. Meaning you can die.")
 
-	_statements[statement_name] = _create_statements_from_dict({
+	statements[statement_name] = create_statements_from_dict({
 		"start": {
 			"say": "Ah, you're awake. So the ritual actually worked.",
 			"effect": ["_introduce_self"],
