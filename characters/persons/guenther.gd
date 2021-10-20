@@ -19,7 +19,8 @@ func _init():
 		},
 		"stats": {
 			"dead": true,
-			"undead": true
+			"undead": true,
+			"focus": 100.0
 		},
 		"experience": {
 			"intelligence": 1,
@@ -29,7 +30,7 @@ func _init():
 			"endurance": 1
 		},
 		"inventory": {
-			"spells": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],
+			"spells": ["fire_ball", "fire_ring", "blood_sacrifice", "heal", "blood_storm"],
 			#"spell_slots": ["blood_storm", "fire_ring", "", "", ""]
 		},
 		"look": {

@@ -167,7 +167,7 @@ func player_meet_first_time() -> Array:
 			]
 		},
 		"task": {
-			"say": "Enter this portal here and there will be someone who can help you with the details on the other side.\nBe wary though, the portal will send you to the realm of the living. Meaning you can die.",
+			"say": "Enter this portal here and someone will be waiting for you. He'll ask you for his name, it's Günther.\nBe wary though, the portal will send you to the realm of the living. Meaning you can die.",
 		}
 	}, [statement_name])
 	return [statement_name, "start"]

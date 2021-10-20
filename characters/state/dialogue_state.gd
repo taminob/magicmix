@@ -49,17 +49,15 @@ func dialogue_interacted(interactor: KinematicBody):
 		else:
 			interactor.dialogue.start_dialogue(pawn)
 	elif(partner == interactor):
-		partner.dialogue.choose_statement([]) # todo: rework
+		partner.dialogue.proceed_statement() # todo: rework
 	elif(!listeners.has(interactor)):
 		add_listener(interactor)
-	elif(is_data_provider()):
-		var statement: abstract_dialogue.statement = data.get_statement()
-		if(statement.speaker == pawn):
-			partner.dialogue.choose_from(statement)
-		else:
-			choose_from(statement)
 	else:
-		var statement: abstract_dialogue.statement = partner.dialogue.data.get_statement()
+		var statement: abstract_dialogue.statement
+		if(is_data_provider()):
+			statement = data.get_statement()
+		else:
+			statement = partner.dialogue.data.get_statement()
 		if(statement.speaker == pawn):
 			partner.dialogue.choose_from(statement)
 		else:
@@ -99,18 +97,21 @@ func say():
 		partner.dialogue.receive_statement(current_statement)
 		update_listeners(current_statement)
 
-func choose_statement(statements: Array):
+func proceed_statement() -> bool:
 	if(!is_dialogue_active()):
-		return
+		return false
 	if((player_listener() || player_in_dialogue()) && !game.mgmt.ui.dialogue.fully_visible()):
 		game.mgmt.ui.dialogue.set_progress(-1)
-		return
+		return false
 	if(wants_to_end_dialogue):
 		end_dialogue()
-		return
+		return false
 	elif(partner.dialogue.wants_to_end_dialogue):
 		partner.dialogue.end_dialogue()
-		return
+		return false
+	return true
+
+func choose_statement(statements: Array):
 	var response: abstract_dialogue.statement
 	if(state.is_player):
 		response = game.mgmt.ui.dialogue.get_current_response()
@@ -119,11 +120,13 @@ func choose_statement(statements: Array):
 	partner.dialogue.receive_statement(response)
 
 func choose_from(statement: abstract_dialogue.statement):
+	if(!proceed_statement()):
+		return
 	if(!statement.next_statement.empty()):
 		if(is_data_provider()):
-			choose_statement([data.statement_path_to_statement(statement.next_statement)])
+			partner.dialogue.receive_statement(data.statement_path_to_statement(statement.next_statement))
 		else:
-			choose_statement([partner.dialogue.data.statement_path_to_statement(statement.next_statement)])
+			partner.dialogue.receive_statement(partner.dialogue.data.statement_path_to_statement(statement.next_statement))
 	else:
 		choose_statement(statement.responses)
 

@@ -14,7 +14,7 @@ func some_conversation() -> Array:
 	statements[statement_name] = create_statements_from_dict({
 		"start": {
 			"say": "",
-			"answers": [
+			"responses": [
 				{
 					"say": ""
 				},

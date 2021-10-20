@@ -1,16 +1,56 @@
 extends abstract_dialogue
 
-func _init_statements():
-#	statements = [
-#		statement.new("I'm dead. At the same time, I'm not. Confusing sometimes.", [
-#			answer.new("What's your name?", 1), 
-#			answer.new("What's it like?", 1), 
-#			answer.new("Bye!", 0, funcref(self, "_end_dialogue"))]),
-#		statement.new("Oh, sorry. I didn't notice you, was just talking to myself. I'm Günther, what did you say?", [
-#			answer.new("Just asking for your name.", 2), 
-#			answer.new("Never mind", 3), 
-#			answer.new("Don't mind me, see you.", 0, funcref(self, "_end_dialogue"))]),
-#		statement.new("Oh, sorry. I didn't notice you, was just talking to myself. I'm Günther, what did you say?", []),
-#		statement.new("Alright, see you!", [])
-#	]
+func init_statements():
 	pass
+
+func init_conversations():
+	conversations["first_meet_filz"] = first_meet_filz()
+
+func init_partners():
+	partners["filz"] = conversations["first_meet_filz"]
+
+func first_meet_filz() -> Array:
+	var statement_name: String = "first_meet_filz"
+	statements[statement_name] = create_statements_from_dict({
+		"start": {
+			"say": "What is my name?",
+			"responses": [
+				{
+					"say": "Hans",
+					"next": "wrong"
+				},
+				{
+					"say": "Günther",
+					"next": "right",
+					"speaker_requires": statement.requirements.is_player
+				},
+				{
+					"say": "What are you talking about?",
+					"next": "kill"
+				},
+				{
+					"say": "I don't remember!",
+					"next": "wrong"
+				},
+			],
+		},
+		"wrong": {
+			"say": "You won't guess it.",
+			"next": "kill"
+		},
+		"kill": {
+			"say": "Just in case you're actually him, I'll kill you. My brother will tell you what to do.",
+			"effects": ["_make_enemy", "_end_dialogue"]
+		},
+		"right": {
+			"say": "Ah, it worked. Good, you're here.",
+			"next": "instruction"
+		},
+		"instruction": {
+			"say": "Kill the god mage. His tyranny will be the end of our world, he plans to tear down walls between realms."
+		},
+		"no_idea": {
+			"say": "Forget "
+		}
+	}, [statement_name])
+	return [statement_name, "start"]

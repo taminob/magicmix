@@ -2,23 +2,27 @@ class_name abstract_dialogue
 
 class statement:
 	enum requirements {
-		relationship_enemy		= 0x0001,
-		relationship_rival		= 0x0002,
-		relationship_neutral	= 0x0004,
-		relationship_friend		= 0x0008,
-		relationship_ally		= 0x0010,
+		is_player				= 0x0001,
+		relationship_enemy		= 0x0002,
+		relationship_rival		= 0x0004,
+		relationship_neutral	= 0x0008,
+		relationship_friend		= 0x0010,
+		relationship_ally		= 0x0020,
 
 		ALL						= 0xFFFF
 	}
+	var path: Array
 	var text: String
 	var effects: Array
 	var speaker: character
 	var receiver: character
-	var requires: int
+	var speaker_requires: int
+	var receiver_requires: int
 	var responses: Array
 	var next_statement: Array
 
-	func _init(new_text: String, new_effects: Array=[], new_responses: Array=[]):
+	func _init(new_path: Array, new_text: String, new_effects: Array=[], new_responses: Array=[]):
+		path = new_path
 		text = new_text
 		effects = new_effects
 		responses = new_responses
@@ -46,20 +50,33 @@ class statement:
 		return speaker.dialogue.get_call_name(receiver.name)
 
 	func is_valid() -> bool:
-		return true # todo: implement answer requirements
+		return _check_mask_valid(speaker_requires, speaker) && _check_mask_valid(receiver_requires, receiver)
+
+	func _check_mask_valid(mask: int, c: character) -> bool:
+		if(mask & requirements.is_player && !c.state.is_player):
+			return false
+		# todo: other requirements
+		return true
 
 func create_statements_from_dict(statement_dict: Dictionary, path: Array) -> Dictionary:
 	var new_dict: Dictionary = {}
 	for x in statement_dict.keys():
 		if(statement_dict[x].has("say")):
-			var new_statement: statement = statement.new(statement_dict[x]["say"])
+			var new_statement: statement = statement.new(path + [x], statement_dict[x]["say"])
 			new_statement.effects = _create_effects(statement_dict[x])
+			new_statement.speaker_requires = statement_dict[x].get("speaker_requires", 0)
+			new_statement.receiver_requires = statement_dict[x].get("receiver_requires", 0)
+			var i: int = 0
 			for response_data in statement_dict[x].get("responses", []):
-				var new_response: statement = statement.new(response_data.get("say", ""))
+				var new_response: statement = statement.new(path + [x, i], response_data.get("say", ""))
 				new_response.next_statement = _create_next(response_data, path, x)
 				new_response.effects = _create_effects(response_data)
+				new_response.speaker_requires = response_data.get("speaker_requires", 0)
+				new_response.receiver_requires = response_data.get("receiver_requires", 0)
 				new_statement.responses.push_back(new_response)
-			new_statement.next_statement = _create_next(statement_dict[x], path, x)
+				i += 1
+			if(new_statement.responses.empty()):
+				new_statement.next_statement = _create_next(statement_dict[x], path, x)
 			new_dict[x] = new_statement
 		else:
 			new_dict[x] = create_statements_from_dict(statement_dict[x], path + [x])
@@ -103,13 +120,28 @@ func _introduce_partner(_receiver: character):
 	pawn.dialogue.call_names[partner.name] = partner.dialogue.display_name
 
 func _make_enemy(receiver: character):
-	pawn.dialogue.set_relation(receiver.name, -2)#dialogue_state.relation.enemy) # TODO: move relation to other script to access here
+	if(receiver == partner):
+		pawn.dialogue.set_relation(receiver.name, -2)#dialogue_state.relation.enemy) # TODO: move relation to other script to access here
+
+func _become_enemy(receiver: character):
+	if(receiver == partner):
+		receiver.dialogue.set_relation(pawn.name, -2)#dialogue_state.relation.enemy)
 
 func _make_neutral(receiver: character):
-	pawn.dialogue.set_relation(receiver.name, 0)#dialogue_state.relation.neutral)
+	if(receiver == partner):
+		pawn.dialogue.set_relation(receiver.name, 0)#dialogue_state.relation.neutral)
+
+func _become_neutral(receiver: character):
+	if(receiver == partner):
+		receiver.dialogue.set_relation(pawn.name, 0)#dialogue_state.relation.neutral)
 
 func _make_ally(receiver: character):
-	pawn.dialogue.set_relation(receiver.name, 2)#dialogue_state.relation.ally)
+	if(receiver == partner):
+		pawn.dialogue.set_relation(receiver.name, 2)#dialogue_state.relation.ally)
+
+func _become_ally(receiver: character):
+	if(receiver == partner):
+		receiver.dialogue.set_relation(pawn.name, 2)#dialogue_state.relation.ally)
 
 func introduction_silent_conversation() -> Array:
 	var statement_name: String = "introduction_silent"
@@ -147,11 +179,11 @@ func introduction_silent_conversation() -> Array:
 	return [statement_name, "start"]
 
 func unimplemented_conversation() -> Array:
-	statements["unimplemented"] = statement.new("Hey {partner}, I'm {self}. :)\nYou actually found an unimplemented dialogue, feel free to contact the devs and help improving the game!", [
+	statements["unimplemented"] = statement.new(["unimplemented"], "Hey {partner}, I'm {self}. :)\nYou actually found an unimplemented dialogue, feel free to contact the devs and help improving the game!", [
 		funcref(self, "_introduce_self")], [
-		statement.new("Alright, on my way!", [funcref(self, "_end_dialogue")]), 
-		statement.new("Definitely not going to do that, hate this game!", [funcref(self, "_end_dialogue")]), 
-		statement.new("Bye!", [funcref(self, "_end_dialogue")])])
+		statement.new(["unimplemented", 0], "Alright, on my way!", [funcref(self, "_end_dialogue")]), 
+		statement.new(["unimplemented", 1], "Definitely not going to do that, hate this game!", [funcref(self, "_end_dialogue")]), 
+		statement.new(["unimplemented", 2], "Bye!", [funcref(self, "_end_dialogue")])])
 	return ["unimplemented"]
 
 var statements: Dictionary = {}
@@ -181,8 +213,7 @@ func change_partner(new_partner: character):
 	partner = new_partner
 
 func set_response(response: statement):
-	if(!response.next_statement.empty()):
-		partners[partner.name] = response.next_statement
+	partners[partner.name] = response.path
 
 func get_statement() -> statement:
 	return statement_path_to_statement(partners.get(partner.name, default_conversation()))
@@ -190,7 +221,10 @@ func get_statement() -> statement:
 func statement_path_to_statement(path: Array) -> statement:
 	var s = statements
 	for x in path:
-		s = s[x]
+		if(x is String):
+			s = s[x]
+		else:
+			s = s.responses[x]
 	if(s):
 		s.update(pawn, partner)
 	return s
