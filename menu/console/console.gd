@@ -47,7 +47,7 @@ func inspect_handler(character_id: String=""):
 	if(!game.char_data.has(character_id)):
 		character_id = ""
 	settings.set_setting("dev", "debug_target", character_id)
-	settings.save_settings() # TODO: remove, just for debugging
+	settings.save_settings() # TODO: (DEBUG) remove, just for debugging
 
 func reload_handler():
 	game.levels.change_level(game.levels.current_level_name)

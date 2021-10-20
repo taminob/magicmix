@@ -1,18 +1,23 @@
 extends abstract_dialogue
 
-func _init_statements():
-# warning-ignore:return_value_discarded
-	default_statement()
+func init_statements():
+	pass
 
-func _begin_fight():
+func init_conversations():
+	pass
+
+func init_partners():
+	pass
+
+func _begin_fight(_receiver: character):
 	game.levels.change_level("arena")
 
-func default_statement() -> Array:
+func default_conversation() -> Array:
 	var statement_name: String = "default"
-	_statements[statement_name] = _create_statements_from_dict({
+	statements[statement_name] = create_statements_from_dict({
 		"start": {
 			"say": "You dare to challenge me, you worm?",
-			"answers": [
+			"responses": [
 				{
 					"say": "I'm here to fight you.",
 					"next": "fight"
@@ -25,17 +30,12 @@ func default_statement() -> Array:
 		},
 		"forgive": {
 			"say": "I will forgive you. This time.",
-			"answers": [
-				{
-					"say": "",
-					"effects": ["_end_dialogue"],
-					"next": "start"
-				},
-			]
+			"effects": ["_end_dialogue"],
+			"next": "start",
 		},
 		"fight": {
 			"say": "You. Will. Die.",
-			"answers": [
+			"responses": [
 				{
 					"say": "Let's begin!",
 					"effects": ["_end_dialogue", "_begin_fight"],

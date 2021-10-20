@@ -61,9 +61,9 @@ func set_dialogue_text(say_text: String, speaker: String, new_responses: Array=[
 	change_selected_answer(0)
 	set_progress(0)
 
-func get_current_response() -> String:
+func get_current_response() -> abstract_dialogue.statement:
 	if(responses.empty()):
-		return "" # todo: refactor answer system
+		return null
 	return responses[selected_response]
 
 func update_dialogue(visible_chars: int, transparency: float):
@@ -78,11 +78,11 @@ func _process(delta: float):
 	var text_length: int = text.get_total_character_count()
 	if(text_length > 0):
 		progress += DIALOGUE_SPEED * delta
-		set_progress(progress if progress < text_length else -1)
+		set_progress(progress if progress < text_length else -1.0)
 
 func set_progress(new_progress: float):
 	progress = new_progress
-	text.set_visible_characters(progress)
+	text.set_visible_characters(int(progress))
 	set_answer_visible(progress < 0)
 
 func fully_visible() -> bool:

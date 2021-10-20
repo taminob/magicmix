@@ -19,11 +19,12 @@ func spawn(override_limit: bool=false):
 		var new_minion: KinematicBody = game.mgmt.create_character("minion")
 		new_minion.remove_from_group("characters")
 		game.levels.current_level.call_deferred("add_child", new_minion)
-		call_deferred("_set_minion_properties", new_minion)
-		new_minion.translation = radius * Vector3(sin(float(i) / minion_limit * TAU), 0, cos(float(i) / minion_limit * TAU))
-		new_minion.face_target(self)
+		call_deferred("_set_minion_properties", new_minion, i)
 
-func _set_minion_properties(minion: KinematicBody):
+func _set_minion_properties(minion: KinematicBody, minion_id: int):
 	minion.dialogue.relations = {game.mgmt.player_name: dialogue_state.relation.enemy}
 	#minion.inventory.add_spell(fire_ball_spell.id()) # todo: special minion attacks?
 	minion.inventory.spells = skill_data.spells.keys()
+
+	minion.translation = radius * Vector3(sin(float(minion_id) / minion_limit * TAU), 0, cos(float(minion_id) / minion_limit * TAU))
+	minion.face_target(self)

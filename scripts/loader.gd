@@ -73,7 +73,7 @@ func _process(_delta: float):
 		else:
 			_loading_instance.set_progress(1)
 
-func _thread_process(_a):
+func _thread_process(_a=null): # TODO(3.4): parameter can be removed
 	while !_load_queue.empty():
 		_queue_mutex.lock()
 		var current: ResourceInteractiveLoader = _load_queue.front()

@@ -30,7 +30,7 @@ enum relation {
 }
 
 var current_statement: abstract_dialogue.statement
-var end_dialogue: bool = false
+var wants_to_end_dialogue: bool = false
 func dialogue_process(_delta: float):
 	if(!is_dialogue_active()):
 		return # TODO: fade if listener goes away
@@ -80,16 +80,17 @@ func accept_dialogue(new_partner: KinematicBody):
 
 func say():
 	current_statement = data.get_statement()
-	partner.dialogue.receive_statement(current_statement)
-	update_listeners(current_statement)
+	if(player_in_dialogue()):
+		partner.dialogue.receive_statement(current_statement)
+		update_listeners(current_statement)
 
 func choose_statement(statements: Array):
 	if(!is_dialogue_active()):
 		return
-	if(!game.mgmt.ui.dialogue.fully_visible()):
+	if(state.is_player && !game.mgmt.ui.dialogue.fully_visible()):
 		game.mgmt.ui.dialogue.set_progress(-1)
 		return
-	if(end_dialogue):
+	if(wants_to_end_dialogue):
 		end_dialogue()
 		return
 	var response: abstract_dialogue.statement
@@ -100,19 +101,22 @@ func choose_statement(statements: Array):
 	partner.dialogue.receive_statement(response)
 
 func receive_statement(statement: abstract_dialogue.statement):
+	if(!statement):
+		end_dialogue()
+		return
 	if(is_data_provider()):
 		data.set_response(statement)
 	else:
 		partner.dialogue.data.set_response(statement)
+	statement.execute_effects(pawn)
 	if(state.is_player):
 		game.mgmt.ui.dialogue.set_dialogue_text(statement.formatted_text(), get_call_name(statement.speaker.name), statement.responses) # TODO: check is_valid for statements in responses
 	else:
-		if(is_dialogue_active()):
+		if(player_in_dialogue()):
 			if(!statement.next_statement.empty()):
 				choose_statement([data.statement_path_to_statement(statement.next_statement)])
 			else:
 				choose_statement(statement.responses) # TODO: ai answer selection, wait for player
-	statement.execute_effects(pawn)
 
 func listen(statement: abstract_dialogue.statement):
 	if(state.is_player):
@@ -125,27 +129,27 @@ func add_listener(listener: KinematicBody):
 	if(listener.state.is_player):
 		game.mgmt.ui.start_dialogue()
 		if(current_statement):
-			say()
-	if(current_statement):
-		update_listeners(current_statement)
-	elif(is_dialogue_active() && partner.dialogue._current_statement):
-		update_listeners(partner.dialogue._current_statement)
+			partner.dialogue.receive_statement(current_statement)
+			update_listeners(current_statement)
+		elif(is_dialogue_active() && partner.dialogue.current_statement):
+			receive_statement(partner.dialogue.current_statement)
+			update_listeners(partner.dialogue.current_statement)
 
 func update_listeners(statement: abstract_dialogue.statement):
 	if(statement):
 		for x in listeners:
-			x.dialogue.listen(statement, [])
+			x.dialogue.listen(statement)
 			statement.execute_effects(x)
 		if(partner):
 			for x in partner.dialogue.listeners:
-				x.dialogue.listen(statement, [])
+				x.dialogue.listen(statement)
 				statement.execute_effects(x)
 
 func interrupt_dialogue():
 	end_dialogue()
 
 func end_dialogue():
-	end_dialogue = false
+	wants_to_end_dialogue = false
 	if(!is_dialogue_active()):
 		return
 	current_statement = null

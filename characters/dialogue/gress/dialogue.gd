@@ -1,16 +1,20 @@
 extends abstract_dialogue
 
 func init_statements():
-	partners["gerhard"] = player_meet_first_time()
-# warning-ignore:return_value_discarded
-	default_statement()
+	pass #default_statement()
 
-func default_statement() -> Array:
+func init_conversations():
+	conversations["player_meet_first_time"] = player_meet_first_time()
+
+func init_partners():
+	partners["gerhard"] = conversations["player_meet_first_time"]
+
+func default_conversation() -> Array:
 	var statement_name: String = "default"
 	statements[statement_name] = create_statements_from_dict({
 		"start": {
 			"say": "How can I help you?",
-			"answers": [
+			"responses": [
 				{
 					"say": "Where am I?",
 					"next": "where"
@@ -23,7 +27,7 @@ func default_statement() -> Array:
 		},
 		"where": {
 			"say": "Welcome to the Death Realm, looks like it's your first time here!\nBut don't worry! In the end, we all meet here.",
-			"answers": [
+			"responses": [
 				{
 					"say": "I'm dead?",
 					"next": "no_other_way_in"
@@ -37,7 +41,7 @@ func default_statement() -> Array:
 		"who": {
 			"say": "Oh, I'm a nobody. But you may call me {self}.",
 			"effects": ["_introduce_self"],
-			"answers": [
+			"responses": [
 				{
 					"say": "I'm {partner}!",
 					"effects": ["_introduce_partner"],
@@ -51,7 +55,7 @@ func default_statement() -> Array:
 		},
 		"nice_to_meet": {
 			"say": "Nice to meet you, {partner}.",
-			"answers": [
+			"responses": [
 				{
 					"say": "Where am I?",
 					"next": "where"
@@ -60,7 +64,7 @@ func default_statement() -> Array:
 		},
 		"no_other_way_in": {
 			"say": "I know of no other way in except dying. But it's not that bad. At least, you can't feel any pain here.",
-			"answers": [
+			"responses": [
 				{
 					"say": "Thank you.",
 					"effects": ["_end_dialogue"],
@@ -73,21 +77,11 @@ func default_statement() -> Array:
 
 func player_meet_first_time() -> Array:
 	var statement_name: String = "player_meet_first_time"
-	var start = statement.new("Ah, you're awake. So the ritual actually worked.")
-	var silent1 = statement.new("A silent one, I like you.")
-	var ritual_explaination = statement.new("I summoned you from another world, a realm far away. You probably lost all the memories of it, but trust me, it was a horrible place.")
-	var where = statement.new("You are in the Death Realm of our world.")
-	var why = statement.new("You are here to help me and save our world.")
-	var who = statement.new("I am just a humble servant of our world, here to guide you through difficult choices.")
-	var reason_threat = statement.new("Because now you are here with us and you will be doomed as we are if our world dies.")
-	var no_way_back = statement.new("You won't because there is none. But good luck. But in the meantime, you can save our world and you will be rewarded with fortunes you can only dream of.")
-	var task = statement.new("Enter this portal here and there will be someone who can help you with the details on the other side.\nBe wary though, the portal will send you to the realm of the living. Meaning you can die.")
-
 	statements[statement_name] = create_statements_from_dict({
 		"start": {
 			"say": "Ah, you're awake. So the ritual actually worked.",
 			"effect": ["_introduce_self"],
-			"answers": [
+			"responses": [
 				{
 					"say": "...",
 					"next": "silent1"
@@ -104,7 +98,7 @@ func player_meet_first_time() -> Array:
 		},
 		"silent1": {
 			"say": "A silent one, I like you.",
-			"answers": [
+			"responses": [
 				{
 					"say": "...",
 					"next": "ritual_explanation"
@@ -121,7 +115,7 @@ func player_meet_first_time() -> Array:
 		},
 		"ritual_explanation": {
 			"say": "I summoned you from another world, a realm far away. You probably lost all the memories of it, but trust me, it was a horrible place.",
-			"answers": [
+			"responses": [
 				{
 					"say": "...",
 					"next": "why"
@@ -134,7 +128,7 @@ func player_meet_first_time() -> Array:
 		},
 		"where": {
 			"say": "You are in the Death Realm of our world.",
-			"answers": [
+			"responses": [
 				{
 					"say": "You mentioned a ritual.",
 					"next": "ritual_explanation"
@@ -147,7 +141,7 @@ func player_meet_first_time() -> Array:
 		},
 		"why": {
 			"say": "You are here to help me and save our world.",
-			"answers": [
+			"responses": [
 				{
 					"say": "Why should I care?",
 					"next": "reason_threat"
@@ -160,7 +154,7 @@ func player_meet_first_time() -> Array:
 		},
 		"reason_threat": {
 			"say": "Because now you are here with us and you will be doomed as we are if our world dies.",
-			"answers": [
+			"responses": [
 				{
 					"say": "I will find a way back.",
 					"next": "no_way_back"
@@ -169,7 +163,7 @@ func player_meet_first_time() -> Array:
 		},
 		"no_way_back": {
 			"say": "You won't because there is none. But good luck. But in the meantime, you can save our world and you will be rewarded with fortunes you can only dream of.",
-			"answers": [
+			"responses": [
 				{
 					"say": "What do you want me to do?",
 					"next": "task"

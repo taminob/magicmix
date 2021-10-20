@@ -85,7 +85,7 @@ func init(state_dict: Dictionary):
 	skills = _inventory_state.get("skills", [""]) # todo? enable do_nothing skill?
 	for x in skills:
 		skill_data.skills[x].on_allocated(pawn)
-	skill_points = _inventory_state.get("skill_points", 5) # TODO? balance start skill points?
+	skill_points = _inventory_state.get("skill_points", 5) # TODO! balance start skill points?
 	things = _inventory_state.get("things", [])
 	spell_slots = _inventory_state.get("spell_slots", DEFAULT_SPELL_SLOTS)
 	errors.debug_assert(spell_slots.size() == 5, "invalid spell_slots size")

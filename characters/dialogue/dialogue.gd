@@ -53,33 +53,38 @@ func create_statements_from_dict(statement_dict: Dictionary, path: Array) -> Dic
 	for x in statement_dict.keys():
 		if(statement_dict[x].has("say")):
 			var new_statement: statement = statement.new(statement_dict[x]["say"])
-			var new_effects = statement_dict[x].get("effects", [])
-			if(new_effects is String):
-				new_statement.effects.push_back(funcref(self, new_effects))
-			elif(new_effects is Array):
-				for effect in new_effects:
-					new_statement.effects.push_back(funcref(self, effect))
-			elif(new_effects is FuncRef):
-				new_statement.effects.push_back(new_effects)
-			else:
-				errors.debug_assert(false, "invalid type for new_effects")
+			new_statement.effects = _create_effects(statement_dict[x])
 			for response_data in statement_dict[x].get("responses", []):
 				var new_response: statement = statement.new(response_data.get("say", ""))
-				var new_next = response_data.get("next", path + [x])
-				if(new_next is String):
-					new_next = path + [new_next]
-				new_response.next_statement = new_next
-				for effect in response_data.get("effects", []):
-					new_response.effects.push_back(funcref(self, effect))
+				new_response.next_statement = _create_next(response_data, path, x)
+				new_response.effects = _create_effects(response_data)
 				new_statement.responses.push_back(new_response)
-			var new_next = statement_dict[x].get("next", path + [x])
-			if(new_next is String):
-				new_next = path + [new_next]
-			new_statement.next_statement = new_next
+			new_statement.next_statement = _create_next(statement_dict[x], path, x)
 			new_dict[x] = new_statement
 		else:
 			new_dict[x] = create_statements_from_dict(statement_dict[x], path + [x])
 	return new_dict
+
+func _create_effects(dict: Dictionary) -> Array:
+	var new_effects = dict.get("effects", [])
+	if(new_effects is String):
+		return [funcref(self, new_effects)]
+	elif(new_effects is Array):
+		var effects: Array = []
+		for effect in new_effects:
+			effects.push_back(funcref(self, effect))
+		return effects
+	elif(new_effects is FuncRef):
+		return [new_effects]
+	else:
+		errors.debug_assert(false, "invalid type for new_effects")
+		return []
+
+func _create_next(dict: Dictionary, path: Array, current_key: String) -> Array:
+	var new_next = dict.get("next", path + [current_key])
+	if(new_next is String):
+		return path + [new_next]
+	return new_next
 
 var partners: Dictionary
 var wants_to_talk_to: Array # TODO
@@ -88,7 +93,7 @@ var pawn: character
 var partner: character
 
 func _end_dialogue(receiver: character):
-	receiver.dialogue.end_dialogue = true
+	receiver.dialogue.wants_to_end_dialogue = true
 
 func _introduce_self(receiver: character=partner):
 	if(receiver):
@@ -96,6 +101,15 @@ func _introduce_self(receiver: character=partner):
 
 func _introduce_partner(_receiver: character):
 	pawn.dialogue.call_names[partner.name] = partner.dialogue.display_name
+
+func _make_enemy(receiver: character):
+	pawn.dialogue.set_relation(receiver.name, -2)#dialogue_state.relation.enemy) # TODO: move relation to other script to access here
+
+func _make_neutral(receiver: character):
+	pawn.dialogue.set_relation(receiver.name, 0)#dialogue_state.relation.neutral)
+
+func _make_ally(receiver: character):
+	pawn.dialogue.set_relation(receiver.name, 2)#dialogue_state.relation.ally)
 
 func introduction_silent_conversation() -> Array:
 	var statement_name: String = "introduction_silent"
@@ -158,7 +172,7 @@ func init_conversations(): # TODO? remove?
 	conversations["introduction_silent"] = introduction_silent_conversation()
 
 func init_partners():
-	partners["gerhard"] = ["introduction_silent", "start"] # TODO: DEBUG (remove)
+	pass
 
 func default_conversation() -> Array:
 	return ["unimplemented"]

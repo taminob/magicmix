@@ -14,15 +14,13 @@ func update_logs(category=""):
 	for x in game.mgmt.player_history:
 		buttons.add_child(create_name_button(x))
 	for x in game.mgmt.player_logs.keys():
-		list.add_item
-		var item = item_data.items[x]
-		if(item.category() == category || category.empty()):
-			list.add_item(item.name(), item.icon())
+		if(x == category || category.empty()):
+			list.add_item(game.mgmt.player_logs[x])
 
 func create_name_button(char_id: String) -> Button:
 	var button: Button = Button.new()
 	button.set_text(game.get_character_data(char_id).get("dialogue", {}).get("name", "???"))
-	button.connect("pressed", self, "_on_name_pressed", [char_id])
+	errors.error_test(button.connect("pressed", self, "_on_name_pressed", [char_id]))
 	return button
 
 func _on_sort_button_pressed():

@@ -1,27 +1,19 @@
 extends abstract_dialogue
 
-func _init_statements():
-	_start_statements["guenther"] = murder_witness_statement()
-	_start_statements["hans"] = hans_meet_first_time()
-# warning-ignore:return_value_discarded
-	default_statement()
-#	statements = [
-#		statement.new("Hello, my dear! My name is Mariliry!", [
-#			answer.new("May I call you something shorter?", null), 
-#			answer.new("I hate you!", null), 
-#			answer.new("Bye!", funcref(self, "_end_dialogue"))]),
-#		statement.new("Sure, just call me Mary!", [
-#			answer.new("Great!", null)]),
-#		statement.new("See you!", [
-#			answer.new("See you!", funcref(self, "_end_dialogue"))]),
-#		statement.new("Never again talk to me again!", [])
-#	]
+func init_statements():
+	pass #default_statement()
 
-func default_statement() -> Array:
+func init_conversations():
+	conversations["hans_meet_first_time"] = hans_meet_first_time()
+
+func init_partners():
+	partners["hans"] = conversations["hans_meet_first_time"]
+
+func default_conversation() -> Array:
 	var statement_name: String = "default"
-	_statements[statement_name] = _create_statements_from_dict({
+	statements[statement_name] = create_statements_from_dict({
 		"start": {
-			"say": _stranger_greeting() + "\nWhat's your name?",
+			"say": dialogue_helpers._stranger_greeting() + "\nWhat's your name?",
 			"answers": [
 				{
 					"say": "{partner}.",
@@ -99,23 +91,11 @@ func default_statement() -> Array:
 	}, [statement_name])
 	return [statement_name, "start"]
 
-func some_statement() -> Array:
-	var statement_name: String = "some"
-	_statements[statement_name] = _create_statements_from_dict({
-		"start": {
-			"say": "",
-			"answers": [
-				{
-					"say": ""
-				}
-			]
-		}
-	}, [statement_name])
-	return [statement_name, "start"]
+
 
 func hans_meet_first_time() -> Array:
 	var statement_name: String = "hans_meet_first_time"
-	_statements[statement_name] = _create_statements_from_dict({
+	statements[statement_name] = create_statements_from_dict({
 		"start": {
 			"say": "Hello, my dear, I'm Mary! You look lost, can I help you?",
 			"effect": ["_introduce_self"],
