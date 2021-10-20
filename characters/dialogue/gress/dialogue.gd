@@ -140,15 +140,11 @@ func player_meet_first_time() -> Array:
 			]
 		},
 		"why": {
-			"say": "You are here to help me and save our world.",
+			"say": "You are here to help me and save our world!",
 			"responses": [
 				{
 					"say": "Why should I care?",
 					"next": "reason_threat"
-				},
-				{
-					"say": "Why?",
-					"next": "why"
 				}
 			]
 		},

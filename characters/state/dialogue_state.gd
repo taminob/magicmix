@@ -50,8 +50,20 @@ func dialogue_interacted(interactor: KinematicBody):
 			interactor.dialogue.start_dialogue(pawn)
 	elif(partner == interactor):
 		partner.dialogue.choose_statement([]) # todo: rework
-	else:
+	elif(!listeners.has(interactor)):
 		add_listener(interactor)
+	elif(is_data_provider()):
+		var statement: abstract_dialogue.statement = data.get_statement()
+		if(statement.speaker == pawn):
+			partner.dialogue.choose_from(statement)
+		else:
+			choose_from(statement)
+	else:
+		var statement: abstract_dialogue.statement = partner.dialogue.data.get_statement()
+		if(statement.speaker == pawn):
+			partner.dialogue.choose_from(statement)
+		else:
+			choose_from(statement)
 
 func is_dialogue_active() -> bool:
 	return game.is_valid(partner)
@@ -64,6 +76,9 @@ func can_talk() -> bool:
 
 func player_in_dialogue() -> bool:
 	return is_dialogue_active() && (state.is_player || partner.state.is_player)
+
+func player_listener() -> bool:
+	return is_dialogue_active() && (listeners.has(game.mgmt.player) || partner.dialogue.listeners.has(game.mgmt.player))
 
 func start_dialogue(new_partner: KinematicBody):
 	interrupt_dialogue()
@@ -80,18 +95,21 @@ func accept_dialogue(new_partner: KinematicBody):
 
 func say():
 	current_statement = data.get_statement()
-	if(player_in_dialogue()):
+	if(player_in_dialogue() || player_listener()):
 		partner.dialogue.receive_statement(current_statement)
 		update_listeners(current_statement)
 
 func choose_statement(statements: Array):
 	if(!is_dialogue_active()):
 		return
-	if(state.is_player && !game.mgmt.ui.dialogue.fully_visible()):
+	if((player_listener() || player_in_dialogue()) && !game.mgmt.ui.dialogue.fully_visible()):
 		game.mgmt.ui.dialogue.set_progress(-1)
 		return
 	if(wants_to_end_dialogue):
 		end_dialogue()
+		return
+	elif(partner.dialogue.wants_to_end_dialogue):
+		partner.dialogue.end_dialogue()
 		return
 	var response: abstract_dialogue.statement
 	if(state.is_player):
@@ -99,6 +117,15 @@ func choose_statement(statements: Array):
 	else:
 		response = statements.front() # todo: ai select answer
 	partner.dialogue.receive_statement(response)
+
+func choose_from(statement: abstract_dialogue.statement):
+	if(!statement.next_statement.empty()):
+		if(is_data_provider()):
+			choose_statement([data.statement_path_to_statement(statement.next_statement)])
+		else:
+			choose_statement([partner.dialogue.data.statement_path_to_statement(statement.next_statement)])
+	else:
+		choose_statement(statement.responses)
 
 func receive_statement(statement: abstract_dialogue.statement):
 	if(!statement):
@@ -113,10 +140,9 @@ func receive_statement(statement: abstract_dialogue.statement):
 		game.mgmt.ui.dialogue.set_dialogue_text(statement.formatted_text(), get_call_name(statement.speaker.name), statement.responses) # TODO: check is_valid for statements in responses
 	else:
 		if(player_in_dialogue()):
-			if(!statement.next_statement.empty()):
-				choose_statement([data.statement_path_to_statement(statement.next_statement)])
-			else:
-				choose_statement(statement.responses) # TODO: ai answer selection, wait for player
+			choose_from(statement)
+		elif(player_listener()):
+			game.mgmt.ui.dialogue.set_dialogue_text(statement.formatted_text(), get_call_name(statement.speaker.name), []) # TODO: check is_valid for statements in responses
 
 func listen(statement: abstract_dialogue.statement):
 	if(state.is_player):
@@ -124,8 +150,7 @@ func listen(statement: abstract_dialogue.statement):
 	statement.execute_effects(pawn)
 
 func add_listener(listener: KinematicBody):
-	if(!listeners.has(listener)):
-		listeners.push_back(listener)
+	listeners.push_back(listener)
 	if(listener.state.is_player):
 		game.mgmt.ui.start_dialogue()
 		if(current_statement):
@@ -153,7 +178,7 @@ func end_dialogue():
 	if(!is_dialogue_active()):
 		return
 	current_statement = null
-	if(state.is_player):
+	if(player_in_dialogue() || player_listener()):
 		game.mgmt.ui.end_dialogue()
 	if(partner):
 		var old_partner = partner
