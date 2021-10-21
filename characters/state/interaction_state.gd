@@ -8,11 +8,16 @@ onready var inventory: Node = $"../inventory"
 onready var stats: Node = $"../stats"
 onready var move: Node = $"../move"
 
-var interact_target: Node = null
+var targets: Array = []
+
+func get_target() -> Node:
+	if(targets.empty()):
+		return null
+	return targets.back()
 
 func initiate_interact():
-	if(interact_target):
-		interact_target.interact(pawn)
+	if(!targets.empty()):
+		targets.back().interact(pawn)
 
 func consume(item: String, remove_from_inventory: bool=true):
 	if(item_data.items[item].category() != "consumable"):
@@ -49,13 +54,20 @@ func toggle_spirit():
 
 func _on_interact_zone_entered(body_or_area: Node):
 	if(body_or_area && body_or_area.has_method("interact") && body_or_area != pawn):
-		interact_target = body_or_area
+		targets.push_back(body_or_area)
 		if(state.is_player):
 			game.mgmt.ui.show_interaction(body_or_area.get_interaction(), null)
+		else:
+			state.ai.should_reconsider = true
 
 # todo: if there is another target still in zone, switch to it
 func _on_interact_zone_exited(body_or_area: Node):
-	if(interact_target == body_or_area):
-		interact_target = null
+	if(targets.has(body_or_area)):
+		targets.erase(body_or_area)
 		if(state.is_player):
-			game.mgmt.ui.hide_interaction()
+			if(targets.empty()):
+				game.mgmt.ui.hide_interaction()
+			else:
+				game.mgmt.ui.show_interaction(targets.back().get_interaction(), null)
+		else:
+			state.ai.should_reconsider = true
