@@ -44,7 +44,7 @@ func action_input(event: InputEvent):
 	if(event.is_action_pressed("interact")):
 		interaction.initiate_interact()
 	if(event.is_action_pressed("ui_accept")):
-		dialogue.choose_statement([])
+		dialogue.choose_statement([]) # TODO: not working for listening
 	if(event.is_action_pressed("skill0")):
 		skills.cast_spell_slot(0)
 		#skills.activate_skill_slot(0)

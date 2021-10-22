@@ -43,7 +43,7 @@ func default_conversation() -> Array:
 			"effects": ["_introduce_self"],
 			"responses": [
 				{
-					"say": "I'm {partner}!",
+					"say": "I'm {self}!",
 					"effects": ["_introduce_partner"],
 					"next": "nice_to_meet"
 				},
@@ -168,6 +168,7 @@ func player_meet_first_time() -> Array:
 		},
 		"task": {
 			"say": "Enter this portal here and someone will be waiting for you. He'll ask you for his name, it's Günther.\nBe wary though, the portal will send you to the realm of the living. Meaning you can die.",
+			"effects": "_end_dialogue"
 		}
 	}, [statement_name])
 	return [statement_name, "start"]

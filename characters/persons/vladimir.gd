@@ -15,7 +15,7 @@ func _init():
 				"filz": -1,
 				"mary": 2
 			},
-			"job": "guard"
+			"job": "guard",
 		},
 		"experience": {
 			"intelligence": 1,

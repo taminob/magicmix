@@ -19,10 +19,9 @@ func _unhandled_key_input(event: InputEventKey):
 		change_selected_answer(1, true)
 	elif(event.is_action_pressed("ui_up")):
 		change_selected_answer(-1, true)
-	elif(event.is_action_pressed("ui_accept")):
+	elif(event.is_action_pressed("ui_accept")): # todo? remove/move to character same as skip/choose?
 		if(responses.empty() || text.get_visible_characters() >= 0):
 			set_progress(-1)
-		# todo: remove? (moved to character)
 	elif(event.is_action_pressed("ui_page_down")):
 		change_selected_answer(responses.size() - 1)
 	elif(event.is_action_pressed("ui_page_up")):

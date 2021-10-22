@@ -10,7 +10,7 @@ const DIALOGUE_NO_FADE_DISTANCE_SQRD = 25;
 const DIALOGUE_END_DISTANCE_SQRD = 100;
 
 var display_name: String
-var call_names: Dictionary
+var call_names: Dictionary # TODO: transfer call_names from previous player and clear on possess
 var gender: String
 var job: String
 var partner: KinematicBody
@@ -29,7 +29,7 @@ enum relation {
 	ally = 2
 }
 
-var current_statement: abstract_dialogue.statement
+var start_statement: abstract_dialogue.statement
 var wants_to_end_dialogue: bool = false
 func dialogue_process(_delta: float):
 	if(!is_dialogue_active()):
@@ -49,15 +49,11 @@ func dialogue_interacted(interactor: KinematicBody):
 		else:
 			interactor.dialogue.start_dialogue(pawn)
 	elif(partner == interactor):
-		partner.dialogue.proceed_statement() # todo: rework
+		partner.dialogue.choose_from(get_statement()) # todo: rework
 	elif(!listeners.has(interactor)):
 		add_listener(interactor)
 	else:
-		var statement: abstract_dialogue.statement
-		if(is_data_provider()):
-			statement = data.get_statement()
-		else:
-			statement = partner.dialogue.data.get_statement()
+		var statement: abstract_dialogue.statement = get_statement()
 		if(statement.speaker == pawn):
 			partner.dialogue.choose_from(statement)
 		else:
@@ -75,8 +71,14 @@ func can_talk() -> bool:
 func player_in_dialogue() -> bool:
 	return is_dialogue_active() && (state.is_player || partner.state.is_player)
 
-func player_listener() -> bool:
+func player_listening() -> bool:
 	return is_dialogue_active() && (listeners.has(game.mgmt.player) || partner.dialogue.listeners.has(game.mgmt.player))
+
+func get_statement() -> abstract_dialogue.statement:
+	if(is_data_provider()):
+		return data.get_statement()
+	else:
+		return partner.dialogue.data.get_statement()
 
 func start_dialogue(new_partner: KinematicBody):
 	interrupt_dialogue()
@@ -92,15 +94,15 @@ func accept_dialogue(new_partner: KinematicBody):
 	partner = new_partner
 
 func say():
-	current_statement = data.get_statement()
-	if(player_in_dialogue() || player_listener()):
-		partner.dialogue.receive_statement(current_statement)
-		update_listeners(current_statement)
+	start_statement = data.get_statement()
+	if(player_in_dialogue() || player_listening()):
+		partner.dialogue.receive_statement(start_statement)
+		update_listeners(start_statement)
 
 func proceed_statement() -> bool:
 	if(!is_dialogue_active()):
 		return false
-	if((player_listener() || player_in_dialogue()) && !game.mgmt.ui.dialogue.fully_visible()):
+	if((player_listening() || player_in_dialogue()) && !game.mgmt.ui.dialogue.fully_visible()):
 		game.mgmt.ui.dialogue.set_progress(-1)
 		return false
 	if(wants_to_end_dialogue):
@@ -112,6 +114,8 @@ func proceed_statement() -> bool:
 	return true
 
 func choose_statement(statements: Array):
+	if(!proceed_statement()):
+		return
 	var response: abstract_dialogue.statement
 	if(state.is_player):
 		response = game.mgmt.ui.dialogue.get_current_response()
@@ -120,9 +124,9 @@ func choose_statement(statements: Array):
 	partner.dialogue.receive_statement(response)
 
 func choose_from(statement: abstract_dialogue.statement):
-	if(!proceed_statement()):
-		return
 	if(!statement.next_statement.empty()):
+		if(!proceed_statement()):
+			return
 		if(is_data_provider()):
 			partner.dialogue.receive_statement(data.statement_path_to_statement(statement.next_statement))
 		else:
@@ -140,28 +144,28 @@ func receive_statement(statement: abstract_dialogue.statement):
 		partner.dialogue.data.set_response(statement)
 	statement.execute_effects(pawn)
 	if(state.is_player):
-		game.mgmt.ui.dialogue.set_dialogue_text(statement.formatted_text(), get_call_name(statement.speaker.name), statement.responses) # TODO: check is_valid for statements in responses
+		game.mgmt.ui.dialogue.set_dialogue_text(statement.formatted_text(), game.mgmt.player.dialogue.get_call_name(statement.speaker.name), statement.responses) # TODO: check is_valid for statements in responses
 	else:
 		if(player_in_dialogue()):
 			choose_from(statement)
-		elif(player_listener()):
-			game.mgmt.ui.dialogue.set_dialogue_text(statement.formatted_text(), get_call_name(statement.speaker.name), []) # TODO: check is_valid for statements in responses
+		elif(player_listening()):
+			game.mgmt.ui.dialogue.set_dialogue_text(statement.formatted_text(), game.mgmt.player.dialogue.get_call_name(statement.speaker.name), []) # TODO: check is_valid for statements in responses
 
 func listen(statement: abstract_dialogue.statement):
 	if(state.is_player):
-		game.mgmt.ui.dialogue.set_dialogue_text(statement.formatted_text(), get_call_name(statement.speaker.name), [])
+		game.mgmt.ui.dialogue.set_dialogue_text(statement.formatted_text(), game.mgmt.player.dialogue.get_call_name(statement.speaker.name), [])
 	statement.execute_effects(pawn)
 
 func add_listener(listener: KinematicBody):
 	listeners.push_back(listener)
 	if(listener.state.is_player):
 		game.mgmt.ui.start_dialogue()
-		if(current_statement):
-			partner.dialogue.receive_statement(current_statement)
-			update_listeners(current_statement)
-		elif(is_dialogue_active() && partner.dialogue.current_statement):
-			receive_statement(partner.dialogue.current_statement)
-			update_listeners(partner.dialogue.current_statement)
+		if(start_statement):
+			partner.dialogue.receive_statement(start_statement)
+			update_listeners(start_statement)
+		elif(is_dialogue_active() && partner.dialogue.start_statement):
+			receive_statement(partner.dialogue.start_statement)
+			update_listeners(partner.dialogue.start_statement)
 
 func update_listeners(statement: abstract_dialogue.statement):
 	if(statement):
@@ -180,19 +184,21 @@ func end_dialogue():
 	wants_to_end_dialogue = false
 	if(!is_dialogue_active()):
 		return
-	current_statement = null
-	if(player_in_dialogue() || player_listener()):
+	start_statement = null
+	if(player_in_dialogue() || player_listening()):
 		game.mgmt.ui.end_dialogue()
+	if(state.is_player):
+		var statement: abstract_dialogue.statement = get_statement()
+		if(statement.is_response()):
+			if(is_data_provider()):
+				data.set_response_path(statement.next_statement)
+			else:
+				partner.dialogue.data.set_response_path(statement.next_statement)
 	if(partner):
 		var old_partner = partner
 		partner = null
-		data.change_partner(null)
 		old_partner.dialogue.end_dialogue()
-#	var i: int = 0
-#	while i < listeners.size():
-#		var listener = listeners[i]
-#		listeners.remove(i)
-#		listener.end_dialogue()
+		data.change_partner(null)
 	listeners.clear()
 
 func get_call_name(character_id: String) -> String:

@@ -58,6 +58,9 @@ class statement:
 		# todo: other requirements
 		return true
 
+	func is_response() -> bool:
+		return !(path.back() is String) # todo? is int?
+
 func create_statements_from_dict(statement_dict: Dictionary, path: Array) -> Dictionary:
 	var new_dict: Dictionary = {}
 	for x in statement_dict.keys():
@@ -179,12 +182,28 @@ func introduction_silent_conversation() -> Array:
 	return [statement_name, "start"]
 
 func unimplemented_conversation() -> Array:
-	statements["unimplemented"] = statement.new(["unimplemented"], "Hey {partner}, I'm {self}. :)\nYou actually found an unimplemented dialogue, feel free to contact the devs and help improving the game!", [
-		funcref(self, "_introduce_self")], [
-		statement.new(["unimplemented", 0], "Alright, on my way!", [funcref(self, "_end_dialogue")]), 
-		statement.new(["unimplemented", 1], "Definitely not going to do that, hate this game!", [funcref(self, "_end_dialogue")]), 
-		statement.new(["unimplemented", 2], "Bye!", [funcref(self, "_end_dialogue")])])
-	return ["unimplemented"]
+	var statement_name: String = "unimplemented"
+	statements[statement_name] = create_statements_from_dict({
+		"start": {
+			"say": "Hey {partner}, I'm {self}. :)\nYou actually found an unimplemented dialogue, feel free to contact the devs and help improving the game!",
+			"effects": ["_introduce_self"],
+			"responses": [
+				{
+					"say": "Alright, on my way!",
+					"effects": "_end_dialogue"
+				},
+				{
+					"say": "Definitely not going to do that, hate this game!",
+					"effects": "_end_dialogue"
+				},
+				{
+					"say": "Bye!",
+					"effects": "_end_dialogue"
+				},
+			]
+		}
+	}, [statement_name])
+	return [statement_name, "unimplemented"]
 
 var statements: Dictionary = {}
 var conversations: Dictionary = {}
@@ -207,24 +226,33 @@ func init_partners():
 	pass
 
 func default_conversation() -> Array:
-	return ["unimplemented"]
+	return ["unimplemented", "start"]
 
 func change_partner(new_partner: character):
 	partner = new_partner
 
 func set_response(response: statement):
-	partners[partner.name] = response.path
+	set_response_path(response.path)
+
+func set_response_path(response_path: Array):
+	partners[partner.name] = response_path
 
 func get_statement() -> statement:
 	return statement_path_to_statement(partners.get(partner.name, default_conversation()))
 
 func statement_path_to_statement(path: Array) -> statement:
 	var s = statements
+	var is_response: bool = false
 	for x in path:
 		if(x is String):
+			is_response = false
 			s = s[x]
 		else:
+			is_response = true
 			s = s.responses[x]
 	if(s):
-		s.update(pawn, partner)
+		if(is_response):
+			s.update(partner, pawn)
+		else:
+			s.update(pawn, partner)
 	return s
