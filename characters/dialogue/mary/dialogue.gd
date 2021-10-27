@@ -7,7 +7,7 @@ func init_conversations():
 	conversations["hans_meet_first_time"] = hans_meet_first_time()
 
 func init_partners():
-	partners["hans"] = conversations["hans_meet_first_time"]
+	partners[hans_person.id()] = conversations["hans_meet_first_time"]
 
 func default_conversation() -> Array:
 	var statement_name: String = "default"

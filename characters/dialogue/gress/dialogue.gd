@@ -7,7 +7,8 @@ func init_conversations():
 	conversations["player_meet_first_time"] = player_meet_first_time()
 
 func init_partners():
-	partners["gerhard"] = conversations["player_meet_first_time"]
+	partners[gerhard_person.id()] = conversations["player_meet_first_time"]
+	wants_to_talk_to.push_back(gerhard_person.id())
 
 func default_conversation() -> Array:
 	var statement_name: String = "default"
@@ -168,7 +169,7 @@ func player_meet_first_time() -> Array:
 		},
 		"task": {
 			"say": "Enter this portal here and someone will be waiting for you. He'll ask you for his name, it's Günther.\nBe wary though, the portal will send you to the realm of the living. Meaning you can die.",
-			"effects": "_end_dialogue"
+			"effects": ["_end_dialogue", "_no_more_want_to_talk_to_partner"]
 		}
 	}, [statement_name])
 	return [statement_name, "start"]

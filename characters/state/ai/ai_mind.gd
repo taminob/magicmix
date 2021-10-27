@@ -91,6 +91,21 @@ func get_most_damaged_ally() -> character:
 			most_damaged_target = x
 	return most_damaged_target
 
+func is_in_sight(body: character) -> bool:
+	return allies_in_sight.has(body) || characters_in_sight.has(body) || enemies_in_sight.has(body)
+
+func is_in_sight_by_id(character_id: String) -> bool:
+	for x in allies_in_sight:
+		if(x.name == character_id):
+			return true
+	for x in characters_in_sight:
+		if(x.name == character_id):
+			return true
+	for x in enemies_in_sight:
+		if(x.name == character_id):
+			return true
+	return false
+
 # todo? refactor? currently depends on pass-by-reference for Array
 func _add_in_sight(body: Node, destination: Array, remove_from: Array=[]):
 	if(remove_from.has(body)):

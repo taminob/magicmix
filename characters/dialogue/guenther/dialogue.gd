@@ -7,7 +7,8 @@ func init_conversations():
 	conversations["first_meet_filz"] = first_meet_filz()
 
 func init_partners():
-	partners["filz"] = conversations["first_meet_filz"]
+	partners[filz_person.id()] = conversations["first_meet_filz"]
+	wants_to_talk_to.push_back(filz_person.id())
 
 func first_meet_filz() -> Array:
 	var statement_name: String = "first_meet_filz"

@@ -7,10 +7,11 @@ func init_conversations():
 	conversations["want_to_arrest"] = want_to_arrest()
 
 func init_partners():
-	partners["hans"] = conversations["want_to_arrest"]
+	partners[hans_person.id()] = conversations["want_to_arrest"]
+	wants_to_talk_to.push_back(hans_person.id())
 
 func want_to_arrest() -> Array:
-	var statement_name: String = "some"
+	var statement_name: String = "want_to_arrest"
 	statements[statement_name] = create_statements_from_dict({
 		"start": {
 			"say": _arrest_sentence(),

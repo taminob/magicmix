@@ -68,9 +68,9 @@ func get_current_goals() -> Array:
 #		x = x[0]
 #	return current_goals
 	var goals: Array = []
-	var survive_goal: planner.goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.pain)
-	survive_goal.requirements.pain = max(stats.pain - 10, 5) # todo? better requirements
 	if(!stats.undead):
+		var survive_goal: planner.goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.pain)
+		survive_goal.requirements.pain = max(stats.pain - 10, 5) # todo? better requirements
 		goals.push_back(survive_goal)
 	var fight_goal: planner.goal
 	if(stats.undead):
@@ -82,7 +82,10 @@ func get_current_goals() -> Array:
 	goals.push_back(fight_goal)
 	var talk_goal: planner.goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.talking)
 	talk_goal.requirements.talking = true
-	goals.push_back(talk_goal)
+	for x in dialogue.data.wants_to_talk_to:
+		if(brain.is_in_sight_by_id(x)):
+			goals.push_back(talk_goal)
+			break
 	var patrol_goal: planner.goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.pain | planner.knowledge_mask.enemy_in_sight)
 	patrol_goal.requirements.pain = stats.max_pain() * 0.1
 	patrol_goal.requirements.enemy_in_sight = true

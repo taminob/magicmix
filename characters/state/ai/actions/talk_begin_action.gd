@@ -16,7 +16,10 @@ static func cost() -> float:
 	return 1.0
 
 func choose_target():
-	target = pawn.ai.brain.get_any_ally()
+	for x in pawn.dialogue.data.wants_to_talk_to:
+		if(pawn.ai.brain.is_in_sight_by_id(x)):
+			target = game.get_character(x)
+			return
 
 func get_range_state() -> int:
 	if(!game.is_valid(target)):

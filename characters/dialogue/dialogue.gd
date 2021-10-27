@@ -107,7 +107,7 @@ func _create_next(dict: Dictionary, path: Array, current_key: String) -> Array:
 	return new_next
 
 var partners: Dictionary
-var wants_to_talk_to: Array # TODO
+var wants_to_talk_to: Array
 
 var pawn: character
 var partner: character
@@ -121,6 +121,10 @@ func _introduce_self(receiver: character=partner):
 
 func _introduce_partner(_receiver: character):
 	pawn.dialogue.call_names[partner.name] = partner.dialogue.display_name
+
+func _no_more_want_to_talk_to_partner(_receiver: character):
+	if(wants_to_talk_to.has(partner.name)):
+		wants_to_talk_to.erase(partner.name)
 
 func _make_enemy(receiver: character):
 	if(receiver == partner):

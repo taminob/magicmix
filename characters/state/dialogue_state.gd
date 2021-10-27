@@ -32,13 +32,20 @@ enum relation {
 var start_statement: abstract_dialogue.statement
 var wants_to_end_dialogue: bool = false
 func dialogue_process(_delta: float):
-	if(!is_dialogue_active()):
+	if(!is_dialogue_active() || state.is_player):
 		return # TODO: fade if listener goes away
-	var dist = partner.global_transform.origin.distance_squared_to(pawn.global_transform.origin)
+	fade_dialogue(partner)
+	for x in listeners:
+		fade_dialogue(x)
+
+func fade_dialogue(listener_partner: KinematicBody):
+	var dist = listener_partner.global_transform.origin.distance_squared_to(pawn.global_transform.origin)
 	dist = (dist - DIALOGUE_NO_FADE_DISTANCE_SQRD) / DIALOGUE_END_DISTANCE_SQRD
 	var dialogue_intensity = 1 - clamp(dist, 0, 1)
 	if(dialogue_intensity <= 0):
 		interrupt_dialogue()
+	elif(listener_partner.state.is_player):
+		game.mgmt.ui.dialogue.set_transparency(dialogue_intensity)
 
 func dialogue_interacted(interactor: KinematicBody):
 	if(!can_talk()):
