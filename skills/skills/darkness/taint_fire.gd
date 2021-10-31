@@ -1,30 +1,30 @@
 extends abstract_skill
 
-class_name become_undead_skill
+class_name taint_fire_skill
 
 static func id() -> String:
-	return "become_undead"
+	return "taint_fire"
 
 func name() -> String:
-	return "Become Undead"
+	return "Taint Fire"
 
 func description() -> String:
-	return "Death will be always with you. Die and enjoy all the advantages. But be aware of the limitations!"
+	return "Taint the fire you control!"
 
 func category() -> String:
 	return "darkness"
 
 func requirements() -> Array:
-	return [taint_life_skill.id()]
+	return [base_darkness_skill.id()]
 
 func on_allocated(pawn: character):
-	pawn.stats.undead = true
+	pass # TODO: implement taint
 
 func on_retracted(pawn: character):
-	pawn.stats.undead = false
+	pass
 
 func icon() -> Resource:
-	return load(SKILL_ICONS_PATH + "self_dark-512.png")
+	return load(SKILL_ICONS_PATH + "blood_storm-512.png")
 
 func anim() -> String:
 	return ""#SKILL_ANIMS_PATH
