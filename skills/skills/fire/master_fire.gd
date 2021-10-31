@@ -17,10 +17,10 @@ func category() -> String:
 func requirements() -> Array:
 	return [shield_sprint_skill.id()]
 
-func on_allocated(_pawn: character):
+func on_allocated(_pawn: KinematicBody):
 	pass # TODO: introduce fire damage scale factor
 
-func on_retracted(_pawn: character):
+func on_retracted(_pawn: KinematicBody):
 	pass # TODO: reset scale factor
 
 func icon() -> Resource:

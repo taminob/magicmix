@@ -18,12 +18,9 @@ func requirements() -> Array:
 	return [shield_sprint_skill.id()]
 
 const EFFECT_FACTOR: float = 0.1
-func effect(pawn: character, _delta: float):
+func effect(pawn: KinematicBody, _delta: float):
 	# TODO: disable normal focus_per_second regeneration
-	pawn.stats.damage(pawn.move.velocity.length_squared() * EFFECT_FACTOR, abstract_spell.element_type.focus)
-
-func duration() -> float:
-	return 10.0
+	pawn.damage(pawn.move.velocity.length_squared() * EFFECT_FACTOR, abstract_spell.element_type.focus)
 
 func icon() -> Resource:
 	return load(SKILL_ICONS_PATH + "../symbols/letter_f-512.png")

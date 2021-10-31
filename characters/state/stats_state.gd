@@ -75,7 +75,7 @@ func die(save_state: bool=true):
 			death_marker.global_transform = pawn.global_transform
 			pawn.queue_free()
 
-func damage(dmg: float, element: int):
+func damage(dmg: float, element: int, caused_by: KinematicBody):
 	match element:
 		abstract_spell.element_type.focus:
 			_self_focus_damage(dmg)

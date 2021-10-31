@@ -17,13 +17,13 @@ func category() -> String:
 func requirements() -> Array:
 	return []
 
-func on_allocated(pawn: character):
+func on_allocated(pawn: KinematicBody):
 # warning-ignore:return_value_discarded
 	pawn.inventory.add_spell(ice_ball_spell.id())
 # warning-ignore:return_value_discarded
 	pawn.inventory.add_spell(ice_wave_spell.id())
 
-func on_retracted(pawn: character):
+func on_retracted(pawn: KinematicBody):
 	pawn.inventory.remove_spell(ice_ball_spell.id())
 	pawn.inventory.remove_spell(ice_wave_spell.id())
 

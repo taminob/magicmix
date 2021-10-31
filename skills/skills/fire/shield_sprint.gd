@@ -18,11 +18,8 @@ func requirements() -> Array:
 	return [base_fire_skill.id()]
 
 const EFFECT_FACTOR: float = 0.5
-func effect(pawn: character, _delta: float):
+func effect(pawn: KinematicBody, _delta: float):
 	pawn.stats.add_shield(pawn.move.velocity.length_squared() * EFFECT_FACTOR)
-
-func duration() -> float:
-	return 10.0
 
 func icon() -> Resource:
 	return load(SKILL_ICONS_PATH + "../symbols/letter_d-512.png")

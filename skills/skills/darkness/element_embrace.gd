@@ -17,7 +17,7 @@ func category() -> String:
 func requirements() -> Array:
 	return [base_darkness_skill.id()]
 
-func effect(pawn: character, delta: float):
+func effect(pawn: KinematicBody, _delta: float):
 	# TODO: detect incoming damage type, reduce damage? decrease damage resistance for other elements?
 	if(pawn.skills.current_element != abstract_spell.element_type.raw):
 		pawn.stats.shield_element = pawn.skills.current_element

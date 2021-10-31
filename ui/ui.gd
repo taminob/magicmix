@@ -76,14 +76,14 @@ func start_dialogue():
 	interaction.anchor_bottom = 0.61
 	interaction.anchor_left = 0.55
 	interaction.anchor_right = 0.85
-	dialogue.popup()
+	dialogue.set_visible(true)
 
 func end_dialogue():
 	interaction.anchor_top = 0.8
 	interaction.anchor_bottom = 0.88
 	interaction.anchor_left = 0.35
 	interaction.anchor_right = 0.65
-	dialogue.hide()
+	dialogue.set_visible(false)
 
 # todo: interaction icon
 func show_interaction(text: String, _icon: Texture):

@@ -17,10 +17,10 @@ func category() -> String:
 func requirements() -> Array:
 	return [taint_life_skill.id()]
 
-func on_allocated(pawn: character):
+func on_allocated(pawn: KinematicBody):
 	pawn.stats.undead = true
 
-func on_retracted(pawn: character):
+func on_retracted(pawn: KinematicBody):
 	pawn.stats.undead = false
 
 func icon() -> Resource:

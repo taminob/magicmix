@@ -199,6 +199,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://skills/skills/fire/focus_sprint.gd"
 }, {
+"base": "abstract_skill",
+"class": "focus_stance_skill",
+"language": "GDScript",
+"path": "res://skills/skills/ice/focus_stance.gd"
+}, {
 "base": "move_to_task",
 "class": "follow_task",
 "language": "GDScript",
@@ -434,7 +439,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ui/ui.gd"
 }, {
-"base": "Popup",
+"base": "Control",
 "class": "ui_dialogue",
 "language": "GDScript",
 "path": "res://ui/dialogue/ui_dialogue.gd"
@@ -488,6 +493,7 @@ _global_script_class_icons={
 "fire_storm_spell": "",
 "fire_token_item": "",
 "focus_sprint_skill": "",
+"focus_stance_skill": "",
 "follow_task": "",
 "gerhard_person": "",
 "god_mage_person": "",

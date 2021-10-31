@@ -56,8 +56,8 @@ func get_interaction() -> String:
 func interact(interactor: Node):
 	dialogue.dialogue_interacted(interactor)
 
-func damage(dmg: float, element: int):
-	stats.damage(dmg, element)
+func damage(dmg: float, element: int, caused_by: KinematicBody=null):
+	stats.damage(dmg, element, caused_by)
 
 func die():
 	errors.log("died: " + name)

@@ -1,4 +1,4 @@
-extends Popup
+extends Control
 
 class_name ui_dialogue
 

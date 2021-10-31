@@ -32,12 +32,22 @@ func remove_spell(spell_id: String):
 	spells.erase(spell_id)
 
 func add_skill(skill_id: String) -> bool:
-	if(skill_points > 0 && !skills.has(skill_id)):
+	if(skill_points > 0 && !skills.has(skill_id) && can_learn_skill(skill_id)):
 		skill_points -= 1
 		skills.push_back(skill_id)
 		skill_data.skills[skill_id].on_allocated(pawn)
 		return true
 	return false
+
+func can_learn_skill(skill_id: String) -> bool:
+	var skill: abstract_skill = skill_data.skills[skill_id]
+	for x in skill.requirements():
+		if(!skills.has(x)):
+			return false
+	for x in skill.mutually_exclusive():
+		if(skills.has(x)):
+			return false
+	return true
 
 func can_remove_skill(skill_id: String) -> bool:
 	if(!skills.has(skill_id)):

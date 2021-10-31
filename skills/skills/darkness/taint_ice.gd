@@ -17,10 +17,13 @@ func category() -> String:
 func requirements() -> Array:
 	return [base_darkness_skill.id()]
 
-func on_allocated(pawn: character):
+func mutually_exclusive() -> Array:
+	return ["taint_fire", "taint_life"]
+
+func on_allocated(_pawn: KinematicBody):
 	pass # TODO: implement taint
 
-func on_retracted(pawn: character):
+func on_retracted(_pawn: KinematicBody):
 	pass
 
 func icon() -> Resource:

@@ -147,8 +147,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="panels" parent="." instance=ExtResource( 4 )]
-
 [node name="slots" parent="." instance=ExtResource( 5 )]
 anchor_top = 0.87
 anchor_bottom = 0.95
@@ -159,8 +157,12 @@ anchor_top = 0.5
 anchor_right = 0.98
 anchor_bottom = 0.83
 
-[node name="dialogue" parent="." instance=ExtResource( 6 )]
-
 [node name="interaction" parent="." instance=ExtResource( 7 )]
+
+[node name="dialogue" parent="." instance=ExtResource( 6 )]
+visible = false
+
+[node name="panels" parent="." instance=ExtResource( 4 )]
+margin_right = 0.0
 
 [connection signal="pressed" from="menu_button" to="." method="_on_menu_button_pressed"]

@@ -36,4 +36,5 @@ var skills = {
 	shield_sprint_skill.id(): shield_sprint_skill.new(),
 	master_fire_skill.id(): master_fire_skill.new(),
 	base_ice_skill.id(): base_ice_skill.new(),
+	focus_stance_skill.id(): focus_stance_skill.new(),
 }

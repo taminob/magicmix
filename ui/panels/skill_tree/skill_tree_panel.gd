@@ -39,11 +39,7 @@ func _update_invest_button():
 			if(game.mgmt.player.inventory.skill_points <= 0):
 				invest_button.disabled = true
 			else:
-				var skill: abstract_skill = skill_data.skills[skill_id]
-				invest_button.disabled = game.mgmt.player.inventory.skills.has(skill_id)
-				for x in skill.requirements():
-					if(!game.mgmt.player.inventory.skills.has(x)):
-						invest_button.disabled = true
+				invest_button.disabled = game.mgmt.player.inventory.skills.has(skill_id) || !game.mgmt.player.inventory.can_learn_skill(skill_id)
 	else:
 		invest_button.set_text("Invest Skill Point")
 		invest_button.disabled = true

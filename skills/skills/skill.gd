@@ -20,13 +20,16 @@ func category() -> String:
 func requirements() -> Array:
 	return []
 
-func on_allocated(_pawn: character):
+func mutually_exclusive() -> Array:
+	return []
+
+func on_allocated(_pawn: KinematicBody):
 	pass
 
-func on_retracted(_pawn: character):
+func on_retracted(_pawn: KinematicBody):
 	pass
 
-func effect(_pawn: character, _delta: float):
+func effect(_pawn: KinematicBody, _delta: float):
 	pass
 
 func icon() -> Resource:

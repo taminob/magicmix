@@ -27,6 +27,8 @@ func move_to_next_position(_object: Area, _object_id: int, _object_age: float, _
 func set_example_object(object: Area):
 	_example_object = object
 	_example_object.collision_mask = _default_collision_mask
+	if("caster" in _example_object):
+		_example_object.caster = caster
 
 func _ready():
 	spawn_timer = Timer.new()
@@ -49,8 +51,8 @@ func _physics_process(delta: float):
 			i += 1
 
 	for x in _affected_bodies:
-		x.damage(spell.target_pain_per_second() * delta, spell.target_element())
-		x.damage(spell.target_focus_per_second() * delta, abstract_spell.element_type.focus)
+		x.damage(spell.target_pain_per_second() * delta, spell.target_element(), caster)
+		x.damage(spell.target_focus_per_second() * delta, abstract_spell.element_type.focus, caster)
 
 func set_object_active(target: Area, active: bool=true):
 	target.set_visible(active)
@@ -83,8 +85,8 @@ func _object_enter(body: Node, collider: Area):
 	if(body):
 		if(body.has_method("damage")):
 			_affected_bodies.push_back(body)
-			body.damage(spell.target_pain(), spell.target_element())
-			body.damage(spell.target_focus(), abstract_spell.element_type.focus)
+			body.damage(spell.target_pain(), spell.target_element(), caster)
+			body.damage(spell.target_focus(), abstract_spell.element_type.focus, caster)
 		if(destroy_on_contact):
 			collider.queue_free()
 			for i in range(_objects.size()):
