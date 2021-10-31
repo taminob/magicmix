@@ -17,6 +17,9 @@ func category() -> String:
 func requirements() -> Array:
 	return [base_fire_skill.id()]
 
+func mutually_exclusive() -> Array:
+	return ["shield_stance"]
+
 const EFFECT_FACTOR: float = 0.5
 func effect(pawn: KinematicBody, _delta: float):
 	pawn.stats.add_shield(pawn.move.velocity.length_squared() * EFFECT_FACTOR)

@@ -364,6 +364,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://skills/skills/fire/shield_sprint.gd"
 }, {
+"base": "abstract_skill",
+"class": "shield_stance_skill",
+"language": "GDScript",
+"path": "res://skills/skills/ice/shield_stance.gd"
+}, {
 "base": "Node",
 "class": "skills_state",
 "language": "GDScript",
@@ -526,6 +531,7 @@ _global_script_class_icons={
 "selector": "",
 "sequence": "",
 "shield_sprint_skill": "",
+"shield_stance_skill": "",
 "skills_state": "",
 "spell_expander": "",
 "spell_spawner": "",

@@ -17,6 +17,9 @@ func category() -> String:
 func requirements() -> Array:
 	return [base_darkness_skill.id()]
 
+func mutually_exclusive() -> Array:
+	return ["elment_shield"]
+
 func effect(pawn: KinematicBody, _delta: float):
 	# TODO: detect incoming damage type, reduce damage? decrease damage resistance for other elements?
 	if(pawn.skills.current_element != abstract_spell.element_type.raw):

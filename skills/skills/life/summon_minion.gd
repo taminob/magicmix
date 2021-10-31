@@ -25,7 +25,7 @@ func on_retracted(pawn: KinematicBody):
 	pawn.inventory.remove_spell(summon_minion_spell.id())
 
 func icon() -> Resource:
-	return load(SKILL_ICONS_PATH + "../symbols/exclamation_mark-512.png")
+	return load(SKILL_ICONS_PATH + "enemy-512.png")
 
 func anim() -> String:
 	return ""#SKILL_ANIMS_PATH

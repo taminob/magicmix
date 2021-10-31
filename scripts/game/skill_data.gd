@@ -25,6 +25,7 @@ var skills = {
 	base_life_skill.id(): base_life_skill.new(),
 	element_shield_skill.id(): element_shield_skill.new(),
 	invert_gravity_skill.id(): invert_gravity_skill.new(),
+	summon_minion_skill.id(): summon_minion_skill.new(),
 	base_darkness_skill.id(): base_darkness_skill.new(),
 	element_embrace_skill.id(): element_embrace_skill.new(),
 	taint_fire_skill.id(): taint_fire_skill.new(),
@@ -37,4 +38,5 @@ var skills = {
 	master_fire_skill.id(): master_fire_skill.new(),
 	base_ice_skill.id(): base_ice_skill.new(),
 	focus_stance_skill.id(): focus_stance_skill.new(),
+	shield_stance_skill.id(): shield_stance_skill.new(),
 }

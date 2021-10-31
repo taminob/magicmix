@@ -15,7 +15,10 @@ func category() -> String:
 	return "fire"
 
 func requirements() -> Array:
-	return [shield_sprint_skill.id()]
+	return [base_fire_skill.id()]
+
+func mutually_exlusive() -> Array:
+	return ["focus_stance"]
 
 const EFFECT_FACTOR: float = 0.1
 func effect(pawn: KinematicBody, _delta: float):

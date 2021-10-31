@@ -18,7 +18,7 @@ func requirements() -> Array:
 	return [shield_sprint_skill.id()]
 
 func on_allocated(_pawn: KinematicBody):
-	pass # TODO: introduce fire damage scale factor
+	pass # TODO: introduce fire scale factor
 
 func on_retracted(_pawn: KinematicBody):
 	pass # TODO: reset scale factor

@@ -18,7 +18,7 @@ func requirements() -> Array:
 	return [base_life_skill.id()]
 
 func mutually_exclusive() -> Array:
-	return [element_embrace_skill.id()]
+	return ["element_embrace"]
 
 func on_allocated(pawn: KinematicBody):
 # warning-ignore:return_value_discarded
