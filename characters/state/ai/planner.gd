@@ -2,74 +2,74 @@ extends Node
 
 class_name planner
 
+enum value {
+	pain = 0,
+	focus,
+	stamina,
+	shield,
+
+	SIZE
+}
+enum flag {
+	enemy_in_sight = 0,
+	enemy_in_near,
+	enemy_damaged,
+	ally_in_sight,
+	ally_in_near,
+	ally_damaged,
+	talking,
+	facing_target,
+
+	SIZE
+}
+
 class knowledge:
-	var pain: float
-	var focus: float
-	var stamina: float
-	var shield: float
-	var enemy_in_sight: bool
-	var enemy_in_near: bool
-	var enemy_damaged: bool
-	var ally_in_sight: bool
-	var ally_in_near: bool
-	var ally_damaged: bool
-	var talking: bool
-	var facing_target: bool
+	var values: Array
+	var flags: Array
 
 	func _init(new_pain: float=0.0, new_focus: float=0.0, new_stamina: float=0.0, new_shield: float=0.0, bool_mask: int=0):
-		pain = new_pain
-		focus = new_focus
-		stamina = new_stamina
-		shield = new_shield
-		enemy_in_sight = bool_mask & knowledge_mask.enemy_in_sight
-		enemy_in_near = bool_mask & knowledge_mask.enemy_in_near
-		enemy_damaged = bool_mask & knowledge_mask.enemy_damaged
-		ally_in_sight = bool_mask & knowledge_mask.ally_in_sight
-		ally_in_near = bool_mask & knowledge_mask.ally_in_near
-		ally_damaged = bool_mask & knowledge_mask.ally_damaged
-		talking = bool_mask & knowledge_mask.talking
-		facing_target = bool_mask & knowledge_mask.facing_target
+		values.resize(value.SIZE)
+		values[value.pain] = new_pain
+		values[value.focus] = new_focus
+		values[value.stamina] = new_stamina
+		values[value.shield] = new_shield
+		flags.resize(flag.SIZE)
+		flags[flag.enemy_in_sight] = bool(bool_mask & knowledge_mask.enemy_in_sight)
+		flags[flag.enemy_in_near] = bool(bool_mask & knowledge_mask.enemy_in_near)
+		flags[flag.enemy_damaged] = bool(bool_mask & knowledge_mask.enemy_damaged)
+		flags[flag.ally_in_sight] = bool(bool_mask & knowledge_mask.ally_in_sight)
+		flags[flag.ally_in_near] = bool(bool_mask & knowledge_mask.ally_in_near)
+		flags[flag.ally_damaged] = bool(bool_mask & knowledge_mask.ally_damaged)
+		flags[flag.talking] = bool(bool_mask & knowledge_mask.talking)
+		flags[flag.facing_target] = bool(bool_mask & knowledge_mask.facing_target)
 
 	func duplicate() -> knowledge:
 		var know: knowledge = knowledge.new()
-		know.pain = pain
-		know.focus = focus
-		know.stamina = stamina
-		know.shield = shield
-		know.enemy_in_sight = enemy_in_sight
-		know.enemy_in_near = enemy_in_near
-		know.enemy_damaged = enemy_damaged
-		know.ally_in_sight = ally_in_sight
-		know.ally_in_near = ally_in_near
-		know.ally_damaged = ally_damaged
-		know.talking = talking
-		know.facing_target = facing_target
+		know.values = values.duplicate()
+		know.flags = flags.duplicate()
 		return know
 
 enum knowledge_mask {
-	enemy_in_sight	= 0x00000001,
-	enemy_in_near	= 0x00000002,
-	enemy_damaged	= 0x00000004,
-	ally_in_sight	= 0x00000008,
-	ally_in_near	= 0x00000010,
-	ally_damaged	= 0x00000020,
-	talking			= 0x00000040,
-	facing_target	= 0x00000080,
-	#_a				= 0x10000000,
-	#_b				= 0x20000000,
-	#_c				= 0x40000000,
-	#_d				= 0x80000000,
-	pain			= 0x00100000,
-	pain_toggle		= 0x00200000, # if set in precondition, pain has to be lower; if set in postcondition, pain is absolute
-	focus			= 0x00400000,
-	focus_toggle	= 0x00800000,
-	stamina			= 0x01000000,
-	stamina_toggle	= 0x02000000,
-	shield			= 0x04000000,
-	shield_toggle	= 0x08000000,
+	enemy_in_sight	= 1 << flag.enemy_in_near,
+	enemy_in_near	= 1 << flag.enemy_in_near,
+	enemy_damaged	= 1 << flag.enemy_damaged,
+	ally_in_sight	= 1 << flag.ally_in_sight,
+	ally_in_near	= 1 << flag.ally_in_near,
+	ally_damaged	= 1 << flag.ally_damaged,
+	talking			= 1 << flag.talking,
+	facing_target	= 1 << flag.facing_target,
 
-	lock			= 0x80000000,
-	ALL				= 0x7FFFFFFF
+	pain			= 1 << (value.pain + flag.SIZE),
+	focus			= 1 << (value.focus + flag.SIZE),
+	stamina			= 1 << (value.stamina + flag.SIZE),
+	shield			= 1 << (value.shield + flag.SIZE),
+	pain_toggle		= 1 << (value.pain + flag.SIZE + value.SIZE), # if set in precondition, pain has to be lower; if set in postcondition, pain is absolute
+	focus_toggle	= 1 << (value.pain + flag.SIZE + value.SIZE),
+	stamina_toggle	= 1 << (value.pain + flag.SIZE + value.SIZE),
+	shield_toggle	= 1 << (value.pain + flag.SIZE + value.SIZE),
+
+	lock			= 1 << 63,
+	ALL				= 0x7FFFFFFFFFFFFFFF
 }
 
 class goal:
@@ -138,88 +138,31 @@ class a_star_node:
 	func before_satisfied(know: knowledge) -> bool:
 		if(before_mask & knowledge_mask.lock):
 			return false
-		if(before_mask & knowledge_mask.pain):
-			if(before_mask & knowledge_mask.pain_toggle):
-				if(before.pain > know.pain):
+		for i in range(know.values.size()):
+			if(before_mask & (1 << (i + flag.SIZE))):
+				if(before_mask & (1 << (i + flag.SIZE + value.SIZE))):
+					if(before.values[i] > know.values[i]):
+						return false
+				else:
+					if(before.values[i] < know.values[i]):
+						return false
+		for i in range(know.flags.size()):
+			if(before_mask & (1 << i)):
+				if(before.flags[i] != know.flags[i]):
 					return false
-			else:
-				if(before.pain < know.pain):
-					return false
-		if(before_mask & knowledge_mask.focus):
-			if(before_mask & knowledge_mask.focus_toggle):
-				if(before.focus > know.focus):
-					return false
-			else:
-				if(before.focus < know.focus):
-					return false
-		if(before_mask & knowledge_mask.stamina):
-			if(before_mask & knowledge_mask.stamina_toggle):
-				if(before.stamina > know.stamina):
-					return false
-			else:
-				if(before.stamina < know.stamina):
-					return false
-		if(before_mask & knowledge_mask.shield):
-			if(before_mask & knowledge_mask.shield_toggle):
-				if(before.shield > know.shield):
-					return false
-			else:
-				if(before.shield < know.shield):
-					return false
-		if(before_mask & knowledge_mask.enemy_in_sight):
-			if(before.enemy_in_sight != know.enemy_in_sight):
-				return false
-		if(before_mask & knowledge_mask.enemy_in_near):
-			if(before.enemy_in_near != know.enemy_in_near):
-				return false
-		if(before_mask & knowledge_mask.enemy_damaged):
-			if(before.enemy_damaged != know.enemy_damaged):
-				return false
-		if(before_mask & knowledge_mask.ally_in_sight):
-			if(before.ally_in_sight != know.ally_in_sight):
-				return false
-		if(before_mask & knowledge_mask.ally_in_near):
-			if(before.ally_in_near != know.ally_in_near):
-				return false
-		if(before_mask & knowledge_mask.ally_damaged):
-			if(before.ally_damaged != know.ally_damaged):
-				return false
-		if(before_mask & knowledge_mask.talking):
-			if(before.talking != know.talking):
-				return false
-		if(before_mask & knowledge_mask.facing_target):
-			if(before.facing_target != know.facing_target):
-				return false
 		return true
 
 	func apply_after(know: knowledge) -> knowledge:
 		var new_know = know.duplicate()
-		if(after_mask & knowledge_mask.pain):
-			if(after_mask & knowledge_mask.pain_toggle):
-				new_know.pain = after.pain
-			else:
-				new_know.pain = max(know.pain + after.pain, 0) # todo: limit to max_pain
-		if(after_mask & knowledge_mask.focus):
-			if(after_mask & knowledge_mask.focus_toggle):
-				new_know.focus = after.focus
-			else:
-				new_know.focus = max(know.focus + after.focus, 0) # todo: limit to max_focus
-		if(after_mask & knowledge_mask.enemy_in_sight):
-			new_know.enemy_in_sight = after.enemy_in_sight
-		if(after_mask & knowledge_mask.enemy_in_near):
-			new_know.enemy_in_near = after.enemy_in_near
-		if(after_mask & knowledge_mask.enemy_damaged):
-			new_know.enemy_damaged = after.enemy_damaged
-		if(after_mask & knowledge_mask.ally_in_sight):
-			new_know.ally_in_sight = after.ally_in_sight
-		if(after_mask & knowledge_mask.ally_in_near):
-			new_know.ally_in_near = after.ally_in_near
-		if(after_mask & knowledge_mask.ally_damaged):
-			new_know.ally_damaged = after.ally_damaged
-		if(after_mask & knowledge_mask.talking):
-			new_know.talking = after.talking
-		if(after_mask & knowledge_mask.facing_target):
-			new_know.facing_target = after.facing_target
+		for i in range(know.values.size()):
+			if(after_mask & (1 << (i + flag.SIZE))):
+				if(after_mask & (1 << (i + flag.SIZE + value.SIZE))):
+					new_know.values[i] = after.values[i]
+				else:
+					new_know.values[i] = max(know.values[i] + after.values[i], 0) # todo: limit to max
+		for i in range(know.flags.size()):
+			if(after_mask & (1 << i)):
+				new_know.flags[i] = after.flags[i]
 		return new_know
 
 	static func from_action(action_class: Reference, new_id: int, new_index: int) -> a_star_node:

@@ -42,15 +42,15 @@ func _process(_delta: float):
 
 func get_current_knowledge() -> planner.knowledge:
 	var know = planner.knowledge.new(stats.pain, stats.focus, stats.stamina, stats.shield)
-	know.enemy_in_sight = !brain.enemies_in_sight.empty()
-	know.enemy_in_near = !brain.enemies_in_sight.empty() || !brain.enemies_out_of_sight.empty()
-	know.ally_in_sight = !brain.allies_in_sight.empty()
-	know.ally_in_near = !brain.allies_in_sight.empty() || !brain.allies_out_of_sight.empty()
+	know.flags[planner.flag.enemy_in_sight] = !brain.enemies_in_sight.empty()
+	know.flags[planner.flag.enemy_in_near] = !brain.enemies_in_sight.empty() || !brain.enemies_out_of_sight.empty()
+	know.flags[planner.flag.ally_in_sight] = !brain.allies_in_sight.empty()
+	know.flags[planner.flag.ally_in_near] = !brain.allies_in_sight.empty() || !brain.allies_out_of_sight.empty()
 	var most_damaged = brain.get_most_damaged_enemy()
-	know.enemy_damaged = most_damaged && most_damaged.stats.pain_percentage() > 0.85
+	know.flags[planner.flag.enemy_damaged] = most_damaged && most_damaged.stats.pain_percentage() > 0.85
 	most_damaged = brain.get_most_damaged_ally()
-	know.ally_damaged = most_damaged && most_damaged.stats.pain_percentage() > 0.7
-	know.talking = dialogue.is_dialogue_active()
+	know.flags[planner.flag.ally_damaged] = most_damaged && most_damaged.stats.pain_percentage() > 0.7
+	know.flags[planner.flag.talking] = dialogue.is_dialogue_active()
 	return know
 
 func get_current_goals() -> Array:
@@ -68,28 +68,28 @@ func get_current_goals() -> Array:
 #		x = x[0]
 #	return current_goals
 	var goals: Array = []
-	if(!stats.undead):
+	if(!stats.undead && !stats.dead):
 		var survive_goal: planner.goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.pain)
-		survive_goal.requirements.pain = max(stats.pain - 10, 5) # todo? better requirements
+		survive_goal.requirements.values[planner.value.pain] = max(stats.pain - 10, 5) # todo? better requirements
 		goals.push_back(survive_goal)
 	var fight_goal: planner.goal
-	if(stats.undead):
+	if(stats.undead || stats.dead):
 		fight_goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.enemy_damaged)
 	else:
 		fight_goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.pain | planner.knowledge_mask.enemy_damaged)
-		fight_goal.requirements.pain = stats.max_pain() * 0.9
-	fight_goal.requirements.enemy_damaged = true
+		fight_goal.requirements.values[planner.value.pain] = stats.max_pain() * 0.9
+	fight_goal.requirements.flags[planner.flag.enemy_damaged] = true
 	goals.push_back(fight_goal)
 	var talk_goal: planner.goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.talking)
-	talk_goal.requirements.talking = true
+	talk_goal.requirements.flags[planner.flag.talking] = true
 	for x in dialogue.data.wants_to_talk_to:
 		if(brain.is_in_sight_by_id(x)):
 			goals.push_back(talk_goal)
 			break
-	var patrol_goal: planner.goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.pain | planner.knowledge_mask.enemy_in_sight)
-	patrol_goal.requirements.pain = stats.max_pain() * 0.1
-	patrol_goal.requirements.enemy_in_sight = true
 	if(dialogue.job == "guard"):
+		var patrol_goal: planner.goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.pain | planner.knowledge_mask.enemy_in_sight)
+		patrol_goal.requirements.values[planner.value.pain] = stats.max_pain() * 0.1
+		patrol_goal.requirements.flags[planner.flag.enemy_in_sight] = true
 		goals.push_back(patrol_goal)
 	return goals
 
