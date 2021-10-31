@@ -17,10 +17,11 @@ func category() -> String:
 func requirements() -> Array:
 	return [base_darkness_skill.id()]
 
-func start_effect(pawn: character):
-	# TODO: detect incoming damage type, reduce damage?
-	pawn.stats.shield_element = pawn.skills.current_element
-	pawn.stats.shield = pawn.stats.max_shield() / 2
+func effect(pawn: character, delta: float):
+	# TODO: detect incoming damage type, reduce damage? decrease damage resistance for other elements?
+	if(pawn.skills.current_element != abstract_spell.element_type.raw):
+		pawn.stats.shield_element = pawn.skills.current_element
+		pawn.stats.shield = pawn.stats.max_shield() / 2
 
 func icon() -> Resource:
 	return load(SKILL_ICONS_PATH + "shield-512.png")

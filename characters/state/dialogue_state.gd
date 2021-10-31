@@ -33,7 +33,8 @@ var start_statement: abstract_dialogue.statement
 var wants_to_end_dialogue: bool = false
 func dialogue_process(_delta: float):
 	if(!is_dialogue_active() || state.is_player):
-		return # TODO: fade if listener goes away
+		return
+	pawn.face_target(partner)
 	fade_dialogue(partner)
 	for x in listeners:
 		fade_dialogue(x)
