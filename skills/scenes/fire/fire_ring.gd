@@ -3,7 +3,6 @@ extends spell_spawner
 var speed: float = 2
 
 func _ready():
-	spell = skill_data.spells["fire_ring"]
 	set_example_object(preload("fire.tscn").instance())
 	time = spell.duration()
 	amount = 12

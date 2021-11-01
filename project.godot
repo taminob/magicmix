@@ -339,6 +339,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://characters/state/ai/planner.gd"
 }, {
+"base": "abstract_skill",
+"class": "platform_skill",
+"language": "GDScript",
+"path": "res://skills/skills/life/platform.gd"
+}, {
+"base": "abstract_spell",
+"class": "platform_spell",
+"language": "GDScript",
+"path": "res://skills/spells/life/platform.gd"
+}, {
 "base": "task",
 "class": "raycast_hit_task",
 "language": "GDScript",
@@ -531,6 +541,8 @@ _global_script_class_icons={
 "nothing_item": "",
 "parallel": "",
 "planner": "",
+"platform_skill": "",
+"platform_spell": "",
 "raycast_hit_task": "",
 "remap": "",
 "repeat": "",

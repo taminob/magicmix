@@ -6,7 +6,6 @@ var spell: abstract_spell
 var caster: KinematicBody
 
 func _ready():
-	spell = skill_data.spells["ice_ride"]
 	time = spell.duration()
 
 func _physics_process(delta: float):

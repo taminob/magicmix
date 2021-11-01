@@ -1,7 +1,6 @@
 extends spell_spawner
 
 func _ready():
-	spell = skill_data.spells["fire_storm"]
 	amount = 1000
 	radius = spell.range()
 	time = 2

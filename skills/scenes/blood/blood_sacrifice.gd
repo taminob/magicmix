@@ -3,7 +3,6 @@ extends spell_expander
 var growth_per_second = 3
 
 func _ready():
-	spell = skill_data.spells["blood_sacrifice"]
 	object = self
 	object.set_scale(Vector3(1, 1, 1))
 	connect_object()

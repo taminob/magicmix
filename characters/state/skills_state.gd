@@ -21,6 +21,10 @@ class active_spell:
 		if(scene):
 			if("caster" in scene):
 				scene.caster = pawn
+			if("spell" in scene):
+				scene.spell = spell
+			if("active_spell" in scene):
+				scene.active_spell = self
 			game.levels.current_level.add_child(scene)
 		spell.start_effect(pawn)
 
@@ -39,7 +43,7 @@ class active_spell:
 
 	func cancel(pawn: KinematicBody):
 		spell.end_effect(pawn)
-		if(scene):
+		if(scene && !scene.is_queued_for_deletion()):
 			scene.queue_free()
 
 	func to_dict() -> Dictionary:
@@ -75,6 +79,10 @@ func can_cast(spell_id: String) -> bool:
 
 func cast_spell_slot(slot_id: int):
 	cast_spell(inventory.get_spell_slot(current_element, slot_id))
+
+func cancel_spell(active: active_spell):
+	active.cancel(pawn)
+	active_spells.erase(active)
 
 func cancel_spells():
 	for x in active_spells:

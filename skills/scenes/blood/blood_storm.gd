@@ -6,7 +6,6 @@ onready var caster: KinematicBody
 onready var _collision: CollisionShape = $"collision" # todo: expand collision radius (no pre-processed particles)
 
 func _ready():
-	spell = skill_data.spells["blood_storm"]
 	_collision.shape.radius = spell.range()
 	errors.error_test(connect("body_entered", self, "_object_enter"))
 	errors.error_test(connect("body_exited", self, "_object_exit"))

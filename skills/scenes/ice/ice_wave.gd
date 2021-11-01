@@ -3,7 +3,6 @@ extends spell_expander
 var growth_per_second = 0.5
 
 func _ready():
-	spell = skill_data.spells["ice_wave"]
 	object = self
 	object.set_scale(Vector3(1, 1, 1))
 	init_object()
