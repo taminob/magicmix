@@ -25,7 +25,7 @@ func self_focus() -> float:
 	return -20.0
 
 func target_element() -> int:
-	return element_type.fire
+	return element_type.ice
 
 func target_pain() -> float:
 	return 20.0

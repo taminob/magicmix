@@ -164,7 +164,7 @@ stretch_mode = 5
 [connection signal="pressed" from="layout/buttons/all" to="." method="_on_all_pressed"]
 [connection signal="pressed" from="layout/buttons/life" to="." method="_on_life_pressed"]
 [connection signal="pressed" from="layout/buttons/fire" to="." method="_on_fire_pressed"]
-[connection signal="pressed" from="layout/buttons/ice" to="." method="_on_fire_pressed"]
+[connection signal="pressed" from="layout/buttons/ice" to="." method="_on_ice_pressed"]
 [connection signal="pressed" from="layout/buttons/darkness" to="." method="_on_darkness_pressed"]
 [connection signal="pressed" from="layout/buttons/blood" to="." method="_on_blood_pressed"]
 [connection signal="item_activated" from="layout/list" to="." method="_on_list_item_activated"]

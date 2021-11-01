@@ -27,6 +27,9 @@ func _on_life_pressed():
 func _on_fire_pressed():
 	update_spells("fire")
 
+func _on_ice_pressed():
+	update_spells("ice")
+
 func _on_blood_pressed():
 	update_spells("blood")
 

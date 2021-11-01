@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=2]
+
+[ext_resource path="res://world/shaders/ice.gdshader" type="Shader" id=1]
+
+[sub_resource type="OpenSimplexNoise" id=1]
+
+[sub_resource type="NoiseTexture" id=2]
+seamless = true
+noise = SubResource( 1 )
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/base_color = Color( 0.184314, 0.376471, 0.580392, 0.784314 )
+shader_param/secondary_color = Color( 0.168627, 0.278431, 0.4, 1 )
+shader_param/base_texture = SubResource( 2 )

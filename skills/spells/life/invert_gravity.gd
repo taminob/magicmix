@@ -14,6 +14,9 @@ func description() -> String:
 func category() -> String:
 	return "life"
 
+func self_focus_per_second() -> float:
+	return -20.0
+
 func start_effect(pawn: KinematicBody):
 	pawn.move.gravity_direction *= -1
 
@@ -21,7 +24,7 @@ func end_effect(pawn: KinematicBody):
 	pawn.move.gravity_direction *= -1
 
 func duration() -> float:
-	return 3.0
+	return 2.0
 
 func icon() -> Resource:
 	return load(SPELL_ICONS_PATH + "../symbols/exclamation_mark-512.png")

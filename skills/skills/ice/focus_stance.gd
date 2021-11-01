@@ -24,7 +24,12 @@ const EFFECT_FACTOR: float = 0.1
 func effect(pawn: KinematicBody, delta: float):
 	# TODO: better way to disable normal focus_per_second regeneration
 	# TODO: increase focus gain over time when standing still for longer
-	if(pawn.move.velocity.is_equal_approx(Vector3.ZERO)):
+	var ice_ride_active: bool = false # TODO: implement flag in skills_state or move_state?
+	for x in pawn.skills.active_spells:
+		if(x.spell_id == ice_ride_spell.id()):
+			ice_ride_active = true
+			break
+	if(pawn.move.velocity.is_equal_approx(Vector3.ZERO) || ice_ride_active):
 		pawn.damage(pawn.stats.max_focus() * EFFECT_FACTOR * delta, abstract_spell.element_type.focus)
 	else:
 		pawn.damage(-pawn.stats.focus_per_second(), abstract_spell.element_type.focus)

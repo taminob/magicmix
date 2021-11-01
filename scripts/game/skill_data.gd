@@ -17,6 +17,7 @@ var spells = {
 	fire_storm_spell.id(): fire_storm_spell.new(),
 	ice_ball_spell.id(): ice_ball_spell.new(),
 	ice_wave_spell.id(): ice_wave_spell.new(),
+	ice_ride_spell.id(): ice_ride_spell.new(),
 }
 
 # warning-ignore:unused_class_variable

@@ -14,7 +14,7 @@ var _spawn_amount_counter: int = 0
 var _example_object: Area = null
 var _objects: Array = []
 var _affected_bodies: Array = []
-onready var caster: KinematicBody
+var caster: KinematicBody
 var _default_collision_mask: int = game.mgmt.layer.static_world | game.mgmt.layer.objects | game.mgmt.layer.characters  | game.mgmt.layer.enemies | game.mgmt.layer.spells
 
 # override for custom placement; return local translation
