@@ -43,19 +43,19 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer"]
-margin_right = 1818.0
+margin_right = 1812.0
 margin_bottom = 1836.0
 size_flags_horizontal = 3
 
 [node name="categories_scroll" type="ScrollContainer" parent="HSplitContainer/VBoxContainer"]
-margin_right = 1818.0
-margin_bottom = 1553.0
+margin_right = 1812.0
+margin_bottom = 1547.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="categories" type="VBoxContainer" parent="HSplitContainer/VBoxContainer/categories_scroll"]
 margin_right = 480.0
-margin_bottom = 1553.0
+margin_bottom = 1547.0
 size_flags_vertical = 3
 script = ExtResource( 1 )
 
@@ -109,8 +109,8 @@ mouse_filter = 1
 text = "> Dev"
 
 [node name="back_category" type="Button" parent="HSplitContainer/VBoxContainer"]
-margin_top = 1703.0
-margin_right = 1818.0
+margin_top = 1697.0
+margin_right = 1812.0
 margin_bottom = 1836.0
 mouse_filter = 1
 text = "< Back"
@@ -118,7 +118,7 @@ flat = true
 align = 0
 
 [node name="option_view" type="TabContainer" parent="HSplitContainer"]
-margin_left = 1830.0
+margin_left = 1836.0
 margin_right = 3648.0
 margin_bottom = 1836.0
 size_flags_horizontal = 3
@@ -146,6 +146,7 @@ margin_right = 0.0
 [node name="dev_options" parent="HSplitContainer/option_view" instance=ExtResource( 5 )]
 visible = false
 anchor_right = 1.0
+
 [connection signal="mouse_entered" from="HSplitContainer/VBoxContainer/categories_scroll/categories/game_category" to="HSplitContainer/VBoxContainer/categories_scroll/categories" method="_on_game_category_mouse_entered"]
 [connection signal="mouse_entered" from="HSplitContainer/VBoxContainer/categories_scroll/categories/display_category" to="HSplitContainer/VBoxContainer/categories_scroll/categories" method="_on_display_category_mouse_entered"]
 [connection signal="mouse_entered" from="HSplitContainer/VBoxContainer/categories_scroll/categories/graphics_category" to="HSplitContainer/VBoxContainer/categories_scroll/categories" method="_on_graphics_category_mouse_entered"]

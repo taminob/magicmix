@@ -579,12 +579,17 @@ boot_splash/fullsize=false
 boot_splash/use_filter=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 
+[audio]
+
+default_bus_layout="res://audio/audiobuslayout.tres"
+
 [autoload]
 
 util="*res://scripts/util.gd"
 errors="*res://scripts/errors.gd"
 themes="*res://scripts/themes.gd"
 display_settings="*res://scripts/settings/display_settings.gd"
+sound_settings="*res://scripts/settings/sound_settings.gd"
 graphics_settings="*res://scripts/settings/graphics_settings.gd"
 game_settings="*res://scripts/settings/game_settings.gd"
 dev_settings="*res://scripts/settings/dev_settings.gd"

@@ -6,7 +6,8 @@ var _settings = {
 	"game": game_settings.options,
 	"display": display_settings.options,
 	"graphics": graphics_settings.options,
-	"dev": dev_settings.options
+	"sound": sound_settings.options,
+	"dev": dev_settings.options,
 }
 
 func _ready():
@@ -14,6 +15,7 @@ func _ready():
 	game_settings.set_options(self)
 	display_settings.set_options(self)
 	graphics_settings.set_options(self)
+	sound_settings.set_options(self)
 	dev_settings.set_options(self)
 
 func save_settings():

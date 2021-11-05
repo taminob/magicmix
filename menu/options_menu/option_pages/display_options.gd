@@ -6,7 +6,7 @@ func _ready():
 	init_screen_selection()
 	init_screenmode_selection()
 	init_resolution_selection()
-	$layout/vsync.set_pressed(settings.get_setting("display", "vsync"))
+	$"layout/vsync".set_pressed(settings.get_setting("display", "vsync"))
 
 func init_screen_selection():
 	var screen_choice = $layout/screen_option/screen_choice
@@ -22,7 +22,7 @@ func init_screenmode_selection():
 	mode_choice.selected = settings.get_setting("display", "mode")
 
 func init_resolution_selection():
-	var res_choice = $layout/resolution_option/resolution_choice
+	var res_choice = $"layout/resolution_option/resolution_choice"
 	for i in range(resolution_options.size()):
 		res_choice.add_item(str(resolution_options[i].x) + "x" + str(resolution_options[i].y), i)
 	res_choice.selected = resolution_options.find(settings.get_setting("display", "resolution"))
