@@ -150,7 +150,7 @@ func receive_statement(statement: abstract_dialogue.statement):
 		data.set_response(statement)
 	else:
 		partner.dialogue.data.set_response(statement)
-	statement.execute_effects(pawn)
+	statement.execute_effects(statement.speaker, pawn)
 	if(state.is_player):
 		game.mgmt.ui.dialogue.set_dialogue_text(statement.formatted_text(), game.mgmt.player.dialogue.get_call_name(statement.speaker.name), statement.responses) # TODO: check is_valid for statements in responses
 	else:
@@ -162,7 +162,7 @@ func receive_statement(statement: abstract_dialogue.statement):
 func listen(statement: abstract_dialogue.statement):
 	if(state.is_player):
 		game.mgmt.ui.dialogue.set_dialogue_text(statement.formatted_text(), game.mgmt.player.dialogue.get_call_name(statement.speaker.name), [])
-	statement.execute_effects(pawn)
+	statement.execute_effects(statement.speaker, pawn)
 
 func add_listener(listener: KinematicBody):
 	listeners.push_back(listener)
@@ -179,11 +179,11 @@ func update_listeners(statement: abstract_dialogue.statement):
 	if(statement):
 		for x in listeners:
 			x.dialogue.listen(statement)
-			statement.execute_effects(x)
+			statement.execute_effects(statement.speaker, x)
 		if(partner):
 			for x in partner.dialogue.listeners:
 				x.dialogue.listen(statement)
-				statement.execute_effects(x)
+				statement.execute_effects(statement.speaker, x)
 
 func interrupt_dialogue():
 	end_dialogue()

@@ -38,10 +38,10 @@ class statement:
 	func formatted_text() -> String:
 		return text.format({"self": speaker_name(), "partner": receiver_name()}) # todo
 
-	func execute_effects(receiv: character=receiver):
+	func execute_effects(speak: character=speaker, receiv: character=receiver):
 		for x in effects:
 			errors.debug_assert(x.is_valid(), "object or function of effect \"" + x.get_function() + "\" for text \"" + text + "\" not valid!")
-			x.call_func(receiv)
+			x.call_func(speak, receiv)
 
 	func speaker_name() -> String:
 		return speaker.dialogue.display_name
@@ -112,43 +112,43 @@ var wants_to_talk_to: Array
 var pawn: character
 var partner: character
 
-func _end_dialogue(receiver: character):
+func _end_dialogue(_speaker: character, receiver: character):
 	receiver.dialogue.wants_to_end_dialogue = true
 
-func _introduce_self(receiver: character=partner):
+func _introduce_self(speaker: character, receiver: character):
 	if(receiver):
-		receiver.dialogue.call_names[pawn.name] = pawn.dialogue.display_name
+		receiver.dialogue.call_names[speaker.name] = speaker.dialogue.display_name
 
-func _introduce_partner(_receiver: character):
-	pawn.dialogue.call_names[partner.name] = partner.dialogue.display_name
+func _introduce_partner(speaker: character, receiver: character):
+	receiver.dialogue.call_names[partner.name] = partner.dialogue.display_name
 
 func _no_more_want_to_talk_to_partner(_receiver: character):
 	if(wants_to_talk_to.has(partner.name)):
 		wants_to_talk_to.erase(partner.name)
 
-func _make_enemy(receiver: character):
+func _make_enemy(speaker: character, receiver: character):
 	if(receiver == partner):
-		pawn.dialogue.set_relation(receiver.name, -2)#dialogue_state.relation.enemy) # TODO: move relation to other script to access here
+		speaker.dialogue.set_relation(receiver.name, -2)#dialogue_state.relation.enemy) # TODO: move relation to other script to access here
 
-func _become_enemy(receiver: character):
+func _become_enemy(speaker: character, receiver: character):
 	if(receiver == partner):
-		receiver.dialogue.set_relation(pawn.name, -2)#dialogue_state.relation.enemy)
+		receiver.dialogue.set_relation(speaker.name, -2)#dialogue_state.relation.enemy)
 
-func _make_neutral(receiver: character):
+func _make_neutral(speaker: character, receiver: character):
 	if(receiver == partner):
-		pawn.dialogue.set_relation(receiver.name, 0)#dialogue_state.relation.neutral)
+		speaker.dialogue.set_relation(receiver.name, 0)#dialogue_state.relation.neutral)
 
-func _become_neutral(receiver: character):
+func _become_neutral(speaker: character, receiver: character):
 	if(receiver == partner):
-		receiver.dialogue.set_relation(pawn.name, 0)#dialogue_state.relation.neutral)
+		receiver.dialogue.set_relation(speaker.name, 0)#dialogue_state.relation.neutral)
 
-func _make_ally(receiver: character):
+func _make_ally(speaker: character, receiver: character):
 	if(receiver == partner):
-		pawn.dialogue.set_relation(receiver.name, 2)#dialogue_state.relation.ally)
+		speaker.dialogue.set_relation(receiver.name, 2)#dialogue_state.relation.ally)
 
-func _become_ally(receiver: character):
+func _become_ally(speaker: character, receiver: character):
 	if(receiver == partner):
-		receiver.dialogue.set_relation(pawn.name, 2)#dialogue_state.relation.ally)
+		receiver.dialogue.set_relation(speaker.name, 2)#dialogue_state.relation.ally)
 
 func introduction_silent_conversation() -> Array:
 	var statement_name: String = "introduction_silent"

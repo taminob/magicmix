@@ -4,6 +4,7 @@ class_name look_state
 
 onready var pawn: KinematicBody = $"../.."
 onready var move: Node = $"../move"
+onready var stats: Node = $"../stats"
 
 var _default_mesh_path: String
 var mesh: Spatial = null
@@ -50,6 +51,8 @@ func set_color(color: Color):
 	if(mesh):
 		if(mesh.has_method("set_cape_color")):
 			mesh.set_cape_color(color)
+			if(mesh.has_method("set_character_color") && stats.undead):
+				mesh.set_character_color(Color.black)
 		elif(mesh.has_method("set_character_color")):
 			mesh.set_character_color(color)
 		elif(mesh.has_method("set_material_override")):
