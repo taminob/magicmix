@@ -110,4 +110,4 @@ func _update_ui():
 	shield_bar.get_active_material(0).set_shader_param("percentage", stats.shield / stats.max_shield())
 	shield_bar.look_at(game.mgmt.camera.camera.global_transform.origin, Vector3.UP)
 	var quest_symbol: MeshInstance = $"quest_symbol"
-	quest_symbol.visible = dialogue.data.wants_to_talk_to.has(game.mgmt.player_name) && !dialogue.is_dialogue_active()
+	quest_symbol.visible = dialogue.data.wants_to_talk_to.has(game.mgmt.player_name)
