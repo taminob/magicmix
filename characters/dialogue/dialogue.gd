@@ -185,6 +185,26 @@ func introduction_silent_conversation() -> Array:
 	}, [statement_name])
 	return [statement_name, "start"]
 
+func hurt_warning_conversation() -> Array:
+	var statement_name: String = "hurt_warning"
+	statements[statement_name] = create_statements_from_dict({
+		"start": {
+			"say": "I'm warning you! You hurt me, I'll hurt you!",
+			"effects": ["_introduce_self"],
+			"responses": [
+				{
+					"say": "A mistake, I am sorry!",
+					"effects": ["_no_more_want_to_talk_to_partner", "_end_dialogue"]
+				},
+				{
+					"say": "I want to see how you try!",
+					"effects": ["_become_enemy", "_no_more_want_to_talk_to_partner", "_end_dialogue"]
+				},
+			]
+		},
+	}, [statement_name])
+	return [statement_name, "start"]
+
 func unimplemented_conversation() -> Array:
 	var statement_name: String = "unimplemented"
 	statements[statement_name] = create_statements_from_dict({
@@ -225,6 +245,7 @@ func init_statements():
 
 func init_conversations(): # TODO? remove?
 	conversations["introduction_silent"] = introduction_silent_conversation()
+	conversations["hurt_warning"] = hurt_warning_conversation()
 
 func init_partners():
 	pass

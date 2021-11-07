@@ -218,8 +218,10 @@ func get_relationship(character_id: String) -> float:
 func get_relation(character_id: String) -> int:
 	return relations.get(character_id, relation.neutral) # todo: check for tags (e.g. criminal)
 
-func set_relation(character_id: String, relation: int):
-	relations[character_id] = relation
+func set_relation(character_id: String, new_relation: int):
+	if(new_relation == relation.enemy):
+		data.wants_to_talk_to.erase(character_id)
+	relations[character_id] = new_relation
 
 func save(state_dict: Dictionary):
 	var _dialogue_state = state_dict.get("dialogue", {})

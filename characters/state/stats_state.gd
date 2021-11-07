@@ -76,6 +76,13 @@ func die(save_state: bool=true):
 			pawn.queue_free()
 
 func damage(dmg: float, element: int, caused_by: KinematicBody):
+	if(caused_by):
+		var new_relation: int = max(dialogue.get_relation(caused_by.name) - 1, -2) # TODO? replace constant by enum
+		dialogue.set_relation(caused_by.name, new_relation)
+		if(new_relation != -2):#dialogue_state.relation.enemy): # TODO? replace constant by enum
+			if(!dialogue.data.wants_to_talk_to.has(caused_by.name)):
+				dialogue.data.wants_to_talk_to.push_back(caused_by.name)
+			dialogue.data.partners[caused_by.name] = dialogue.data.hurt_warning_conversation() # TODO: save previous value
 	match element:
 		abstract_spell.element_type.focus:
 			_self_focus_damage(dmg)
