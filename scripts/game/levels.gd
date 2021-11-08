@@ -3,26 +3,28 @@ extends Node
 var level_data = {
 	"intro_outside": {
 		"path": "res://world/levels/intro_outside/level.tscn",
-		"death_realm": false
 	},
 	"palace_entry": {
 		"path": "res://world/levels/palace_entry/level.tscn",
-		"death_realm": false
 	},
 	"arena": {
 		"path": "res://world/levels/arena/level.tscn",
-		"death_realm": false
+	},
+	"harbringer_arena": {
+		"path": "res://world/levels/harbringer_arena/level.tscn",
 	},
 	"town": {
 		"path": "res://world/levels/town/level.tscn",
-		"death_realm": false
 	},
 	"house_inside": { # TODO: DEBUG, remove
 		"path": "res://world/levels/town/house_inside.tscn",
-		"death_realm": false
 	},
 	"death_realm": {
 		"path": "res://world/levels/death_realm/level.tscn",
+		"death_realm": true
+	},
+	"death_arena": {
+		"path": "res://world/levels/death_arena/level.tscn",
 		"death_realm": true
 	},
 	"debug": {

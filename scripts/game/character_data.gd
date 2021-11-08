@@ -7,6 +7,7 @@ var characters = {
 	god_mage_person.id(): god_mage_person.new().data,
 	fire_mage_person.id(): fire_mage_person.new().data,
 	ice_mage_person.id(): ice_mage_person.new().data,
+	harbringer_person.id(): harbringer_person.new().data,
 	gerhard_person.id(): gerhard_person.new().data,
 	hans_person.id(): hans_person.new().data,
 	filz_person.id(): filz_person.new().data,
