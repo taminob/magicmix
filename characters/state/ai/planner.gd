@@ -64,9 +64,9 @@ enum knowledge_mask {
 	stamina			= 1 << (value.stamina + flag.SIZE),
 	shield			= 1 << (value.shield + flag.SIZE),
 	pain_toggle		= 1 << (value.pain + flag.SIZE + value.SIZE), # if set in precondition, pain has to be lower; if set in postcondition, pain is absolute
-	focus_toggle	= 1 << (value.pain + flag.SIZE + value.SIZE),
-	stamina_toggle	= 1 << (value.pain + flag.SIZE + value.SIZE),
-	shield_toggle	= 1 << (value.pain + flag.SIZE + value.SIZE),
+	focus_toggle	= 1 << (value.focus + flag.SIZE + value.SIZE),
+	stamina_toggle	= 1 << (value.stamina + flag.SIZE + value.SIZE),
+	shield_toggle	= 1 << (value.shield + flag.SIZE + value.SIZE),
 
 	lock			= 1 << 63,
 	ALL				= 0x7FFFFFFFFFFFFFFF

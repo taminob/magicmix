@@ -54,19 +54,6 @@ func get_current_knowledge() -> planner.knowledge:
 	return know
 
 func get_current_goals() -> Array:
-#	var all_goals: Array = [survive_goal]
-#	var current_goals: Array = []
-#	for x in all_goals:
-#		var score: float = x.score()
-#		if(score > 0):
-#			var i: int = 0
-#			while i <= current_goals.size():
-#				if(current_goals[i][1] < score || i == current_goals.size()):
-#					current_goals.insert(i, [x, score])
-#					break
-#	for x in current_goals:
-#		x = x[0]
-#	return current_goals
 	var goals: Array = []
 	if(!stats.undead && !stats.dead):
 		var survive_goal: planner.goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.pain)
