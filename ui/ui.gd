@@ -31,10 +31,10 @@ func reset():
 	hide_interaction()
 
 func update_pain(percentage: float):
-	pain_bar.set_value(percentage * 100)
+	pain_bar.set_value(percentage)
 
 func update_shield(percentage: float):
-	shield_bar.set_value(percentage * 100)
+	shield_bar.set_value(percentage)
 
 func update_shield_element(element: int):
 	var ICON_PATH: String = "res://ui/icons/"
@@ -53,16 +53,16 @@ func update_shield_element(element: int):
 			shield_element_icon.set_texture(load(ICON_PATH + "empty-512.png"))
 
 func update_focus(percentage: float):
-	focus_bar.set_value(percentage * 100)
+	focus_bar.set_value(percentage)
 
 func update_stamina(percentage: float):
-	stamina_bar.set_value(percentage * 100)
+	stamina_bar.set_value(percentage)
 
 func update_debug(text: String):
 	debug_label.set_text(text)
 
 func update_xp(percentage: float):
-	xp_bar.set_value(percentage * 100)
+	xp_bar.set_value(percentage)
 
 func update_slots():
 	slots.update_slots()
