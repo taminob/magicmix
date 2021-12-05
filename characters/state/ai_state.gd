@@ -17,6 +17,7 @@ const STEPS_BEFORE_RECONSIDER_WITHOUT_PLAN = 30
 var _steps_since_consider: int = 0
 
 var brain: ai_mind
+var behavior: abstract_behavior
 var should_reconsider: bool = false
 
 func _ready():
@@ -54,51 +55,13 @@ func get_current_knowledge() -> planner.knowledge:
 	return know
 
 func get_current_goals() -> Array:
-	var goals: Array = []
-	if(!stats.undead && !stats.dead):
-		var survive_goal: planner.goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.pain)
-		survive_goal.requirements.values[planner.value.pain] = max(stats.pain - 10, 5) # todo? better requirements
-		goals.push_back(survive_goal)
-	var fight_goal: planner.goal
-	if(stats.undead || stats.dead):
-		fight_goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.enemy_damaged)
-	else:
-		fight_goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.pain | planner.knowledge_mask.enemy_damaged)
-		fight_goal.requirements.values[planner.value.pain] = stats.max_pain() * 0.9
-	fight_goal.requirements.flags[planner.flag.enemy_damaged] = true
-	goals.push_back(fight_goal)
-	var talk_goal: planner.goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.talking)
-	talk_goal.requirements.flags[planner.flag.talking] = true
-	for x in dialogue.data.wants_to_talk_to:
-		if(brain.is_in_sight_by_id(x)):
-			goals.push_back(talk_goal)
-			break
-	if(dialogue.job == "guard"):
-		var patrol_goal: planner.goal = planner.goal.new(planner.knowledge.new(), planner.knowledge_mask.pain | planner.knowledge_mask.enemy_in_sight)
-		patrol_goal.requirements.values[planner.value.pain] = stats.max_pain() * 0.1
-		patrol_goal.requirements.flags[planner.flag.enemy_in_sight] = true
-		goals.push_back(patrol_goal)
-	return goals
+	return behavior.goals(pawn)
 
 func get_current_actions() -> Array:
-	var scripts = []
-	for x in planner.actions:
-		scripts.push_back(load("res://characters/state/ai/actions/" + x + "_action.gd"))
-	return scripts
+	return behavior.actions(pawn)
 
 func get_idle_action() -> abstract_action:
-	var idle_action: abstract_action
-	match dialogue.job:
-		"thief":
-			idle_action = load("res://characters/state/ai/actions/wait_action.gd").new()
-		"guard":
-			idle_action = load("res://characters/state/ai/actions/roam_action.gd").new()
-		"mage":
-			idle_action = load("res://characters/state/ai/actions/wait_action.gd").new()
-		_:
-			idle_action = load("res://characters/state/ai/actions/wait_action.gd").new()
-	idle_action.init(pawn)
-	return idle_action
+	return behavior.idle_action(pawn)
 
 func _on_sight_zone_body_entered(body: Node):
 	if(state.is_player || body == pawn || !body):
@@ -124,8 +87,13 @@ func _on_sight_zone_body_exited(body: Node):
 func save(state_dict: Dictionary):
 	var _ai_state = state_dict.get("ai", {})
 	#_ai_state["mind"] = brain # todo: add save functionality for brain
+	# todo? save behavior for self modifying behaviors?
 	state_dict["ai"] = _ai_state
 
 func init(state_dict: Dictionary):
 	var _ai_state = state_dict.get("ai", {})
 	brain = _ai_state.get("mind", ai_mind.new(pawn))
+	if(ResourceLoader.exists("res://characters/persons/behaviors/" + pawn.name + ".gd")):
+		behavior = load("res://characters/persons/behaviors/" + pawn.name + ".gd").new()
+	else:
+		behavior = load("res://characters/persons/behaviors/behavior.gd").new()

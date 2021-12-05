@@ -80,19 +80,6 @@ class goal:
 		requirements = new_requirements
 		mask = new_mask
 
-enum actions {
-	talk_begin = 0,
-	roam,
-	rotate,
-	flee,
-	spell_heal,
-	spell_element_shield,
-	spell_fire_ring,
-	spell_fire_ball,
-	spell_blood_storm,
-	wait,
-}
-
 var planning_graph: Array # contains all a_star_node instances; index of node equals position in array
 var current_goals: Array # currently pursued goals, sorted by priority
 var current_actions: Array # currently available actions
@@ -113,8 +100,8 @@ func plan(know: knowledge, goals: Array, actions: Array) -> Array:
 func build_graph(know: knowledge):
 	planning_graph.clear()
 	planning_graph.push_back(a_star_node.from_knowledge(know, -1, 0))
-	for x in actions.values():
-		planning_graph.push_back(a_star_node.from_action(current_actions[x], x, planning_graph.size()))
+	for i in current_actions.size():
+		planning_graph.push_back(a_star_node.from_action(current_actions[i], i, planning_graph.size()))
 	for x in current_goals: # todo: graph only for current_goals or all goals?
 		planning_graph.push_back(a_star_node.from_goal(x, -1, planning_graph.size()))
 

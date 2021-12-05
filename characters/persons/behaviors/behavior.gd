@@ -28,10 +28,28 @@ func goals(pawn: KinematicBody) -> Array:
 	return goals
 
 func idle_action(pawn: KinematicBody) -> abstract_action:
-	return load("res://characters/state/ai/actions/wait_action.gd").new()
+	var idle_action: abstract_action
+	match pawn.dialogue.job:
+		"thief":
+			idle_action = load("res://characters/state/ai/actions/wait_action.gd").new()
+		"guard":
+			idle_action = load("res://characters/state/ai/actions/roam_action.gd").new()
+		"mage":
+			idle_action = load("res://characters/state/ai/actions/wait_action.gd").new()
+		_:
+			idle_action = load("res://characters/state/ai/actions/wait_action.gd").new()
+	idle_action.init(pawn)
+	return idle_action
 
 func actions(pawn: KinematicBody) -> Array:
-	var scripts = []
-	for x in planner.actions:
-		scripts.push_back(load("res://characters/state/ai/actions/" + x + "_action.gd"))
-	return scripts
+	return [
+		load("res://characters/state/ai/actions/wait_action.gd"),
+		load("res://characters/state/ai/actions/talk_begin_action.gd"),
+		load("res://characters/state/ai/actions/roam_action.gd"),
+		load("res://characters/state/ai/actions/rotate_action.gd"),
+		load("res://characters/state/ai/actions/flee_action.gd"),
+		load("res://characters/state/ai/actions/spell_heal_action.gd"),
+		load("res://characters/state/ai/actions/spell_element_shield_action.gd"),
+		load("res://characters/state/ai/actions/spell_fire_ring_action.gd"),
+		load("res://characters/state/ai/actions/spell_fire_ball_action.gd"),
+	]
