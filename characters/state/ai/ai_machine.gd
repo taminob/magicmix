@@ -29,10 +29,10 @@ func push_state(new_state: int):
 	state_queue.push_back(new_state)
 
 func reconsider():
-	consider(ai.get_current_knowledge(), ai.get_current_goals())
+	consider(ai.get_current_knowledge(), ai.get_current_goals(), ai.get_current_actions())
 
-func consider(know: planner.knowledge, goals: Array):
-	action_queue = planning.plan(know, goals)
+func consider(know: planner.knowledge, goals: Array, actions: Array):
+	action_queue = planning.plan(know, goals, actions)
 	if(action_queue.empty()):
 		action_queue.push_back(ai.get_idle_action())
 		push_state(states.active)

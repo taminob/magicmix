@@ -95,9 +95,11 @@ enum actions {
 
 var planning_graph: Array # contains all a_star_node instances; index of node equals position in array
 var current_goals: Array # currently pursued goals, sorted by priority
+var current_actions: Array # currently available actions
 
-func plan(know: knowledge, goals: Array) -> Array:
+func plan(know: knowledge, goals: Array, actions: Array) -> Array:
 	current_goals = goals
+	current_actions = actions
 	build_graph(know)
 	var action_plan: Array
 	for i in range(goals.size()):
@@ -111,9 +113,8 @@ func plan(know: knowledge, goals: Array) -> Array:
 func build_graph(know: knowledge):
 	planning_graph.clear()
 	planning_graph.push_back(a_star_node.from_knowledge(know, -1, 0))
-	var action_scripts = action_scripts()
 	for x in actions.values():
-		planning_graph.push_back(a_star_node.from_action(action_scripts[x], x, planning_graph.size()))
+		planning_graph.push_back(a_star_node.from_action(current_actions[x], x, planning_graph.size()))
 	for x in current_goals: # todo: graph only for current_goals or all goals?
 		planning_graph.push_back(a_star_node.from_goal(x, -1, planning_graph.size()))
 
@@ -241,16 +242,10 @@ func a_star_path(predecessors: Dictionary, last: int) -> Array:
 
 func a_star_path_to_actions(path: Array) -> Array:
 	var action_list = []
-	var scripts = action_scripts()
+	var scripts = current_actions
 	for x in path:
 		if(x.id >= 0):
 			var new_action = scripts[x.id].new()
 			new_action.init($"..".pawn) # todo: refactor $".."
 			action_list.push_back(new_action)
 	return action_list
-
-static func action_scripts() -> Array:
-	var scripts = []
-	for x in actions:
-		scripts.push_back(load("res://characters/state/ai/actions/" + x + "_action.gd"))
-	return scripts

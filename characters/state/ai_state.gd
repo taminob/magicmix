@@ -80,6 +80,12 @@ func get_current_goals() -> Array:
 		goals.push_back(patrol_goal)
 	return goals
 
+func get_current_actions() -> Array:
+	var scripts = []
+	for x in planner.actions:
+		scripts.push_back(load("res://characters/state/ai/actions/" + x + "_action.gd"))
+	return scripts
+
 func get_idle_action() -> abstract_action:
 	var idle_action: abstract_action
 	match dialogue.job:
