@@ -27,5 +27,11 @@ func self_pain() -> float:
 func self_focus() -> float:
 	return -10.0
 
+func casttime() -> float:
+	return 1.0
+
+func cooldown() -> float:
+	return 5.0
+
 func icon() -> Resource:
 	return load(SPELL_ICONS_PATH + "circle-512.png")

@@ -92,6 +92,12 @@ func end_effect(_pawn: KinematicBody):
 func effect(_pawn: KinematicBody, _delta: float):
 	pass
 
+func casttime() -> float:
+	return 0.0
+
+func cooldown() -> float:
+	return 0.0
+
 func duration() -> float:
 	return -1.0
 

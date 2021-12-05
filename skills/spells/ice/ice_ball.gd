@@ -33,6 +33,9 @@ func target_pain() -> float:
 func target_focus() -> float:
 	return -10.0
 
+func casttime() -> float:
+	return 1.0
+
 func duration() -> float:
 	return 3.0
 

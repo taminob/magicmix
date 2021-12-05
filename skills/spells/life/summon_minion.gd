@@ -27,6 +27,12 @@ func self_pain() -> float:
 func self_focus() -> float:
 	return -10.0
 
+func casttime() -> float:
+	return 3.0
+
+func cooldown() -> float:
+	return 10.0
+
 func start_effect(pawn: KinematicBody):
 	var new_minion: KinematicBody = game.mgmt.create_character("minion")
 	new_minion.remove_from_group("characters")

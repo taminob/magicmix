@@ -58,6 +58,7 @@ class active_spell:
 		return new_spell
 
 var active_spells: Array
+var cooldowns: Dictionary
 var current_element: int
 
 func cast_spell(spell_id: String):
@@ -69,9 +70,12 @@ func cast_spell(spell_id: String):
 	stats._self_focus_damage(spell.self_focus())
 	stats._self_elemental_damage(spell.self_pain(), spell.self_element()) # todo: elemental damage
 	active_spells.push_back(active_spell.new(spell_id, spell.duration(), pawn))
+	cooldowns[spell_id] = spell.cooldown()
 	# todo: animation
 
 func can_cast(spell_id: String) -> bool:
+	if(cooldowns.get(spell_id, 0.0) > 0.0):
+		return false
 	if(game.levels.current_level_death_realm):
 		return true # todo? remove?
 	var spell: abstract_spell = skill_data.spells[spell_id]
@@ -151,9 +155,19 @@ func skill_process(delta: float):
 	stats.shield = clamp(stats.shield + stats.shield_per_second() * delta, 0, stats.max_shield())
 	stats._self_focus_damage(stats.focus_per_second() * delta)
 	stats._self_raw_damage(stats.pain_per_second() * delta)
+	_cooldowns_process(delta)
 	_active_spells_process(delta)
 	_active_skills_process(delta)
-	# todo: passive skills process?
+
+func _cooldowns_process(delta: float):
+	var to_delete_cooldowns: Array = []
+	for x in cooldowns.keys():
+		if(cooldowns[x] > 0.0):
+			cooldowns[x] -= delta
+		else:
+			to_delete_cooldowns.push_back(x)
+	for x in to_delete_cooldowns:
+		cooldowns.erase(x)
 
 func _active_spells_process(delta: float):
 	var i: int = 0
@@ -174,6 +188,7 @@ func save(state_dict: Dictionary):
 	for x in active_spells:
 		to_store_active_spells.push_back(x.to_dict())
 	_skills_state["active_spells"] = to_store_active_spells
+	_skills_state["cooldowns"] = cooldowns
 	state_dict["skills"] = _skills_state
 
 func init(state_dict: Dictionary):
@@ -182,3 +197,4 @@ func init(state_dict: Dictionary):
 	var stored_active_spells = _skills_state.get("active_spells", [])
 	for x in stored_active_spells:
 		active_spells.push_back(active_spell.from_dict(x, pawn))
+	cooldowns = _skills_state.get("cooldowns", {})

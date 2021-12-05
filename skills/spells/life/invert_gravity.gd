@@ -23,6 +23,12 @@ func start_effect(pawn: KinematicBody):
 func end_effect(pawn: KinematicBody):
 	pawn.move.gravity_direction *= -1
 
+func casttime() -> float:
+	return 0.5
+
+func cooldown() -> float:
+	return 1.0
+
 func duration() -> float:
 	return 2.0
 

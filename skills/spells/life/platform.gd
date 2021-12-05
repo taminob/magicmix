@@ -17,6 +17,9 @@ func category() -> String:
 func self_focus_per_second() -> float:
 	return -10.0
 
+func cooldown() -> float:
+	return 0.5
+
 func duration() -> float:
 	return 10.0
 
