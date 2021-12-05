@@ -59,22 +59,28 @@ class active_spell:
 
 var active_spells: Array
 var cooldowns: Dictionary
+var current_spell: abstract_spell
+var current_casttime: float
 var current_element: int
 
 func cast_spell(spell_id: String):
-	if(!inventory.spells.has(spell_id)):
+	if(!inventory.spells.has(spell_id) || !can_cast(spell_id)):
 		return
 	var spell: abstract_spell = skill_data.spells[spell_id]
-	if(!can_cast(spell_id)):
-		return
-	stats._self_focus_damage(spell.self_focus())
-	stats._self_elemental_damage(spell.self_pain(), spell.self_element()) # todo: elemental damage
-	active_spells.push_back(active_spell.new(spell_id, spell.duration(), pawn))
-	cooldowns[spell_id] = spell.cooldown()
+	current_spell = spell
+	current_casttime = spell.casttime()
+
+func _cast_current_spell():
+	stats._self_focus_damage(current_spell.self_focus())
+	stats._self_elemental_damage(current_spell.self_pain(), current_spell.self_element()) # todo: elemental damage
+	active_spells.push_back(active_spell.new(current_spell.id(), current_spell.duration(), pawn))
+	cooldowns[current_spell.id()] = current_spell.cooldown()
 	# todo: animation
+	current_spell = null
 
 func can_cast(spell_id: String) -> bool:
-	if(cooldowns.get(spell_id, 0.0) > 0.0):
+	# TODO? make cast interruptable? only by different spells?
+	if(current_spell || cooldowns.get(spell_id, 0.0) > 0.0):
 		return false
 	if(game.levels.current_level_death_realm):
 		return true # todo? remove?
@@ -155,9 +161,17 @@ func skill_process(delta: float):
 	stats.shield = clamp(stats.shield + stats.shield_per_second() * delta, 0, stats.max_shield())
 	stats._self_focus_damage(stats.focus_per_second() * delta)
 	stats._self_raw_damage(stats.pain_per_second() * delta)
+	_casttime_process(delta)
 	_cooldowns_process(delta)
 	_active_spells_process(delta)
 	_active_skills_process(delta)
+
+func _casttime_process(delta: float):
+	if(current_spell):
+		if(current_casttime <= 0.0):
+			_cast_current_spell()
+		else:
+			current_casttime -= delta
 
 func _cooldowns_process(delta: float):
 	var to_delete_cooldowns: Array = []

@@ -8,6 +8,7 @@ onready var shield_element_icon: TextureRect = $"shield_bar/shield_element_icon"
 onready var focus_bar: TextureProgress = $"focus_bar"
 onready var stamina_bar: TextureProgress = $"stamina_bar"
 onready var xp_bar: ProgressBar = $"xp_bar"
+onready var cast_bar: TextureProgress = $"cast_bar"
 onready var slots: Control = $"slots"
 onready var skill_slots: Control = $"skill_slots"
 onready var dialogue: ui_dialogue = $"dialogue"
@@ -63,6 +64,9 @@ func update_debug(text: String):
 
 func update_xp(percentage: float):
 	xp_bar.set_value(percentage)
+
+func update_casttime(percentage: float):
+	cast_bar.set_value(percentage)
 
 func update_slots():
 	slots.update_slots()
