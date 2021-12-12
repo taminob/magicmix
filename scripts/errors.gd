@@ -9,7 +9,7 @@ func warning(warning_string: String):
 func log(log_string: String):
 	print("log: " + log_string)
 
-func test(out):
+func debug_output(out):
 	var s = ""
 	for x in out:
 		s = s + str(x)

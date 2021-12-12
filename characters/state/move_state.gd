@@ -113,7 +113,7 @@ func collide_process(delta: float):
 	var threshold = 600
 	if(max_axis > threshold):
 		var dmg = pow((max_axis - threshold*0.8)/100, 2)
-		errors.test("impact: " + str(max_axis) + "; pain: " + str(dmg) + "; velo: " + str(velocity) + "; last: " + str(last_speed))
+		errors.debug_output("impact: " + str(max_axis) + "; pain: " + str(dmg) + "; velo: " + str(velocity) + "; last: " + str(last_speed))
 		stats._self_raw_damage(dmg)
 		for i in range(pawn.get_slide_count()):
 			var collision = pawn.get_slide_collision(i)
