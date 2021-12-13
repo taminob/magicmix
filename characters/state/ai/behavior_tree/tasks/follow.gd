@@ -13,14 +13,14 @@ func init():
 	else:
 		target = game.levels.current_level.get_node(target_path)
 	errors.debug_assert(target, "target of follow behavior does not exist")
-	location = target.translation
+	global_location = target.global_transform.origin
 	.init()
 
 func _run(delta: float) -> int:
 	if(_status == task_status.CANCEL):
 		pawn.move.input_direction = Vector3.ZERO
 		return task_status.CANCEL
-	location = target.translation
+	global_location = target.global_transform.origin
 	var status = ._run(delta)
 	if(status == task_status.SUCCESS):
 		.init()

@@ -9,8 +9,9 @@ func init_conversations():
 func init_partners():
 	pass
 
-func _begin_fight(_receiver: character):
-	game.levels.change_level("arena")
+func _begin_fight(speaker: character, receiver: character):
+	if(game.mgmt.is_player(speaker) || game.mgmt.is_player(receiver)):
+		game.levels.change_level("arena")
 
 func default_conversation() -> Array:
 	var statement_name: String = "default"

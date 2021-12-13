@@ -4,12 +4,12 @@ class_name raycast_hit_task
 
 # path relative to level
 export(String) var target_path: String
-export var follow_player: bool = false
+export var target_player: bool = false
 var target
 
 func init():
 	.init()
-	if(follow_player):
+	if(target_player):
 		target = game.mgmt.player
 	else:
 		target = game.levels.current_level.get_node(target_path)
