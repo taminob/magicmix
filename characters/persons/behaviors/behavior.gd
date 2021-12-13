@@ -48,8 +48,9 @@ func actions(pawn: KinematicBody) -> Array:
 		load("res://characters/state/ai/actions/roam_action.gd"),
 		load("res://characters/state/ai/actions/rotate_action.gd"),
 		load("res://characters/state/ai/actions/flee_action.gd"),
-		load("res://characters/state/ai/actions/spell_heal_action.gd"),
-		load("res://characters/state/ai/actions/spell_element_shield_action.gd"),
-		load("res://characters/state/ai/actions/spell_fire_ring_action.gd"),
-		load("res://characters/state/ai/actions/spell_fire_ball_action.gd"),
+		load("res://characters/state/ai/actions/behavior_tree_action.gd"),
+#		load("res://characters/state/ai/actions/spell_heal_action.gd"),
+#		load("res://characters/state/ai/actions/spell_element_shield_action.gd"),
+#		load("res://characters/state/ai/actions/spell_fire_ring_action.gd"),
+#		load("res://characters/state/ai/actions/spell_fire_ball_action.gd"),
 	]
