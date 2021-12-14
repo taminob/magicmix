@@ -110,5 +110,10 @@ func _update_ui():
 		shield_bar.material_override = shield_bar.get_active_material(0).duplicate()
 	shield_bar.get_active_material(0).set_shader_param("percentage", stats.shield / stats.max_shield())
 	shield_bar.look_at(game.mgmt.camera.camera.global_transform.origin, Vector3.UP)
+	var focus_bar: MeshInstance = $"focus_bar"
+	if(!focus_bar.material_override):
+		focus_bar.material_override = focus_bar.get_active_material(0).duplicate()
+	focus_bar.get_active_material(0).set_shader_param("percentage", stats.focus / stats.max_focus())
+	focus_bar.look_at(game.mgmt.camera.camera.global_transform.origin, Vector3.UP)
 	var quest_symbol: MeshInstance = $"quest_symbol"
 	quest_symbol.visible = dialogue.data.wants_to_talk_to.has(game.mgmt.player_name)
