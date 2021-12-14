@@ -1,139 +1,108 @@
 class_name ai_mind
 
 var pawn: character
-var allies_in_sight: Array = []
-var allies_out_of_sight: Array = []
-var enemies_in_sight: Array = []
-var enemies_out_of_sight: Array = []
-var characters_in_sight: Array = []
-var characters_out_of_sight: Array = [] # other characters
-var objects_in_sight: Array = []
-var objects_out_of_sight: Array = []
+
+enum type {
+	ally,
+	enemy,
+	other, # characters neither ally nor enemy
+	object
+}
+
+var in_sight_by_type: Array = [[], [], [], []]
+var out_of_sight_by_type: Array = [[], [], [], []]
 
 func _init(new_pawn: KinematicBody):
 	pawn = new_pawn
 
-func update_characters():
-	var all: Array = allies_in_sight + enemies_in_sight + characters_in_sight
-	allies_in_sight.clear()
-	enemies_in_sight.clear()
-	characters_in_sight.clear()
-	for x in all:
-		in_sight(x)
-	all = allies_out_of_sight + enemies_out_of_sight + characters_out_of_sight
-	allies_out_of_sight.clear()
-	enemies_out_of_sight.clear()
-	characters_out_of_sight.clear()
-	for x in all:
-		out_of_sight(x)
-
+func update():
+	var all: Array
+	for x in in_sight_by_type:
+		all.push_back(x.duplicate())
+	in_sight_by_type = [[], [], [], []]
+	for a in all:
+		for x in a:
+			in_sight(x)
+	all = out_of_sight_by_type.duplicate()
+	flush_out_of_sight()
+	for a in all:
+		for x in a:
+			out_of_sight(x)
 
 func flush_out_of_sight():
-	allies_out_of_sight.clear()
-	enemies_out_of_sight.clear()
-	characters_out_of_sight.clear()
-	objects_out_of_sight.clear()
+	out_of_sight_by_type = [[], [], [], []]
 
-func get_nearest_enemy() -> character:
+func get_nearest(nearest_type: int) -> Spatial: # TODO: return objects
 	var min_dist: float = INF
-	var nearest_target: character = null
-	for x in enemies_in_sight:
+	var nearest_target: Spatial = null
+	for x in in_sight_by_type[nearest_type]:
 		var distance = pawn.global_transform.origin.distance_squared_to(x.global_transform.origin)
 		if(distance < min_dist):
 			min_dist = distance
 			nearest_target = x
-	# todo? use enemies out of sight as well?
+	# todo? use out of sight as well?
 	return nearest_target
 
-func get_nearest_ally() -> character:
-	var min_dist: float = INF
-	var nearest_target: character = null
-	for x in allies_in_sight:
-		var distance = pawn.global_transform.origin.distance_squared_to(x.global_transform.origin)
-		if(distance < min_dist):
-			min_dist = distance
-			nearest_target = x
-	# todo? use allies out of sight as well?
-	return nearest_target
-
-func get_any_enemy() -> character:
-	if(enemies_in_sight.empty()):
-		if(enemies_out_of_sight.empty()):
+func get_any(any_type: int) -> Spatial:
+	if(in_sight_by_type[any_type].empty()):
+		if(out_of_sight_by_type[any_type].empty()):
 			return null
-		return enemies_out_of_sight.back()
-	return enemies_in_sight.front()
+		return out_of_sight_by_type[any_type].back()
+	return in_sight_by_type[any_type].front()
 
-func get_any_ally() -> character:
-	if(allies_in_sight.empty()):
-		if(allies_out_of_sight.empty()):
-			return null
-		return allies_out_of_sight.back()
-	return allies_in_sight.front()
-
-func get_most_damaged_enemy() -> character:
+func get_most_damaged(damaged_type: int) -> Spatial:
 	var max_pain: float = 0.0
-	var most_damaged_target: character = null
-	for x in enemies_in_sight:
+	var most_damaged_target: Spatial = null
+	for x in in_sight_by_type[damaged_type]:
 		var pain = x.stats.pain_percentage()
 		if(pain > max_pain):
 			max_pain = pain
 			most_damaged_target = x
 	return most_damaged_target
 
-# todo: refactor (is basically the same as for enemy)
-func get_most_damaged_ally() -> character:
-	var max_pain: float = 0.0
-	var most_damaged_target: character = null
-	for x in allies_in_sight:
-		var pain = x.stats.pain_percentage()
-		if(pain > max_pain):
-			max_pain = pain
-			most_damaged_target = x
-	return most_damaged_target
-
-func is_in_sight(body: character) -> bool:
-	return allies_in_sight.has(body) || characters_in_sight.has(body) || enemies_in_sight.has(body)
-
-func is_in_sight_by_id(character_id: String) -> bool:
-	for x in allies_in_sight:
-		if(x.name == character_id):
-			return true
-	for x in characters_in_sight:
-		if(x.name == character_id):
-			return true
-	for x in enemies_in_sight:
-		if(x.name == character_id):
+func is_in_sight(body: Spatial) -> bool:
+	for x in in_sight_by_type:
+		if(x.has(body)):
 			return true
 	return false
 
-# todo? refactor? currently depends on pass-by-reference for Array
-func _add_in_sight(body: Node, destination: Array, remove_from: Array=[]):
-	if(remove_from.has(body)):
-		remove_from.erase(body)
-	destination.push_back(body)
+func is_in_sight_by_id(character_id: String) -> bool:
+	for t in [type.ally, type.enemy, type.other]:
+		for x in in_sight_by_type[t]:
+			if(x.name == character_id):
+				return true
+	return false
 
-func in_sight(body: Node):
+func is_any_in_sight(by_type: int) -> bool:
+	return !in_sight_by_type[by_type].empty()
+
+func is_any_out_of_sight(by_type: int) -> bool:
+	return !out_of_sight_by_type[by_type].empty()
+
+func in_sight(body: Spatial):
+	errors.debug_assert(body != null, "body for in_sight shouldn't be null: " + pawn.name)
+	var new_type: int = -1
 	if(body as character):
 		match pawn.dialogue.get_relation(body.name):
 			dialogue_state.relation.ally:
-				_add_in_sight(body, allies_in_sight, allies_out_of_sight)
+				new_type = type.ally
 			dialogue_state.relation.enemy:
-				_add_in_sight(body, enemies_in_sight, enemies_out_of_sight)
+				new_type = type.enemy
 			_:
-				_add_in_sight(body, characters_in_sight, characters_out_of_sight)
+				new_type = type.other
 	elif(body.has_method("interact")):
-		_add_in_sight(body, objects_in_sight, objects_out_of_sight)
+		new_type = type.object
 
-func out_of_sight(body: Node):
-	if(objects_in_sight.has(body)):
-		objects_in_sight.erase(body)
-		objects_out_of_sight.push_back(body)
-	elif(characters_in_sight.has(body)):
-		characters_in_sight.erase(body)
-		characters_out_of_sight.push_back(body)
-	elif(allies_in_sight.has(body)):
-		allies_in_sight.erase(body)
-		allies_out_of_sight.push_back(body)
-	elif(enemies_in_sight.has(body)):
-		enemies_in_sight.erase(body)
-		enemies_out_of_sight.push_back(body)
+	if(new_type < 0):
+		return
+	if(out_of_sight_by_type[new_type].has(body)):
+		out_of_sight_by_type[new_type].erase(body)
+	in_sight_by_type[new_type].push_back(body)
+
+func out_of_sight(body: Spatial):
+	errors.debug_assert(body != null, "body for out_of_sight shouldn't be null: " + pawn.name)
+	for t in type.values():
+		if(in_sight_by_type[t].has(body)):
+			in_sight_by_type[t].erase(body)
+			out_of_sight_by_type[t].push_back(body)
+			break
