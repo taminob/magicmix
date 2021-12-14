@@ -28,6 +28,10 @@ func push_state(new_state: int):
 		return
 	state_queue.push_back(new_state)
 
+func plan_failed():
+	action_queue.clear()
+	push_state(states.idle)
+
 func reconsider():
 	consider(ai.get_current_knowledge(), ai.get_current_goals(), ai.get_current_actions())
 
@@ -60,6 +64,8 @@ func move():
 			ai.pawn.move.input_direction = Vector3.FORWARD
 			# TODO: push move or active; but: current_action somehow null
 			push_state(states.active)
+		else:
+			plan_failed()
 
 func active(delta: float):
 	if(action_queue.empty()):
@@ -74,11 +80,10 @@ func active(delta: float):
 				action_queue.pop_front()
 				push_state(states.active)
 			abstract_action.do_state.failure:
-				# todo? plan failed/aborted
-				push_state(states.idle)
+				plan_failed()
 			abstract_action.do_state.repeat:
 				push_state(states.active)
 	elif(action_range == abstract_action.range_state.unreachable):
-		push_state(states.idle)
+		plan_failed()
 	else:
 		push_state(states.move)
