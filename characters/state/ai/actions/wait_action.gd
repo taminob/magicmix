@@ -18,5 +18,5 @@ static func cost() -> float:
 func get_range_state() -> int:
 	return range_state.out_of_range
 
-func do() -> bool:
-	return true
+func do(_delta: float) -> int:
+	return do_state.success

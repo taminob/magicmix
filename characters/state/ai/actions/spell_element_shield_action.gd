@@ -33,7 +33,7 @@ func get_range_state() -> int:
 		return range_state.in_range
 	return range_state.out_of_range
 
-func do() -> bool:
+func do(_delta: float) -> int:
 	pawn.face_target(target)
 	pawn.skills.cast_spell(spell_id())
-	return true
+	return do_state.success

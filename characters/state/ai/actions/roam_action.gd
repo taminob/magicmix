@@ -27,5 +27,5 @@ func choose_target():
 		var destination: Vector3 = Vector3(rand_range(-1, 1), 0, rand_range(-1, 1))
 		target.global_transform.origin = nav.get_closest_point(pawn.global_transform.origin + 10 * destination)
 
-func do() -> bool:
-	return true
+func do(_delta: float) -> int:
+	return do_state.success

@@ -7,6 +7,12 @@ enum range_state {
 	unreachable
 }
 
+enum do_state {
+	success,
+	failure,
+	repeat
+}
+
 var pawn: character
 var target: Spatial
 
@@ -38,5 +44,5 @@ func choose_target():
 func get_range_state() -> int:
 	return range_state.no_range_required
 
-func do() -> bool:
-	return true
+func do(_delta: float) -> int:
+	return do_state.success

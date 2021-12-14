@@ -22,6 +22,6 @@ func choose_target():
 	# todo: better target choice
 	target = pawn.ai.brain.get_any_enemy()
 
-func do() -> bool:
+func do(_delta: float) -> int:
 	pawn.face_target(target)
-	return true
+	return do_state.success

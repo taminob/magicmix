@@ -29,5 +29,5 @@ func choose_target():
 	if(nav && game.is_valid(nearest_enemy)):
 		target.global_transform.origin = nav.get_closest_point(pawn.global_transform.origin - 10 * pawn.global_transform.origin.direction_to(nearest_enemy.global_transform.origin))
 
-func do() -> bool:
-	return true
+func do(_delta: float) -> int:
+	return do_state.success

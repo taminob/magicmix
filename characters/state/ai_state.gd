@@ -12,7 +12,7 @@ onready var stats: Node = $"../stats"
 # warning-ignore:unused_class_variable
 onready var dialogue: Node = $"../dialogue"
 
-const STEPS_BEFORE_RECONSIDER_DURING_PLAN = 100
+const STEPS_BEFORE_RECONSIDER_DURING_PLAN = 100000
 const STEPS_BEFORE_RECONSIDER_WITHOUT_PLAN = 30
 var _steps_since_consider: int = 0
 
@@ -25,10 +25,10 @@ func _ready():
 		return
 	_steps_since_consider = 0
 
-func _process(_delta: float):
+func _process(delta: float):
 	if(state.is_player || (stats.dead && !stats.undead && !game.levels.current_level_death_realm)):
 		return
-	machine.process_state()
+	machine.process_state(delta)
 	if(_steps_since_consider == 0):
 		brain.flush_out_of_sight()
 	_steps_since_consider += 1

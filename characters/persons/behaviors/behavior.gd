@@ -41,7 +41,7 @@ func idle_action(pawn: KinematicBody) -> abstract_action:
 	idle_action.init(pawn)
 	return idle_action
 
-func actions(pawn: KinematicBody) -> Array:
+func actions(_pawn: KinematicBody) -> Array:
 	return [
 		load("res://characters/state/ai/actions/wait_action.gd"),
 		load("res://characters/state/ai/actions/talk_begin_action.gd"),

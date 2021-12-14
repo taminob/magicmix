@@ -119,7 +119,7 @@ func _introduce_self(speaker: character, receiver: character):
 	if(receiver):
 		receiver.dialogue.call_names[speaker.name] = speaker.dialogue.display_name
 
-func _introduce_partner(speaker: character, receiver: character):
+func _introduce_partner(_speaker: character, receiver: character):
 	receiver.dialogue.call_names[partner.name] = partner.dialogue.display_name
 
 func _no_more_want_to_talk_to_partner(_speaker: character, _receiver: character):

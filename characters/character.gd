@@ -19,8 +19,6 @@ onready var interaction: interaction_state = state.interaction
 onready var look: look_state = state.look
 onready var ai: Node = state.ai
 
-var current_delta: float
-
 func _ready():
 	init_state()
 
@@ -42,7 +40,6 @@ func set_player(is_player: bool):
 		game.mgmt.player_history.push_back(name)
 
 func _physics_process(delta: float):
-	current_delta = delta
 	if(move.can_move()):
 		move.move_process(delta)
 		skills.skill_process(delta)

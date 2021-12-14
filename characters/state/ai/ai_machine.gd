@@ -13,14 +13,14 @@ onready var planning: planner = $"../planner"
 var state_queue: Array = []
 var action_queue: Array = []
 
-func process_state():
+func process_state(delta: float):
 	match state_queue.pop_front():
 		states.idle:
 			idle()
 		states.move:
 			move()
 		states.active:
-			active()
+			active(delta)
 
 func push_state(new_state: int):
 	# todo: good idea?
@@ -61,7 +61,7 @@ func move():
 			# TODO: push move or active; but: current_action somehow null
 			push_state(states.active)
 
-func active():
+func active(delta: float):
 	if(action_queue.empty()):
 		push_state(states.idle)
 		return
@@ -69,12 +69,15 @@ func active():
 	var action_range = current_action.get_range_state()
 	if(action_range == abstract_action.range_state.in_range || action_range == abstract_action.range_state.no_range_required):
 		ai.pawn.move.input_direction = Vector3.ZERO
-		if(!current_action.do()):
-			# todo? plan failed/aborted
-			push_state(states.idle)
-			return
-		action_queue.pop_front()
-		active()
+		match current_action.do(delta):
+			abstract_action.do_state.success:
+				action_queue.pop_front()
+				push_state(states.active)
+			abstract_action.do_state.failure:
+				# todo? plan failed/aborted
+				push_state(states.idle)
+			abstract_action.do_state.repeat:
+				push_state(states.active)
 	elif(action_range == abstract_action.range_state.unreachable):
 		push_state(states.idle)
 	else:

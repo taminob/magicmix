@@ -23,6 +23,6 @@ static func cost() -> float:
 func get_range_state() -> int:
 	return range_state.no_range_required
 
-func do() -> bool:
+func do(_delta: float) -> int:
 	pawn.skills.cast_spell(spell_id())
-	return true
+	return do_state.success
