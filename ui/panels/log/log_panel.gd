@@ -1,21 +1,34 @@
 extends Control
 
-onready var buttons = $"layout/buttons"
-onready var list = $"layout/list"
+onready var buttons: VBoxContainer = $"buttons"
+onready var list: RichTextLabel = $"list"
 
 func _on_inventory_panel_visibility_changed():
 	if(is_visible()):
 		update_logs()
 
 func update_logs(category=""):
-	list.clear()
 	for x in buttons.get_children():
 		buttons.remove_child(x)
 	for x in game.mgmt.player_history:
 		buttons.add_child(create_name_button(x))
-	for x in game.mgmt.player_logs.keys():
+	var history_entry: String = ""
+	for x in game.mgmt.player_history:
 		if(x == category || category.empty()):
-			list.add_item(game.mgmt.player_logs[x])
+			var char_data: Dictionary = game.get_character_data(x)
+			var dialogue_data: Dictionary = char_data.get("dialogue", {})
+			errors.debug_assert(dialogue_data.has("name") && dialogue_data.has("description") && dialogue_data.has("background"), "character " + x + " has undefined dialogue data")
+			history_entry += dialogue_data.get("name", "")
+			history_entry += ": "
+			history_entry += dialogue_data.get("description", "")
+			history_entry += "\n"
+			history_entry += dialogue_data.get("background", "")
+			history_entry += "\n\n"
+			# TODO: implement player_logs
+			for a in game.mgmt.player_logs.get(x, []):
+				for b in a:
+					history_entry += b
+		list.set_bbcode(history_entry)
 
 func create_name_button(char_id: String) -> Button:
 	var button: Button = Button.new()
@@ -23,13 +36,5 @@ func create_name_button(char_id: String) -> Button:
 	errors.error_test(button.connect("pressed", self, "_on_name_pressed", [char_id]))
 	return button
 
-func _on_sort_button_pressed():
-	# todo: sorting is done twice
-	list.sort_items_by_text()
-	game.mgmt.player.inventory.things.sort_custom(self, "things_compare")
-
 func _on_name_pressed(char_id: String):
 	update_logs(char_id)
-
-func _on_list_item_activated(index: int):
-	pass

@@ -40,6 +40,9 @@ func _init(new_pawn: KinematicBody):
 func process_mind(delta: float):
 	var i: int = 0
 	while i < sight_events.size():
+		if(!game.is_valid(sight_events[i].body)): # in case e.g. a character dies while in sight
+			sight_events.remove(i)
+			continue
 		if(sight_events[i].in_cone && _check_in_sight(sight_events[i].body)):
 			if(!sight_events[i].is_in_sight()):
 				pawn.ai.should_reconsider = true
