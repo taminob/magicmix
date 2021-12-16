@@ -1,49 +1,58 @@
 extends abstract_spell
 
-class_name fire_ball_spell
+class_name fire_swirl_spell
 
 static func id() -> String:
-	return "fire_ball"
+	return "fire_swirl"
 
 func name() -> String:
-	return "Fire Ball"
+	return "Fire Swirl"
 
 func description() -> String:
-	return "Hurl a ball of fire at your enemy!"
+	return "Radiate fire and destroy your foes!"
 
 func category() -> String:
 	return "fire"
 
 func combinations() -> Array:
 	return [{
-		"target": "enemy",
+		"target": "area",
 		"type": "attack",
 		"elements": ["fire", "fire", "fire"]
 	}]
 
 func self_focus() -> float:
+	return -5.0
+
+func self_focus_per_second() -> float:
 	return -20.0
 
 func target_element() -> int:
 	return element_type.fire
 
 func target_pain() -> float:
-	return 30.0
+	return 5.0
+
+func target_pain_per_second() -> float:
+	return 1.0
+
+func target_focus_per_second() -> float:
+	return -5.0
 
 func casttime() -> float:
 	return 1.0
 
 func cooldown() -> float:
-	return 0.1
+	return 10.0
 
 func duration() -> float:
-	return 3.0
+	return 15.0
 
 func range() -> float:
-	return 25.0
+	return 20.0
 
 func icon() -> Resource:
-	return load(SPELL_ICONS_PATH + "/fire_ball-512.png")
+	return load(SPELL_ICONS_PATH + "/fire_ring-512.png")
 
 func scene() -> Node:
-	return load(SPELL_SCENES_PATH + "fire/fire_ball.tscn").instance()
+	return load(SPELL_SCENES_PATH + "fire/fire_swirl.tscn").instance()

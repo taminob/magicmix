@@ -39,6 +39,12 @@ func target_pain_per_second() -> float:
 func target_focus_per_second() -> float:
 	return -10.0
 
+func casttime() -> float:
+	return 1.0
+
+func cooldown() -> float:
+	return 5.0
+
 func duration() -> float:
 	return 10.0
 
