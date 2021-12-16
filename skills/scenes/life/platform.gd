@@ -1,6 +1,7 @@
 extends Spatial
 
 var caster: KinematicBody
+# warning-ignore:unused_class_variable
 var spell: abstract_spell
 var active_spell: skills_state.active_spell
 

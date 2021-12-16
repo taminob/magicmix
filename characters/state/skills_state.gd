@@ -181,6 +181,7 @@ func _cooldowns_process(delta: float):
 		else:
 			to_delete_cooldowns.push_back(x)
 	for x in to_delete_cooldowns:
+# warning-ignore:return_value_discarded
 		cooldowns.erase(x)
 
 func _active_spells_process(delta: float):

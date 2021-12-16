@@ -77,7 +77,7 @@ func die(save_state: bool=true):
 
 func damage(dmg: float, element: int, caused_by: KinematicBody):
 	if(caused_by):
-		var new_relation: int = max(dialogue.get_relation(caused_by.name) - 1, -2) # TODO? replace constant by enum
+		var new_relation: int = int(max(dialogue.get_relation(caused_by.name) - 1, -2)) # TODO? replace constant by enum
 		dialogue.set_relation(caused_by.name, new_relation)
 		if(new_relation != -2):#dialogue_state.relation.enemy): # TODO? replace constant by enum
 			if(!dialogue.data.wants_to_talk_to.has(caused_by.name)):
