@@ -3,11 +3,14 @@ class_name ai_mind
 var pawn: character
 
 enum body_type {
-	unknown = -1,
-	ally,
-	enemy,
-	other, # characters neither ally nor enemy
-	object
+	unknown = 0,
+
+	ally   = 0x1 << 1,
+	enemy  = 0x1 << 2,
+	other  = 0x1 << 3, # characters neither ally nor enemy
+	object = 0x1 << 4,
+
+	all    = 0xFF
 }
 
 const TIME_UNTIL_FORGOTTON: float = 30.0
@@ -61,11 +64,22 @@ func _check_in_sight(target_body: Spatial) -> bool:
 			return false
 	return true
 
+func get_latest(target_type: int) -> Spatial:
+	var best_body: Spatial = null
+	var best_time: float = INF
+	for x in sight_events:
+		if(x.type & target_type):
+			if(x.is_in_sight()):
+				return x.body
+			if(x.out_of_sight_time < best_time):
+				best_body = x.body
+	return best_body
+
 func get_nearest(target_type: int) -> Spatial: # TODO: return only objects in sight
 	var min_dist: float = INF
 	var nearest_target: Spatial = null
 	for x in sight_events:
-		if(x.type != target_type):
+		if(!(x.type & target_type)):
 			continue
 		var distance = pawn.global_transform.origin.distance_squared_to(x.body.global_transform.origin)
 		if(distance < min_dist):
@@ -74,21 +88,13 @@ func get_nearest(target_type: int) -> Spatial: # TODO: return only objects in si
 	return nearest_target
 
 func get_any(target_type: int) -> Spatial:
-	var best_body: Spatial = null
-	var best_time: float = INF
-	for x in sight_events:
-		if(x.type == target_type):
-			if(x.is_in_sight()):
-				return x.body
-			if(x.out_of_sight_time < best_time):
-				best_body = x.body
-	return best_body
+	return get_latest(target_type)
 
 func get_most_damaged(target_type: int) -> Spatial:
 	var max_pain: float = 0.0
 	var most_damaged_target: Spatial = null
 	for x in sight_events:
-		if(x.type != target_type):
+		if(!(x.type & target_type)):
 			continue
 		var pain = x.body.stats.pain_percentage()
 		if(pain > max_pain):
@@ -110,19 +116,19 @@ func is_in_sight_by_id(character_id: String) -> bool:
 
 func is_any_in_sight(target_type: int) -> bool:
 	for x in sight_events:
-		if(x.type == target_type && x.is_in_sight()):
+		if(x.type & target_type && x.is_in_sight()):
 			return true
 	return false
 
 func is_any_out_of_sight(target_type: int) -> bool:
 	for x in sight_events:
-		if(x.type == target_type && !x.is_in_sight()):
+		if(x.type & target_type && !x.is_in_sight()):
 			return true
 	return false
 
 func is_any(target_type: int) -> bool:
 	for x in sight_events:
-		if(x.type == target_type):
+		if(x.type & target_type):
 			return true
 	return false
 

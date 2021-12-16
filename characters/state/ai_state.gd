@@ -42,9 +42,9 @@ func _process(delta: float):
 func get_current_knowledge() -> planner.knowledge:
 	var know = planner.knowledge.new(stats.pain, stats.focus, stats.stamina, stats.shield)
 	know.flags[planner.flag.enemy_in_sight] = brain.is_any_in_sight(ai_mind.body_type.enemy)
-	know.flags[planner.flag.enemy_in_near] = brain.is_any_in_sight(ai_mind.body_type.enemy) || brain.is_any_out_of_sight(ai_mind.body_type.enemy)
+	know.flags[planner.flag.enemy_in_near] = brain.is_any(ai_mind.body_type.enemy)
 	know.flags[planner.flag.ally_in_sight] = brain.is_any_in_sight(ai_mind.body_type.ally)
-	know.flags[planner.flag.ally_in_near] = brain.is_any_in_sight(ai_mind.body_type.ally) || brain.is_any_out_of_sight(ai_mind.body_type.ally)
+	know.flags[planner.flag.ally_in_near] = brain.is_any(ai_mind.body_type.ally)
 	var most_damaged = brain.get_most_damaged(ai_mind.body_type.enemy)
 	know.flags[planner.flag.enemy_damaged] = most_damaged && most_damaged.stats.pain_percentage() > 0.85
 	most_damaged = brain.get_most_damaged(ai_mind.body_type.ally)
