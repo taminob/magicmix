@@ -9,7 +9,7 @@ enum states {
 }
 
 onready var ai: Node = $".."
-onready var planning: planner = $"../planner"
+onready var planning: ai_planner = $"../ai_planner"
 var state_queue: Array = []
 var action_queue: Array = []
 
@@ -35,7 +35,7 @@ func plan_failed():
 func reconsider():
 	consider(ai.get_current_knowledge(), ai.get_current_goals(), ai.get_current_actions())
 
-func consider(know: planner.knowledge, goals: Array, actions: Array):
+func consider(know: ai_planner.knowledge, goals: Array, actions: Array):
 	action_queue = planning.plan(know, goals, actions)
 	if(action_queue.empty()):
 		action_queue.push_back(ai.get_idle_action())

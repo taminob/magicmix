@@ -1,6 +1,6 @@
 extends Node
 
-class_name planner
+class_name ai_planner
 
 enum value {
 	pain = 0,

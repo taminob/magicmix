@@ -1,16 +1,16 @@
 extends abstract_action
 
-static func precondition() -> planner.knowledge:
-	return planner.knowledge.new()
+static func precondition() -> ai_planner.knowledge:
+	return ai_planner.knowledge.new()
 
-static func postcondition() -> planner.knowledge:
-	return planner.knowledge.new(0, 0, 0, 0, planner.knowledge_mask.facing_target)
+static func postcondition() -> ai_planner.knowledge:
+	return ai_planner.knowledge.new(0, 0, 0, 0, ai_planner.knowledge_mask.facing_target)
 
 static func precondition_mask() -> int:
-	return planner.knowledge_mask.facing_target
+	return ai_planner.knowledge_mask.facing_target
 
 static func postcondition_mask() -> int:
-	return planner.knowledge_mask.facing_target
+	return ai_planner.knowledge_mask.facing_target
 
 static func cost() -> float:
 	return 0.25

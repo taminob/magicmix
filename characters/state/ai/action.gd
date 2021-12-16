@@ -13,27 +13,27 @@ enum do_state {
 	repeat
 }
 
-var pawn: character
+var pawn: KinematicBody
 var target: Spatial
 
-func init(new_pawn: character):
+func init(new_pawn: KinematicBody):
 	pawn = new_pawn
 	choose_target()
 
 ### override functions below
 
 # todo: allow multiple preconditions
-static func precondition() -> planner.knowledge:
-	return planner.knowledge.new()
+static func precondition() -> ai_planner.knowledge:
+	return ai_planner.knowledge.new()
 
-static func postcondition() -> planner.knowledge:
-	return planner.knowledge.new()
+static func postcondition() -> ai_planner.knowledge:
+	return ai_planner.knowledge.new()
 
 static func precondition_mask() -> int:
-	return planner.knowledge_mask.ALL
+	return ai_planner.knowledge_mask.ALL
 
 static func postcondition_mask() -> int:
-	return planner.knowledge_mask.ALL
+	return ai_planner.knowledge_mask.ALL
 
 static func cost() -> float:
 	return 1.0

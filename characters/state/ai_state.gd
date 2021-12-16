@@ -39,17 +39,17 @@ func _process(delta: float):
 		_steps_since_consider = 0
 		should_reconsider = false
 
-func get_current_knowledge() -> planner.knowledge:
-	var know = planner.knowledge.new(stats.pain, stats.focus, stats.stamina, stats.shield)
-	know.flags[planner.flag.enemy_in_sight] = brain.is_any_in_sight(ai_mind.body_type.enemy)
-	know.flags[planner.flag.enemy_in_near] = brain.is_any(ai_mind.body_type.enemy)
-	know.flags[planner.flag.ally_in_sight] = brain.is_any_in_sight(ai_mind.body_type.ally)
-	know.flags[planner.flag.ally_in_near] = brain.is_any(ai_mind.body_type.ally)
+func get_current_knowledge() -> ai_planner.knowledge:
+	var know = ai_planner.knowledge.new(stats.pain, stats.focus, stats.stamina, stats.shield)
+	know.flags[ai_planner.flag.enemy_in_sight] = brain.is_any_in_sight(ai_mind.body_type.enemy)
+	know.flags[ai_planner.flag.enemy_in_near] = brain.is_any(ai_mind.body_type.enemy)
+	know.flags[ai_planner.flag.ally_in_sight] = brain.is_any_in_sight(ai_mind.body_type.ally)
+	know.flags[ai_planner.flag.ally_in_near] = brain.is_any(ai_mind.body_type.ally)
 	var most_damaged = brain.get_most_damaged(ai_mind.body_type.enemy)
-	know.flags[planner.flag.enemy_damaged] = most_damaged && most_damaged.stats.pain_percentage() > 0.85
+	know.flags[ai_planner.flag.enemy_damaged] = most_damaged && most_damaged.stats.pain_percentage() > 0.85
 	most_damaged = brain.get_most_damaged(ai_mind.body_type.ally)
-	know.flags[planner.flag.ally_damaged] = most_damaged && most_damaged.stats.pain_percentage() > 0.7
-	know.flags[planner.flag.talking] = dialogue.is_dialogue_active()
+	know.flags[ai_planner.flag.ally_damaged] = most_damaged && most_damaged.stats.pain_percentage() > 0.7
+	know.flags[ai_planner.flag.talking] = dialogue.is_dialogue_active()
 	return know
 
 func get_current_goals() -> Array:

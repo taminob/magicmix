@@ -1,23 +1,23 @@
 extends abstract_action
 
-static func precondition() -> planner.knowledge:
-	return planner.knowledge.new(80, 0)
+static func precondition() -> ai_planner.knowledge:
+	return ai_planner.knowledge.new(80, 0)
 
-static func postcondition() -> planner.knowledge:
-	return planner.knowledge.new()
+static func postcondition() -> ai_planner.knowledge:
+	return ai_planner.knowledge.new()
 
 static func precondition_mask() -> int:
-	return planner.knowledge_mask.pain | planner.knowledge_mask.focus | planner.knowledge_mask.focus_toggle
+	return ai_planner.knowledge_mask.pain | ai_planner.knowledge_mask.focus | ai_planner.knowledge_mask.focus_toggle
 
 static func postcondition_mask() -> int:
-	return planner.knowledge_mask.enemy_in_near
+	return ai_planner.knowledge_mask.enemy_in_near
 
 static func cost() -> float:
 	return 0.75
 
 func get_range_state() -> int:
 	choose_target()
-	if(pawn.ai.brain.enemies_out_of_sight.empty()):
+	if(!pawn.ai.brain.is_any(ai_mind.body_type.enemy)):
 		return range_state.in_range
 	return range_state.out_of_range
 

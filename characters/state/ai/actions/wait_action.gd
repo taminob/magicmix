@@ -1,10 +1,10 @@
 extends abstract_action
 
-static func precondition() -> planner.knowledge:
-	return planner.knowledge.new()
+static func precondition() -> ai_planner.knowledge:
+	return ai_planner.knowledge.new()
 
-static func postcondition() -> planner.knowledge:
-	return planner.knowledge.new()
+static func postcondition() -> ai_planner.knowledge:
+	return ai_planner.knowledge.new()
 
 static func precondition_mask() -> int:
 	return 0
