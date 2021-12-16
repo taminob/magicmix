@@ -9,6 +9,8 @@ func _init():
 	data = {
 		"dialogue": {
 			"name": "Minion",
+			"description": "Mindless Minion",
+			"background": "A small summon which will fight against the enemies of its master.",
 			"job": "minion"
 		},
 		"experience": {

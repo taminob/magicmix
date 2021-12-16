@@ -9,6 +9,8 @@ func _init():
 	data = {
 		"dialogue": {
 			"name": "Sqlykt",
+			"description": "Outcast Ocelot",
+			"background": "After his brother was killed, he was exiled from his home.",
 			"gender": "ocelot"
 		},
 		"experience": {

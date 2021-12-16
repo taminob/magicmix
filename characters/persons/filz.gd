@@ -9,8 +9,10 @@ func _init():
 	data = {
 		"dialogue": {
 			"name": "Filz",
+			"description": "Thirsty Thief",
+			"background": "He is a kleptomaniacal drunkard who tends to spend his free time in either a brothel or a prison cell.",
 			"gender": "male",
-			"job": "thief"
+			"job": "thief",
 		},
 		"experience": {
 			"intelligence": 1,

@@ -9,6 +9,8 @@ func _init():
 	data = {
 		"dialogue": {
 			"name": "Harbringer",
+			"description": "Harbringer",
+			"background": "Bringer of doom to all his and his master's enemies.",
 			"gender": "male",
 			"job": "harbringer"
 		},
@@ -23,7 +25,7 @@ func _init():
 			"focus": 100000
 		},
 		"inventory": {
-			"skills": ["base_fire"],
+			"skills": ["base_fire", "base_darkness", "taint_fire"],
 			#"spell_slots": ["", "", "", "", ""]
 		},
 		"look": {

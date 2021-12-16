@@ -9,6 +9,8 @@ func _init():
 	data = {
 		"dialogue": {
 			"name": "Gress",
+			"description": "Bored Bard",
+			"background": "Rarely motivated, he is bored of live itself and sleeps more than playing his instrument.",
 			"gender": "male",
 			"relations": {
 				"hans": 2,

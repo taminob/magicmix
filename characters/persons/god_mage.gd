@@ -9,6 +9,8 @@ func _init():
 	data = {
 		"dialogue": {
 			"name": "God Mage",
+			"description": "God Mage",
+			"background": "Ruler of the realm.",
 			"gender": "female",
 			"job": "mage"
 		},

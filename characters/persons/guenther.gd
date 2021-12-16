@@ -9,6 +9,8 @@ func _init():
 	data = {
 		"dialogue": {
 			"name": "Günther",
+			"description": "Crafty Captain",
+			"background": "Still missing the sea at times, he has started a new life at land following his brothers to new lands.",
 			"gender": "male",
 			"relations": {
 				"filz": 2,
