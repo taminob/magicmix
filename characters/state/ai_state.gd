@@ -28,28 +28,26 @@ func _ready():
 func _process(delta: float):
 	if(state.is_player || (stats.dead && !stats.undead && !game.levels.current_level_death_realm)):
 		return
+	brain.process_mind(delta)
 	machine.process_state(delta)
-	if(_steps_since_consider == 0):
-		brain.flush_out_of_sight()
 	_steps_since_consider += 1
 	if(machine.action_queue.empty() && _steps_since_consider >= STEPS_BEFORE_RECONSIDER_WITHOUT_PLAN ||
 		_steps_since_consider >= STEPS_BEFORE_RECONSIDER_DURING_PLAN):
 		should_reconsider = true
 	if(should_reconsider):
 		machine.push_state(ai_machine.states.idle)
-		brain.update()
 		_steps_since_consider = 0
 		should_reconsider = false
 
 func get_current_knowledge() -> planner.knowledge:
 	var know = planner.knowledge.new(stats.pain, stats.focus, stats.stamina, stats.shield)
-	know.flags[planner.flag.enemy_in_sight] = brain.is_any_in_sight(ai_mind.type.enemy)
-	know.flags[planner.flag.enemy_in_near] = brain.is_any_in_sight(ai_mind.type.enemy) || brain.is_any_out_of_sight(ai_mind.type.enemy)
-	know.flags[planner.flag.ally_in_sight] = brain.is_any_in_sight(ai_mind.type.ally)
-	know.flags[planner.flag.ally_in_near] = brain.is_any_in_sight(ai_mind.type.ally) || brain.is_any_out_of_sight(ai_mind.type.ally)
-	var most_damaged = brain.get_most_damaged(ai_mind.type.enemy)
+	know.flags[planner.flag.enemy_in_sight] = brain.is_any_in_sight(ai_mind.body_type.enemy)
+	know.flags[planner.flag.enemy_in_near] = brain.is_any_in_sight(ai_mind.body_type.enemy) || brain.is_any_out_of_sight(ai_mind.body_type.enemy)
+	know.flags[planner.flag.ally_in_sight] = brain.is_any_in_sight(ai_mind.body_type.ally)
+	know.flags[planner.flag.ally_in_near] = brain.is_any_in_sight(ai_mind.body_type.ally) || brain.is_any_out_of_sight(ai_mind.body_type.ally)
+	var most_damaged = brain.get_most_damaged(ai_mind.body_type.enemy)
 	know.flags[planner.flag.enemy_damaged] = most_damaged && most_damaged.stats.pain_percentage() > 0.85
-	most_damaged = brain.get_most_damaged(ai_mind.type.ally)
+	most_damaged = brain.get_most_damaged(ai_mind.body_type.ally)
 	know.flags[planner.flag.ally_damaged] = most_damaged && most_damaged.stats.pain_percentage() > 0.7
 	know.flags[planner.flag.talking] = dialogue.is_dialogue_active()
 	return know
@@ -66,23 +64,12 @@ func get_idle_action() -> abstract_action:
 func _on_sight_zone_body_entered(body: Node):
 	if(state.is_player || body == pawn || !body):
 		return
-	# todo: repeat cast after some time if fails (might be better in brain to check for everything "in sight" if it is actually visible
-	var result: Dictionary = pawn.get_world().direct_space_state.intersect_ray(pawn.global_body_head(), body.global_transform.origin)
-	if(!result || result["collider"] != body):
-		if(body is character):
-			result = pawn.get_world().direct_space_state.intersect_ray(pawn.global_body_head(), body.global_body_head())
-			if(!result || result["collider"] != body):
-				return
-		else:
-			return
-	brain.in_sight(body)
-	should_reconsider = true
+	brain.register_in_cone(body)
 
 func _on_sight_zone_body_exited(body: Node):
 	if(!body):
 		return
-	brain.out_of_sight(body)
-	should_reconsider = true
+	brain.unregister_in_cone(body)
 
 func save(state_dict: Dictionary):
 	var _ai_state = state_dict.get("ai", {})
