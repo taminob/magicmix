@@ -1,6 +1,6 @@
 class_name ai_mind
 
-var pawn: character
+var pawn: KinematicBody
 
 enum body_type {
 	unknown = 0,
@@ -56,7 +56,7 @@ func process_mind(delta: float):
 func _check_in_sight(target_body: Spatial) -> bool:
 	var result: Dictionary = pawn.get_world().direct_space_state.intersect_ray(pawn.global_body_head(), target_body.global_transform.origin)
 	if(!result || result["collider"] != target_body):
-		if(target_body is character):
+		if(target_body.has_method("global_body_head")):
 			result = pawn.get_world().direct_space_state.intersect_ray(pawn.global_body_head(), target_body.global_body_head())
 			if(!result || result["collider"] != target_body):
 				return false
@@ -133,7 +133,7 @@ func is_any(target_type: int) -> bool:
 	return false
 
 func _get_body_type(body: Spatial) -> int:
-	if(body as character):
+	if(game.is_character(body.name)):
 		match pawn.dialogue.get_relation(body.name):
 			dialogue_state.relation.ally:
 				return body_type.ally

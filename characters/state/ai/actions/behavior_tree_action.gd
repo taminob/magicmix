@@ -30,7 +30,7 @@ func init(new_pawn: KinematicBody):
 	current_task.start(pawn)
 
 func choose_target():
-	target = pawn.ai.brain.get_any_enemy()
+	target = pawn.ai.brain.get_any(ai_mind.body_type.enemy)
 
 func get_range_state() -> int:
 	return range_state.no_range_required

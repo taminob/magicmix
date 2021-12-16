@@ -16,7 +16,7 @@ script = ExtResource( 6 )
 
 [node name="cast" type="Node" parent="repeat/sequence"]
 script = ExtResource( 8 )
-spell = "summon_minion"
+spell = "fire_swirl"
 
 [node name="wait" type="Node" parent="repeat/sequence"]
 script = ExtResource( 5 )

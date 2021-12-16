@@ -40,5 +40,10 @@ func get_character(id: String) -> KinematicBody:
 				return x
 	return null
 
+func is_character(id: String) -> bool:
+	if(id.find("minion") >= 0):
+		return true
+	return char_data.has(id)
+
 func is_valid(object: Node):
 	return object && !object.is_queued_for_deletion()
