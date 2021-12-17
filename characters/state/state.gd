@@ -34,6 +34,7 @@ func save():
 	ai.save(_state)
 
 func init():
+	is_minion = pawn.name.find("minion") >= 0
 	move.init(_state)
 	experience.init(_state)
 	inventory.init(_state)
@@ -43,4 +44,3 @@ func init():
 	#interaction.init(_state)
 	look.init(_state)
 	ai.init(_state)
-	is_minion = pawn.name.find("minion") >= 0

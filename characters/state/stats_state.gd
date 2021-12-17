@@ -151,7 +151,7 @@ func save(state_dict: Dictionary):
 func init(state_dict: Dictionary):
 	var _stats_state = state_dict.get("stats", {})
 	undead = _stats_state.get("undead", false)
-	if(_stats_state.get("dead", false)):
+	if(_stats_state.get("dead", false) || (state.is_minion && game.levels.current_level_death_realm)):
 		die(false)
 	else:
 		pain = _stats_state.get("pain", 0.0)

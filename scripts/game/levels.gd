@@ -31,11 +31,10 @@ var debug_levels: Dictionary = {
 		"path": "res://world/levels/debug_ai/level.tscn",
 	},
 }
-func from_dict(dict: Dictionary) -> abstract_level:
-	var new_level = abstract_level.new()
+func from_dict(dict: Dictionary) -> Object:
+	var new_level = abstract_level.new() # TODO: remove
 	new_level.data["level_data"] = dict
 	return new_level
-
 
 func _ready():
 	# TODO: move to static array?
