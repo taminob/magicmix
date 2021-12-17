@@ -50,7 +50,7 @@ func inspect_handler(character_id: String=""):
 	settings.save_settings() # TODO: (DEBUG) remove, just for debugging
 
 func reload_handler():
-	game.levels.change_level(game.levels.current_level_name)
+	game.levels.change_level(game.levels.current_level_id)
 
 func respawn_handler():
 	var spawn = game.levels.current_level.get_node_or_null("player_spawn")

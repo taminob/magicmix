@@ -32,7 +32,7 @@ func _on_area_body_entered(body):
 		next_stats["dead"] = false
 		game.char_data[next_character_name]["stats"] = next_stats
 		var current_move = game.char_data[body.name].get("move", {"translations": {}})
-		current_move["translations"].erase(game.levels.current_level_name) # reset position to prevent respawn in portal
+		current_move["translations"].erase(game.levels.current_level_id) # reset position to prevent respawn in portal
 		game.char_data[body.name]["move"] = current_move
 	var spawn = game.levels.current_level.get_node_or_null("player_spawn")
 	if(spawn):

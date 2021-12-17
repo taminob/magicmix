@@ -80,7 +80,7 @@ func save():
 	game.mgmt.save_characters()
 	save_file.set_value("characters", "characters", game.char_data)
 	save_file.set_value("world", "boxes", game.world.boxes)
-	save_file.set_value("level", "current_level", game.levels.current_level_name)
+	save_file.set_value("level", "current_level", game.levels.current_level_id)
 	errors.error_test(Directory.new().make_dir_recursive(SAVE_PATH))
 	#var error = save_file.save_encrypted(SAVE_PATH + current_save, key) # todo? encrypted save files
 	var error = save_file.save(SAVE_PATH + current_save)

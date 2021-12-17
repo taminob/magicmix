@@ -13,8 +13,8 @@ func _on_area_body_entered(body: Node):
 					if(spawn):
 						body.translation = spawn.translation
 					else:
-						errors.debug_assert(false, "no player_spawn found in " + game.levels.current_level_name)
-					#game.levels.change_level(game.levels.current_level_name)
+						errors.debug_assert(false, "no player_spawn found in " + game.levels.current_level_id)
+					#game.levels.change_level(game.levels.current_level_id)
 				else:
 					body.die() # todo: implement spawn to other levels; implement reset in death realm (already dead)
 		else:

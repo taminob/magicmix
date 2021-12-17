@@ -124,10 +124,10 @@ func collide_process(delta: float):
 func save(state_dict: Dictionary):
 	var _move_state = state_dict.get("move", {"translations": {}})
 	_move_state["velocity"] = velocity
-	_move_state["translations"][game.levels.current_level_name] = pawn.translation
+	_move_state["translations"][game.levels.current_level_id] = pawn.translation
 	state_dict["move"] = _move_state
 
 func init(state_dict: Dictionary):
 	var _move_state = state_dict.get("move", {"translations": {}})
 	velocity = _move_state.get("velocity", Vector3.ZERO)
-	pawn.translation = _move_state["translations"].get(game.levels.current_level_name, pawn.translation)
+	pawn.translation = _move_state["translations"].get(game.levels.current_level_id, pawn.translation)
