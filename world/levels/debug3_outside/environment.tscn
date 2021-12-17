@@ -170,7 +170,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -75, 0, 0 )
 
 [node name="entry" parent="intro_inside/walls" instance=ExtResource( 9 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 36, 2.5, 0 )
-next_level = "intro"
+next_level = "debug1"
 
 [node name="mesh_instance" type="MeshInstance" parent="intro_inside/walls"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.5, 10 )

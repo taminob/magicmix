@@ -2,14 +2,8 @@ extends Node
 
 # TODO: DEBUG, remove
 var debug_levels: Dictionary = {
-	"intro_outside": {
-		"path": "res://world/levels/intro_outside/level.tscn",
-	},
 	"palace_entry": {
 		"path": "res://world/levels/palace_entry/level.tscn",
-	},
-	"arena": {
-		"path": "res://world/levels/arena/level.tscn",
 	},
 	"house_inside": {
 		"path": "res://world/levels/town/house_inside.tscn",
@@ -29,6 +23,9 @@ var debug_levels: Dictionary = {
 	},
 	"debug3": {
 		"path": "res://world/levels/debug3/level.tscn",
+	},
+	"debug3_outside": {
+		"path": "res://world/levels/intro_outside/level.tscn",
 	},
 	"debug_ai": {
 		"path": "res://world/levels/debug_ai/level.tscn",
