@@ -5,10 +5,10 @@ const SAVE_PATH = "res://saves/" # todo: change to user://
 #var key = OS.get_unique_id().to_utf8()
 
 func get_latest_save() -> String:
-	var dir = Directory.new()
-	var file = File.new()
-	dir.open(SAVE_PATH)
-	dir.list_dir_begin()
+	var dir: Directory = Directory.new()
+	var file: File = File.new()
+	errors.error_test(dir.open(SAVE_PATH) == OK)
+	errors.error_test(dir.list_dir_begin() == OK)
 	var last_save = ["", 0]
 	while true:
 		var file_name = dir.get_next()
@@ -23,9 +23,9 @@ func get_latest_save() -> String:
 	return last_save[0]
 
 func get_save_list() -> Array:
-	var dir = Directory.new()
-	dir.open(SAVE_PATH)
-	dir.list_dir_begin()
+	var dir: Directory = Directory.new()
+	errors.error_test(dir.open(SAVE_PATH) == OK)
+	errors.error_test(dir.list_dir_begin() == OK)
 	var list: Array = []
 	while true:
 		var file = dir.get_next()
@@ -39,7 +39,7 @@ func get_save_list() -> Array:
 func new_save(name=""):
 	load_save(name) # todo: good idea?
 	if(name.empty()):
-		var list = get_save_list()
+		var list: Array = get_save_list()
 		if(!list.empty()):
 			var save = 0
 			for x in list:

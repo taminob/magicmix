@@ -55,13 +55,14 @@ func _ready():
 	# TODO: move to static array?
 	var dir: Directory = Directory.new()
 	errors.debug_assert(dir.open("res://scripts/game/levels/") == OK, "unable to find levels directory")
-	dir.list_dir_begin(true, true)
+	errors.error_test(dir.list_dir_begin(true, true) == OK)
 	while true:
 		var file: String = dir.get_next()
 		if(file.empty()):
 			break
 		var level = load(dir.get_current_dir() + file)
 		level_data[level.id()] = level.new()
+	dir.list_dir_end()
 
 	for x in debug_levels.keys():
 		level_data[x] = from_dict(debug_levels[x])
