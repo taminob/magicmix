@@ -24,15 +24,19 @@ func init(new_pawn: KinematicBody):
 
 # todo: allow multiple preconditions
 static func precondition() -> ai_planner.knowledge:
+	errors.debug_assert(false, "abstract_action precondition should not be called")
 	return ai_planner.knowledge.new()
 
 static func postcondition() -> ai_planner.knowledge:
+	errors.debug_assert(false, "abstract_action postcondition should not be called")
 	return ai_planner.knowledge.new()
 
 static func precondition_mask() -> int:
+	errors.debug_assert(false, "abstract_action precondition_mask should not be called")
 	return ai_planner.knowledge_mask.ALL
 
 static func postcondition_mask() -> int:
+	errors.debug_assert(false, "abstract_action postcondition_mask should not be called")
 	return ai_planner.knowledge_mask.ALL
 
 static func cost() -> float:

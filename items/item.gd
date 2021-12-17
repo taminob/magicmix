@@ -6,12 +6,15 @@ const ITEM_SCENES_PATH: String = "res://items/"
 const ITEM_ANIMS_PATH: String = "res://items/"
 
 func name() -> String:
+	errors.debug_assert(false, "abstract_item name should not be called")
 	return ""
 
 func description() -> String:
+	errors.debug_assert(false, "abstract_item description should not be called")
 	return ""
 
 func category() -> String:
+	errors.debug_assert(false, "abstract_item category should not be called")
 	return ""
 
 func self_pain() -> float:
@@ -45,6 +48,7 @@ func range() -> float:
 	return -1.0
 
 func icon() -> Resource:
+	errors.debug_assert(false, "abstract_item icon should not be called")
 	return load(ITEM_ICONS_PATH + "../empty_slot_frame-512.png")
 
 func anim() -> String:

@@ -46,7 +46,7 @@ var debug_levels: Dictionary = {
 }
 func from_dict(dict: Dictionary) -> Object:
 	var new_level = abstract_level.new() # TODO: remove
-	new_level.data["level_data"] = dict
+	new_level.data["debug_level_data"] = dict
 	if(dict.has("boxes")):
 		new_level.data["boxes"] = dict["boxes"]
 	return new_level
