@@ -29,7 +29,7 @@ class active_spell:
 		spell.start_effect(pawn)
 
 	func can_tick(pawn: KinematicBody, delta: float) -> bool:
-		return duration > 0 && (pawn.stats.focus + spell.self_focus_per_second() * delta >= 0 || game.levels.current_level_death_realm)
+		return duration > 0 && (pawn.stats.focus + spell.self_focus_per_second() * delta >= 0 || game.levels.current_level_data.is_in_death_realm())
 
 	func tick(pawn: KinematicBody, delta: float) -> bool:
 		duration -= delta
@@ -82,7 +82,7 @@ func can_cast(spell_id: String) -> bool:
 	# TODO? make cast interruptable? only by different spells?
 	if(current_spell || cooldowns.get(spell_id, 0.0) > 0.0):
 		return false
-	if(game.levels.current_level_death_realm):
+	if(game.levels.current_level_data.is_in_death_realm()):
 		return true # todo? remove?
 	var spell: abstract_spell = skill_data.spells[spell_id]
 	return stats.focus + spell.self_focus() >= 0 && stats.focus + spell.self_focus_per_second() >= 0

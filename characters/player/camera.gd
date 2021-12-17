@@ -34,7 +34,7 @@ func make_current():
 func update_environment():
 	if(!camera):
 		return
-	if(!game.levels.current_level_death_realm):
+	if(!game.levels.current_level_data.is_in_death_realm()):
 		camera.set_environment(preload("res://characters/player/default_environment.tres"))
 	else:
 		camera.set_environment(preload("res://characters/player/death_environment.tres"))

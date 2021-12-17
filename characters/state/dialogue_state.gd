@@ -74,7 +74,7 @@ func is_data_provider() -> bool:
 	return data.partner != null
 
 func can_talk() -> bool:
-	return (!stats.dead || stats.undead || game.levels.current_level_death_realm) && !state.is_minion
+	return (!stats.dead || stats.undead || game.levels.current_level_data.is_in_death_realm()) && !state.is_minion
 
 func player_in_dialogue() -> bool:
 	return is_dialogue_active() && (state.is_player || partner.state.is_player)

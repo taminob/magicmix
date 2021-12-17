@@ -64,8 +64,9 @@ func load_save(save=current_save):
 	game.mgmt.player_history = save_file.get_value("characters", "player_history", [])
 	game.mgmt.player_logs = save_file.get_value("characters", "player_logs", {})
 	game.char_data = save_file.get_value("characters", "characters", game.char_data)
-	game.world.boxes = save_file.get_value("world", "boxes", game.world.boxes)
-	_next_level = save_file.get_value("level", "current_level", settings.get_setting("dev", "start_level"))
+	for x in game.levels.level_data:
+		game.levels.level_data[x].data = save_file.get_value("levels", x, game.levels.level_data[x].data)
+	_next_level = save_file.get_value("levels", "current_level", settings.get_setting("dev", "start_level"))
 	loader.load_resource(scenes.game_scene_path, funcref(self, "_game_scene_loaded"), true)
 
 func _game_scene_loaded(scene: PackedScene):
@@ -79,8 +80,9 @@ func save():
 	save_file.set_value("characters", "player_logs", game.mgmt.player_logs)
 	game.mgmt.save_characters()
 	save_file.set_value("characters", "characters", game.char_data)
-	save_file.set_value("world", "boxes", game.world.boxes)
-	save_file.set_value("level", "current_level", game.levels.current_level_id)
+	for x in game.levels.level_data:
+		save_file.set_value("levels", x, game.levels.level_data[x].data)
+	save_file.set_value("levels", "current_level", game.levels.current_level_data.id())
 	errors.error_test(Directory.new().make_dir_recursive(SAVE_PATH))
 	#var error = save_file.save_encrypted(SAVE_PATH + current_save, key) # todo? encrypted save files
 	var error = save_file.save(SAVE_PATH + current_save)

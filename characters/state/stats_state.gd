@@ -63,7 +63,7 @@ func die(save_state: bool=true):
 	look.update_look()
 
 	# todo: animation
-	if(!game.levels.current_level_death_realm):
+	if(!game.levels.current_level_data.is_in_death_realm()):
 		if(state.is_player): # todo: better undead concept
 			pawn._update_ui() # todo: refactor? only occurence of pawn
 			game.levels.change_level("death_realm")
@@ -102,7 +102,7 @@ func _self_elemental_damage(dmg: float, element: int):
 
 var dmg_change_since_reconsider: Dictionary = {"pain": 0, "focus": 0, "shield": 0}
 func _self_raw_damage(dmg: float):
-	if(settings.get_setting("dev", "god_mode") || dead || game.levels.current_level_death_realm):
+	if(settings.get_setting("dev", "god_mode") || dead || game.levels.current_level_data.is_in_death_realm()):
 		return
 	pain = clamp(pain + dmg, 0, max_pain())
 	if(pain >= max_pain()):
@@ -151,7 +151,7 @@ func save(state_dict: Dictionary):
 func init(state_dict: Dictionary):
 	var _stats_state = state_dict.get("stats", {})
 	undead = _stats_state.get("undead", false)
-	if(_stats_state.get("dead", false) || (state.is_minion && game.levels.current_level_death_realm)):
+	if(_stats_state.get("dead", false) || (state.is_minion && game.levels.current_level_data.is_in_death_realm())):
 		die(false)
 	else:
 		pain = _stats_state.get("pain", 0.0)

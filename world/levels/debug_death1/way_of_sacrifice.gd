@@ -12,7 +12,7 @@ func _on_trigger_body_entered(body, name):
 	else: # todo: when character is dead, these changes will be reverted in save_characters in change_level
 		game.char_data[name]["stats"]["pain"] = 0.0
 		game.char_data[name]["stats"]["dead"] = false
-		game.char_data[body.name]["move"]["translations"].erase(game.levels.current_level_id)
+		game.char_data[body.name]["move"]["translations"].erase(game.levels.current_level_data.id())
 	body.translation = player_spawn.translation
 	game.char_data[name]["move"]["translations"].clear()
 	game.mgmt.player_name = name

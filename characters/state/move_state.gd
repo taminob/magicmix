@@ -47,7 +47,7 @@ func stamina_cost(mode: int=current_mode) -> float:
 	return 0.0
 
 func can_move() -> bool:
-	return (!stats.dead || stats.undead || game.levels.current_level_death_realm) && !immovable
+	return (!stats.dead || stats.undead || game.levels.current_level_data.is_in_death_realm()) && !immovable
 
 func is_moving() -> bool:
 	return !input_direction.is_equal_approx(Vector3.ZERO)
@@ -124,10 +124,10 @@ func collide_process(delta: float):
 func save(state_dict: Dictionary):
 	var _move_state = state_dict.get("move", {"translations": {}})
 	_move_state["velocity"] = velocity
-	_move_state["translations"][game.levels.current_level_id] = pawn.translation
+	_move_state["translations"][game.levels.current_level_data.id()] = pawn.translation
 	state_dict["move"] = _move_state
 
 func init(state_dict: Dictionary):
 	var _move_state = state_dict.get("move", {"translations": {}})
 	velocity = _move_state.get("velocity", Vector3.ZERO)
-	pawn.translation = _move_state["translations"].get(game.levels.current_level_id, pawn.translation)
+	pawn.translation = _move_state["translations"].get(game.levels.current_level_data.id(), pawn.translation)

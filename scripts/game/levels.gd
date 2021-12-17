@@ -4,6 +4,9 @@ extends Node
 var debug_levels: Dictionary = {
 	"palace_entry": {
 		"path": "res://world/levels/palace_entry/level.tscn",
+		"boxes": {
+			"box1": ["fire_token"],
+		},
 	},
 	"house_inside": {
 		"path": "res://world/levels/town/house_inside.tscn",
@@ -13,9 +16,16 @@ var debug_levels: Dictionary = {
 	},
 	"debug1": {
 		"path": "res://world/levels/debug1/level.tscn",
+		"boxes": {
+			"box1": ["deadly_poison", "deadly_poison", "dark_potion", "fire_token"],
+			"box2": ["deadly_poison", "dark_potion", "deadly_poison", "dark_potion", "deadly_poison"]
+		},
 	},
 	"debug_death1": {
 		"path": "res://world/levels/debug_death1/level.tscn",
+		"boxes": {
+			"box1": ["dark_token", "deadly_poison"]
+		},
 		"death_realm": true
 	},
 	"debug2": {
@@ -23,6 +33,9 @@ var debug_levels: Dictionary = {
 	},
 	"debug3": {
 		"path": "res://world/levels/debug3/level.tscn",
+		"boxes": {
+			"box1": ["deadly_poison", "deadly_poison"],
+		},
 	},
 	"debug3_outside": {
 		"path": "res://world/levels/intro_outside/level.tscn",
@@ -34,6 +47,8 @@ var debug_levels: Dictionary = {
 func from_dict(dict: Dictionary) -> Object:
 	var new_level = abstract_level.new() # TODO: remove
 	new_level.data["level_data"] = dict
+	if(dict.has("boxes")):
+		new_level.data["boxes"] = dict["boxes"]
 	return new_level
 
 func _ready():
@@ -53,15 +68,13 @@ func _ready():
 
 var level_data: Dictionary = {}
 
-var current_level_id: String = ""
+var current_level_data: abstract_level
 var current_level: Node = null
-var current_level_death_realm: bool = false
 
 func change_level(level_id: String):
 	game.mgmt.save_characters()
-	loader.load_resource(level_data[level_id].scene_path(), funcref(self, "_load_callback"), true)
-	current_level_id = level_id
-	current_level_death_realm = level_data[level_id].is_in_death_realm()
+	current_level_data = level_data[level_id]
+	loader.load_resource(current_level_data.scene_path(), funcref(self, "_load_callback"), true)
 
 func _load_callback(new_level: Resource):
 	var world = scenes.game_instance.get_node("world_container/viewport/world")
@@ -82,6 +95,6 @@ func _load_callback(new_level: Resource):
 			game.mgmt.player.translation = spawn.translation
 		current_level.call_deferred("add_child", game.mgmt.player)
 	game.mgmt.camera.call_deferred("update_environment")
-	errors.log("change level: " + current_level_id)
+	errors.log("change level: " + current_level_data.id())
 	world.call_deferred("add_child", current_level)
 	game.mgmt.ui.reset()
