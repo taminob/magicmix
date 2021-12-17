@@ -116,4 +116,4 @@ func _update_ui():
 	focus_bar.get_active_material(0).set_shader_param("percentage", stats.focus / stats.max_focus())
 	focus_bar.look_at(game.mgmt.camera.camera.global_transform.origin, Vector3.UP)
 	var quest_symbol: MeshInstance = $"quest_symbol"
-	quest_symbol.visible = dialogue.data.wants_to_talk_to.has(game.mgmt.player_name)
+	quest_symbol.visible = dialogue.data.wants_to_talk_to.has(game.mgmt.player_id)

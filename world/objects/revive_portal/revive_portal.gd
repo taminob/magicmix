@@ -5,7 +5,7 @@ export var next_character_name: String
 
 func _ready():
 	if(next_character_name.empty()):
-		next_character_name = game.mgmt.player_name
+		next_character_name = game.mgmt.player_id
 	errors.debug_assert(game.char_data.has(next_character_name), "target character name of portal does not exist")
 	errors.debug_assert(game.levels.level_data.has(next_level), "target level of portal does not exist")
 	var mesh_path = game.get_character_data(next_character_name).get("look", {}).get("mesh_path", "res://characters/meshes/debug/body.tscn")
@@ -39,5 +39,5 @@ func _on_area_body_entered(body):
 		body.translation = spawn.translation
 	if(game.char_data[next_character_name].get("move", {}).has("translations")):
 		game.char_data[next_character_name]["move"]["translations"].clear()
-	game.mgmt.player_name = next_character_name
+	game.mgmt.player_id = next_character_name
 	game.levels.change_level(next_level)

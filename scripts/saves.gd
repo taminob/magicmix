@@ -60,7 +60,7 @@ func load_save(save=current_save):
 		errors.error("unable to read save file %s: %s" % [save, error])
 	current_save = save
 	game.reload_game()
-	game.mgmt.player_name = save_file.get_value("characters", "player", settings.get_setting("dev", "start_character"))
+	game.mgmt.player_id = save_file.get_value("characters", "player", settings.get_setting("dev", "start_character"))
 	game.mgmt.player_history = save_file.get_value("characters", "player_history", [])
 	game.mgmt.player_logs = save_file.get_value("characters", "player_logs", {})
 	game.char_data = save_file.get_value("characters", "characters", game.char_data)
@@ -75,7 +75,7 @@ func _game_scene_loaded(scene: PackedScene):
 
 func save():
 	var save_file = ConfigFile.new()
-	save_file.set_value("characters", "player", game.mgmt.player_name)
+	save_file.set_value("characters", "player", game.mgmt.player_id)
 	save_file.set_value("characters", "player_history", game.mgmt.player_history)
 	save_file.set_value("characters", "player_logs", game.mgmt.player_logs)
 	game.mgmt.save_characters()

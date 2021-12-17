@@ -15,5 +15,5 @@ func _on_trigger_body_entered(body, name):
 		game.char_data[body.name]["move"]["translations"].erase(game.levels.current_level_data.id())
 	body.translation = player_spawn.translation
 	game.char_data[name]["move"]["translations"].clear()
-	game.mgmt.player_name = name
+	game.mgmt.player_id = name
 	game.levels.change_level("debug1")

@@ -27,7 +27,11 @@ func scene_path() -> String:
 
 # no need to implement for subclasses
 func get_box_content(box_id: String) -> Array:
-	errors.debug_assert(_boxes().has(box_id), "no content for box " + box_id + " defined in " + id())
 	if(!data.has("boxes")):
 		data["boxes"] = _boxes()
-	return _boxes().get(box_id, [])
+	errors.debug_assert(data["boxes"].has(box_id), "no content for box " + box_id + " defined in " + id())
+	return data["boxes"][box_id]
+
+func set_box_content(box_id: String, content: Array):
+	errors.debug_assert(_boxes().has(box_id), "can not set content for box " + box_id + " defined in " + id())
+	data["boxes"][box_id] = content

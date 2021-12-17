@@ -7,14 +7,14 @@ var commands = {
 		"accept_none": true
 	},
 	"load": {
-		"handler": funcref(game.levels, "change_level"),
+		"handler": funcref(self, "load_handler"),
 		"possible": game.levels.level_data.keys()
 	},
 	"exit": {
 		"handler": funcref(self, "unpause")
 	},
 	"reload": {
-		"handler": funcref(self, "reload_handler")
+		"handler": funcref(self, "load_handler")
 	},
 	"save": {
 		"handler": funcref(saves, "save")
@@ -40,17 +40,21 @@ var commands = {
 }
 
 func control_handler(character_id: String):
-	game.mgmt.player_name = character_id
-	reload_handler()
+	game.mgmt.player_id = character_id
+	load_handler()
 
 func inspect_handler(character_id: String=""):
 	if(!game.char_data.has(character_id)):
 		character_id = ""
 	settings.set_setting("dev", "debug_target", character_id)
-	settings.save_settings() # TODO: (DEBUG) remove, just for debugging
 
-func reload_handler():
-	game.levels.change_level(game.levels.current_level_data.id())
+func load_handler(level_id: String=game.levels.current_level_data.id()):
+	errors.debug_assert(game.levels.level_data.has(level_id), "entered invalid level_id in console: " + level_id)
+	if(game.levels.level_data[level_id].is_in_death_realm()):
+		game.mgmt.player.stats.dead = true
+	else:
+		game.mgmt.player.revive()
+	game.levels.change_level(level_id)
 
 func respawn_handler():
 	var spawn = game.levels.current_level.get_node_or_null("player_spawn")

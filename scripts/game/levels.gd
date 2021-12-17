@@ -85,7 +85,7 @@ func _load_callback(new_level: Resource):
 		current_level.call_deferred("free")
 	current_level = new_level.instance()
 	current_level.name = "level"
-	var new_player = current_level.get_node_or_null(game.mgmt.player_name)
+	var new_player = current_level.get_node_or_null(game.mgmt.player_id)
 	if(new_player):
 		game.mgmt.call_deferred("make_player", new_player)
 	else:

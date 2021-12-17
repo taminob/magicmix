@@ -1,6 +1,6 @@
 extends Node
 
-var player_name: String = ""
+var player_id: String = ""
 var player: KinematicBody = null
 # warning-ignore:unused_class_variable
 var player_history: Array
@@ -52,7 +52,7 @@ func make_player(new_player: KinematicBody):
 		return
 	if(player):
 		unmake_player()
-	player_name = new_player.name
+	player_id = new_player.name
 	player = new_player
 	player.call_deferred("add_child", camera)
 	player.get_node("health_bar").set_visible(false)
@@ -66,11 +66,12 @@ func unmake_player():
 	player.call_deferred("remove_child", camera)
 	player.get_node("health_bar").set_visible(true)
 	player.get_node("shield_bar").set_visible(true)
+	player.get_node("focus_bar").set_visible(true)
 	_set_player_flag(player, false)
 	player = null
 
 func create_player():
-	make_player(create_character(player_name))
+	make_player(create_character(player_id))
 
 func create_character(character_name: String) -> KinematicBody:
 	var new_character = character_scene.instance()
