@@ -40,7 +40,7 @@ func start_effect(pawn: KinematicBody):
 	# TODO: (BUG) fix spawning in walls
 	new_minion.global_transform.origin = pawn.global_transform.origin + pawn.global_transform.basis.xform(Vector3.RIGHT + Vector3.FORWARD)
 	new_minion.dialogue.relations = pawn.dialogue.relations
-	new_minion.dialogue.set_relation(pawn.name, dialogue_state.relation.ally)
+	new_minion.dialogue.set_relation(pawn.name, +2) # todo: use dialogue_state relations
 	new_minion.inventory.add_spell(fire_ball_spell.id()) # todo: special minion attacks?
 
 func end_effect(_pawn: KinematicBody):

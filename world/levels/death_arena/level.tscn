@@ -25,3 +25,4 @@ navmesh = SubResource( 1 )
 
 [node name="minion_spawner" type="Spatial" parent="."]
 script = ExtResource( 2 )
+minion_limit = 3
