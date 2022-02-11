@@ -109,8 +109,7 @@ func range() -> float:
 	return -1.0
 
 func icon() -> Resource:
-	errors.debug_assert(false, "abstract_spell icon should not be called")
-	return load(SPELL_ICONS_PATH + "../empty_slot_frame-512.png")
+	return load(SPELL_ICONS_PATH + "../empty-512.png")
 
 func anim() -> String:
 	return ""#SPELL_ANIMS_PATH

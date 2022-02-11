@@ -55,7 +55,7 @@ func _ready():
 	# TODO: move to static array?
 	var dir: Directory = Directory.new()
 	errors.debug_assert(dir.open("res://scripts/game/levels/") == OK, "unable to find levels directory")
-	errors.error_test(dir.list_dir_begin(true, true) == OK)
+	errors.error_test(dir.list_dir_begin(true, true))
 	while true:
 		var file: String = dir.get_next()
 		if(file.empty()):

@@ -229,8 +229,9 @@ func save(state_dict: Dictionary):
 	_dialogue_state["gender"] = gender
 	_dialogue_state["job"] = job
 	if(is_dialogue_active()):
-		_dialogue_state["dialogue_partner"] = partner.name # TODO: dialogue restore does not work (partner found, but dialogue not started)
-	#_dialogue_state["dialogue_listeners"] = listeners
+		end_dialogue() # TODO: actually end dialogue on save?
+		#_dialogue_state["partner"] = partner.name # TODO: dialogue restore does not work (partner found, but dialogue not started)
+	#_dialogue_state["listeners"] = listeners
 	_dialogue_state["call_names"] = call_names
 	_dialogue_state["relationships"] = relationships
 	_dialogue_state["base_relationship"] = base_relationship
@@ -243,8 +244,8 @@ func init(state_dict: Dictionary):
 	display_name = _dialogue_state.get("name", "")
 	gender = _dialogue_state.get("gender", "")
 	job = _dialogue_state.get("job", "")
-	partner = game.get_character(_dialogue_state.get("dialogue_partner", ""))
-	#listeners = _dialogue_state.get("dialogue_listeners", [])
+	#partner = game.get_character(_dialogue_state.get("partner", ""))
+	#listeners = _dialogue_state.get("listeners", [])
 	call_names = _dialogue_state.get("call_names", {})
 	relationships = _dialogue_state.get("relationships", {})
 	base_relationship = _dialogue_state.get("base_relationship", 0)

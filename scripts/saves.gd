@@ -7,8 +7,8 @@ const SAVE_PATH = "res://saves/" # todo: change to user://
 func get_latest_save() -> String:
 	var dir: Directory = Directory.new()
 	var file: File = File.new()
-	errors.error_test(dir.open(SAVE_PATH) == OK)
-	errors.error_test(dir.list_dir_begin() == OK)
+	errors.error_test(dir.open(SAVE_PATH))
+	errors.error_test(dir.list_dir_begin())
 	var last_save = ["", 0]
 	while true:
 		var file_name = dir.get_next()
@@ -24,8 +24,8 @@ func get_latest_save() -> String:
 
 func get_save_list() -> Array:
 	var dir: Directory = Directory.new()
-	errors.error_test(dir.open(SAVE_PATH) == OK)
-	errors.error_test(dir.list_dir_begin() == OK)
+	errors.error_test(dir.open(SAVE_PATH))
+	errors.error_test(dir.list_dir_begin())
 	var list: Array = []
 	while true:
 		var file = dir.get_next()

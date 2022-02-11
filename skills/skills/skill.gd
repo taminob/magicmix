@@ -37,7 +37,6 @@ func effect(_pawn: KinematicBody, _delta: float):
 	pass
 
 func icon() -> Resource:
-	errors.debug_assert(false, "abstract_skill icon should not be called")
 	return load(SKILL_ICONS_PATH + "../empty-512.png")
 
 func anim() -> String:

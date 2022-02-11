@@ -234,11 +234,12 @@ var conversations: Dictionary = {}
 
 func init(new_pawn: character, new_dialogue_status: Dictionary):
 	pawn = new_pawn
-	partners = new_dialogue_status
 	conversations["unimplemented"] = unimplemented_conversation()
 	init_statements()
 	init_conversations()
-	init_partners()
+	if(new_dialogue_status.empty()):
+		init_partners()
+		partners = new_dialogue_status
 
 func init_statements():
 	pass
