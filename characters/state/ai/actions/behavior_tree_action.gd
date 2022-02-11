@@ -16,7 +16,7 @@ static func postcondition_mask() -> int:
 	return ai_planner.knowledge_mask.enemy_damaged
 
 static func cost() -> float:
-	return 0.9
+	return 5.0
 
 func init(new_pawn: KinematicBody):
 	.init(new_pawn)
