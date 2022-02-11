@@ -39,28 +39,6 @@ func _process(delta: float):
 		_steps_since_consider = 0
 		should_reconsider = false
 
-func get_current_knowledge() -> ai_planner.knowledge:
-	var know = ai_planner.knowledge.new(stats.pain, stats.focus, stats.stamina, stats.shield)
-	know.flags[ai_planner.flag.enemy_in_sight] = brain.is_any_in_sight(ai_mind.body_type.enemy)
-	know.flags[ai_planner.flag.enemy_in_near] = brain.is_any(ai_mind.body_type.enemy)
-	know.flags[ai_planner.flag.ally_in_sight] = brain.is_any_in_sight(ai_mind.body_type.ally)
-	know.flags[ai_planner.flag.ally_in_near] = brain.is_any(ai_mind.body_type.ally)
-	var most_damaged = brain.get_most_damaged(ai_mind.body_type.enemy)
-	know.flags[ai_planner.flag.enemy_damaged] = most_damaged && most_damaged.stats.pain_percentage() > 0.85
-	most_damaged = brain.get_most_damaged(ai_mind.body_type.ally)
-	know.flags[ai_planner.flag.ally_damaged] = most_damaged && most_damaged.stats.pain_percentage() > 0.7
-	know.flags[ai_planner.flag.talking] = dialogue.is_dialogue_active()
-	return know
-
-func get_current_goals() -> Array:
-	return behavior.goals(pawn)
-
-func get_current_actions() -> Array:
-	return behavior.actions(pawn)
-
-func get_idle_action() -> abstract_action:
-	return behavior.idle_action(pawn)
-
 func _on_sight_zone_body_entered(body: Node):
 	if(state.is_player || body == pawn || !body):
 		return
@@ -80,7 +58,7 @@ func save(state_dict: Dictionary):
 func init(state_dict: Dictionary):
 	var _ai_state = state_dict.get("ai", {})
 	brain = _ai_state.get("mind", ai_mind.new(pawn))
-	if(ResourceLoader.exists("res://characters/persons/behaviors/" + pawn.name + ".gd")):
-		behavior = load("res://characters/persons/behaviors/" + pawn.name + ".gd").new()
+	if(ResourceLoader.exists("res://characters/behaviors/" + pawn.name + ".gd")):
+		behavior = load("res://characters/behaviors/" + pawn.name + ".gd").new()
 	else:
-		behavior = load("res://characters/persons/behaviors/behavior.gd").new()
+		behavior = load("res://characters/behaviors/behavior.gd").new()

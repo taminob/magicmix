@@ -12,7 +12,7 @@
 [ext_resource path="res://characters/state/look_state.gd" type="Script" id=10]
 [ext_resource path="res://characters/state/input_state.gd" type="Script" id=11]
 [ext_resource path="res://characters/state/interaction_state.gd" type="Script" id=12]
-[ext_resource path="res://characters/state/ai/ai_planner.gd" type="Script" id=13]
+[ext_resource path="res://characters/state/ai/ai_chooser.gd" type="Script" id=13]
 [ext_resource path="res://characters/state/ai/ai_machine.gd" type="Script" id=14]
 [ext_resource path="res://world/shaders/percentage_bar.shader" type="Shader" id=15]
 
@@ -117,7 +117,7 @@ script = ExtResource( 11 )
 [node name="ai" type="Node" parent="state"]
 script = ExtResource( 9 )
 
-[node name="ai_planner" type="Node" parent="state/ai"]
+[node name="ai_chooser" type="Node" parent="state/ai"]
 script = ExtResource( 13 )
 
 [node name="ai_machine" type="Node" parent="state/ai"]

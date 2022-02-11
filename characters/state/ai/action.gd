@@ -14,36 +14,14 @@ enum do_state {
 }
 
 var pawn: KinematicBody
-var target: Spatial
 
 func init(new_pawn: KinematicBody):
 	pawn = new_pawn
-	choose_target()
 
 ### override functions below
-
-# todo: allow multiple preconditions
-static func precondition() -> ai_planner.knowledge:
-	errors.debug_assert(false, "abstract_action precondition should not be called")
-	return ai_planner.knowledge.new()
-
-static func postcondition() -> ai_planner.knowledge:
-	errors.debug_assert(false, "abstract_action postcondition should not be called")
-	return ai_planner.knowledge.new()
-
-static func precondition_mask() -> int:
-	errors.debug_assert(false, "abstract_action precondition_mask should not be called")
-	return ai_planner.knowledge_mask.ALL
-
-static func postcondition_mask() -> int:
-	errors.debug_assert(false, "abstract_action postcondition_mask should not be called")
-	return ai_planner.knowledge_mask.ALL
-
-static func cost() -> float:
-	return 1.0
-
-func choose_target():
-	target = null
+# score: (worst) 0.0 <-> 1.0 (best)
+static func score(pawn: KinematicBody):
+	return 0.0
 
 func get_range_state() -> int:
 	return range_state.no_range_required

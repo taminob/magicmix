@@ -138,9 +138,9 @@ func is_any(target_type: int) -> bool:
 func _get_body_type(body: Spatial) -> int:
 	if(game.is_character(body.name)):
 		match pawn.dialogue.get_relation(body.name):
-			dialogue_state.relation.ally:
+			+2: # todo: use dialogue_state.relation.ally
 				return body_type.ally
-			dialogue_state.relation.enemy:
+			-2: # todo: use dialogue_state.relation.enemy
 				return body_type.enemy
 			_:
 				return body_type.other

@@ -33,7 +33,7 @@ func spawn(override_limit: bool=false):
 
 func _set_minion_properties(minion: KinematicBody, minion_id: int):
 	# TODO: fix targeting
-	minion.dialogue.relations = {game.mgmt.player_id: -2}
+	minion.dialogue.relations = {game.mgmt.player_id: -2} # todo: dialogue_state.relation.enemy
 	#minion.inventory.add_spell(fire_ball_spell.id()) # todo: special minion attacks?
 	minion.inventory.spells = skill_data.spells.keys()
 

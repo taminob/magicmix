@@ -96,7 +96,7 @@ func _update_ui():
 		else:
 			var machine = get_node("state/ai").machine
 			var know = ai.get_current_knowledge()
-			var debug_output: String = str(stepify(know.values[ai_planner.value.pain], 0.1)) + "; " + str(stepify(know.values[ai_planner.value.focus], 0.1)) + "; " + str(know.flags)
+			var debug_output: String = str(move.velocity)
 			for x in machine.action_queue:
 				debug_output += x.get_script().get_path().get_file() + "; "
 			game.mgmt.ui.update_debug(debug_output)
