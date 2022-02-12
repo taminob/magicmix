@@ -24,7 +24,8 @@ func connect_object():
 
 func init_object():
 	connect_object()
-	add_child(object)
+	if(object != self):
+		add_child(object)
 	object.global_transform.origin = position()
 
 func _physics_process(delta: float):

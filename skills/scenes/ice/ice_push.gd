@@ -21,7 +21,9 @@ func _push_body(body: KinematicBody):
 	if(game.is_character(body.name)):
 		body.move.velocity += push
 	else:
-		body.move_and_slide(push) # TODO: allow non-character bodies to be pushed
+		# TODO: allow non-character bodies to be pushed
+		#body.move_and_slide(push)
+		pass
 	_pushed_bodies.push_back(body)
 
 func _object_enter(body: Node):

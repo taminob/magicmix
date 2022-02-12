@@ -1,6 +1,6 @@
 extends abstract_action
 
-static func score(pawn: KinematicBody) -> Dictionary:
+static func score(_pawn: KinematicBody) -> Dictionary:
 	return {
 		"score": 0.0
 	}
