@@ -20,6 +20,7 @@ var spells = {
 	fire_swirl_spell.id(): fire_swirl_spell.new(),
 	ice_ball_spell.id(): ice_ball_spell.new(),
 	ice_wave_spell.id(): ice_wave_spell.new(),
+	ice_push_spell.id(): ice_push_spell.new(),
 	ice_ride_spell.id(): ice_ride_spell.new(),
 }
 

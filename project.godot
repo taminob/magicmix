@@ -255,6 +255,11 @@ _global_script_classes=[ {
 "path": "res://characters/persons/ice_mage.gd"
 }, {
 "base": "abstract_spell",
+"class": "ice_push_spell",
+"language": "GDScript",
+"path": "res://skills/spells/ice/ice_push.gd"
+}, {
+"base": "abstract_spell",
 "class": "ice_ride_spell",
 "language": "GDScript",
 "path": "res://skills/spells/ice/ice_ride.gd"
@@ -464,6 +469,7 @@ _global_script_class_icons={
 "heal_spell": "",
 "ice_ball_spell": "",
 "ice_mage_person": "",
+"ice_push_spell": "",
 "ice_ride_spell": "",
 "ice_wave_spell": "",
 "input_state": "",

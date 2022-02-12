@@ -86,7 +86,7 @@ var DEFAULT_SPELL_SLOTS: Dictionary = {
 	abstract_spell.element_type.raw: ["", "", "", "", ""],
 	abstract_spell.element_type.life: ["element_shield", "heal", "summon_minion", "platform", "invert_gravity"],
 	abstract_spell.element_type.fire: ["element_shield", "", "fire_ball", "fire_storm", "fire_ring"],
-	abstract_spell.element_type.ice: ["element_shield", "ice_ride", "ice_ball", "ice_wave", ""],
+	abstract_spell.element_type.ice: ["element_shield", "ice_ride", "ice_ball", "ice_wave", "ice_push"],
 	abstract_spell.element_type.darkness: ["element_shield", "", "", "", ""],
 }
 func init(state_dict: Dictionary):
