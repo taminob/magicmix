@@ -11,7 +11,7 @@ func idle_action(pawn: KinematicBody) -> abstract_action:
 			idle_action = load("res://characters/state/ai/actions/wait_action.gd").new()
 		_:
 			idle_action = load("res://characters/state/ai/actions/wait_action.gd").new()
-	idle_action.init(pawn)
+	idle_action.init(pawn, {"score": 0.0})
 	return idle_action
 
 func actions(_pawn: KinematicBody) -> Array:

@@ -94,11 +94,7 @@ func _update_ui():
 		if(state.is_player):
 			game.mgmt.ui.update_debug(str(move.velocity))
 		else:
-			var machine = get_node("state/ai").machine
-			var know = ai.get_current_knowledge()
-			var debug_output: String = str(move.velocity)
-			for x in machine.action_queue:
-				debug_output += x.get_script().get_path().get_file() + "; "
+			var debug_output: String = str(abstract_action._rotate_score(self, game.mgmt.player)) + "; "
 			game.mgmt.ui.update_debug(debug_output)
 	var health_bar: MeshInstance = $"health_bar"
 	if(!health_bar.material_override):

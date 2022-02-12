@@ -117,11 +117,11 @@ script = ExtResource( 11 )
 [node name="ai" type="Node" parent="state"]
 script = ExtResource( 9 )
 
-[node name="ai_chooser" type="Node" parent="state/ai"]
-script = ExtResource( 13 )
-
 [node name="ai_machine" type="Node" parent="state/ai"]
 script = ExtResource( 14 )
+
+[node name="ai_chooser" type="Node" parent="state/ai"]
+script = ExtResource( 13 )
 
 [node name="shield_bar" type="MeshInstance" parent="."]
 transform = Transform( 1.25, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 2.9447, 0 )

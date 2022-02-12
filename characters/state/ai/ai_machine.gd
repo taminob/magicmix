@@ -9,6 +9,7 @@ enum states {
 }
 
 onready var ai: Node = $".."
+onready var chooser: Node = $"../ai_chooser"
 var state_queue: Array = []
 var action_queue: Array = []
 
@@ -31,9 +32,6 @@ func plan_failed():
 	action_queue.clear()
 	push_state(states.idle)
 
-func reconsider():
-	consider()
-
 func consider():
 	action_queue = [] # TODO: get next action
 	if(action_queue.empty()):
@@ -45,17 +43,20 @@ func consider():
 
 func idle():
 	ai.pawn.move.input_direction = Vector3.ZERO
-	reconsider()
+	action_queue.clear()
+	action_queue.push_back(chooser.best_action())
+	push_state(states.active)
 
 func move():
 	if(action_queue.empty()):
 		return
 	ai.move.current_mode = move_state.move_mode.RUNNING # todo: implement other move modes
 	var current_action = action_queue.front()
-	if(!current_action.target):
+	var current_target: Spatial = current_action.target()
+	if(!game.is_valid(current_target)):
 		return # todo? check why check is necessary
 	var nav: Navigation = game.levels.current_level.get_node("navigation")
-	var destination = current_action.target.global_transform.origin
+	var destination = current_target.global_transform.origin
 	if(nav):
 		var path: PoolVector3Array = nav.get_simple_path(ai.pawn.global_transform.origin, destination)
 		if(!path.empty()):

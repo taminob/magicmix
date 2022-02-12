@@ -1,7 +1,9 @@
 extends abstract_action
 
-static func score(pawn: KinematicBody):
-	return 0.0
+static func score(pawn: KinematicBody) -> Dictionary:
+	return {
+		"score": 0.0
+	}
 
 func get_range_state() -> int:
 	return range_state.no_range_required
