@@ -4,7 +4,7 @@ static func id() -> String:
 	return "arena"
 
 func is_in_death_realm() -> bool:
-	return false
+	return data.get("debug_level_data", {}).get("death_realm", false)
 
 func scene_path() -> String:
-	return "res://world/levels/arena/level.tscn"
+	return data["debug_level_data"].get("path", "")

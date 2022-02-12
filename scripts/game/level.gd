@@ -7,9 +7,8 @@ static func id() -> String:
 	return ""
 
 func is_in_death_realm() -> bool:
-	# TODO: remove
-	errors.debug_output("should not be called outside of debugging (fallback is_in_death_realm in abstract_level)!")
-	return data.get("debug_level_data", {}).get("death_realm", false)
+	errors.debug_assert(false, "should not be called")
+	return false
 
 func _boxes() -> Dictionary:
 	return {}
@@ -22,8 +21,8 @@ func add_data(added_data: Dictionary):
 
 func scene_path() -> String:
 	# TODO: remove
-	errors.debug_output("should not be called outside of debugging (fallback scene_path in abstract_level)!")
-	return data["debug_level_data"].get("path", "")
+	errors.debug_assert(false, "should not be called")
+	return ""
 
 # no need to implement for subclasses
 func get_box_content(box_id: String) -> Array:

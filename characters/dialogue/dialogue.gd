@@ -114,6 +114,7 @@ var partner: character
 
 func _end_dialogue(_speaker: character, receiver: character):
 	receiver.dialogue.wants_to_end_dialogue = true
+	# TODO: call _no_more_want_to_talk_to_partner automatically?
 
 func _introduce_self(speaker: character, receiver: character):
 	if(receiver):
@@ -239,6 +240,7 @@ func init(new_pawn: character, new_dialogue_status: Dictionary):
 	init_conversations()
 	if(new_dialogue_status.empty()):
 		init_partners()
+	else:
 		partners = new_dialogue_status
 
 func init_statements():

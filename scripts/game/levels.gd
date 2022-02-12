@@ -45,7 +45,7 @@ var debug_levels: Dictionary = {
 	},
 }
 func from_dict(dict: Dictionary) -> Object:
-	var new_level = abstract_level.new() # TODO: remove
+	var new_level = load("res://scripts/game/levels/debug_level.gd").new()
 	new_level.data["debug_level_data"] = dict
 	if(dict.has("boxes")):
 		new_level.data["boxes"] = dict["boxes"]
@@ -60,6 +60,8 @@ func _ready():
 		var file: String = dir.get_next()
 		if(file.empty()):
 			break
+		if(file == "debug_level.gd"):
+			continue
 		var level = load(dir.get_current_dir() + file)
 		level_data[level.id()] = level.new()
 	dir.list_dir_end()
