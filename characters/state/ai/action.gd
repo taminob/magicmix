@@ -27,7 +27,7 @@ func target() -> Spatial:
 static func _distance_score(pawn: KinematicBody, target: Spatial, max_distance: float, exponent: float=2.0) -> float:
 	if(max_distance <= 0.0):
 		return 1.0
-	var dist: float = pawn.global_transform.origin.distance_to(target.global_transform.origin) / (max_distance * max_distance)
+	var dist: float = pawn.distance(target) / (max_distance * max_distance)
 	return 1 - pow(min(dist, 1.0), exponent)
 
 static func _rotate_score(pawn: KinematicBody, target: Spatial, exponent: float=1.0):
@@ -36,7 +36,7 @@ static func _rotate_score(pawn: KinematicBody, target: Spatial, exponent: float=
 # score for target to be in desired_range with peak of sine at mid of desired_range
 static func _distance_range_score(pawn: KinematicBody, target: Spatial, desired_range: Array, exponent: float=1.0):
 	errors.debug_assert(desired_range.size() == 2 && desired_range[0] < desired_range[1], "invalid range for _distance_range_score for pawn " + pawn.name)
-	var dist: float = pawn.global_transform.origin.distance_to(target.global_transform.origin)
+	var dist: float = pawn.distance(target)
 	if(dist < desired_range[0] || dist > desired_range[1]):
 		return 0.0
 	dist -= desired_range[0]

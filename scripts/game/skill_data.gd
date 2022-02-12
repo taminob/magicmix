@@ -1,6 +1,7 @@
 extends Node
 
 # todo? auto register spells/skills using ProjectSettings.get_setting("_global_script_classes") and filter for all with "base": "abstract_skill"/"abstract_spell"
+# todo? use static functions only and store class reference instead of instance reference
 
 # warning-ignore:unused_class_variable
 var spells = {

@@ -32,8 +32,6 @@ func get_range_state() -> int:
 	var target: KinematicBody = data["target"]
 	if(!game.is_valid(target)):
 		return range_state.unreachable
-	# todo: decide if based on distance or interaction target check
-	#if(pawn.global_transform.origin.distance_squared_to(target.global_transform.origin) <= 2):
 	if(pawn.interaction.get_target() == target):
 		return range_state.in_range
 	return range_state.out_of_range

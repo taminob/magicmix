@@ -79,6 +79,12 @@ func global_body_head() -> Vector3:
 func looking_direction() -> Vector3:
 	return global_transform.basis.z
 
+func distance_squared(target: Spatial) -> float:
+	return global_transform.origin.distance_squared_to(target.global_transform.origin)
+
+func distance(target: Spatial) -> float:
+	return global_transform.origin.distance_to(target.global_transform.origin)
+
 func face_target(target: Spatial):
 	face_location(target.global_transform.origin)
 

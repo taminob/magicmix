@@ -84,7 +84,7 @@ func get_nearest(target_type: int) -> Spatial: # TODO: return only objects in si
 	for x in sight_events:
 		if(!(x.type & target_type)):
 			continue
-		var distance = pawn.global_transform.origin.distance_squared_to(x.body.global_transform.origin)
+		var distance = pawn.distance_squared(x.body)
 		if(distance < min_dist):
 			min_dist = distance
 			nearest_target = x.body

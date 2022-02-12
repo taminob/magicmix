@@ -40,7 +40,7 @@ func dialogue_process(_delta: float):
 		fade_dialogue(x)
 
 func fade_dialogue(listener_partner: KinematicBody):
-	var dist = listener_partner.global_transform.origin.distance_squared_to(pawn.global_transform.origin)
+	var dist = listener_partner.distance_squared(pawn)
 	dist = (dist - DIALOGUE_NO_FADE_DISTANCE_SQRD) / DIALOGUE_END_DISTANCE_SQRD
 	var dialogue_intensity = 1 - clamp(dist, 0, 1)
 	if(dialogue_intensity <= 0):
