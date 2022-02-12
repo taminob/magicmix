@@ -41,6 +41,13 @@ var commands = {
 
 func control_handler(character_id: String):
 	game.mgmt.player_id = character_id
+	var is_in_death_realm: bool = game.levels.current_level_data.is_in_death_realm()
+	var char_data: Dictionary = game.get_character_data(character_id)
+	if(char_data.has("stats")):
+		if(!char_data["stats"].get("undead", false)):
+			char_data["stats"]["dead"] = is_in_death_realm
+	else:
+		char_data["stats"] = {"dead": is_in_death_realm}
 	load_handler()
 
 func inspect_handler(character_id: String=""):
