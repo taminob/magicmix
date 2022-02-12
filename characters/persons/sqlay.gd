@@ -14,7 +14,7 @@ func _init():
 			"gender": "ocelot"
 		},
 		"stats": {
-			"dead": true
+			"dead": false # TODO (DEBUG): true
 		},
 		"experience": {
 			"intelligence": 1,
