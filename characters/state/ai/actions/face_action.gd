@@ -11,7 +11,7 @@ static func _internal_score(pawn: KinematicBody, event: ai_mind.sight_event) -> 
 	if(game.is_character(target.name)):
 		base_score += abs(pawn.dialogue.get_relation(target.name)) / 10.0
 	elif(target is StaticBody): # TODO: there might be interesting static bodies
-		base_score -= IMPORTANCE
+		base_score -= 0.5
 	var dist: float = _distance_score(pawn, target, MAX_DISTANCE, 3.0)
 	var rot: float = _rotate_score(pawn, target, 1.0)
 	var score: float = base_score + dist * max(rot, 0.2)

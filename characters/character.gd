@@ -76,6 +76,9 @@ func global_body_center() -> Vector3:
 func global_body_head() -> Vector3:
 	return global_transform.origin + global_transform.basis.y * look.body_height
 
+func looking_direction() -> Vector3:
+	return global_transform.basis.z
+
 func face_target(target: Spatial):
 	face_location(target.global_transform.origin)
 
@@ -97,7 +100,9 @@ func _update_ui():
 		if(state.is_player):
 			game.mgmt.ui.update_debug(str(move.velocity))
 		else:
-			var debug_output: String = str(abstract_action._rotate_score(self, game.mgmt.player)) + "; "
+			var debug_output: String = str(abstract_action._distance_range_score(self, game.mgmt.player, [5, 25])) + "; "
+			debug_output += str(global_transform.origin.distance_to(game.mgmt.player.global_transform.origin)) + "; "
+
 			game.mgmt.ui.update_debug(debug_output)
 	var health_bar: MeshInstance = $"health_bar"
 	if(!health_bar.material_override):
