@@ -11,6 +11,9 @@ func name() -> String:
 func description() -> String:
 	return "Protect yourself by blocking incoming elemental damage!"
 
+func category() -> String:
+	return ""
+
 func self_focus() -> float:
 	return -20.0
 
