@@ -32,6 +32,7 @@ func consume(item: String, remove_from_inventory: bool=true):
 func toggle_spirit():
 	state.is_spirit = !state.is_spirit
 	# todo: pause when entering spirit mode; do not use pause_mode, causes problems with input; solution maybe introducing pause_game in game.mgmt
+	game.mgmt.time_paused = !game.mgmt.time_paused
 
 	if(state.is_spirit):
 		pawn.spirit = load("res://characters/spirit.tscn").instance()

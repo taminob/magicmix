@@ -40,10 +40,13 @@ func set_player(is_player: bool):
 		game.mgmt.player_history.push_back(name)
 
 func _physics_process(delta: float):
+	if(game.mgmt.time_paused && !state.is_spirit):
+		return
 	if(move.can_move()):
 		move.move_process(delta)
-		skills.skill_process(delta)
-		dialogue.dialogue_process(delta)
+		if(!state.is_spirit):
+			skills.skill_process(delta)
+			dialogue.dialogue_process(delta)
 	else:
 		move.move_process_dead(delta)
 	look.animations_process(delta)

@@ -2,6 +2,7 @@ extends Node
 
 class_name look_state
 
+onready var state: Node = get_parent()
 onready var pawn: KinematicBody = $"../.."
 onready var move: Node = $"../move"
 onready var stats: Node = $"../stats"
@@ -12,6 +13,8 @@ var animations: AnimationPlayer
 var body_height: float
 
 func animations_process(_delta: float):
+	if(state.is_spirit):
+		return
 	if(move.is_moving()):
 		animations.play("walk")
 	else:
