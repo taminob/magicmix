@@ -106,8 +106,10 @@ func _update_ui():
 		if(state.is_player):
 			game.mgmt.ui.update_debug(str(move.velocity))
 		else:
-			var debug_output: String = str(abstract_action._distance_range_score(self, game.mgmt.player, [5, 25])) + "; "
-			debug_output += str(global_transform.origin.distance_to(game.mgmt.player.global_transform.origin)) + "; "
+			var machine = get_node("state/ai").machine
+			var debug_output: String
+			for x in machine.action_queue:
+				debug_output += x.get_script().get_path().get_file() + "; "
 
 			game.mgmt.ui.update_debug(debug_output)
 	var health_bar: MeshInstance = $"health_bar"

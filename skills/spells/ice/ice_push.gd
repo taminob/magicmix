@@ -37,7 +37,7 @@ func casttime() -> float:
 	return 0.2
 
 func cooldown() -> float:
-	return 0.0
+	return 15.0
 
 func duration() -> float:
 	return 0.5
