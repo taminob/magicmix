@@ -22,19 +22,13 @@ func combinations() -> Array:
 	}]
 
 func self_pain() -> float:
-	return 0.0#20.0
+	return 20.0
 
 func self_focus() -> float:
 	return 5.0
 
 func start_effect(pawn: KinematicBody):
 	pawn.move.velocity = -pawn.global_transform.basis.z * 200
-
-func end_effect(pawn: KinematicBody):
-	pass
-
-func effect(_pawn: KinematicBody, _delta: float):
-	pass
 
 func casttime() -> float:
 	return 0.0

@@ -71,7 +71,7 @@ func die(save_state: bool=true):
 			if(save_state && !state.is_minion):
 				pawn.save_state()
 			var death_marker: Spatial = load("res://world/objects/death_marker/death_marker.tscn").instance()
-			game.levels.current_level.add_child(death_marker)
+			game.levels.current_level.call_deferred("add_child", death_marker)
 			death_marker.global_transform = pawn.global_transform
 			pawn.queue_free()
 
