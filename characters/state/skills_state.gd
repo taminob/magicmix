@@ -64,7 +64,7 @@ var current_casttime: float
 var current_element: int
 
 func cast_spell(spell_id: String):
-	if(!inventory.spells.has(spell_id) || !can_cast(spell_id)):
+	if(!can_cast(spell_id)):
 		return
 	var spell: abstract_spell = skill_data.spells[spell_id]
 	current_spell = spell
@@ -78,7 +78,9 @@ func _cast_current_spell():
 	# todo: animation
 	current_spell = null
 
-func can_cast(spell_id: String) -> bool:
+func can_cast(spell_id: String, ignore_owned: bool=false) -> bool:
+	if(!ignore_owned && !inventory.spells.has(spell_id)):
+		return false
 	# TODO? make cast interruptable? only by different spells?
 	if(current_spell || cooldowns.get(spell_id, 0.0) > 0.0):
 		return false

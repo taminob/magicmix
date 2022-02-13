@@ -4,19 +4,24 @@ const DISTANCE_TOLERANCE: float = 2.0
 const SHIELD_IMPACT: float = 0.8
 const IMPORTANCE: float = 0.90
 
+static func _spell_id() -> String:
+	return fire_ring_spell.id()
+
+static func _spell() -> abstract_spell:
+	return skill_data.spells[_spell_id()]
+
 static func _internal_score(pawn: KinematicBody, event: ai_mind.sight_event) -> float:
 	var target: Spatial = event.body
 	if(!target.has_method("damage")):
 		return 0.0
+	if(!pawn.skills.can_cast(_spell_id())):
+		return 0.0
 	var aggression: float = -0.50
 	if(game.is_character(target.name)):
 		aggression -= pawn.dialogue.get_relation(target.name)
-	var spell: abstract_spell = skill_data.spells[fire_ring_spell.id()]
+	var spell: abstract_spell = _spell()
 	var focus: float = pawn.stats.focus
 	focus -= spell.self_focus()
-	if(focus < 0.0):
-		return 0.0
-	# TODO! check if spell is on cooldown
 	# todo: casttime score
 	var dist_score: float = _distance_range_score(pawn, target, [spell.range() - DISTANCE_TOLERANCE, spell.range() + DISTANCE_TOLERANCE], 1.0)
 	var duration_score: float = (focus / -spell.self_focus_per_second()) / spell.duration()
@@ -44,9 +49,11 @@ func get_range_state() -> int:
 	var target: KinematicBody = data["target"]
 	if(!game.is_valid(target)):
 		return range_state.unreachable
-	
+	var sq_range: float = pow(_spell().range(), 2)
+	if(pawn.distance_squared(target) < sq_range):
+		return range_state.in_range
 	return range_state.out_of_range
 
 func do(_delta: float) -> int:
-	pawn.skills.cast_spell(fire_ring_spell.id())
+	pawn.skills.cast_spell(_spell_id())
 	return do_state.success
