@@ -26,14 +26,18 @@ func _on_area_body_entered(body):
 	errors.log("revive: " + next_character_name)
 	if(body.name == next_character_name):
 		body.revive()
-	else: # todo: when character is dead, these changes will be reverted in save_characters in change_level
-		var next_stats = game.char_data[next_character_name].get("stats", {})
-		next_stats["pain"] = 0.0
-		next_stats["dead"] = false
-		game.char_data[next_character_name]["stats"] = next_stats
-		var current_move = game.char_data[body.name].get("move", {"translations": {}})
-		current_move["translations"].erase(game.levels.current_level_data.id()) # reset position to prevent respawn in portal
-		game.char_data[body.name]["move"] = current_move
+	else:
+		var dead_character: KinematicBody = game.get_character(next_character_name)
+		if(dead_character):
+			dead_character.revive()
+		else:
+			var next_stats = game.char_data[next_character_name].get("stats", {})
+			next_stats["pain"] = 0.0
+			next_stats["dead"] = false
+			game.char_data[next_character_name]["stats"] = next_stats
+	var current_move = game.char_data[body.name].get("move", {"translations": {}})
+	current_move["translations"].erase(game.levels.current_level_data.id()) # reset position to prevent respawn in portal
+	game.char_data[body.name]["move"] = current_move
 	var spawn = game.levels.current_level.get_node_or_null("player_spawn")
 	if(spawn):
 		body.translation = spawn.translation
