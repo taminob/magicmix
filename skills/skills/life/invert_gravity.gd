@@ -26,9 +26,3 @@ func on_retracted(pawn: KinematicBody):
 
 func icon() -> Resource:
 	return load(SKILL_ICONS_PATH + "../symbols/exclamation_mark-512.png")
-
-func anim() -> String:
-	return ""#SKILL_ANIMS_PATH
-
-func scene() -> Node:
-	return null
