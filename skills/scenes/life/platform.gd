@@ -9,8 +9,9 @@ onready var _collision: CollisionShape = $"collision_shape"
 
 func _ready():
 	var velo: Vector3 = caster.move.velocity
-	velo.y = min(0, velo.y)
-	global_transform.origin = caster.global_transform.origin + (velo + Vector3.DOWN) * 0.1
+	velo.y = -abs(velo.y)#min(0, velo.y)
+	var offset: Vector3 = (velo + Vector3.DOWN) * 0.1
+	global_transform.origin = caster.global_transform.origin + offset
 	var params: PhysicsShapeQueryParameters = PhysicsShapeQueryParameters.new()
 	params.set_shape(_collision.shape)
 	params.transform = global_transform
