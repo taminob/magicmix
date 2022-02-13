@@ -43,7 +43,7 @@ func _physics_process(delta: float):
 		x.damage(spell.target_focus_per_second() * delta, abstract_spell.element_type.focus, caster)
 
 func _object_enter(body: Node):
-	if(body && body.has_method("damage")):
+	if(body && body.has_method("damage") && body != caster):
 		_affected_bodies.push_back(body)
 		body.damage(spell.target_pain(), spell.target_element(), caster)
 		body.damage(spell.target_focus(), abstract_spell.element_type.focus, caster)

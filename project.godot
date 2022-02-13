@@ -90,6 +90,11 @@ _global_script_classes=[ {
 "path": "res://skills/skills/darkness/become_undead.gd"
 }, {
 "base": "abstract_spell",
+"class": "blood_dash_spell",
+"language": "GDScript",
+"path": "res://skills/spells/blood/blood_dash/blood_dash.gd"
+}, {
+"base": "abstract_spell",
 "class": "blood_heal_spell",
 "language": "GDScript",
 "path": "res://skills/spells/blood/blood_heal/blood_heal.gd"
@@ -436,6 +441,7 @@ _global_script_class_icons={
 "base_ice_skill": "",
 "base_life_skill": "",
 "become_undead_skill": "",
+"blood_dash_spell": "",
 "blood_heal_spell": "",
 "blood_sacrifice_spell": "",
 "blood_storm_spell": "",

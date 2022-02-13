@@ -11,7 +11,7 @@ static func _spell() -> abstract_spell:
 
 static func _spell_score(pawn: KinematicBody) -> float:
 	var spell: abstract_spell = _spell()
-	var focus_score: float = 1 - (-spell.self_focus() / pawn.stats.focus())
+	var focus_score: float = 1 - (-spell.self_focus() / pawn.stats.focus) if pawn.stats.focus > 0 else 0
 	var pain_score: float = clamp(pawn.stats.pain_percentage(), 0.5, 0.75)
 	return focus_score * pain_score
 

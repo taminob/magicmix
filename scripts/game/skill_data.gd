@@ -11,6 +11,7 @@ var spells = {
 	invert_gravity_spell.id(): invert_gravity_spell.new(),
 	platform_spell.id(): platform_spell.new(),
 	summon_minion_spell.id(): summon_minion_spell.new(),
+	blood_dash_spell.id(): blood_dash_spell.new(),
 	blood_heal_spell.id(): blood_heal_spell.new(),
 	blood_sacrifice_spell.id(): blood_sacrifice_spell.new(),
 	blood_storm_spell.id(): blood_storm_spell.new(),

@@ -4,6 +4,7 @@ class_name move_state
 
 onready var state: Node = get_parent()
 onready var pawn: KinematicBody = $"../.."
+#onready var skills: Node = $"../skills" # TODO! fix cylic include, currently circumvented by pawn.skills
 onready var stats: Node = $"../stats"
 
 const RUN_SPEED: float = 10.0
@@ -114,7 +115,8 @@ func collide_process(delta: float):
 	if(max_axis > threshold):
 		var dmg = pow((max_axis - threshold*0.8)/100, 2)
 		errors.debug_output("impact: " + str(max_axis) + "; pain: " + str(dmg) + "; velo: " + str(velocity) + "; last: " + str(last_speed))
-		stats._self_raw_damage(dmg)
+		if(!pawn.skills.is_spell_active(blood_dash_spell.id())):
+			stats._self_raw_damage(dmg)
 		for i in range(pawn.get_slide_count()):
 			var collision = pawn.get_slide_collision(i)
 			if(collision.collider.has_method("damage")):

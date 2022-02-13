@@ -89,6 +89,12 @@ func can_cast(spell_id: String, ignore_owned: bool=false) -> bool:
 	var spell: abstract_spell = skill_data.spells[spell_id]
 	return stats.focus + spell.self_focus() >= 0
 
+func is_spell_active(spell_id: String) -> bool:
+	for x in active_spells:
+		if(x.spell_id == spell_id):
+			return true
+	return false
+
 func cast_spell_slot(slot_id: int):
 	cast_spell(inventory.get_spell_slot(current_element, slot_id))
 
