@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://skills/spells/fire/fire_swirl/scene/fire_swirl.gd" type="Script" id=1]
+
+[node name="fire_swirl" type="Spatial"]
+script = ExtResource( 1 )

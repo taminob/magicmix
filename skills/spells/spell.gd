@@ -2,7 +2,6 @@ class_name abstract_spell
 
 const FULL: float = 10000.0
 const SPELL_ICONS_PATH: String = "res://ui/icons/skills/"
-const SPELL_SCENES_PATH: String = "res://skills/scenes/"
 const SPELL_ANIMS_PATH: String = "res://skills/"
 
 enum element_type {

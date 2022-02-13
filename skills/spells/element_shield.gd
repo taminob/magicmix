@@ -26,4 +26,4 @@ func icon() -> Resource:
 
 func scene() -> Node:
 	return null
-	#return load(SPELL_SCENES_PATH + "").instance()
+	#return load("").instance()
