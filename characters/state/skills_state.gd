@@ -85,7 +85,7 @@ func can_cast(spell_id: String) -> bool:
 	if(game.levels.current_level_data.is_in_death_realm()):
 		return true # todo? remove?
 	var spell: abstract_spell = skill_data.spells[spell_id]
-	return stats.focus + spell.self_focus() >= 0 && stats.focus + spell.self_focus_per_second() >= 0
+	return stats.focus + spell.self_focus() >= 0
 
 func cast_spell_slot(slot_id: int):
 	cast_spell(inventory.get_spell_slot(current_element, slot_id))
