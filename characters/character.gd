@@ -107,7 +107,7 @@ func _update_ui():
 			game.mgmt.ui.update_debug(str(move.velocity))
 		else:
 			var machine = get_node("state/ai").machine
-			var debug_output: String
+			var debug_output: String = ""
 			for x in machine.action_queue:
 				debug_output += x.get_script().get_path().get_file() + "; "
 
