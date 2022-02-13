@@ -47,6 +47,8 @@ func idle():
 	action_queue.push_back(chooser.best_action())
 	push_state(states.active)
 
+var current_path: PoolVector3Array = []
+var current_path_index: int
 func move():
 	if(action_queue.empty()):
 		return
@@ -58,10 +60,16 @@ func move():
 	var nav: Navigation = game.levels.current_level.get_node("navigation")
 	var destination = current_target.global_transform.origin
 	if(nav):
-		var path: PoolVector3Array = nav.get_simple_path(ai.pawn.global_transform.origin, destination)
-		if(!path.empty()):
+		if(current_path.empty() || current_path_index >= current_path.size()):
+			current_path = nav.get_simple_path(ai.pawn.global_transform.origin, destination)
+			current_path_index = 0
+		if(!current_path.empty()):
 			# todo: add timeout (unreachable)
-			ai.pawn.face_location(path[1])
+			var x = ai.pawn.global_transform.origin
+			var d = current_path[current_path_index]
+			ai.pawn.face_location(current_path[current_path_index])
+			if(x - d < Vector3(0.5, INF, 0.5)):
+				current_path_index += 1
 			ai.pawn.move.input_direction = Vector3.FORWARD
 			# TODO: push move or active; but: current_action somehow null
 			push_state(states.active)
