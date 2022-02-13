@@ -7,6 +7,7 @@ static func _internal_score(pawn: KinematicBody, event: ai_mind.sight_event) -> 
 	var target: Spatial = event.body
 	if(pawn.dialogue.is_dialogue_active()):
 		return 0.0
+	# todo: raycast if can actually see
 	var base_score: float = 0.0
 	if(game.is_character(target.name)):
 		base_score += abs(pawn.dialogue.get_relation(target.name)) / 10.0

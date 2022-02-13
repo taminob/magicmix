@@ -60,6 +60,7 @@ func move():
 	if(nav):
 		var path: PoolVector3Array = nav.get_simple_path(ai.pawn.global_transform.origin, destination)
 		if(!path.empty()):
+			# todo: add timeout (unreachable)
 			ai.pawn.face_location(path[1])
 			ai.pawn.move.input_direction = Vector3.FORWARD
 			# TODO: push move or active; but: current_action somehow null
@@ -72,6 +73,8 @@ func active(delta: float):
 		push_state(states.idle)
 		return
 	var current_action: abstract_action = action_queue.front()
+	if(!current_action || !current_action.valid()):
+		plan_failed()
 	var action_range = current_action.get_range_state()
 	if(action_range == abstract_action.range_state.in_range || action_range == abstract_action.range_state.no_range_required):
 		ai.pawn.move.input_direction = Vector3.ZERO

@@ -23,6 +23,9 @@ func init(new_pawn: KinematicBody, new_data: Dictionary):
 func target() -> Spatial:
 	return data.get("target", null)
 
+func valid() -> bool:
+	return data.has("target") && game.is_valid(target())
+
 ### helpers
 static func _distance_score(pawn_char: KinematicBody, target: Spatial, max_distance: float, exponent: float=2.0) -> float:
 	if(max_distance <= 0.0):
