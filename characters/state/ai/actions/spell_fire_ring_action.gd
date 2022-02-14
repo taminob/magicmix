@@ -46,11 +46,8 @@ static func score(pawn: KinematicBody) -> Dictionary:
 	}
 
 func get_range_state() -> int:
-	var target: KinematicBody = data["target"]
-	if(!game.is_valid(target)):
-		return range_state.unreachable
 	var sq_range: float = pow(_spell().range(), 2)
-	if(pawn.distance_squared(target) < sq_range):
+	if(pawn.distance_squared(target()) < sq_range):
 		return range_state.in_range
 	return range_state.out_of_range
 
