@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://characters/character.gd" type="Script" id=1]
 [ext_resource path="res://characters/state/state.gd" type="Script" id=2]
@@ -22,6 +22,9 @@ height = 1.1
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 0.25, 0.5, 0.5 )
+
+[sub_resource type="SphereShape" id=10]
+radius = 5.0
 
 [sub_resource type="CubeMesh" id=3]
 subdivide_height = 50
@@ -83,6 +86,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0 )
 [node name="collision" type="CollisionShape" parent="interact_zone"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.6 )
 shape = SubResource( 2 )
+
+[node name="detect_zone" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+
+[node name="collision_shape" type="CollisionShape" parent="detect_zone"]
+shape = SubResource( 10 )
 
 [node name="state" type="Node" parent="."]
 script = ExtResource( 2 )

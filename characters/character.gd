@@ -4,7 +4,8 @@ class_name character
 
 #warning-ignore-all:unused_class_variable
 
-onready var collision = $"collision"
+onready var collision: CollisionShape = $"collision"
+onready var detect_zone: Area = $"detect_zone"
 
 var spirit: KinematicBody = null
 

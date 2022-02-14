@@ -53,6 +53,14 @@ func toggle_spirit():
 		if(state.is_player):
 			game.mgmt.camera.make_current()
 
+func get_near_bodies(radius: float, is_match: FuncRef) -> Array:
+	pawn.detect_zone.collision.shape.radius = radius
+	var bodies: Array = []
+	for x in pawn.detect_zone.get_overlapping_bodies():
+		if(is_match.call_func(x)):
+			bodies.push_back(x)
+	return bodies
+
 func _on_interact_zone_entered(body_or_area: Node):
 	if(body_or_area && body_or_area.has_method("interact") && body_or_area != pawn):
 		targets.push_back(body_or_area)
