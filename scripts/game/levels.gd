@@ -74,6 +74,15 @@ var level_data: Dictionary = {}
 var current_level_data: abstract_level
 var current_level: Node = null
 
+func get_spawn(character_id: String) -> Spatial:
+	var spawn_name: String
+	if(character_id == game.mgmt.player_id):
+		spawn_name = "player_spawn"
+	else:
+		spawn_name = character_id + "_spawn"
+	var spawn = current_level.get_node_or_null(spawn_name)
+	return spawn
+
 func change_level(level_id: String):
 	game.mgmt.save_characters()
 	current_level_data = level_data[level_id]
@@ -93,7 +102,7 @@ func _load_callback(new_level: Resource):
 		game.mgmt.call_deferred("make_player", new_player)
 	else:
 		game.mgmt.create_player()
-		var spawn = current_level.get_node_or_null("player_spawn")
+		var spawn: Spatial = get_spawn(game.mgmt.player_id)
 		if(spawn):
 			game.mgmt.player.translation = spawn.translation
 		current_level.call_deferred("add_child", game.mgmt.player)

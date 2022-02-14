@@ -40,7 +40,7 @@ enum layer {
 const physical_layers = layer.default | layer.static_world | layer.objects | layer.characters | layer.enemies
 const damage_layers = layer.objects | layer.characters | layer.enemies
 
-func is_player(node) -> bool:
+func is_player(node: Node) -> bool:
 	return node == player && player
 
 func _set_player_flag(target: KinematicBody, is_player: bool):
