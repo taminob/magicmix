@@ -93,8 +93,8 @@ func _move_spirit(delta: float):
 		_move_direction = pawn.spirit.global_transform.basis.xform(input_direction)
 
 	var hv: Vector3 = Vector3(spirit_velocity.x, spirit_velocity.y, spirit_velocity.z)
-	var new_pos = _move_direction * max_speed()
-	var accel = ACCELERATION if(_move_direction.dot(hv) > 0) else DE_ACCELERATION
+	var new_pos: Vector3 = _move_direction * max_speed()
+	var accel: float = ACCELERATION if(_move_direction.dot(hv) > 0) else DE_ACCELERATION
 	hv = hv.linear_interpolate(new_pos, accel * delta)
 
 	# todo: bug? - when pawn is falling down, spirit can become immovable because distance is too big
@@ -105,22 +105,26 @@ func _move_spirit(delta: float):
 
 var last_speed: Vector3 = Vector3.ZERO
 func collide_process(delta: float):
-	if(state.is_spirit || stats.dead):
+	if(state.is_spirit):
 		return
-	var d_x = abs(last_speed.x - velocity.x) / delta
-	var d_y = abs(last_speed.y - velocity.y) / delta
-	var d_z = abs(last_speed.z - velocity.z) / delta
-	var max_axis = max(d_x, max(d_y, d_z))
-	var threshold = 600
+	var d_x: float = abs(last_speed.x - velocity.x) / delta
+	var d_y: float = abs(last_speed.y - velocity.y) / delta
+	var d_z: float = abs(last_speed.z - velocity.z) / delta
+	var max_axis: float = util.max(d_x, d_y, d_z)
+	var threshold: float = 600.0
 	if(max_axis > threshold):
 		var dmg = pow((max_axis - threshold*0.8)/100, 2)
 		errors.debug_output("impact: " + str(max_axis) + "; pain: " + str(dmg) + "; velo: " + str(velocity) + "; last: " + str(last_speed))
 		if(!pawn.skills.is_spell_active(blood_dash_spell.id())):
 			stats._self_raw_damage(dmg)
 		for i in range(pawn.get_slide_count()):
-			var collision = pawn.get_slide_collision(i)
+			var collision: KinematicCollision = pawn.get_slide_collision(i)
+			var target: Object = collision.collider
 			if(collision.collider.has_method("damage")):
 				collision.collider.damage(dmg, abstract_spell.element_type.raw, pawn)
+			if(game.is_character(collision.collider.name)):
+				target.move.velocity -= collision.normal * (last_speed - velocity)
+			# todo: also affect other KinematicBodies
 	last_speed = velocity
 
 func save(state_dict: Dictionary):
