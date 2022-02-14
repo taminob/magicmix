@@ -37,7 +37,7 @@ func cooldown() -> float:
 	return 0.5
 
 func duration() -> float:
-	return 0.3
+	return 0.75
 
 func range() -> float:
 	return 10.0

@@ -16,7 +16,7 @@ func next_object_scale(delta: float) -> Vector3:
 func _push_body(body: KinematicBody):
 	if(!body || _pushed_bodies.has(body)):
 		return
-	# TODO! raycast if push is actually possible
+	# TODO! raycast if target is in sight and push is actually possible
 	var direction: Vector3 = body.global_transform.origin - caster.global_transform.origin
 	var push: Vector3 = direction * FORCE
 	if(game.is_character(body.name)):

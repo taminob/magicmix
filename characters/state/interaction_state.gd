@@ -53,12 +53,16 @@ func toggle_spirit():
 		if(state.is_player):
 			game.mgmt.camera.make_current()
 
-func get_near_bodies(radius: float, is_match: FuncRef) -> Array:
-	pawn.detect_zone.collision.shape.radius = radius
+func get_near_bodies(radius: float, is_match: FuncRef, in_sight_only: bool=true) -> Array:
+	pawn.detect_zone.get_node("collision").shape.radius = radius
 	var bodies: Array = []
-	for x in pawn.detect_zone.get_overlapping_bodies():
-		if(is_match.call_func(x)):
-			bodies.push_back(x)
+	for body in pawn.detect_zone.get_overlapping_bodies():
+		if(is_match.call_func(body)):
+			if(in_sight_only):
+				var result = pawn.get_world().direct_space_state.intersect_ray(body.global_transform.origin, pawn.global_body_center())
+				if(!result || result["collider"] != pawn):
+					continue
+			bodies.push_back(body)
 	return bodies
 
 func _on_interact_zone_entered(body_or_area: Node):

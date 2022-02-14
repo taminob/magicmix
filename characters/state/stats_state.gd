@@ -70,17 +70,18 @@ func die(save_state: bool=true):
 		else:
 			if(save_state && !state.is_minion):
 				pawn.save_state()
-			var death_marker: Spatial = load("res://world/objects/death_marker/death_marker.tscn").instance()
-			game.levels.current_level.call_deferred("add_child", death_marker)
-			death_marker.global_transform = pawn.global_transform
+			var death_shard: Spatial = preload("res://world/objects/death_shard/death_shard.tscn").instance()
+			death_shard.name = "death_shard_" + pawn.name
+			game.levels.current_level.call_deferred("add_child", death_shard)
+			death_shard.global_transform = pawn.global_transform
 			pawn.queue_free()
 
 func damage(dmg: float, element: int, caused_by: KinematicBody):
 	if(caused_by):
 		# todo: move to dialogue_state
-		var new_relation: int = int(max(dialogue.get_relation(caused_by.name) - 1, -2)) # TODO? replace constant by enum
+		var new_relation: int = int(clamp(dialogue.get_relation(caused_by.name) - (1 * sign(dmg)), -2, 2)) # TODO? replace constant by enum
 		dialogue.set_relation(caused_by.name, new_relation)
-		if(new_relation != -2 && !state.is_minion):#dialogue_state.relation.enemy): # TODO? replace constant by enum
+		if(dmg > 0.0 && new_relation != -2 && !state.is_minion):#dialogue_state.relation.enemy): # TODO? replace constant by enum
 			if(!dialogue.data.wants_to_talk_to.has(caused_by.name)):
 				dialogue.data.wants_to_talk_to.push_back(caused_by.name)
 			dialogue.data.partners[caused_by.name] = dialogue.data.hurt_warning_conversation() # TODO: save previous value

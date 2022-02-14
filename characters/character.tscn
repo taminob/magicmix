@@ -89,8 +89,10 @@ shape = SubResource( 2 )
 
 [node name="detect_zone" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+collision_layer = 0
+collision_mask = 255
 
-[node name="collision_shape" type="CollisionShape" parent="detect_zone"]
+[node name="collision" type="CollisionShape" parent="detect_zone"]
 shape = SubResource( 10 )
 
 [node name="state" type="Node" parent="."]

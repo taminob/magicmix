@@ -15,15 +15,20 @@ const DE_ACCELERATION: float = 8.0
 const GRAVITY: float = 9.81
 const JUMP_VELOCITY: float = 5.0
 const SPIRIT_RANGE_SQUARED: float = 500.0
+const SPIRIT_SPEED_FACTOR: float = 2.0
+const MIN_SPEED_FACTOR: float = 0.5
 
 var gravity_direction: Vector3 = Vector3.DOWN
 var velocity: Vector3 = Vector3.ZERO
 var spirit_velocity: Vector3 = Vector3.ZERO
 var immovable: bool = false
+var base_speed_factor: float = 1.0
 
 func speed_factor() -> float:
 	# todo: integrate experience system
-	return 1.0 * (int(state.is_spirit) * 2.0 + 1)
+	if(state.is_spirit):
+		return SPIRIT_SPEED_FACTOR
+	return base_speed_factor
 
 enum move_mode {RUNNING, WALKING, SPRINTING}
 var current_mode = move_mode.RUNNING

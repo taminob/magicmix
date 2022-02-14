@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/death_marker.glb-8feac7d215a6f4edee7db4f90c638a30.scn"
+path="res://.import/death_shard.glb-2cdbfe3d3a2612ea874774a22ad1fba0.scn"
 
 [deps]
 
-source_file="res://world/objects/death_marker/death_marker.glb"
-dest_files=[ "res://.import/death_marker.glb-8feac7d215a6f4edee7db4f90c638a30.scn" ]
+source_file="res://world/objects/death_shard/death_shard.glb"
+dest_files=[ "res://.import/death_shard.glb-2cdbfe3d3a2612ea874774a22ad1fba0.scn" ]
 
 [params]
 
@@ -20,6 +20,7 @@ nodes/use_legacy_names=false
 materials/location=1
 materials/storage=1
 materials/keep_on_reimport=true
+meshes/octahedral_compression=true
 meshes/compress=true
 meshes/ensure_tangents=true
 meshes/storage=0

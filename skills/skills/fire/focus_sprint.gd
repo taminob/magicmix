@@ -20,6 +20,13 @@ func requirements() -> Array:
 func mutually_exlusive() -> Array:
 	return ["focus_stance"]
 
+func on_allocated(pawn: KinematicBody):
+# warning-ignore:return_value_discarded
+	pawn.inventory.add_spell(flaming_heels_spell.id())
+
+func on_retracted(pawn: KinematicBody):
+	pawn.inventory.remove_spell(flaming_heels_spell.id())
+
 const EFFECT_FACTOR: float = 0.1
 func effect(pawn: KinematicBody, _delta: float):
 	# TODO: disable normal focus_per_second regeneration
