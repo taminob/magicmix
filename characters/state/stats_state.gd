@@ -123,6 +123,11 @@ func _self_focus_damage(dmg: float):
 		state.ai.should_reconsider = true
 		dmg_change_since_reconsider["focus"] = 0
 
+func set_shield_element(element: int):
+	if(shield_element != element):
+		shield = 0.0
+		shield_element = element
+
 func add_shield(num: float):
 	if(shield_element != abstract_spell.element_type.raw):
 		shield = clamp(shield + num, 0, max_shield())

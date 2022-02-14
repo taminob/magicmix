@@ -23,8 +23,8 @@ func mutually_exclusive() -> Array:
 func effect(pawn: KinematicBody, _delta: float):
 	# TODO: detect incoming damage type, reduce damage? decrease damage resistance for other elements?
 	if(pawn.skills.current_element != abstract_spell.element_type.raw):
-		pawn.stats.shield_element = pawn.skills.current_element
-		pawn.stats.shield = pawn.stats.max_shield() / 2
+		pawn.stats.set_shield_element(pawn.skills.current_element)
+		pawn.stats.shield = max(pawn.stats.shield, pawn.stats.max_shield() / 2)
 
 func icon() -> Resource:
 	return load(SKILL_ICONS_PATH + "shield-512.png")

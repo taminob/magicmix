@@ -18,7 +18,7 @@ func self_focus() -> float:
 	return -20.0
 
 func start_effect(pawn: KinematicBody):
-	pawn.stats.shield_element = pawn.skills.current_element
+	pawn.stats.set_shield_element(pawn.skills.current_element)
 	pawn.stats.shield = pawn.stats.max_shield()
 
 func icon() -> Resource:
