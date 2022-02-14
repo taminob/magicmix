@@ -20,6 +20,5 @@ func get_range_state() -> int:
 	return range_state.out_of_range
 
 func do(_delta: float) -> int:
-	var target = target()
 	pawn.global_transform.basis = target().global_transform.basis
 	return do_state.success
