@@ -4,6 +4,7 @@ func init_statements():
 	pass
 
 func init_conversations():
+	.init_conversations()
 	conversations["want_to_arrest"] = want_to_arrest()
 
 func init_partners():
@@ -18,6 +19,7 @@ func want_to_arrest() -> Array:
 			"responses": [
 				{
 					"say": "I surrender!",
+					"next": "surrendered"
 				},
 				{
 					"say": "You'll only get me dead!",
@@ -51,11 +53,14 @@ func want_to_arrest() -> Array:
 			"say": "Come here, slowly. No one has to die today!",
 			"responses": [
 				{
-					"say": "Sure"
+					"say": "Sure",
+					"effects": "_end_dialogue",
+					"next": "start"
 				},
 				{
 					"say": "Ha, tricked you! Only one of us will survive the day.",
-					"effects": "_make_enemy"
+					"effects": "_make_enemy",
+					"next": "start"
 				}
 			]
 		}

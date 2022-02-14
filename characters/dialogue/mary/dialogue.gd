@@ -4,6 +4,7 @@ func init_statements():
 	pass #default_statement()
 
 func init_conversations():
+	.init_conversations()
 	conversations["hans_meet_first_time"] = hans_meet_first_time()
 
 func init_partners():
