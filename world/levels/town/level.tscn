@@ -44,3 +44,9 @@ transform = Transform( -0.0646717, 0, -0.997907, 0, 1, 0, 0.997907, 0, -0.064671
 
 [node name="fire_mage" parent="." instance=ExtResource( 1 )]
 transform = Transform( -0.0646717, 0, -0.997907, 0, 1, 0, 0.997907, 0, -0.0646717, -36.9264, 0, -3.06754 )
+
+[node name="darkness_mage" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.231595, 0, -0.972813, 0, 1, 0, 0.972813, 0, 0.231595, 30.9903, -4.76837e-07, 71.1452 )
+
+[node name="life_mage" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.259089, 0, -0.965854, 0, 1, 0, 0.965854, 0, -0.259089, 30.882, 0, 67.2981 )
