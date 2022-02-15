@@ -33,7 +33,6 @@ func _init():
 		},
 		"inventory": {
 			"skills": ["base_fire", "base_darkness", "taint_life", "become_undead"],
-			#"spell_slots": ["blood_storm", "fire_ring", "", "", ""]
 		},
 		"look": {
 			"mesh_path": "res://characters/meshes/mage/body.tscn",

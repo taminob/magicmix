@@ -25,8 +25,7 @@ func _init():
 			"focus": 100
 		},
 		"inventory": {
-			"spells": [""],
-			#"spell_slots": ["", "", "", "", ""]
+			"skills": ["base_fire", "base_ice", "base_darkness", "base_life"],
 		},
 		"look": {
 			"mesh_path": "res://characters/meshes/mage/body.tscn",

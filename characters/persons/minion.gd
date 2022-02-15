@@ -22,7 +22,6 @@ func _init():
 		},
 		"inventory": {
 			"spells": ["fire_ball", "heal"],
-			#"spell_slots": ["heal", "fire_storm", "", "", ""]
 		},
 		"look": {
 			"mesh_path": "res://characters/meshes/minion/body.tscn",

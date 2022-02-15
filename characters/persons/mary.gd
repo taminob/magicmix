@@ -26,7 +26,6 @@ func _init():
 		},
 		"inventory": {
 			"spells": ["fire_ball", "fire_ring", "blood_sacrifice", "heal", "blood_storm"],
-			#"spell_slots": ["fire_ball", "fire_ring", "", "", "heal"]
 		},
 		"stats": {
 			"focus": 100,

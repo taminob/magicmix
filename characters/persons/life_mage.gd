@@ -1,35 +1,34 @@
 extends abstract_person
 
-class_name ice_mage_person
+class_name life_mage_person
 
 static func id() -> String:
-	return "ice_mage"
+	return "life_mage"
 
 func _init():
 	data = {
 		"dialogue": {
-			"name": "Ice Mage",
-			"description": "Ice Mage",
-			"background": "Wife of the god mage.",
+			"name": "Life Mage",
+			"description": "Life Mage",
+			"background": "Advisor of the god mage.",
 			"gender": "female",
 			"job": "mage"
 		},
 		"experience": {
-			"intelligence": 7,
-			"strength": 2,
-			"sturdiness": 9,
-			"concentration": 15,
-			"endurance": 4
+			"intelligence": 10,
+			"strength": 3,
+			"sturdiness": 5,
+			"concentration": 9,
+			"endurance": 2
 		},
 		"stats": {
 			"focus": 100
 		},
 		"inventory": {
-			"spells": [""],
 			"skills": ["base_life"]
 		},
 		"look": {
 			"mesh_path": "res://characters/meshes/mage/body.tscn",
-			"color": Color(0.2, 0.2, 0.3)
+			"color": Color(1, 1, 1)
 		},
 	}

@@ -29,7 +29,6 @@ func _init():
 		},
 		"inventory": {
 			"spells": ["fire_ball", "fire_ring", "fire_storm", "blood_sacrifice", "heal", "blood_storm", "blood_heal"],
-			#"spell_slots": ["heal", "fire_ring", "fire_ball", "blood_storm", "blood_sacrifice"]
 		},
 		"look": {
 			"mesh_path": "res://characters/meshes/mage/body.tscn",

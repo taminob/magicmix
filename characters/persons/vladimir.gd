@@ -27,9 +27,7 @@ func _init():
 			"endurance": 1
 		},
 		"inventory": {
-			"spells": ["blood_sacrifice", "blood_storm"],
-			"skills": ["base_fire", "base_life", "base_ice", "base_darkness", "element_shield"]
-			#"spell_slots": ["fire_ring", "heal", "", "", ""]
+			"skills": ["base_fire", "base_ice", "element_shield"]
 		},
 		"look": {
 			"mesh_path": "res://characters/meshes/mage/body.tscn",
