@@ -12,9 +12,9 @@ func _ready():
 	can_spawn_behind_walls = true
 	spawn_object()
 
-func initial_position(target: Area, _object_id: int):
+func initial_position(target: CollisionObject, _object_id: int):
 	target.global_transform.basis = caster.global_transform.basis
 	target.global_transform.origin = caster.global_transform.origin + target.global_transform.basis.xform(2 * Vector3.FORWARD + 1 * Vector3.UP)
 
-func move_to_next_position(target: Area, _object_id: int, object_age: float, _delta: float):
+func move_to_next_position(target: CollisionObject, _object_id: int, object_age: float, _delta: float):
 	target.global_transform.origin = target.global_transform.origin + (object_age * speed) * target.global_transform.basis.xform(Vector3.FORWARD)

@@ -11,20 +11,20 @@ var spell: abstract_spell
 var can_spawn_behind_walls: bool = false
 var destroy_on_contact: bool = false
 var _spawn_amount_counter: int = 0
-var _example_object: Area = null
+var _example_object: CollisionObject = null
 var _objects: Array = []
 var _affected_bodies: Array = []
 var caster: KinematicBody
 var _default_collision_mask: int = game.mgmt.layer.static_world | game.mgmt.layer.objects | game.mgmt.layer.characters  | game.mgmt.layer.enemies | game.mgmt.layer.spells
 
 # override for custom placement; return local translation
-func initial_position(object: Area, _object_id: int):
+func initial_position(object: CollisionObject, _object_id: int):
 	object.global_transform.origin = caster.global_transform.origin + Vector3(randf() * 2 - 1, randf() * 2 - 1, randf() * 2 - 1).normalized() * radius
 
-func move_to_next_position(_object: Area, _object_id: int, _object_age: float, _delta: float):
+func move_to_next_position(_object: CollisionObject, _object_id: int, _object_age: float, _delta: float):
 	pass
 
-func set_example_object(object: Area):
+func set_example_object(object: CollisionObject):
 	_example_object = object
 	_example_object.collision_mask = _default_collision_mask
 	if("caster" in _example_object):
@@ -54,11 +54,11 @@ func _physics_process(delta: float):
 		x.damage(spell.target_pain_per_second() * delta, spell.target_element(), caster)
 		x.damage(spell.target_focus_per_second() * delta, abstract_spell.element_type.focus, caster)
 
-func set_object_active(target: Area, active: bool=true):
+func set_object_active(target: CollisionObject, active: bool=true):
 	target.set_visible(active)
 	target.collision_mask = _default_collision_mask if active else 0
 
-func can_reach_caster(target: Area) -> bool:
+func can_reach_caster(target: CollisionObject) -> bool:
 	if(can_spawn_behind_walls):
 		return true
 	var result = get_world().direct_space_state.intersect_ray(target.global_transform.origin, caster.global_body_center())
@@ -67,7 +67,7 @@ func can_reach_caster(target: Area) -> bool:
 func spawn_object(spawn_time: float=0.0, id: int=_objects.size()):
 	if(_objects.size() >= amount):
 		return
-	var new_object: Area = _example_object.duplicate()
+	var new_object: CollisionObject = _example_object.duplicate()
 	errors.error_test(new_object.connect("body_entered", self, "_object_enter", [new_object]))
 	errors.error_test(new_object.connect("body_exited", self, "_object_exit", [new_object]))
 	add_child(new_object)
@@ -81,7 +81,7 @@ func spawn_object(spawn_time: float=0.0, id: int=_objects.size()):
 		_spawn_amount_counter = 0
 		spawn_timer.start()
 
-func _object_enter(body: Node, collider: Area):
+func _object_enter(body: Node, collider: CollisionObject):
 	if(body):
 		if(body.has_method("damage")):
 			_affected_bodies.push_back(body)
@@ -94,5 +94,5 @@ func _object_enter(body: Node, collider: Area):
 					_objects.remove(i)
 					break
 
-func _object_exit(body: Node, _collider: Area):
+func _object_exit(body: Node, _collider: CollisionObject):
 	_affected_bodies.erase(body)
