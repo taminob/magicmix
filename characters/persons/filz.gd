@@ -29,7 +29,7 @@ func _init():
 			#"spell_slots": ["heal", "fire_storm", "", "", ""]
 		},
 		"look": {
-			"mesh_path": "res://characters/meshes/shade/body.tscn",
+			"mesh_path": "res://characters/meshes/mage/body.tscn",
 			"color": Color(0.8, 0.6, 0.1)
 		},
 	}

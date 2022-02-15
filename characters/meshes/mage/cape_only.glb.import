@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/shade_cape.glb-d60fc39ab4da521fdbcc72b68722d831.scn"
+path="res://.import/cape_only.glb-b830b832578a40938801a8a99c67452e.scn"
 
 [deps]
 
-source_file="res://characters/meshes/shade/shade_cape.glb"
-dest_files=[ "res://.import/shade_cape.glb-d60fc39ab4da521fdbcc72b68722d831.scn" ]
+source_file="res://characters/meshes/mage/cape_only.glb"
+dest_files=[ "res://.import/cape_only.glb-b830b832578a40938801a8a99c67452e.scn" ]
 
 [params]
 
@@ -20,6 +20,7 @@ nodes/use_legacy_names=false
 materials/location=1
 materials/storage=1
 materials/keep_on_reimport=true
+meshes/octahedral_compression=true
 meshes/compress=true
 meshes/ensure_tangents=true
 meshes/storage=0

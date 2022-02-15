@@ -33,7 +33,7 @@ func _init():
 			"pain": 30
 		},
 		"look": {
-			"mesh_path": "res://characters/meshes/shade/body.tscn",
+			"mesh_path": "res://characters/meshes/mage/body.tscn",
 			"color": Color(0, 0.8, 0)
 		},
 	}

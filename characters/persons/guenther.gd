@@ -36,7 +36,7 @@ func _init():
 			#"spell_slots": ["blood_storm", "fire_ring", "", "", ""]
 		},
 		"look": {
-			"mesh_path": "res://characters/meshes/shade/body.tscn",
+			"mesh_path": "res://characters/meshes/mage/body.tscn",
 			"color": Color(0.5, 0, 0.5)
 		}
 	}
