@@ -76,10 +76,10 @@ func revive():
 	stats.revive()
 
 func global_body_center() -> Vector3:
-	return global_transform.origin + global_transform.basis.y * look.body_height / 2
+	return global_transform.origin + global_transform.basis.y * look.size().y / 2
 
 func global_body_head() -> Vector3:
-	return global_transform.origin + global_transform.basis.y * look.body_height
+	return global_transform.origin + global_transform.basis.y * look.size().y
 
 func looking_direction() -> Vector3:
 	return global_transform.basis.z

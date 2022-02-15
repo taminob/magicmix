@@ -11,7 +11,6 @@ var _default_mesh_path: String
 var mesh: abstract_mesh = null
 var color: Color
 var animations: AnimationPlayer
-var body_height: float
 
 func animations_process(_delta: float):
 	if(state.is_spirit):
@@ -27,14 +26,17 @@ func update_look(): # todo?
 	mesh.set_undead(stats.undead)
 	mesh.set_frozen(move.frozen)
 
-func set_mesh(path: String=_default_mesh_path):
+func size() -> Vector2:
+	return mesh.get_size()
+
+func _set_mesh(path: String=_default_mesh_path):
 	if(mesh):
 		mesh.queue_free()
 	mesh = load(path).instance()
 	pawn.add_child(mesh)
 	animations = mesh.get_node("animations")
 
-func update_collision():
+func _update_collision():
 	var body_size: Vector2 = mesh.get_size()
 	pawn.collision.shape.radius = body_size.x / 2
 	# todo? rotate collision if width > height
@@ -50,7 +52,7 @@ func save(state_dict: Dictionary):
 func init(state_dict: Dictionary):
 	var _look_state = state_dict.get("look", {})
 	_default_mesh_path = _look_state.get("mesh_path", "res://characters/meshes/debug/body.tscn")
-	set_mesh()
+	_set_mesh()
 	color = _look_state.get("color", Color(0, 0, 0))
 	update_look()
-	update_collision()
+	_update_collision()
