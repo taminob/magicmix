@@ -3,7 +3,6 @@ extends Node
 class_name skills_state
 
 onready var pawn: KinematicBody = $"../.."
-onready var move: Node = $"../move"
 onready var stats: Node = $"../stats"
 onready var inventory: Node = $"../inventory"
 

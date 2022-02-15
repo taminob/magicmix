@@ -14,5 +14,5 @@ func initial_position(target: CollisionObject, object_id: int):
 	.initial_position(target, object_id)
 	target.global_transform.origin.y = 20
 
-func move_to_next_position(target: CollisionObject, _object_id: int, object_age: float, delta: float):
+func move_to_next_position(target: CollisionObject, _object_id: int, _object_age: float, _delta: float):
 	return target.translation

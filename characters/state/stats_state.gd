@@ -62,7 +62,6 @@ func die(save_state: bool=true):
 		return
 	skills.cancel_spells()
 	dialogue.interrupt_dialogue()
-	look.update_look()
 
 	# todo: animation
 	if(!game.levels.current_level_data.is_in_death_realm()):
@@ -141,7 +140,6 @@ func add_shield(num: float):
 func revive():
 	if(undead):
 		return
-	look.update_look()
 	pain = 0.0
 	dead = false
 	state.ai.should_reconsider = true
@@ -149,9 +147,11 @@ func revive():
 func _temperature_process(delta: float):
 	if(temperature < -50):
 		move.frozen = true
+		look.update_look()
 		_self_elemental_damage(temperature * 0.25 * delta, abstract_spell.element_type.ice)
-	else:
+	elif(move.frozen):
 		move.frozen = false
+		look.update_look()
 	if(temperature > 50):
 		_self_elemental_damage(temperature * delta, abstract_spell.element_type.fire)
 	temperature -= sign(temperature) * 10 * delta # todo: tweak temperature normalization value

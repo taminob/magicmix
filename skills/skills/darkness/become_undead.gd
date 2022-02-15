@@ -19,9 +19,11 @@ func requirements() -> Array:
 
 func on_allocated(pawn: KinematicBody):
 	pawn.stats.undead = true
+	#pawn.look.call_deferred("update_look")
 
 func on_retracted(pawn: KinematicBody):
 	pawn.stats.undead = false
+	pawn.look.update_look()
 
 func icon() -> Resource:
 	return load(SKILL_ICONS_PATH + "self_dark-512.png")
