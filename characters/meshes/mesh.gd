@@ -4,7 +4,7 @@ class_name abstract_mesh
 
 export var default_primary_color: Color = Color(0, 0, 0)
 export var default_secondary_color: Color = Color(1, 1, 1)
-export var size: Vector2 = Vector2(1.0, 2.6)
+export var size: Vector2 = Vector2(0.6, 1.7)
 
 onready var primary_mesh: MeshInstance
 var primary_cull_disabled: bool = false
@@ -14,15 +14,18 @@ var secondary_cull_disabled: bool = false
 # has to be called at end of _ready
 func init():
 	errors.debug_assert(primary_mesh != null, "primary mesh has to be set!")
-	set_primary_color(default_primary_color)
-	set_secondary_color(default_secondary_color)
+	reset()
 
 	if(!has_node("animations")):
 		var anim: AnimationPlayer = load("characters/animations/empty_animations.tscn").instance()
 		anim.name = "animations"
 		add_child(anim)
 
-func get_collision_size() -> Vector2:
+func reset():
+	set_primary_color(default_primary_color)
+	set_secondary_color(default_secondary_color)
+
+func get_size() -> Vector2:
 	return size
 
 func set_primary_color(color: Color):
@@ -46,7 +49,8 @@ func get_collision_shape() -> Shape:
 
 const FROZEN_COLOR: Color = Color(0.05, 0.2, 0.4)
 func set_frozen(frozen: bool):
-	if(frozen):
-		set_primary_color(FROZEN_COLOR)
-	else:
-		set_primary_color(default_primary_color)
+	set_primary_color(FROZEN_COLOR if frozen else default_primary_color)
+
+const UNDEAD_COLOR: Color = Color(0.2, 0.2, 0.2)
+func set_undead(undead: bool):
+	set_secondary_color(UNDEAD_COLOR if undead else default_secondary_color)
