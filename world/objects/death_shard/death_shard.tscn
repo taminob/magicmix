@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://world/materials/rainbow_stone.tres" type="Material" id=1]
 [ext_resource path="res://world/objects/death_shard/death_shard.glb" type="PackedScene" id=2]
+[ext_resource path="res://world/objects/death_shard/death_shard.gd" type="Script" id=3]
 
 [node name="death_shard" instance=ExtResource( 2 )]
+script = ExtResource( 3 )
 
 [node name="1001" parent="." index="0"]
 material/0 = ExtResource( 1 )
