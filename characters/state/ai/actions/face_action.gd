@@ -5,6 +5,8 @@ const IMPORTANCE: float = 0.10
 
 static func _internal_score(pawn: KinematicBody, event: ai_mind.sight_event) -> float:
 	var target: Spatial = event.body
+	if(target is GridMap): # floor is not very interesting
+		return 0.0
 	if(pawn.dialogue.is_dialogue_active()):
 		return 0.0
 	# todo: raycast if can actually see
