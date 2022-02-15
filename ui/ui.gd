@@ -7,6 +7,8 @@ onready var shield_bar: TextureProgress = $"shield_bar"
 onready var shield_element_icon: TextureRect = $"shield_bar/shield_element_icon"
 onready var focus_bar: TextureProgress = $"focus_bar"
 onready var stamina_bar: TextureProgress = $"stamina_bar"
+onready var pos_temperature_bar: TextureProgress = $"pos_temperature_bar"
+onready var neg_temperature_bar: TextureProgress = $"neg_temperature_bar"
 onready var xp_bar: ProgressBar = $"xp_bar"
 onready var cast_bar: TextureProgress = $"cast_bar"
 onready var slots: Control = $"slots"
@@ -58,6 +60,14 @@ func update_focus(percentage: float):
 
 func update_stamina(percentage: float):
 	stamina_bar.set_value(percentage)
+
+func udpate_temperature(percentage: float):
+	if(percentage < 0):
+		neg_temperature_bar.set_value(-percentage)
+		pos_temperature_bar.set_value(0)
+	else:
+		neg_temperature_bar.set_value(0)
+		pos_temperature_bar.set_value(percentage)
 
 func update_debug(text: String):
 	debug_label.set_text(text)

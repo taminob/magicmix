@@ -10,6 +10,8 @@ onready var skills: Node = $"../skills"
 onready var dialogue: Node = $"../dialogue"
 onready var look: Node = $"../look"
 
+const MAX_TEMPERATURE: float = 100.0
+
 var dead: bool
 var pain: float
 var shield: float
@@ -175,6 +177,7 @@ func save(state_dict: Dictionary):
 	_stats_state["shield_element"] = shield_element
 	_stats_state["focus"] = focus
 	_stats_state["stamina"] = stamina
+	_stats_state["temperature"] = temperature
 	state_dict["stats"] = _stats_state
 
 func init(state_dict: Dictionary):
@@ -188,3 +191,4 @@ func init(state_dict: Dictionary):
 	shield_element = _stats_state.get("shield_element", abstract_spell.element_type.raw) # todo: do not allow raw shield
 	focus = _stats_state.get("focus", 0.0)
 	stamina = _stats_state.get("stamina", 0.0)
+	temperature = _stats_state.get("temperature", 0.0)

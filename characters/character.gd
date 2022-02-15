@@ -102,6 +102,7 @@ func _update_ui():
 		game.mgmt.ui.update_shield_element(stats.shield_element)
 		game.mgmt.ui.update_focus(stats.focus / stats.max_focus())
 		game.mgmt.ui.update_stamina(stats.stamina / stats.max_stamina())
+		game.mgmt.ui.udpate_temperature(stats.temperature / stats.MAX_TEMPERATURE)
 		game.mgmt.ui.update_xp(experience.experience_progress())
 		game.mgmt.ui.update_casttime(skills.current_casttime / skills.current_spell.casttime() if skills.current_spell && skills.current_spell.casttime() > 0.0 else 0.0)
 		game.mgmt.ui.update_slots()
