@@ -17,6 +17,7 @@ var shield_element: int
 var focus: float
 var stamina: float
 var undead: bool
+var temperature: float
 
 func pain_percentage() -> float:
 	return pain / max_pain()

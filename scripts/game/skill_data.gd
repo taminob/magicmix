@@ -25,6 +25,8 @@ var spells = {
 	ice_wave_spell.id(): ice_wave_spell.new(),
 	ice_push_spell.id(): ice_push_spell.new(),
 	ice_ride_spell.id(): ice_ride_spell.new(),
+	freeze_wave_spell.id(): freeze_wave_spell.new(),
+	hail_storm_spell.id(): hail_storm_spell.new(),
 }
 
 # warning-ignore:unused_class_variable

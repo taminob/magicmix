@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://skills/spells/ice/freeze_wave/scene/freeze_wave.gd" type="Script" id=1]
+[ext_resource path="res://world/materials/ice.tres" type="Material" id=2]
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 10, 4, 10 )
+
+[sub_resource type="SphereShape" id=2]
+radius = 3.0
+
+[node name="ice_wave" type="Area"]
+script = ExtResource( 1 )
+
+[node name="sphere" type="CSGSphere" parent="."]
+radius = 3.0
+material = ExtResource( 2 )
+
+[node name="inner" type="CSGSphere" parent="sphere"]
+operation = 2
+radius = 2.5
+material = ExtResource( 2 )
+
+[node name="csg_mesh" type="CSGMesh" parent="sphere"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.39125, 0 )
+operation = 2
+mesh = SubResource( 1 )
+material = ExtResource( 2 )
+
+[node name="csg_mesh2" type="CSGMesh" parent="sphere"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.57691, 0 )
+operation = 2
+mesh = SubResource( 1 )
+material = ExtResource( 2 )
+
+[node name="collision_shape" type="CollisionShape" parent="."]
+shape = SubResource( 2 )
