@@ -21,32 +21,62 @@ navmesh = SubResource( 1 )
 
 [node name="environment" parent="navigation/navigation_mesh_instance" instance=ExtResource( 2 )]
 
+[node name="guenther_spawn" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 38.6696, 0, 4.04013 )
+
 [node name="guenther" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 38.6696, 0, 4.04013 )
+
+[node name="vladimir_spawn" type="Spatial" parent="."]
+transform = Transform( 0.378342, 0, 0.925666, 0, 1, 0, -0.925666, 0, 0.378342, 44.422, 0, 0.923 )
 
 [node name="vladimir" parent="." instance=ExtResource( 1 )]
 transform = Transform( 0.378342, 0, 0.925666, 0, 1, 0, -0.925666, 0, 0.378342, 44.422, 0, 0.923 )
 
+[node name="filz_spawn" type="Spatial" parent="."]
+transform = Transform( -0.0636267, 0, 0.997974, 0, 1, 0, -0.997974, 0, -0.0636267, 42.078, 0, -1.2 )
+
 [node name="filz" parent="." instance=ExtResource( 1 )]
 transform = Transform( -0.0636267, 0, 0.997974, 0, 1, 0, -0.997974, 0, -0.0636267, 42.078, 0, -1.2 )
+
+[node name="mary_spawn" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.242, 0, -15.354 )
 
 [node name="mary" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.242, 0, -15.354 )
 
+[node name="hans_spawn" type="Spatial" parent="."]
+transform = Transform( -0.0646717, 0, -0.997907, 0, 1, 0, 0.997907, 0, -0.0646717, -7.215, 0, -37.457 )
+
 [node name="hans" parent="." instance=ExtResource( 1 )]
 transform = Transform( -0.0646717, 0, -0.997907, 0, 1, 0, 0.997907, 0, -0.0646717, -7.215, 0, -37.457 )
+
+[node name="god_mage_spawn" type="Spatial" parent="."]
+transform = Transform( -0.0646717, 0, -0.997907, 0, 1, 0, 0.997907, 0, -0.0646717, -33.9168, 0, -0.242371 )
 
 [node name="god_mage" parent="." instance=ExtResource( 1 )]
 transform = Transform( -0.0646717, 0, -0.997907, 0, 1, 0, 0.997907, 0, -0.0646717, -33.9168, 0, -0.242371 )
 
+[node name="ice_mage_spawn" type="Spatial" parent="."]
+transform = Transform( -0.0646717, 0, -0.997907, 0, 1, 0, 0.997907, 0, -0.0646717, -36.9264, 0, 2.35838 )
+
 [node name="ice_mage" parent="." instance=ExtResource( 1 )]
 transform = Transform( -0.0646717, 0, -0.997907, 0, 1, 0, 0.997907, 0, -0.0646717, -36.9264, 0, 2.35838 )
+
+[node name="fire_mage_spawn" type="Spatial" parent="."]
+transform = Transform( -0.0646717, 0, -0.997907, 0, 1, 0, 0.997907, 0, -0.0646717, -36.9264, 0, -3.06754 )
 
 [node name="fire_mage" parent="." instance=ExtResource( 1 )]
 transform = Transform( -0.0646717, 0, -0.997907, 0, 1, 0, 0.997907, 0, -0.0646717, -36.9264, 0, -3.06754 )
 
+[node name="darkness_mage_spawn" type="Spatial" parent="."]
+transform = Transform( 0.231595, 0, -0.972813, 0, 1, 0, 0.972813, 0, 0.231595, 30.9903, -4.76837e-07, 71.1452 )
+
 [node name="darkness_mage" parent="." instance=ExtResource( 1 )]
 transform = Transform( 0.231595, 0, -0.972813, 0, 1, 0, 0.972813, 0, 0.231595, 30.9903, -4.76837e-07, 71.1452 )
+
+[node name="life_mage_spawn" type="Spatial" parent="."]
+transform = Transform( -0.259089, 0, -0.965854, 0, 1, 0, 0.965854, 0, -0.259089, 30.882, 0, 67.2981 )
 
 [node name="life_mage" parent="." instance=ExtResource( 1 )]
 transform = Transform( -0.259089, 0, -0.965854, 0, 1, 0, 0.965854, 0, -0.259089, 30.882, 0, 67.2981 )
