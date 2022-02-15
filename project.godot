@@ -122,7 +122,7 @@ _global_script_classes=[ {
 "base": "abstract_spell",
 "class": "collect_death_shards_spell",
 "language": "GDScript",
-"path": "res://skills/spells/darkness/collect_death_shards/collect_death_shards.gd"
+"path": "res://skills/spells/darkness/collect_death_shards.gd"
 }, {
 "base": "abstract_item",
 "class": "dark_potion_item",

@@ -22,6 +22,7 @@ func combinations() -> Array:
 	}]
 
 func self_pain() -> float:
+	return 0.0
 	return 50.0
 
 func self_focus() -> float:

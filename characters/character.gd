@@ -6,6 +6,7 @@ class_name character
 
 onready var collision: CollisionShape = $"collision"
 onready var detect_zone: Area = $"detect_zone"
+onready var ray: RayCast = $"ray"
 
 var spirit: KinematicBody = null
 
@@ -90,7 +91,8 @@ func distance(target: Spatial) -> float:
 	return global_transform.origin.distance_to(target.global_transform.origin)
 
 func face_target(target: Spatial):
-	face_location(target.global_transform.origin)
+	if(target):
+		face_location(target.global_transform.origin)
 
 func face_location(global_location: Vector3):
 	look_at(Vector3(global_location.x, global_transform.origin.y, global_location.z), Vector3.UP)

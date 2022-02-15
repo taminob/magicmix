@@ -59,8 +59,12 @@ func get_near_bodies(radius: float, is_match: FuncRef, in_sight_only: bool=true)
 	for body in pawn.detect_zone.get_overlapping_bodies():
 		if(is_match.call_func(body)):
 			if(in_sight_only):
-				var result = pawn.get_world().direct_space_state.intersect_ray(body.global_transform.origin, pawn.global_body_center())
-				if(!result || result["collider"] != pawn):
+				# todo? still unreliably! maybe multiple raycasts?
+				pawn.ray.set_cast_to(pawn.to_local(body.global_transform.origin))
+				pawn.ray.force_update_transform() # todo: necessary?
+				pawn.ray.force_raycast_update()
+				var result = pawn.ray.get_collider()
+				if(result != body):
 					continue
 			bodies.push_back(body)
 	return bodies
