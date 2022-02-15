@@ -22,6 +22,7 @@ var gravity_direction: Vector3 = Vector3.DOWN
 var velocity: Vector3 = Vector3.ZERO
 var spirit_velocity: Vector3 = Vector3.ZERO
 var immovable: bool = false
+var frozen: bool = false
 var base_speed_factor: float = 1.0
 
 func speed_factor() -> float:
@@ -53,7 +54,7 @@ func stamina_cost(mode: int=current_mode) -> float:
 	return 0.0
 
 func can_move() -> bool:
-	return (!stats.dead || stats.undead || game.levels.current_level_data.is_in_death_realm()) && !immovable
+	return (!stats.dead || stats.undead || game.levels.current_level_data.is_in_death_realm()) && !immovable && !frozen
 
 func is_moving() -> bool:
 	return !input_direction.is_equal_approx(Vector3.ZERO)

@@ -146,6 +146,16 @@ func revive():
 	dead = false
 	state.ai.should_reconsider = true
 
+func _temperature_process(delta: float):
+	if(temperature < -50):
+		move.frozen = true
+		_self_elemental_damage(temperature * 0.25 * delta, abstract_spell.element_type.ice)
+	else:
+		move.frozen = false
+	if(temperature > 50):
+		_self_elemental_damage(temperature * delta, abstract_spell.element_type.fire)
+	temperature -= sign(temperature) * 10 * delta # todo: tweak temperature normalization value
+
 func stats_process(delta: float):
 	stamina = min(stamina + (stamina_per_second() + move.stamina_cost()) * delta, max_stamina())
 	if(stamina < 0):
@@ -154,6 +164,7 @@ func stats_process(delta: float):
 	shield = clamp(shield + shield_per_second() * delta, 0, max_shield())
 	_self_focus_damage(focus_per_second() * delta)
 	_self_raw_damage(pain_per_second() * delta)
+	_temperature_process(delta)
 
 func save(state_dict: Dictionary):
 	var _stats_state = state_dict.get("stats", {})

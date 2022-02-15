@@ -50,6 +50,8 @@ func _physics_process(delta: float):
 			skills.skill_process(delta)
 			dialogue.dialogue_process(delta)
 	else:
+		if(move.frozen):
+			stats.stats_process(delta)
 		move.move_process_dead(delta)
 	look.animations_process(delta)
 	move.collide_process(delta)
