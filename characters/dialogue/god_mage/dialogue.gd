@@ -12,6 +12,7 @@ func init_partners():
 
 func _begin_fight(speaker: character, receiver: character):
 	if(game.mgmt.is_player(speaker) || game.mgmt.is_player(receiver)):
+		game.levels.level_data["arena"].data["enemies"] = ["minion", "minion", "minion", "minion", "minion", "minion", "minion"]
 		game.levels.change_level("arena")
 
 func default_conversation() -> Array:
