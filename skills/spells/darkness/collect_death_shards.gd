@@ -22,8 +22,7 @@ func combinations() -> Array:
 	}]
 
 func self_pain() -> float:
-	return 0.0
-	return 50.0
+	return 25.0
 
 func self_focus() -> float:
 	return 5.0
@@ -34,10 +33,29 @@ func _is_death_shard(body: Node) -> bool:
 const PAIN_PER_SHARD: float = -25.0
 func start_effect(pawn: KinematicBody):
 	var shards: Array = pawn.interaction.get_near_bodies(self.range(), funcref(self, "_is_death_shard"))
+	if(shards.empty()):
+		return
 	pawn.damage(shards.size() * PAIN_PER_SHARD, element_type.raw)
+	var shard_collection: Spatial = pawn.get_node_or_null("shards")
+	if(!shard_collection):
+		shard_collection = Spatial.new()
+		shard_collection.name = "shards"
+		pawn.add_child(shard_collection)
+	else:
+		shards.append_array(shard_collection.get_children())
+
+	var pos: float = -0.5 * (shards.size() - 1)
 	for shard in shards:
 		# todo: animate shard consumption
-		shard.get_parent().queue_free()
+		var shard_parent: Spatial = shard.get_parent()
+		if(shard_parent == shard_collection):
+			shard_parent = shard
+		shard_parent.get_parent().remove_child(shard_parent)
+		shard_parent.translation = Vector3(pos, 1, 1)
+		shard_parent.name = "collected_shard"
+		pos += 1
+		shard_collection.call_deferred("add_child", shard_parent)
+		#shard.get_parent().queue_free()
 
 func casttime() -> float:
 	return 0.5
