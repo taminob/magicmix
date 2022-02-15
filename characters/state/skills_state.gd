@@ -162,13 +162,6 @@ func invert_element(): # todo? remove unused function
 			pass
 
 func skill_process(delta: float):
-	stats.stamina = min(stats.stamina + (stats.stamina_per_second() + move.stamina_cost()) * delta, stats.max_stamina())
-	if(stats.stamina < 0):
-		move.current_mode = move_state.move_mode.RUNNING
-		stats.stamina = 0
-	stats.shield = clamp(stats.shield + stats.shield_per_second() * delta, 0, stats.max_shield())
-	stats._self_focus_damage(stats.focus_per_second() * delta)
-	stats._self_raw_damage(stats.pain_per_second() * delta)
 	_casttime_process(delta)
 	_cooldowns_process(delta)
 	_active_spells_process(delta)

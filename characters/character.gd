@@ -46,6 +46,7 @@ func _physics_process(delta: float):
 	if(move.can_move()):
 		move.move_process(delta)
 		if(!state.is_spirit):
+			stats.stats_process(delta)
 			skills.skill_process(delta)
 			dialogue.dialogue_process(delta)
 	else:

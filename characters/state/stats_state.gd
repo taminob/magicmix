@@ -4,6 +4,7 @@ class_name stats_state
 
 onready var state: Node = get_parent()
 onready var pawn: KinematicBody = $"../.."
+onready var move: Node = $"../move"
 onready var experience: Node = $"../experience"
 onready var skills: Node = $"../skills"
 onready var dialogue: Node = $"../dialogue"
@@ -143,6 +144,15 @@ func revive():
 	pain = 0.0
 	dead = false
 	state.ai.should_reconsider = true
+
+func stats_process(delta: float):
+	stamina = min(stamina + (stamina_per_second() + move.stamina_cost()) * delta, max_stamina())
+	if(stamina < 0):
+		move.current_mode = move_state.move_mode.RUNNING
+		stamina = 0
+	shield = clamp(shield + shield_per_second() * delta, 0, max_shield())
+	_self_focus_damage(focus_per_second() * delta)
+	_self_raw_damage(pain_per_second() * delta)
 
 func save(state_dict: Dictionary):
 	var _stats_state = state_dict.get("stats", {})
