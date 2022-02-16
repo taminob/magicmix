@@ -10,6 +10,14 @@ static func _spell_id() -> String:
 static func _spell() -> abstract_spell:
 	return skill_data.spells[_spell_id()]
 
+static func _spell_score(pawn: KinematicBody) -> float:
+	var spell: abstract_spell = _spell()
+	var focus_score: float = 1 - (-spell.self_focus() / pawn.stats.focus) if pawn.stats.focus > 0 else 0
+	var focus_after_cast: float = pawn.stats.focus - spell.self_focus()
+	var duration_score: float = (focus_after_cast / -spell.self_focus_per_second()) / spell.duration()
+	var pain_score: float = clamp(pawn.stats.pain_percentage(), 0.5, 0.75)
+	return focus_score * duration_score * pain_score
+
 static func _internal_score(pawn: KinematicBody, event: ai_mind.sight_event) -> float:
 	var target: Spatial = event.body
 	if(!target.has_method("damage")):
@@ -20,16 +28,13 @@ static func _internal_score(pawn: KinematicBody, event: ai_mind.sight_event) -> 
 	if(game.is_character(target.name)):
 		aggression -= pawn.dialogue.get_relation(target.name)
 	var spell: abstract_spell = _spell()
-	var focus: float = pawn.stats.focus
-	focus -= spell.self_focus()
 	# todo: casttime score
 	var dist_score: float = _distance_range_score(pawn, target, [spell.range() - DISTANCE_TOLERANCE, spell.range() + DISTANCE_TOLERANCE], 1.0)
-	var duration_score: float = (focus / -spell.self_focus_per_second()) / spell.duration()
 	var element_score: float = 1.0
 	if("stats" in target):
 		if(spell.target_element() == target.stats.shield_element):
 			element_score -= target.stats.shield_percentage() * SHIELD_IMPACT
-	var score: float = aggression * dist_score * duration_score * element_score
+	var score: float = aggression * dist_score * element_score * _spell_score(pawn)
 	return clamp(score, 0.0, 1.0) * IMPORTANCE
 
 static func score(pawn: KinematicBody) -> Dictionary:

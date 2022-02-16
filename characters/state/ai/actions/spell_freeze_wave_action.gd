@@ -4,7 +4,7 @@ const SHIELD_IMPACT: float = 0.2
 const IMPORTANCE: float = 0.85
 
 static func _spell_id() -> String:
-	return ice_push_spell.id()
+	return freeze_wave_spell.id()
 
 static func _spell() -> abstract_spell:
 	return skill_data.spells[_spell_id()]
@@ -25,12 +25,13 @@ static func _internal_score(pawn: KinematicBody, event: ai_mind.sight_event) -> 
 	if(game.is_character(target.name)):
 		aggression -= pawn.dialogue.get_relation(target.name)
 	var spell: abstract_spell = _spell()
-	var dist_score: float = _distance_score(pawn, target, spell.range())
+	var dist_score: float = _distance_score(pawn, target, spell.range(), 3)
 	var element_score: float = 1.0
 	if("stats" in target):
 		if(spell.target_element() == target.stats.shield_element):
 			element_score -= target.stats.shield_percentage() * SHIELD_IMPACT
-	var score: float = aggression * dist_score * element_score * _spell_score(pawn)
+	var temperature_score: float = target.stats.temperature <= 0.0 && target.stats.temperature > -50.0
+	var score: float = aggression * dist_score * element_score * temperature_score * _spell_score(pawn)
 	return clamp(score, 0.0, 1.0) * IMPORTANCE
 
 static func score(pawn: KinematicBody) -> Dictionary:
