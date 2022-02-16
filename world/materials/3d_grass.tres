@@ -5,8 +5,6 @@
 [sub_resource type="OpenSimplexNoise" id=1]
 
 [sub_resource type="NoiseTexture" id=2]
-width = 4096
-height = 4096
 seamless = true
 noise = SubResource( 1 )
 
@@ -17,4 +15,4 @@ shader_param/color_noise_lod = 0.0
 shader_param/color_noise_scale = 5.0
 shader_param/grass_height = 0.9
 shader_param/grass_amount = 2000.0
-shader_param/color_noise = SubResource( 2 )
+shader_param/noise = SubResource( 2 )

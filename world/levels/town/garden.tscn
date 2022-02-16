@@ -11,13 +11,11 @@ size = Vector2( 31, 30 )
 subdivide_width = 1000
 subdivide_depth = 1000
 
-[sub_resource type="OpenSimplexNoise" id=1]
+[sub_resource type="OpenSimplexNoise" id=20]
 
-[sub_resource type="NoiseTexture" id=2]
-width = 4096
-height = 4096
+[sub_resource type="NoiseTexture" id=21]
 seamless = true
-noise = SubResource( 1 )
+noise = SubResource( 20 )
 
 [sub_resource type="ShaderMaterial" id=17]
 shader = ExtResource( 1 )
@@ -26,7 +24,7 @@ shader_param/color_noise_lod = 0.0
 shader_param/color_noise_scale = 5.0
 shader_param/grass_height = 0.4
 shader_param/grass_amount = 2000.0
-shader_param/color_noise = SubResource( 2 )
+shader_param/noise = SubResource( 21 )
 
 [sub_resource type="BoxShape" id=19]
 extents = Vector3( 15.5, 0.1, 15 )
