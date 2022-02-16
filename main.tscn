@@ -21,6 +21,7 @@ autoplay = true
 bus = "Music"
 
 [node name="world_container" type="ViewportContainer" parent="."]
+pause_mode = 2
 material = ExtResource( 5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -34,6 +35,7 @@ __meta__ = {
 }
 
 [node name="viewport" type="Viewport" parent="world_container"]
+pause_mode = 1
 size = Vector2( 3840, 2160 )
 handle_input_locally = false
 msaa = 2

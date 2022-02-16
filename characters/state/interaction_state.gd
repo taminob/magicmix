@@ -31,8 +31,6 @@ func consume(item: String, remove_from_inventory: bool=true):
 
 func toggle_spirit():
 	state.is_spirit = !state.is_spirit
-	# todo: pause when entering spirit mode; do not use pause_mode, causes problems with input; solution maybe introducing pause_game in game.mgmt
-	game.mgmt.time_paused = !game.mgmt.time_paused
 
 	if(state.is_spirit):
 		pawn.spirit = load("res://characters/spirit.tscn").instance()
@@ -41,17 +39,23 @@ func toggle_spirit():
 		pawn.spirit.pawn = pawn
 		pawn.get_parent().add_child(pawn.spirit)
 		if(state.is_player):
-			var spirit_camera = load("res://characters/player/camera.tscn").instance()
+			var spirit_camera: Spatial = load("res://characters/player/camera.tscn").instance()
 			spirit_camera.set_name("spirit_camera")
 			spirit_camera.rotation_axes = Vector2(1, 1)
 			pawn.spirit.add_child(spirit_camera)
 			spirit_camera.make_current()
+			pawn.pause_mode = PAUSE_MODE_PROCESS
+			pawn.spirit.pause_mode = PAUSE_MODE_PROCESS
+			spirit_camera.pause_mode = PAUSE_MODE_PROCESS
+			get_tree().paused = true
 	else:
 		pawn.spirit.queue_free()
 		pawn.spirit = null
 		move.spirit_velocity = Vector3.ZERO
 		if(state.is_player):
 			game.mgmt.camera.make_current()
+			get_tree().paused = false
+			pawn.pause_mode = PAUSE_MODE_INHERIT
 
 func get_near_bodies(radius: float, is_match: FuncRef, in_sight_only: bool=true) -> Array:
 	pawn.detect_zone.get_node("collision").shape.radius = radius
