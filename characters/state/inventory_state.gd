@@ -84,10 +84,10 @@ func save(state_dict: Dictionary):
 
 var DEFAULT_SPELL_SLOTS: Dictionary = {
 	abstract_spell.element_type.raw: ["", "", "", "", ""],
-	abstract_spell.element_type.life: ["element_shield", "heal", "summon_minion", "platform", "invert_gravity"],
+	abstract_spell.element_type.life: ["element_shield", "heal", "", "platform", "invert_gravity"],
 	abstract_spell.element_type.fire: ["element_shield", "flaming_heels", "fire_ball", "fire_storm", "fire_ring"],
 	abstract_spell.element_type.ice: ["element_shield", "ice_ride", "ice_ball", "ice_wave", "ice_push"],
-	abstract_spell.element_type.darkness: ["element_shield", "blood_dash", "collect_death_shards", "", ""],
+	abstract_spell.element_type.darkness: ["element_shield", "blood_dash", "collect_death_shards", "shoot_death_shards_spell", "summon_minion"],
 }
 func init(state_dict: Dictionary):
 	var _inventory_state = state_dict.get("inventory", {})

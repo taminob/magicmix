@@ -28,7 +28,7 @@ func self_focus() -> float:
 	return 5.0
 
 func _is_death_shard(body: Node) -> bool:
-	return body.get_parent().get("is_uncollected_death_shard")
+	return body.get("is_uncollected_death_shard")
 
 const PAIN_PER_SHARD: float = -25.0
 func start_effect(pawn: KinematicBody):
@@ -48,14 +48,11 @@ func start_effect(pawn: KinematicBody):
 	var pos: float = -distance / 2 * (shards.size() - 1)
 	for shard in shards:
 		# todo: animate shard consumption
-		var shard_parent: Spatial = shard.get_parent()
-		if(shard_parent == shard_collection):
-			shard_parent = shard
-		shard_parent.get_parent().remove_child(shard_parent)
-		shard_parent.translation = Vector3(pos, 1, 0.6)
+		shard.get_parent().remove_child(shard)
+		shard.translation = Vector3(pos, 1, 0.6)
 		pos += distance
-		shard_parent.pick_up()
-		shard_collection.call_deferred("add_child", shard_parent)
+		shard.pick_up(pawn)
+		shard_collection.call_deferred("add_child", shard)
 
 func casttime() -> float:
 	return 0.5

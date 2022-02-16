@@ -12,6 +12,7 @@ var spells = {
 	platform_spell.id(): platform_spell.new(),
 	summon_minion_spell.id(): summon_minion_spell.new(),
 	collect_death_shards_spell.id(): collect_death_shards_spell.new(),
+	shoot_death_shards_spell.id(): shoot_death_shards_spell.new(),
 	blood_dash_spell.id(): blood_dash_spell.new(),
 	blood_heal_spell.id(): blood_heal_spell.new(),
 	blood_sacrifice_spell.id(): blood_sacrifice_spell.new(),

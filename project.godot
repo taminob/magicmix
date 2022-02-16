@@ -389,6 +389,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://skills/skills/ice/shield_stance.gd"
 }, {
+"base": "abstract_spell",
+"class": "shoot_death_shards_spell",
+"language": "GDScript",
+"path": "res://skills/spells/darkness/shoot_death_shards.gd"
+}, {
 "base": "Node",
 "class": "skills_state",
 "language": "GDScript",
@@ -536,6 +541,7 @@ _global_script_class_icons={
 "platform_spell": "",
 "shield_sprint_skill": "",
 "shield_stance_skill": "",
+"shoot_death_shards_spell": "",
 "skills_state": "",
 "spell_expander": "",
 "spell_spawner": "",
