@@ -28,7 +28,9 @@ func self_focus() -> float:
 	return 5.0
 
 func start_effect(pawn: KinematicBody):
-	pawn.move.velocity = -pawn.global_transform.basis.z * 200
+	#pawn.move.velocity = -pawn.global_transform.basis.z * 200
+	#pawn.move.velocity = Vector3.ZERO
+	pawn.global_transform.origin += -pawn.global_transform.basis.z * self.range()
 
 func casttime() -> float:
 	return 0.0
@@ -40,7 +42,7 @@ func duration() -> float:
 	return 0.75
 
 func range() -> float:
-	return 10.0
+	return 20.0
 
 func icon() -> Resource:
 	return load(SPELL_ICONS_PATH + "blood_scratch-512.png")

@@ -97,7 +97,7 @@ _global_script_classes=[ {
 "base": "abstract_spell",
 "class": "blood_dash_spell",
 "language": "GDScript",
-"path": "res://skills/spells/blood/blood_dash/blood_dash.gd"
+"path": "res://skills/spells/blood/blood_dash.gd"
 }, {
 "base": "abstract_spell",
 "class": "blood_heal_spell",
