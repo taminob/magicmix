@@ -31,6 +31,10 @@ var commands = {
 		"handler": funcref(self, "control_handler"),
 		"possible": game.char_data.keys()
 	},
+	"spawn": {
+		"handler": funcref(self, "spawn_handler"),
+		"possible": game.char_data.keys()
+	},
 	"respawn": {
 		"handler": funcref(self, "respawn_handler")
 	},
@@ -63,12 +67,28 @@ func load_handler(level_id: String=game.levels.current_level_data.id()):
 		game.mgmt.player.revive()
 	game.levels.change_level(level_id)
 
+func spawn_handler(character_id: String):
+	if(game.get_character(character_id)):
+		errors.debug_output(character_id + " already exists!")
+		return
+	var is_in_death_realm: bool = game.levels.current_level_data.is_in_death_realm()
+	var char_data: Dictionary = game.get_character_data(character_id)
+	if(char_data.has("stats")):
+		if(!char_data["stats"].get("undead", false)):
+			char_data["stats"]["dead"] = is_in_death_realm
+	else:
+		char_data["stats"] = {"dead": is_in_death_realm}
+	var spawn_pos: Vector3 = game.mgmt.player.global_transform.origin + 2.0 * Vector3.FORWARD
+	var new_char: KinematicBody = game.mgmt.create_character(character_id)
+	new_char.global_transform.origin = spawn_pos
+	game.levels.current_level.add_child(new_char)
+
 func respawn_handler():
 	var spawn = game.levels.current_level.get_node_or_null("player_spawn")
 	if(spawn):
-		game.mgmt.player.transform = spawn.transform
+		game.mgmt.player.global_transform = spawn.global_transform
 	else:
-		game.mgmt.player.transform = Transform.IDENTITY
+		game.mgmt.player.global_transform = Transform.IDENTITY
 
 func quit_handler(force: bool=false):
 	if(!force):
