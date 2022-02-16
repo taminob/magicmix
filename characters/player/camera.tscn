@@ -17,3 +17,4 @@ spring_length = 5.0
 
 [node name="player_camera" type="Camera" parent="spring_arm"]
 environment = ExtResource( 2 )
+far = 200.0
