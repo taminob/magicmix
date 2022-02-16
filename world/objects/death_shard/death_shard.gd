@@ -25,4 +25,5 @@ func pick_up():
 	if(is_uncollected_death_shard):
 		is_uncollected_death_shard = false
 		body.collision_layer = game.mgmt.layer.spirits
+		body.collision_mask = game.mgmt.layer.spells
 		self.scale *= 0.33
