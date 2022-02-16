@@ -9,7 +9,11 @@ static func _internal_score(pawn: KinematicBody, event: ai_mind.sight_event) -> 
 		return 0.0
 	if(pawn.dialogue.is_dialogue_active()):
 		return 0.0
-	# todo: raycast if can actually see
+	pawn.ray.set_cast_to(pawn.to_local(target.global_transform.origin))
+	pawn.ray.force_raycast_update()
+	var result = pawn.ray.get_collider()
+	if(result != target):
+		return 0.0
 	var base_score: float = 0.0
 	if(game.is_character(target.name)):
 		base_score += abs(pawn.dialogue.get_relation(target.name)) / 10.0

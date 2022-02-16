@@ -9,8 +9,8 @@ static func _internal_score(pawn: KinematicBody, event: ai_mind.sight_event) -> 
 		return 0.0
 	if(!pawn.dialogue.data.wants_to_talk_to.has(target.name)):
 		return 0.0
-	if(pawn.dialogue.is_dialogue_active()):
-		return 0.0 # todo: decide if ai should be able to abort dialogue
+	if(pawn.dialogue.is_dialogue_active() || target.dialogue.is_dialogue_active()):
+		return 0.0 # todo: decide if ai should be able to abort/interrupt dialogue
 	var dist: float = _distance_score(pawn, target, MAX_DISTANCE, 1.0)
 	var rot: float = _rotate_score(pawn, target, 3.0)
 	return dist * max(rot, 0.5) * IMPORTANCE
