@@ -1,10 +1,18 @@
 extends Spatial
 
 const ROTATION_SPEED: float = 2.0
-const Y_OFFSET_SPEED: float = 10.0
+const Y_OFFSET_SPEED: float = 0.5
 const Y_OFFSET_HEIGHT: float = 0.05
-var time: float = 0
-func _process(delta: float):
+
+var offset_y: float = 0
+var up: bool = true
+
+func _physics_process(delta: float):
 	rotate_y(ROTATION_SPEED * delta)
-	time += delta
-	translate(Vector3(0, sin(time * Y_OFFSET_SPEED) * Y_OFFSET_HEIGHT, 0))
+	if(up):
+		offset_y += Y_OFFSET_SPEED * delta
+	else:
+		offset_y -= Y_OFFSET_SPEED * delta
+	if(abs(offset_y) >= Y_OFFSET_HEIGHT):
+			up = !up
+	translate(Vector3(0, offset_y, 0))

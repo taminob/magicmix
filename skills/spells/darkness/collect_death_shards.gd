@@ -44,16 +44,19 @@ func start_effect(pawn: KinematicBody):
 	else:
 		shards.append_array(shard_collection.get_children())
 
-	var pos: float = -0.5 * (shards.size() - 1)
+	var distance: float = 0.75
+	var pos: float = -distance / 2 * (shards.size() - 1)
 	for shard in shards:
 		# todo: animate shard consumption
 		var shard_parent: Spatial = shard.get_parent()
 		if(shard_parent == shard_collection):
 			shard_parent = shard
+		else:
+			shard_parent.scale *= 0.33
 		shard_parent.get_parent().remove_child(shard_parent)
-		shard_parent.translation = Vector3(pos, 1, 1)
+		shard_parent.translation = Vector3(pos, 1, 0.6)
 		shard_parent.name = "collected_shard"
-		pos += 1
+		pos += distance
 		shard_collection.call_deferred("add_child", shard_parent)
 		#shard.get_parent().queue_free()
 
