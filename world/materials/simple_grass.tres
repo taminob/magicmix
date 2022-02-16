@@ -3,15 +3,16 @@
 [ext_resource path="res://world/shaders/grass.shader" type="Shader" id=1]
 
 [sub_resource type="OpenSimplexNoise" id=1]
+period = 2.5
+lacunarity = 4.0
 
 [sub_resource type="NoiseTexture" id=2]
-width = 2048
-height = 2048
-seamless = true
+width = 128
+height = 128
 noise = SubResource( 1 )
 
 [resource]
 shader = ExtResource( 1 )
 shader_param/noise_lod = 0.0
-shader_param/noise_scale = 5.0
+shader_param/noise_scale = 1.0
 shader_param/noise = SubResource( 2 )
