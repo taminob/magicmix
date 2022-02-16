@@ -12,13 +12,13 @@ func description() -> String:
 	return "Summon a minion that will fight for your cause!"
 
 func category() -> String:
-	return "life"
+	return "darkness"
 
 func combinations() -> Array:
 	return [{
 		"target": "self",
 		"type": "attack",
-		"elements": ["life", "life", "life"]
+		"elements": ["darkness", "darkness", "life"]
 	}]
 
 func self_pain() -> float:

@@ -427,7 +427,7 @@ _global_script_classes=[ {
 "base": "abstract_spell",
 "class": "summon_minion_spell",
 "language": "GDScript",
-"path": "res://skills/spells/life/summon_minion.gd"
+"path": "res://skills/spells/darkness/summon_minion.gd"
 }, {
 "base": "abstract_skill",
 "class": "taint_fire_skill",
