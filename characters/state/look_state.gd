@@ -38,10 +38,10 @@ func _set_mesh(path: String=_default_mesh_path):
 
 func _update_collision():
 	var body_size: Vector2 = mesh.get_size()
+	pawn.collision.shape = CapsuleShape.new()
 	pawn.collision.shape.radius = body_size.x / 2
 	# todo? rotate collision if width > height
-	var width: float = pawn.collision.shape.radius * 2
-	pawn.collision.shape.height = body_size.y - width
+	pawn.collision.shape.height = body_size.y - body_size.x
 	pawn.collision.translation.y = body_size.y / 2
 
 func save(state_dict: Dictionary):
