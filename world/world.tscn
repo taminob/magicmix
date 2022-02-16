@@ -30,12 +30,21 @@ material/0 = null
 [node name="CollisionShape" type="CollisionShape" parent="ground"]
 shape = SubResource( 2 )
 
-[node name="area" type="Area" parent="."]
+[node name="area_down" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -200, 0 )
 collision_layer = 2
 collision_mask = 63
 
-[node name="collision" type="CollisionShape" parent="area"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -200, 0 )
+[node name="collision" type="CollisionShape" parent="area_down"]
 shape = SubResource( 3 )
 
-[connection signal="body_entered" from="area" to="." method="_on_area_body_entered"]
+[node name="area_up" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 200, 0 )
+collision_layer = 2
+collision_mask = 63
+
+[node name="collision" type="CollisionShape" parent="area_up"]
+shape = SubResource( 3 )
+
+[connection signal="body_entered" from="area_down" to="." method="_on_fall_area_entered" binds= [ false ]]
+[connection signal="body_entered" from="area_up" to="." method="_on_fall_area_entered" binds= [ true ]]

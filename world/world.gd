@@ -1,21 +1,42 @@
 extends Spatial
 
-var fallen_objects = []
-var fallen_characters = []
+var fallen_up_objects: Array = []
+var fallen_down_objects: Array = []
+var fallen_up_characters: Array = []
+var fallen_down_characters: Array = []
 
-func _on_area_body_entered(body: Node):
+func _on_fall_area_entered(body: Node, up: bool):
 	if(body):
 		if(body is character):
-			fallen_characters.append(body)
+			if(up):
+				fallen_up_characters.append(body)
+			else:
+				fallen_down_characters.append(body)
 			if(game.mgmt.is_player(body)):
-				if(game.levels.current_level_data.is_in_death_realm() || body.stats.undead):
-					var spawn = game.levels.current_level.get_node_or_null("player_spawn")
-					if(spawn):
-						body.translation = spawn.translation
-					else:
-						errors.debug_assert(false, "no player_spawn found in " + game.levels.current_level_data.id())
-					#game.levels.change_level(game.levels.current_level_data.id())
-				else:
-					body.die() # todo: implement spawn to other levels; implement reset in death realm (already dead)
+				_player_fallen(up)
+			else:
+				body.die() # todo: implement spawn to other levels; implement reset in death realm (already dead)
 		else:
-			fallen_objects.append(body)
+			if(up):
+				fallen_up_objects.append(body)
+			else:
+				fallen_down_objects.append(body)
+			body.queue_free()
+
+func _player_fallen(up: bool):
+	var body: KinematicBody = game.mgmt.player
+	if(up):
+		if(game.levels.current_level_data.is_in_death_realm()):
+			game.levels.change_level("death_arena")
+	else:
+		if(game.levels.current_level_data.is_in_death_realm() || body.stats.undead):
+			_reset_body(body)
+		else:
+			body.die()
+
+func _reset_body(body: Node):
+	var spawn = game.levels.get_spawn(body.name)
+	if(spawn):
+		body.translation = spawn.translation
+	else:
+		errors.debug_output("no spawn found in " + game.levels.current_level_data.id() + " for " + body.name)
