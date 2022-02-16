@@ -78,7 +78,7 @@ func _cast_current_spell():
 	current_spell = null
 
 func can_cast(spell_id: String, ignore_owned: bool=false) -> bool:
-	if(!ignore_owned && !inventory.spells.has(spell_id)):
+	if(!ignore_owned && !inventory.spells.has(spell_id) && !settings.get_setting("dev", "everyone_has_every_skill")):
 		return false
 	# TODO? make cast interruptable? only by different spells?
 	if(current_spell || cooldowns.get(spell_id, 0.0) > 0.0):
