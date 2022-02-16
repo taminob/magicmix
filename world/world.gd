@@ -21,7 +21,7 @@ func _on_fall_area_entered(body: Node, up: bool):
 				fallen_up_objects.append(body)
 			else:
 				fallen_down_objects.append(body)
-			body.queue_free()
+			body.queue_free() # todo: can cause double free issue with e.g. platform_spell
 
 func _player_fallen(up: bool):
 	var body: KinematicBody = game.mgmt.player

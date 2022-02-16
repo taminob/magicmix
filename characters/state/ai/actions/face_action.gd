@@ -11,7 +11,7 @@ static func _internal_score(pawn: KinematicBody, event: ai_mind.sight_event) -> 
 		return 0.0
 	pawn.ray.set_cast_to(pawn.to_local(target.global_transform.origin))
 	pawn.ray.force_raycast_update()
-	var result = pawn.ray.get_collider()
+	var result: Object = pawn.ray.get_collider()
 	if(result != target):
 		return 0.0
 	var base_score: float = 0.0
