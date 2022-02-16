@@ -119,7 +119,7 @@ func collide_process(delta: float):
 	var max_axis: float = util.max(d_x, d_y, d_z)
 	var threshold: float = 600.0
 	if(max_axis > threshold):
-		var dmg = pow((max_axis - threshold*0.8)/100, 2)
+		var dmg: float = pow(2, (max_axis - threshold * 0.9) / 200)
 		errors.debug_output("impact: " + str(max_axis) + "; pain: " + str(dmg) + "; velo: " + str(velocity) + "; last: " + str(last_speed))
 		if(!pawn.skills.is_spell_active(blood_dash_spell.id())):
 			stats._self_raw_damage(dmg)
