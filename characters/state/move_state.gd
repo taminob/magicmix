@@ -6,6 +6,7 @@ onready var state: Node = get_parent()
 onready var pawn: KinematicBody = $"../.."
 #onready var skills: Node = $"../skills" # TODO! fix cylic include, currently circumvented by pawn.skills
 onready var stats: Node = $"../stats"
+onready var dialogue: Node = $"../dialogue"
 
 const RUN_SPEED: float = 10.0
 const WALK_SPEED: float = 7.0
@@ -55,6 +56,11 @@ func stamina_cost(mode: int=current_mode) -> float:
 
 func can_move() -> bool:
 	return (!stats.dead || stats.undead || game.levels.current_level_data.is_in_death_realm()) && !immovable && !frozen
+
+func set_frozen(new_frozen: bool):
+	frozen = new_frozen
+	if(frozen):
+		dialogue.end_dialogue()
 
 func is_moving() -> bool:
 	return !input_direction.is_equal_approx(Vector3.ZERO)

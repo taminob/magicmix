@@ -26,7 +26,7 @@ func _ready():
 	_steps_since_consider = 0
 
 func _process(delta: float):
-	if(state.is_player || (stats.dead && !stats.undead && !game.levels.current_level_data.is_in_death_realm())):
+	if(state.is_player || (stats.dead && !stats.undead && !game.levels.current_level_data.is_in_death_realm()) || move.frozen):
 		return
 	brain.process_mind(delta)
 	machine.process_state(delta)

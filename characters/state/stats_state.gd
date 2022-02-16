@@ -148,11 +148,11 @@ func revive():
 
 func _temperature_process(delta: float):
 	if(temperature < -50):
-		move.frozen = true
+		move.set_frozen(true)
 		look.update_look()
 		_self_elemental_damage(temperature * 0.25 * delta, abstract_spell.element_type.ice)
 	elif(move.frozen):
-		move.frozen = false
+		move.set_frozen(false)
 		look.update_look()
 	if(temperature > 50):
 		_self_elemental_damage(temperature * delta, abstract_spell.element_type.fire)
