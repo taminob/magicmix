@@ -30,8 +30,14 @@ func target_element() -> int:
 func target_focus() -> float:
 	return -15.0
 
+func casttime() -> float:
+	return 1.0
+
+func cooldown() -> float:
+	return 10.0
+
 func duration() -> float:
-	return 7.5
+	return 0.5
 
 func range() -> float:
 	return 10.0
