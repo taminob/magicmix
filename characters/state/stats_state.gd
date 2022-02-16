@@ -150,7 +150,7 @@ func _temperature_process(delta: float):
 	if(temperature < -50):
 		move.set_frozen(true)
 		look.update_look()
-		_self_elemental_damage(temperature * 0.25 * delta, abstract_spell.element_type.ice)
+		_self_elemental_damage(-temperature * 0.1 * delta, abstract_spell.element_type.ice)
 	elif(move.frozen):
 		move.set_frozen(false)
 		look.update_look()

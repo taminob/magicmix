@@ -162,6 +162,9 @@ func invert_element(): # todo? remove unused function
 
 func skill_process(delta: float):
 	_casttime_process(delta)
+	skill_process_frozen(delta)
+
+func skill_process_frozen(delta: float):
 	_cooldowns_process(delta)
 	_active_spells_process(delta)
 	_active_skills_process(delta)
