@@ -38,6 +38,10 @@ var commands = {
 	"respawn": {
 		"handler": funcref(self, "respawn_handler")
 	},
+	"kill": {
+		"handler": funcref(self, "kill_handler"),
+		"possible": game.char_data.keys()
+	},
 	"give_all": {
 		"handler": funcref(self, "give_all_handler")
 	}
@@ -87,6 +91,13 @@ func spawn_handler(character_id: String):
 	var new_char: KinematicBody = game.mgmt.create_character(character_id)
 	game.levels.current_level.add_child(new_char)
 	new_char.global_transform.origin = spawn_pos
+
+func kill_handler(character_id: String):
+	var target: KinematicBody = game.get_character(character_id)
+	if(target):
+		target.die()
+	else:
+		errors.debug_output(character_id + " is not spawned!")
 
 func respawn_handler():
 	var spawn = game.levels.current_level.get_node_or_null("player_spawn")
