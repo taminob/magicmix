@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://world/textures/smoke/smoke_atlas-12x1-512x512.png" type="Texture" id=1]
+[ext_resource path="res://world/textures/smoke/smoke_atlas-12x1-128x128.png" type="Texture" id=1]
 [ext_resource path="res://world/materials/ice.tres" type="Material" id=2]
 
 [sub_resource type="SphereShape" id=1]

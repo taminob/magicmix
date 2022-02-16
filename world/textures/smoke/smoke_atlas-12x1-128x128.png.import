@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/smoke_atlas-12x1-512x512.png-0b4f282d78e359b82bf81c5bd418bdad.stex"
+path="res://.import/smoke_atlas-12x1-128x128.png-a10f151076446c0d4d018b18ab66b2db.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://world/textures/smoke/smoke_atlas-12x1-512x512.png"
-dest_files=[ "res://.import/smoke_atlas-12x1-512x512.png-0b4f282d78e359b82bf81c5bd418bdad.stex" ]
+source_file="res://world/textures/smoke/smoke_atlas-12x1-128x128.png"
+dest_files=[ "res://.import/smoke_atlas-12x1-128x128.png-a10f151076446c0d4d018b18ab66b2db.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false
