@@ -46,16 +46,16 @@ func max_stamina() -> float:
 	return experience.endurance
 
 func pain_per_second() -> float:
-	return experience.sturdiness * focus_percentage() * -3
+	return focus_percentage() * -3
 
 func shield_per_second() -> float:
 	return -0.2 * max_shield() # todo: balance shield gain
 
 func focus_per_second() -> float:
-	return experience.concentration * (1 - pain_percentage()) * 6
+	return (1 - pain_percentage()) * 6
 
 func stamina_per_second() -> float:
-	return experience.endurance * focus_percentage() * 6
+	return focus_percentage() * 6
 
 func die(save_state: bool=true):
 	pain = max_pain()
