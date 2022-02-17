@@ -20,11 +20,11 @@ func _init():
 			"job": "guard",
 		},
 		"experience": {
-			"intelligence": 1,
-			"strength": 1,
-			"sturdiness": 1,
-			"concentration": 1,
-			"endurance": 1
+			"intelligence": 30,
+			"strength": 65,
+			"sturdiness": 150,
+			"concentration": 125,
+			"endurance": 100
 		},
 		"inventory": {
 			"skills": ["base_fire", "base_ice", "element_shield"]

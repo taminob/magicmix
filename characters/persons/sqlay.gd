@@ -17,11 +17,11 @@ func _init():
 			"dead": false # TODO (DEBUG): true
 		},
 		"experience": {
-			"intelligence": 1,
-			"strength": 1,
-			"sturdiness": 1,
-			"concentration": 1,
-			"endurance": 1
+			"intelligence": 10,
+			"strength": 10,
+			"sturdiness": 100,
+			"concentration": 100,
+			"endurance": 100
 		},
 		"inventory": {
 			"spells": ["blood_sacrifice"]

@@ -16,12 +16,12 @@ func _init():
 		"experience": {
 			"intelligence": 1,
 			"strength": 1,
-			"sturdiness": 1,
-			"concentration": 1,
-			"endurance": 1
+			"sturdiness": 25,
+			"concentration": 50,
+			"endurance": 1000
 		},
 		"inventory": {
-			"spells": ["fire_ball", "heal"],
+			"spells": ["fire_ball", "ice_ball"],
 		},
 		"look": {
 			"mesh_path": "res://characters/meshes/minion/body.tscn",

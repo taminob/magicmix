@@ -14,11 +14,11 @@ func _init():
 			"gender": "ocelot"
 		},
 		"experience": {
-			"intelligence": 1,
-			"strength": 1,
-			"sturdiness": 1,
-			"concentration": 1,
-			"endurance": 1
+			"intelligence": 10,
+			"strength": 10,
+			"sturdiness": 120,
+			"concentration": 120,
+			"endurance": 120
 		},
 		"inventory": {
 			"spells": ["blood_sacrifice"]

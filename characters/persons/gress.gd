@@ -23,11 +23,11 @@ func _init():
 			"dead": true
 		},
 		"experience": {
-			"intelligence": 1,
-			"strength": 1,
-			"sturdiness": 1,
-			"concentration": 1,
-			"endurance": 1
+			"intelligence": 50,
+			"strength": 40,
+			"sturdiness": 300,
+			"concentration": 500,
+			"endurance": 300
 		},
 		"inventory": {
 			"spells": ["fire_ring", "blood_sacrifice", "heal", "blood_storm"],

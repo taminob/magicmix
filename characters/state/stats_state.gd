@@ -34,16 +34,16 @@ func stamina_percentage() -> float:
 	return stamina / max_stamina()
 
 func max_pain() -> float:
-	return experience.sturdiness * 100.0
+	return experience.sturdiness
 
 func max_shield() -> float:
-	return min(experience.sturdiness, experience.concentration) * 50.0
+	return min(experience.sturdiness, experience.concentration)
 
 func max_focus() -> float:
-	return experience.concentration * 100.0
+	return experience.concentration
 
 func max_stamina() -> float:
-	return experience.endurance * 100.0
+	return experience.endurance
 
 func pain_per_second() -> float:
 	return experience.sturdiness * focus_percentage() * -3

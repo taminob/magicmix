@@ -15,11 +15,11 @@ func _init():
 			"job": "mage"
 		},
 		"experience": {
-			"intelligence": 10,
-			"strength": 3,
-			"sturdiness": 5,
-			"concentration": 9,
-			"endurance": 2
+			"intelligence": 75,
+			"strength": 25,
+			"sturdiness": 250,
+			"concentration": 1500,
+			"endurance": 650
 		},
 		"stats": {
 			"focus": 100

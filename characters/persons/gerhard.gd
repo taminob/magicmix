@@ -19,9 +19,9 @@ func _init():
 		},
 		"experience": {
 			"intelligence": 100,
-			"strength": 100,
+			"strength": 15,
 			"sturdiness": 100,
-			"concentration": 100,
+			"concentration": 1000,
 			"endurance": 100
 		},
 		"stats": {

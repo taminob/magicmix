@@ -15,11 +15,11 @@ func _init():
 			"job": "thief",
 		},
 		"experience": {
-			"intelligence": 1,
-			"strength": 1,
-			"sturdiness": 1,
-			"concentration": 1,
-			"endurance": 1
+			"intelligence": 10,
+			"strength": 50,
+			"sturdiness": 150,
+			"concentration": 100,
+			"endurance": 200
 		},
 		"stats": {
 			"pain": 45

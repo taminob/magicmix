@@ -25,11 +25,11 @@ func _init():
 			"focus": 100.0
 		},
 		"experience": {
-			"intelligence": 1,
-			"strength": 1,
-			"sturdiness": 1,
-			"concentration": 1,
-			"endurance": 1
+			"intelligence": 20,
+			"strength": 70,
+			"sturdiness": 650,
+			"concentration": 100,
+			"endurance": 250
 		},
 		"inventory": {
 			"skills": ["base_fire", "base_darkness", "taint_life", "become_undead"],

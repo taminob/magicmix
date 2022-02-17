@@ -18,11 +18,11 @@ func _init():
 			}
 		},
 		"experience": {
-			"intelligence": 1,
-			"strength": 1,
-			"sturdiness": 1,
-			"concentration": 1,
-			"endurance": 1
+			"intelligence": 60,
+			"strength": 30,
+			"sturdiness": 250,
+			"concentration": 600,
+			"endurance": 100
 		},
 		"stats": {
 			"focus": 70

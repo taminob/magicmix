@@ -18,11 +18,11 @@ func _init():
 			}
 		},
 		"experience": {
-			"intelligence": 1,
-			"strength": 1,
-			"sturdiness": 1,
-			"concentration": 1,
-			"endurance": 1
+			"intelligence": 60,
+			"strength": 25,
+			"sturdiness": 90,
+			"concentration": 125,
+			"endurance": 150
 		},
 		"inventory": {
 			"spells": ["fire_ball", "fire_ring", "blood_sacrifice", "heal", "blood_storm"],

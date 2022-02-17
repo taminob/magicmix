@@ -16,10 +16,10 @@ func _init():
 		},
 		"experience": {
 			"intelligence": 20,
-			"strength": 20,
-			"sturdiness": 20,
-			"concentration": 20,
-			"endurance": 20
+			"strength": 80,
+			"sturdiness": 400,
+			"concentration": 400,
+			"endurance": 200
 		},
 		"stats": {
 			"focus": 100000
