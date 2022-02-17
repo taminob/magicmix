@@ -53,4 +53,4 @@ func set_frozen(frozen: bool):
 
 const UNDEAD_COLOR: Color = Color(0.2, 0.2, 0.2)
 func set_undead(undead: bool):
-	set_secondary_color(UNDEAD_COLOR if undead else default_secondary_color)
+	set_primary_color(UNDEAD_COLOR if undead else default_secondary_color)
