@@ -28,6 +28,8 @@ func _player_fallen(up: bool):
 	if(up):
 		if(game.levels.current_level_data.is_in_death_realm()):
 			game.levels.change_level("death_arena")
+		else:
+			body.die()
 	else:
 		if(game.levels.current_level_data.is_in_death_realm() || body.stats.undead):
 			_reset_body(body)

@@ -12,7 +12,7 @@ onready var stats: Node = $"../stats"
 # warning-ignore:unused_class_variable
 onready var dialogue: Node = $"../dialogue"
 
-const STEPS_BEFORE_RECONSIDER_DURING_PLAN = 100000
+const STEPS_BEFORE_RECONSIDER_DURING_PLAN = 500
 const STEPS_BEFORE_RECONSIDER_WITHOUT_PLAN = 30
 var _steps_since_consider: int = 0
 
