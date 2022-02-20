@@ -119,16 +119,15 @@ var last_speed: Vector3 = Vector3.ZERO
 func collide_process(delta: float):
 	if(state.is_spirit):
 		return
-	var d_x: float = abs(last_speed.x - velocity.x) / delta
-	var d_y: float = abs(last_speed.y - velocity.y) / delta
-	var d_z: float = abs(last_speed.z - velocity.z) / delta
-	var max_axis: float = util.max(d_x, d_y, d_z)
-	var threshold: float = 600.0
-	if(max_axis > threshold):
-		var dmg: float = pow(2, (max_axis - threshold * 0.9) / 200)
-		errors.debug_output("impact: " + str(max_axis) + "; pain: " + str(dmg) + "; velo: " + str(velocity) + "; last: " + str(last_speed))
+	var total_accel: float = ((last_speed - velocity) / delta).abs().dot(Vector3.ONE)
+	var threshold: float = 1000.0
+	if(total_accel > threshold):
+		var dmg: float = pow(2, total_accel / 350.0) + 10.0
 		if(!pawn.skills.is_spell_active(blood_dash_spell.id())):
+			errors.debug_output(pawn.name + " - accel: " + str(total_accel) + "; pain: " + str(dmg) + "; velo: " + str(velocity) + "; last: " + str(last_speed))
 			stats._self_raw_damage(dmg)
+		else:
+			errors.debug_output("blood dash active - accel: " + str(total_accel) + "; pain: " + str(dmg))
 		for i in range(pawn.get_slide_count()):
 			var collision: KinematicCollision = pawn.get_slide_collision(i)
 			var target: Object = collision.collider

@@ -21,6 +21,7 @@ func _push_body(body: KinematicBody):
 	var push: Vector3 = direction * FORCE
 	if(game.is_character(body.name)):
 		body.move.velocity += push
+		body.move.last_speed = body.move.velocity
 	else:
 		# TODO: allow non-character bodies to be pushed
 		#body.move_and_slide(push)

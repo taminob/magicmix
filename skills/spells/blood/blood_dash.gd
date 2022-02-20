@@ -28,9 +28,8 @@ func self_focus() -> float:
 	return 5.0
 
 func start_effect(pawn: KinematicBody):
-	#pawn.move.velocity = -pawn.global_transform.basis.z * 200
-	#pawn.move.velocity = Vector3.ZERO
-	pawn.global_transform.origin += -pawn.global_transform.basis.z * self.range()
+	pawn.move.velocity = -pawn.global_transform.basis.z * 200
+	pawn.move.last_speed = pawn.move.velocity
 
 func casttime() -> float:
 	return 0.0
