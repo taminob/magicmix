@@ -1,4 +1,4 @@
-extends CSGMesh
+extends MeshInstance
 
 onready var player_spawn = $"../player_spawn"
 
