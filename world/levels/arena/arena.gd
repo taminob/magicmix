@@ -10,7 +10,7 @@ func _ready():
 
 func spawn_enemies(enemies: Array):
 	var amount: int = enemies.size()
-	var row: int = -ceil(amount / MAX_PER_ROW)
+	var row: int = -int(ceil(amount / MAX_PER_ROW)) #warning-ignore:integer_division
 	var column: float = -0.5 * (wrapi(amount % MAX_PER_ROW, 1, 5) - 1)
 	var column_end: float = -column
 	for enemy_id in enemies:
