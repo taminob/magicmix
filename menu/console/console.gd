@@ -44,6 +44,9 @@ var commands = {
 	},
 	"give_all": {
 		"handler": funcref(self, "give_all_handler")
+	},
+	"heal": {
+		"handler": funcref(self, "heal_handler")
 	}
 }
 
@@ -128,6 +131,12 @@ func give_all_handler():
 	game.mgmt.player.inventory.skill_points = skill_data.skills.keys().size()
 	for x in skill_data.skills.keys():
 		game.mgmt.player.inventory.add_skill(x)
+
+func heal_handler():
+	if(!game.mgmt.player.stats.dead):
+		game.mgmt.player.stats.pain = 0
+	game.mgmt.player.stats.focus = game.mgmt.player.stats.max_focus()
+	game.mgmt.player.stats.stamina = game.mgmt.player.stats.max_stamina()
 
 onready var output = $"output_background/output"
 onready var input = $"command_input"
