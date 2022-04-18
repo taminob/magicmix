@@ -9,9 +9,6 @@ anchor_bottom = 1.0
 size_flags_horizontal = 3
 theme = ExtResource( 3 )
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="layout" type="VBoxContainer" parent="."]
 margin_right = 1920.0
@@ -39,3 +36,5 @@ size_flags_horizontal = 3
 text = "Kill Yourself"
 flat = true
 align = 1
+
+[connection signal="item_selected" from="layout/difficulty/difficulty_choice" to="." method="_on_difficulty_choice_item_selected"]

@@ -86,5 +86,12 @@ func save_characters():
 		x.save_state()
 		x.reset()
 
+func difficulty_relation(character_id: String) -> String:
+	if(character_id == player_id):
+		return "self"
+	if(player.dialogue && player.dialogue.get_relation(character_id) < 0):
+		return "enemies"
+	return "allies"
+
 func call_delayed(caller: Object, method: String, time: float, param: Array=[]):
 	errors.error_test(get_tree().create_timer(time).connect("timeout", caller, method, param))

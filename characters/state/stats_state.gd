@@ -34,16 +34,20 @@ func stamina_percentage() -> float:
 	return stamina / max_stamina()
 
 func max_pain() -> float:
-	return experience.sturdiness
+	var mult: float = game_settings.get_difficulty_multiplier(game.mgmt.difficulty_relation(pawn.name), "max_pain")
+	return experience.sturdiness * mult
 
 func max_shield() -> float:
-	return min(experience.sturdiness, experience.concentration)
+	var mult: float = game_settings.get_difficulty_multiplier(game.mgmt.difficulty_relation(pawn.name), "max_shield")
+	return min(experience.sturdiness, experience.concentration) * mult
 
 func max_focus() -> float:
-	return experience.concentration
+	var mult: float = game_settings.get_difficulty_multiplier(game.mgmt.difficulty_relation(pawn.name), "max_focus")
+	return experience.concentration * mult
 
 func max_stamina() -> float:
-	return experience.endurance
+	var mult: float = game_settings.get_difficulty_multiplier(game.mgmt.difficulty_relation(pawn.name), "max_stamina")
+	return experience.endurance * mult
 
 func pain_per_second() -> float:
 	return focus_percentage() * -3
