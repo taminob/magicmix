@@ -24,7 +24,7 @@ class active_spell:
 				scene.spell = spell
 			if("active_spell" in scene):
 				scene.active_spell = self
-			game.levels.current_level.add_child(scene)
+			game.levels.current_level.call_deferred("add_child", scene)
 		spell.start_effect(pawn)
 
 	func can_tick(pawn: KinematicBody, delta: float) -> bool:

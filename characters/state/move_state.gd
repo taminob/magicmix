@@ -109,22 +109,21 @@ func _move_spirit(delta: float):
 	var accel: float = ACCELERATION if(_move_direction.dot(hv) > 0) else DE_ACCELERATION
 	hv = hv.linear_interpolate(new_pos, accel * delta)
 
-	# todo: bug? - when pawn is falling down, spirit can become immovable because distance is too big
 	if(pawn.translation.distance_squared_to(pawn.spirit.translation + hv * delta) > SPIRIT_RANGE_SQUARED):
 		hv = Vector3.ZERO
-	#spirit_velocity = spirit.move_and_slide(Vector3(hv.x, spirit_velocity.y + GRAVITY * delta, hv.z), Vector3.UP, true)
 	spirit_velocity = pawn.spirit.move_and_slide(hv, Vector3.UP, true) # no gravity
 
-var last_speed: Vector3 = Vector3.ZERO
+var last_velocity: Vector3 = Vector3.ZERO
 func collide_process(delta: float):
 	if(state.is_spirit):
 		return
-	var total_accel: float = ((last_speed - velocity) / delta).abs().dot(Vector3.ONE)
+	var total_accel: float = ((last_velocity - velocity) / delta).abs().dot(Vector3.ONE)
 	var threshold: float = 1000.0
 	if(total_accel > threshold):
-		var dmg: float = pow(2, total_accel / 350.0) + 10.0
+		# use forumlar for free fall distance, multiply horizontal movement by 0.5
+		var dmg: float = last_velocity.dot(last_velocity * Vector3(0.5, 1.0, 0.5)) / (2 * GRAVITY)
 		if(!pawn.skills.is_spell_active(blood_dash_spell.id())):
-			errors.debug_output(pawn.name + " - accel: " + str(total_accel) + "; pain: " + str(dmg) + "; velo: " + str(velocity) + "; last: " + str(last_speed))
+			errors.debug_output(pawn.name + " - accel: " + str(total_accel) + "; pain: " + str(dmg) + "; velo: " + str(velocity) + "; last velo: " + str(last_velocity))
 			stats._self_raw_damage(dmg)
 		else:
 			errors.debug_output("blood dash active - accel: " + str(total_accel) + "; pain: " + str(dmg))
@@ -134,9 +133,9 @@ func collide_process(delta: float):
 			if(collision.collider.has_method("damage")):
 				collision.collider.damage(dmg, abstract_spell.element_type.raw, pawn)
 			if(game.is_character(collision.collider.name)):
-				target.move.velocity -= collision.normal * (last_speed - velocity)
+				target.move.velocity -= collision.normal * (last_velocity - velocity)
 			# todo: also affect other KinematicBodies
-	last_speed = velocity
+	last_velocity = velocity
 
 func save(state_dict: Dictionary):
 	var _move_state = state_dict.get("move", {"translations": {}})
