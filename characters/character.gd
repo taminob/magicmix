@@ -98,11 +98,11 @@ func face_location(global_location: Vector3):
 
 func _update_ui():
 	if(state.is_player):
-		game.mgmt.ui.update_pain(stats.pain / stats.max_pain())
-		game.mgmt.ui.update_shield(stats.shield / stats.max_shield())
+		game.mgmt.ui.update_pain(stats.pain_percentage())
+		game.mgmt.ui.update_shield(stats.shield_percentage())
 		game.mgmt.ui.update_shield_element(stats.shield_element)
-		game.mgmt.ui.update_focus(stats.focus / stats.max_focus())
-		game.mgmt.ui.update_stamina(stats.stamina / stats.max_stamina())
+		game.mgmt.ui.update_focus(stats.focus_percentage())
+		game.mgmt.ui.update_stamina(stats.stamina_percentage())
 		game.mgmt.ui.udpate_temperature(stats.temperature / stats.MAX_TEMPERATURE)
 		game.mgmt.ui.update_xp(experience.experience_progress())
 		game.mgmt.ui.update_casttime(skills.current_casttime / skills.current_spell.casttime() if skills.current_spell && skills.current_spell.casttime() > 0.0 else 0.0)
@@ -121,17 +121,17 @@ func _update_ui():
 	var health_bar: MeshInstance = $"health_bar"
 	if(!health_bar.material_override):
 		health_bar.material_override = health_bar.get_active_material(0).duplicate()
-	health_bar.material_override.set_shader_param("percentage", 1 - stats.pain / stats.max_pain())
+	health_bar.material_override.set_shader_param("percentage", 1 - stats.pain_percentage())
 	health_bar.look_at(game.mgmt.camera.camera.global_transform.origin, Vector3.UP)
 	var shield_bar: MeshInstance = $"shield_bar"
 	if(!shield_bar.material_override):
 		shield_bar.material_override = shield_bar.get_active_material(0).duplicate()
-	shield_bar.get_active_material(0).set_shader_param("percentage", stats.shield / stats.max_shield())
+	shield_bar.get_active_material(0).set_shader_param("percentage", stats.shield_percentage())
 	shield_bar.look_at(game.mgmt.camera.camera.global_transform.origin, Vector3.UP)
 	var focus_bar: MeshInstance = $"focus_bar"
 	if(!focus_bar.material_override):
 		focus_bar.material_override = focus_bar.get_active_material(0).duplicate()
-	focus_bar.get_active_material(0).set_shader_param("percentage", stats.focus / stats.max_focus())
+	focus_bar.get_active_material(0).set_shader_param("percentage", stats.focus_percentage())
 	focus_bar.look_at(game.mgmt.camera.camera.global_transform.origin, Vector3.UP)
 	var quest_symbol: MeshInstance = $"quest_symbol"
 	quest_symbol.visible = dialogue.data.wants_to_talk_to.has(game.mgmt.player_id) && !state.is_player
