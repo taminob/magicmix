@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=2]
+
+[ext_resource path="res://menu/loading/loading_background_shader.tres" type="Shader" id=1]
+
+[sub_resource type="OpenSimplexNoise" id=2]
+
+[sub_resource type="NoiseTexture" id=3]
+seamless = true
+noise = SubResource( 2 )
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/noise_scale = 1.0
+shader_param/noise_lod = 1.0
+shader_param/base_modifier = Plane( 0.5, 0.2, 0.2, 1 )
+shader_param/noise_modifier = Plane( 1, 0.5, 0.6, 1 )
+shader_param/speed_scale = 0.2
+shader_param/noise = SubResource( 3 )

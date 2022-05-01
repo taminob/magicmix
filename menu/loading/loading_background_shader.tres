@@ -1,0 +1,20 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform sampler2D noise;
+uniform float noise_scale = 1.;
+uniform float noise_lod = 1.;
+uniform vec4 base_modifier = vec4(0.5, 0.2, 0.2, 1.);
+uniform vec4 noise_modifier = vec4(1., 0.5, 0.6, 1.);
+uniform float speed_scale = 0.2;
+
+void fragment()
+{
+	vec4 base = texture(TEXTURE, UV);
+	vec2 uv = UV * noise_scale;
+	uv.y -= fract(TIME * speed_scale);
+	vec4 noise_result = textureLod(noise, uv, noise_lod);
+	COLOR = mix(base * base_modifier, noise_result * noise_modifier, 0.3);
+}"
