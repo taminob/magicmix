@@ -37,41 +37,41 @@ Beware that everything in this repository is unstable. :)
 
 #### General
 
-Pause menu: `<Esc>`
-Console: `<` or `°` or `<Shift>+.`
+- Pause menu: `<Esc>`
+- Console: `<` or `°` or `<Shift>+.`
 
 #### Movement
 
-Movement: `WASD`
-Jump: `<Space>`
-Sprint: `<Shift>`
-Walk: `<Alt>`
-Crouch: `<Control>`
-Switch to spirit mode: `<Tab>`
-Spirit sprint: `<Space>`
+- Movement: `WASD`
+- Jump: `<Space>`
+- Sprint: `<Shift>`
+- Walk: `<Alt>`
+- Crouch: `<Control>`
+- Switch to spirit mode: `<Tab>`
+- Spirit sprint: `<Space>`
 
 #### Interaction/Dialogue
 
-Interact: `F`
-Switch answer: `<Arrow Up>/<Arrow Down>`
-Choose answer: `<Enter>`
+- Interact: `F`
+- Switch answer: `<Arrow Up>/<Arrow Down>`
+- Choose answer: `<Enter>`
 
 #### Skills
 
 To use these shortcuts, the currently controlled character has to own these skills.
 This can be done via the skill tree or with spell crafting.
 
-Switch element: `<1-4>`
-Cast spell: `Q/E/R/T/Y`
+- Switch element: `<1-4>`
+- Cast spell: `Q/E/R/T/Y`
 
 #### Panels
 
-Open/Close last panel: `X`
-Open/Close inventory panel: `I`
-Open/Close spell crafting panel: `C`
-Open/Close spells panel: `K`
-Open/Close skill tree panel: `Z`
-Open/Close character panel: `P`
+- Open/Close last panel: `X`
+- Open/Close inventory panel: `I`
+- Open/Close spell crafting panel: `C`
+- Open/Close spells panel: `K`
+- Open/Close skill tree panel: `Z`
+- Open/Close character panel: `P`
 
 ### Console
 
@@ -103,17 +103,17 @@ I tried different approaches for the AI.
 Behavior Trees might be a pretty good way to implement a solid AI,
 but this requires manual work for different behaviors.
 
-A Goal Oriented Action Planner looked like the solution to this problem.
+Next, I tried a Utility AI.
+However, the results were not as good as expected.
+
+A Goal Oriented Action Planner looked like the solution.
 However, defining the exact outcome of especially combat actions was impossible
 due to player interaction.
 I tried to fix this by switching to a behavior tree in combat,
-but I was not able to design a good enough behavior tree.
+but I was not able to design a good enough behavior tree for this.
 Additionally, because of the wide range of actions,
 the planning process caused performance issues.
 
-Before switching to a GOAP AI, I tried a Utility AI.
-However, the behavior did not work out as expected.
-
-Finally, after testing the GOAP approach,
+Finally, after rejecting the GOAP approach,
 I decided to revisit the idea of a Utility AI.
 This second Utility AI offered good enough results at a neglectable performance impact.
