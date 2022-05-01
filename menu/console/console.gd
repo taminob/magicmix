@@ -20,7 +20,9 @@ var commands = {
 		"handler": funcref(saves, "save")
 	},
 	"quit": {
-		"handler": funcref(self, "quit_handler")
+		"handler": funcref(self, "quit_handler"),
+		"possible": ["force"],
+		"accept_none": true
 	},
 	"inspect": {
 		"handler": funcref(self, "inspect_handler"),
@@ -109,10 +111,14 @@ func respawn_handler():
 	else:
 		game.mgmt.player.global_transform = Transform.IDENTITY
 
-func quit_handler(force: bool=false):
-	if(!force):
+func quit_handler(force: String=""):
+	if(force.empty()):
 		saves.save()
-	get_tree().quit()
+		get_tree().quit()
+	elif(force.to_lower() != "force"):
+		invalid_argument("quit")
+	else:
+		get_tree().quit()
 
 func help_handler(command: String="", clear_output: bool=true):
 	var new_text: String = "" if clear_output else output.get_text() + '\n'
@@ -122,7 +128,10 @@ func help_handler(command: String="", clear_output: bool=true):
 		var command_entry = commands.get(command)
 		if(!command_entry):
 			invalid_argument("help")
-		new_text += "Possible arguments for '" + command + ": " + str(command_entry.get("possible", []))
+		var possible_args: Array = command_entry.get("possible", [])
+		new_text += "Possible arguments for '" + command + ": " + str(possible_args)
+		if(command_entry.get("accept_none", false)):
+			new_text += " or none"
 	output.set_text(new_text)
 
 func give_all_handler():
