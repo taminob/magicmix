@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://ui/icons/empty_slot_frame-512.png" type="Texture" id=1]
+[ext_resource path="res://ui/icons/empty_slot_frame-512.png" type="Texture2D" id=1]
 [ext_resource path="res://ui/slots/slots.gd" type="Script" id=2]
-[ext_resource path="res://ui/icons/skills/darkness-512.png" type="Texture" id=3]
-[ext_resource path="res://ui/icons/skills/attack-512.png" type="Texture" id=4]
-[ext_resource path="res://ui/icons/skills/defense-512.png" type="Texture" id=5]
-[ext_resource path="res://ui/icons/skills/self_dark-512.png" type="Texture" id=6]
-[ext_resource path="res://ui/icons/symbols/letter_y-512.png" type="Texture" id=7]
-[ext_resource path="res://ui/icons/skills/cooldown-512.png" type="Texture" id=8]
+[ext_resource path="res://ui/icons/skills/darkness-512.png" type="Texture2D" id=3]
+[ext_resource path="res://ui/icons/skills/attack-512.png" type="Texture2D" id=4]
+[ext_resource path="res://ui/icons/skills/defense-512.png" type="Texture2D" id=5]
+[ext_resource path="res://ui/icons/skills/self_dark-512.png" type="Texture2D" id=6]
+[ext_resource path="res://ui/icons/symbols/letter_y-512.png" type="Texture2D" id=7]
+[ext_resource path="res://ui/icons/skills/cooldown-512.png" type="Texture2D" id=8]
 
 [node name="slots" type="HBoxContainer"]
 anchor_right = 1.0
@@ -18,8 +18,8 @@ __meta__ = {
 }
 
 [node name="slot0" type="TextureRect" parent="."]
-margin_right = 761.0
-margin_bottom = 2160.0
+offset_right = 761.0
+offset_bottom = 2160.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 1 )
@@ -41,7 +41,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="cooldown" type="TextureProgress" parent="slot0/slot"]
+[node name="cooldown" type="TextureProgressBar" parent="slot0/slot"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 max_value = 1.0
@@ -54,9 +54,9 @@ __meta__ = {
 }
 
 [node name="slot1" type="TextureRect" parent="."]
-margin_left = 769.0
-margin_right = 1531.0
-margin_bottom = 2160.0
+offset_left = 769.0
+offset_right = 1531.0
+offset_bottom = 2160.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 1 )
@@ -75,7 +75,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="cooldown" type="TextureProgress" parent="slot1/slot"]
+[node name="cooldown" type="TextureProgressBar" parent="slot1/slot"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 max_value = 1.0
@@ -88,9 +88,9 @@ __meta__ = {
 }
 
 [node name="slot2" type="TextureRect" parent="."]
-margin_left = 1539.0
-margin_right = 2300.0
-margin_bottom = 2160.0
+offset_left = 1539.0
+offset_right = 2300.0
+offset_bottom = 2160.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 1 )
@@ -109,7 +109,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="cooldown" type="TextureProgress" parent="slot2/slot"]
+[node name="cooldown" type="TextureProgressBar" parent="slot2/slot"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 max_value = 1.0
@@ -122,9 +122,9 @@ __meta__ = {
 }
 
 [node name="slot3" type="TextureRect" parent="."]
-margin_left = 2308.0
-margin_right = 3070.0
-margin_bottom = 2160.0
+offset_left = 2308.0
+offset_right = 3070.0
+offset_bottom = 2160.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 1 )
@@ -143,7 +143,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="cooldown" type="TextureProgress" parent="slot3/slot"]
+[node name="cooldown" type="TextureProgressBar" parent="slot3/slot"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 max_value = 1.0
@@ -156,9 +156,9 @@ __meta__ = {
 }
 
 [node name="slot4" type="TextureRect" parent="."]
-margin_left = 3078.0
-margin_right = 3840.0
-margin_bottom = 2160.0
+offset_left = 3078.0
+offset_right = 3840.0
+offset_bottom = 2160.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 1 )
@@ -177,7 +177,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="cooldown" type="TextureProgress" parent="slot4/slot"]
+[node name="cooldown" type="TextureProgressBar" parent="slot4/slot"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 max_value = 1.0

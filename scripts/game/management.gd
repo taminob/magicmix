@@ -1,12 +1,12 @@
 extends Node
 
 var player_id: String = ""
-var player: KinematicBody = null
+var player: CharacterBody3D = null
 # warning-ignore:unused_class_variable
 var player_history: Array
 # warning-ignore:unused_class_variable
 var player_logs: Dictionary
-var camera: Node = load("res://characters/player/camera.tscn").instance()
+var camera: Node = load("res://characters/player/camera.tscn").instantiate()
 var character_scene: PackedScene = load("res://characters/character.tscn")
 # warning-ignore:unused_class_variable
 var ui: ui = null
@@ -41,13 +41,13 @@ const damage_layers = layer.objects | layer.characters | layer.enemies
 func is_player(node: Node) -> bool:
 	return node == player && player
 
-func _set_player_flag(target: KinematicBody, is_player: bool):
+func _set_player_flag(target: CharacterBody3D, is_player: bool):
 	if(target.state):
 		target.set_player(is_player)
 	else:
-		errors.error_test(target.connect("ready", target, "set_player", [is_player]))
+		errors.error_test(target.connect("ready", Callable(target, "set_player").bind(is_player)))
 
-func make_player(new_player: KinematicBody):
+func make_player(new_player: CharacterBody3D):
 	if(!new_player):
 		return
 	if(player):
@@ -73,8 +73,8 @@ func unmake_player():
 func create_player():
 	make_player(create_character(player_id))
 
-func create_character(character_name: String) -> KinematicBody:
-	var new_character = character_scene.instance()
+func create_character(character_name: String) -> CharacterBody3D:
+	var new_character = character_scene.instantiate()
 	new_character.name = character_name
 	new_character.add_to_group("characters")
 	return new_character
@@ -94,4 +94,4 @@ func difficulty_relation(character_id: String) -> String:
 	return "allies"
 
 func call_delayed(caller: Object, method: String, time: float, param: Array=[]):
-	errors.error_test(get_tree().create_timer(time).connect("timeout", caller, method, param))
+	errors.error_test(get_tree().create_timer(time).connect("timeout", Callable(caller, method).bind(param)))

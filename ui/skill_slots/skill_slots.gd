@@ -1,8 +1,8 @@
 extends Control
 
 #onready var element_slots = [$"slot1/slot", $"slot2/slot", $"slot3/slot", $"slot4/slot"]
-onready var element_slot_backgrounds = [$"slot1", $"slot2", $"slot3", $"slot4"]
-onready var skill_slots = [$"slot0/slot", $"slot5/slot"]
+@onready var element_slot_backgrounds = [$"slot1", $"slot2", $"slot3", $"slot4"]
+@onready var skill_slots = [$"slot0/slot", $"slot5/slot"]
 
 func update_skills(): # TODO? currently textures are static, remove?
 	for i in range(skill_slots.size()):

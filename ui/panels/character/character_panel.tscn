@@ -2,13 +2,13 @@
 
 [ext_resource path="res://themes/ui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://ui/panels/character/character_panel.gd" type="Script" id=2]
-[ext_resource path="res://ui/icons/empty_slot_frame-512.png" type="Texture" id=3]
-[ext_resource path="res://ui/icons/items/body-512.png" type="Texture" id=4]
-[ext_resource path="res://ui/icons/items/left_shoe-512.png" type="Texture" id=5]
-[ext_resource path="res://ui/icons/items/right_hand-512.png" type="Texture" id=6]
-[ext_resource path="res://ui/icons/items/right_shoe-512.png" type="Texture" id=7]
-[ext_resource path="res://ui/icons/items/left_hand-512.png" type="Texture" id=8]
-[ext_resource path="res://ui/icons/items/head-512.png" type="Texture" id=9]
+[ext_resource path="res://ui/icons/empty_slot_frame-512.png" type="Texture2D" id=3]
+[ext_resource path="res://ui/icons/items/body-512.png" type="Texture2D" id=4]
+[ext_resource path="res://ui/icons/items/left_shoe-512.png" type="Texture2D" id=5]
+[ext_resource path="res://ui/icons/items/right_hand-512.png" type="Texture2D" id=6]
+[ext_resource path="res://ui/icons/items/right_shoe-512.png" type="Texture2D" id=7]
+[ext_resource path="res://ui/icons/items/left_hand-512.png" type="Texture2D" id=8]
+[ext_resource path="res://ui/icons/items/head-512.png" type="Texture2D" id=9]
 
 [node name="character_panel" type="Control"]
 anchor_right = 1.0

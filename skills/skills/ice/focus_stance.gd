@@ -21,7 +21,7 @@ func mutually_exclusive() -> Array:
 	return ["focus_sprint"]
 
 const EFFECT_FACTOR: float = 0.1
-func effect(pawn: KinematicBody, delta: float):
+func effect(pawn: CharacterBody3D, delta: float):
 	# TODO: better way to disable normal focus_per_second regeneration
 	# TODO: increase focus gain over time when standing still for longer
 	var ice_ride_active: bool = false # TODO: implement flag in skills_state or move_state?

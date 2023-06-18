@@ -1,12 +1,12 @@
 extends Control
 
-onready var tree: Panel = $"skill_tree"
-onready var details: Panel = $"details"
-onready var detail_icon: TextureRect = $"details/icon"
-onready var detail_label: Label = $"details/label"
-onready var skill_point_display: Label = $"details/skill_point_display"
-onready var invest_button: Button = $"details/invest_button"
-onready var buttons: Array = [$"buttons/life", $"buttons/darkness", $"buttons/fire", $"buttons/ice", $"buttons/blood"]
+@onready var tree: Panel = $"skill_tree"
+@onready var details: Panel = $"details"
+@onready var detail_icon: TextureRect = $"details/icon"
+@onready var detail_label: Label = $"details/label"
+@onready var skill_point_display: Label = $"details/skill_point_display"
+@onready var invest_button: Button = $"details/invest_button"
+@onready var buttons: Array = [$"buttons/life", $"buttons/darkness", $"buttons/fire", $"buttons/ice", $"buttons/blood"]
 var current_category: String = ""
 
 func _on_skill_tree_panel_visibility_changed():
@@ -23,10 +23,10 @@ func update_panel(reset: bool=true):
 
 func _highlight_current_button():
 	for x in buttons:
-		x.pressed = false
+		x.button_pressed = false
 	var button_index: int = ["life", "darkness", "fire", "ice", "blood"].find(current_category)
 	if(button_index >= 0):
-		buttons[button_index].pressed = true
+		buttons[button_index].button_pressed = true
 
 func _update_invest_button():
 	if(details.has_meta("current")):

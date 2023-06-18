@@ -2,9 +2,9 @@ extends Node
 
 class_name dialogue_state
 
-onready var state: Node = get_parent()
-onready var pawn: KinematicBody = $"../.."
-onready var stats: Node = $"../stats"
+@onready var state: Node = get_parent()
+@onready var pawn: CharacterBody3D = $"../.."
+@onready var stats: Node = $"../stats"
 
 const DIALOGUE_NO_FADE_DISTANCE_SQRD = 25;
 const DIALOGUE_END_DISTANCE_SQRD = 100;
@@ -13,7 +13,7 @@ var display_name: String
 var call_names: Dictionary # TODO: transfer call_names from previous player and clear on possess
 var gender: String
 var job: String
-var partner: KinematicBody
+var partner: CharacterBody3D
 var listeners: Array
 var data: abstract_dialogue
 
@@ -39,7 +39,7 @@ func dialogue_process(_delta: float):
 	for x in listeners:
 		fade_dialogue(x)
 
-func fade_dialogue(listener_partner: KinematicBody):
+func fade_dialogue(listener_partner: CharacterBody3D):
 	var dist = listener_partner.distance_squared(pawn)
 	dist = (dist - DIALOGUE_NO_FADE_DISTANCE_SQRD) / DIALOGUE_END_DISTANCE_SQRD
 	var dialogue_intensity = 1 - clamp(dist, 0, 1)
@@ -48,7 +48,7 @@ func fade_dialogue(listener_partner: KinematicBody):
 	elif(listener_partner.state.is_player):
 		game.mgmt.ui.dialogue.set_transparency(dialogue_intensity)
 
-func dialogue_interacted(interactor: KinematicBody):
+func dialogue_interacted(interactor: CharacterBody3D):
 	if(!can_talk()):
 		return
 	if(!is_dialogue_active()):
@@ -88,7 +88,7 @@ func get_statement() -> abstract_dialogue.statement:
 	else:
 		return partner.dialogue.data.get_statement()
 
-func start_dialogue(new_partner: KinematicBody):
+func start_dialogue(new_partner: CharacterBody3D):
 	interrupt_dialogue()
 	partner = new_partner
 	data.change_partner(partner)
@@ -98,7 +98,7 @@ func start_dialogue(new_partner: KinematicBody):
 		game.mgmt.ui.start_dialogue()
 	say()
 
-func accept_dialogue(new_partner: KinematicBody):
+func accept_dialogue(new_partner: CharacterBody3D):
 	partner = new_partner
 
 func say():
@@ -132,7 +132,7 @@ func choose_statement(statements: Array):
 	partner.dialogue.receive_statement(response)
 
 func choose_from(statement: abstract_dialogue.statement):
-	if(!statement.next_statement.empty()):
+	if(!statement.next_statement.is_empty()):
 		if(!proceed_statement()):
 			return
 		if(is_data_provider()):
@@ -164,7 +164,7 @@ func listen(statement: abstract_dialogue.statement):
 		game.mgmt.ui.dialogue.set_dialogue_text(statement.formatted_text(), game.mgmt.player.dialogue.get_call_name(statement.speaker.name), [])
 	statement.execute_effects(statement.speaker, pawn)
 
-func add_listener(listener: KinematicBody):
+func add_listener(listener: CharacterBody3D):
 	listeners.push_back(listener)
 	if(listener.state.is_player):
 		game.mgmt.ui.start_dialogue()

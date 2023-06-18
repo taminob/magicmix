@@ -11,10 +11,10 @@ void vertex()
 	VERTEX.x = 1.0-2.0*percentage;
 	if(VERTEX.x < old_x)
 		VERTEX.x = old_x;
-	VERTEX = (inverse(WORLD_MATRIX) * mat4(vec4(cos(angle), 0.0, sin(angle), 0.0),
+	VERTEX = (inverse(MODEL_MATRIX) * mat4(vec4(cos(angle), 0.0, sin(angle), 0.0),
 			vec4(0.0, 1.0, 0.0, 0.0),
 			vec4(-sin(angle), 0.0, cos(angle), 0.0),
-			vec4(0.0, 0.0, 0.0, 1.0)) * WORLD_MATRIX * vec4(VERTEX, 1.0)).xyz;
+			vec4(0.0, 0.0, 0.0, 1.0)) * MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
 	//COLOR = vec4(1.0, 0.0, 0.0, 1.0);
 }
 

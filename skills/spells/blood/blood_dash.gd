@@ -27,7 +27,7 @@ func self_pain() -> float:
 func self_focus() -> float:
 	return 5.0
 
-func start_effect(pawn: KinematicBody):
+func start_effect(pawn: CharacterBody3D):
 	pawn.move.velocity = -pawn.global_transform.basis.z * 200
 	pawn.move.last_velocity = pawn.move.velocity
 
@@ -47,4 +47,4 @@ func icon() -> Resource:
 	return load(SPELL_ICONS_PATH + "blood_scratch-512.png")
 
 func scene() -> Node:
-	return null#load("scene/blood_dash.tscn").instance()
+	return null#load("scene/blood_dash.tscn").instantiate()

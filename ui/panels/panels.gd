@@ -1,7 +1,7 @@
 extends Popup
 
 var hidden = true
-onready var tabs = $"tabs"
+@onready var tabs = $"tabs"
 
 enum {
 	character_tab = 0,

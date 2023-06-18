@@ -1,16 +1,16 @@
 extends Node
 
-onready var ai: Node = $".."
+@onready var ai: Node = $".."
 var action_classes: Array
 
 func _ready():
 	# TODO: move to static array?
-	var dir: Directory = Directory.new()
-	errors.debug_assert(dir.open("res://characters/state/ai/actions/") == OK, "unable to find ai actions directory")
-	errors.error_test(dir.list_dir_begin(true, true))
+	var dir: DirAccess = DirAccess.new()
+	errors.debug_assert(dir.open("res://characters/state/ai/actions/") == OK) #,"unable to find ai actions directory")
+	errors.error_test(dir.list_dir_begin() )# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 	while true:
 		var file: String = dir.get_next()
-		if(file.empty()):
+		if(file.is_empty()):
 			break
 		var action = load(dir.get_current_dir() + file)
 		action_classes.push_back(action)

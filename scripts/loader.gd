@@ -11,7 +11,7 @@ var _queue_mutex: Mutex = Mutex.new()
 var _finished_mutex: Mutex = Mutex.new()
 
 func _ready():
-	pause_mode = Node.PAUSE_MODE_PROCESS
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _load_resource(path: String, callback: FuncRef=null):
 	if(_finished_resources.has(path)):
@@ -19,7 +19,7 @@ func _load_resource(path: String, callback: FuncRef=null):
 	if(ResourceLoader.has_cached(path)):
 		_finished_resources[path] = ResourceLoader.load(path)
 		return
-	var new_loader: ResourceInteractiveLoader = ResourceLoader.load_interactive(path)
+	var new_loader: ResourceLoader = ResourceLoader.load_threaded_request(path)
 	new_loader.set_meta("path", path)
 	new_loader.set_meta("callback", callback)
 	_queue_mutex.lock()
@@ -32,13 +32,13 @@ func load_resource(path: String, callback: FuncRef, loading_screen: bool):
 	_load_resource(path, callback)
 	if(!_load_thread):
 		_load_thread = Thread.new()
-		_load_thread.start(self, "_thread_process")
+		_load_thread.start(Callable(self, "_thread_process"))
 	set_process(true)
 
 func open_loading_screen():
 	if(_loading_instance):
 		return
-	_loading_instance = _loading_scene.instance()
+	_loading_instance = _loading_scene.instantiate()
 	scenes.open_scene(_loading_instance)
 	get_tree().paused = true
 
@@ -52,7 +52,7 @@ func close_loading_screen():
 		get_tree().paused = false
 
 func _process(_delta: float):
-	if(_load_queue.empty() && _load_thread):
+	if(_load_queue.is_empty() && _load_thread):
 		_load_thread.wait_to_finish()
 		_load_thread = null
 		close_loading_screen()
@@ -74,9 +74,9 @@ func _process(_delta: float):
 			_loading_instance.set_progress(1)
 
 func _thread_process(_a=null): # TODO(3.4): parameter can be removed
-	while !_load_queue.empty():
+	while !_load_queue.is_empty():
 		_queue_mutex.lock()
-		var current: ResourceInteractiveLoader = _load_queue.front()
+		var current: ResourceLoader = _load_queue.front()
 		_queue_mutex.unlock()
 		match current.poll():
 			OK:

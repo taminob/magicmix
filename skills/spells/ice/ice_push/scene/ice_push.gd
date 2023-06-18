@@ -13,7 +13,7 @@ func _ready():
 func next_object_scale(delta: float) -> Vector3:
 	return object.scale * (1 + GROWTH_PER_SECOND * delta)
 
-func _push_body(body: KinematicBody):
+func _push_body(body: CharacterBody3D):
 	if(!body || _pushed_bodies.has(body)):
 		return
 	# TODO! raycast if target is in sight and push is actually possible

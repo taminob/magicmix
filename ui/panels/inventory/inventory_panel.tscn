@@ -20,62 +20,62 @@ __meta__ = {
 }
 
 [node name="buttons" type="HBoxContainer" parent="layout"]
-margin_right = 3840.0
-margin_bottom = 139.0
+offset_right = 3840.0
+offset_bottom = 139.0
 
 [node name="all" type="Button" parent="layout/buttons"]
-margin_left = 304.0
-margin_right = 414.0
-margin_bottom = 139.0
+offset_left = 304.0
+offset_right = 414.0
+offset_bottom = 139.0
 size_flags_horizontal = 6
 text = "All"
 expand_icon = true
 
 [node name="weapons" type="Button" parent="layout/buttons"]
-margin_left = 872.0
-margin_right = 1298.0
-margin_bottom = 139.0
+offset_left = 872.0
+offset_right = 1298.0
+offset_bottom = 139.0
 size_flags_horizontal = 6
 text = "Weapons"
 expand_icon = true
 
 [node name="armor" type="Button" parent="layout/buttons"]
-margin_left = 1674.0
-margin_right = 1947.0
-margin_bottom = 139.0
+offset_left = 1674.0
+offset_right = 1947.0
+offset_bottom = 139.0
 size_flags_horizontal = 6
 text = "Armor"
 expand_icon = true
 
 [node name="consumables" type="Button" parent="layout/buttons"]
-margin_left = 2236.0
-margin_right = 2837.0
-margin_bottom = 139.0
+offset_left = 2236.0
+offset_right = 2837.0
+offset_bottom = 139.0
 size_flags_horizontal = 6
 text = "Consumables"
 expand_icon = true
 
 [node name="tokens" type="Button" parent="layout/buttons"]
-margin_left = 3089.0
-margin_right = 3436.0
-margin_bottom = 139.0
+offset_left = 3089.0
+offset_right = 3436.0
+offset_bottom = 139.0
 size_flags_horizontal = 6
 text = "Tokens"
 expand_icon = true
 
 [node name="sort_button" type="Button" parent="layout/buttons"]
-margin_left = 3630.0
-margin_right = 3840.0
-margin_bottom = 139.0
+offset_left = 3630.0
+offset_right = 3840.0
+offset_bottom = 139.0
 text = "Sort"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="list" type="ItemList" parent="layout"]
-margin_top = 147.0
-margin_right = 3840.0
-margin_bottom = 2160.0
+offset_top = 147.0
+offset_right = 3840.0
+offset_bottom = 2160.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 max_columns = 10

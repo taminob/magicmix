@@ -1,4 +1,4 @@
-tool
+@tool
 extends EditorScript
 
 var frames = 250

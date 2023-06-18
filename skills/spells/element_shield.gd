@@ -17,7 +17,7 @@ func category() -> String:
 func self_focus() -> float:
 	return -20.0
 
-func start_effect(pawn: KinematicBody):
+func start_effect(pawn: CharacterBody3D):
 	pawn.stats.set_shield_element(pawn.skills.current_element)
 	pawn.stats.shield = pawn.stats.max_shield()
 

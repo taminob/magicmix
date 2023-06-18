@@ -1,9 +1,9 @@
 extends Control
 
-onready var list = $"layout/list"
-onready var detail_popup = $"layout/list/detail_popup"
-onready var detail_icon = $"layout/list/detail_popup/icon"
-onready var detail_label = $"layout/list/detail_popup/label"
+@onready var list = $"layout/list"
+@onready var detail_popup = $"layout/list/detail_popup"
+@onready var detail_icon = $"layout/list/detail_popup/icon"
+@onready var detail_label = $"layout/list/detail_popup/label"
 
 func _on_spells_panel_visibility_changed():
 	detail_popup.hide()
@@ -14,7 +14,7 @@ func update_spells(category: String=""):
 	list.clear()
 	for x in game.mgmt.player.inventory.spells:
 		var spell = skill_data.spells.get(x)
-		if(spell.category() == category || category.empty()):
+		if(spell.category() == category || category.is_empty()):
 			list.add_item(spell.name(), spell.icon())
 			list.set_item_metadata(list.get_item_count()-1, x)
 

@@ -11,256 +11,256 @@
 [ext_resource path="res://world/objects/door_portal/door_portal.tscn" type="PackedScene" id=9]
 [ext_resource path="res://world/materials/rainbow_stone.tres" type="Material" id=10]
 
-[sub_resource type="CubeMesh" id=1]
+[sub_resource type="BoxMesh" id=1]
 size = Vector3( 100, 1, 100 )
 subdivide_width = 1000
 subdivide_depth = 1000
 
-[sub_resource type="BoxShape" id=2]
-extents = Vector3( 50, 1, 50 )
+[sub_resource type="BoxShape3D" id=2]
+size = Vector3( 50, 1, 50 )
 
-[sub_resource type="CubeMesh" id=3]
+[sub_resource type="BoxMesh" id=3]
 size = Vector3( 60, 5, 2 )
 
-[sub_resource type="BoxShape" id=4]
-extents = Vector3( 30, 2.5, 1 )
+[sub_resource type="BoxShape3D" id=4]
+size = Vector3( 30, 2.5, 1 )
 
-[sub_resource type="CubeMesh" id=5]
+[sub_resource type="BoxMesh" id=5]
 size = Vector3( 9, 5, 2 )
 
-[sub_resource type="BoxShape" id=6]
-extents = Vector3( 4.5, 2.5, 1 )
+[sub_resource type="BoxShape3D" id=6]
+size = Vector3( 4.5, 2.5, 1 )
 
-[sub_resource type="CubeMesh" id=7]
+[sub_resource type="BoxMesh" id=7]
 size = Vector3( 21, 10, 5 )
 
-[sub_resource type="BoxShape" id=8]
-extents = Vector3( 10.5, 5, 2.5 )
+[sub_resource type="BoxShape3D" id=8]
+size = Vector3( 10.5, 5, 2.5 )
 
 [sub_resource type="CapsuleMesh" id=9]
 radius = 2.0
-mid_height = 4.0
+height = 4.0
 
-[sub_resource type="CapsuleShape" id=10]
+[sub_resource type="CapsuleShape3D" id=10]
 radius = 2.0
 height = 4.0
 
-[sub_resource type="CubeMesh" id=11]
+[sub_resource type="BoxMesh" id=11]
 size = Vector3( 20, 1, 8 )
 
-[sub_resource type="BoxShape" id=12]
-extents = Vector3( 10, 0.5, 4 )
+[sub_resource type="BoxShape3D" id=12]
+size = Vector3( 10, 0.5, 4 )
 
-[sub_resource type="CubeMesh" id=13]
+[sub_resource type="BoxMesh" id=13]
 size = Vector3( 40, 30, 20 )
 
-[sub_resource type="BoxShape" id=14]
-extents = Vector3( 20, 15, 10 )
+[sub_resource type="BoxShape3D" id=14]
+size = Vector3( 20, 15, 10 )
 
-[node name="environment" type="Spatial"]
+[node name="environment" type="Node3D"]
 
-[node name="mesh" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
+[node name="mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
 mesh = SubResource( 1 )
 material/0 = ExtResource( 5 )
 
-[node name="ground" type="StaticBody" parent="mesh"]
+[node name="ground" type="StaticBody3D" parent="mesh"]
 collision_layer = 2
 collision_mask = 63
 
-[node name="collision_shape" type="CollisionShape" parent="mesh/ground"]
+[node name="collision_shape" type="CollisionShape3D" parent="mesh/ground"]
 shape = SubResource( 2 )
 
-[node name="stairs" type="Spatial" parent="."]
+[node name="stairs" type="Node3D" parent="."]
 
 [node name="stairs1" parent="stairs" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 3 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 3 )
 
 [node name="stairs2" parent="stairs" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 1 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 1 )
 
 [node name="stairs3" parent="stairs" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -1 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -1 )
 
 [node name="stairs4" parent="stairs" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -3 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -3 )
 
-[node name="stones" type="Spatial" parent="."]
+[node name="stones" type="Node3D" parent="."]
 
 [node name="stone1" parent="stones" instance=ExtResource( 2 )]
-transform = Transform( -0.00606028, -0.984808, -0.173542, 0.999391, -4.36848e-08, -0.0348995, 0.0343693, -0.173648, 0.984208, 8.21543, 0, 3.27185 )
+transform = Transform3D( -0.00606028, -0.984808, -0.173542, 0.999391, -4.36848e-08, -0.0348995, 0.0343693, -0.173648, 0.984208, 8.21543, 0, 3.27185 )
 
 [node name="stone2" parent="stones" instance=ExtResource( 2 )]
-transform = Transform( 0.604023, -0.219846, 0.766044, 0.34202, 0.939693, 0, -0.719846, 0.262003, 0.642788, -1.68788, 0, 5.31859 )
+transform = Transform3D( 0.604023, -0.219846, 0.766044, 0.34202, 0.939693, 0, -0.719846, 0.262003, 0.642788, -1.68788, 0, 5.31859 )
 
 [node name="stone3" parent="stones" instance=ExtResource( 2 )]
-transform = Transform( 0.642788, -0.0667652, -0.763129, 0, 0.996195, -0.0871557, 0.766044, 0.0560226, 0.640342, 19.1908, -0.200002, 5.20662 )
+transform = Transform3D( 0.642788, -0.0667652, -0.763129, 0, 0.996195, -0.0871557, 0.766044, 0.0560226, 0.640342, 19.1908, -0.200002, 5.20662 )
 
 [node name="stone4" parent="stones" instance=ExtResource( 2 )]
-transform = Transform( 0.5, 0.150384, 0.852869, 0, 0.984808, -0.173648, -0.866025, 0.0868241, 0.492404, -1.34115, -0.200001, -6.44559 )
+transform = Transform3D( 0.5, 0.150384, 0.852869, 0, 0.984808, -0.173648, -0.866025, 0.0868241, 0.492404, -1.34115, -0.200001, -6.44559 )
 
 [node name="stone5" parent="stones" instance=ExtResource( 2 )]
-transform = Transform( -0.133559, 0.268294, 0.954034, 0.084186, 0.96225, -0.258819, -0.987459, 0.0457486, -0.151104, 17.4212, -0.3, -7.02452 )
+transform = Transform3D( -0.133559, 0.268294, 0.954034, 0.084186, 0.96225, -0.258819, -0.987459, 0.0457486, -0.151104, 17.4212, -0.3, -7.02452 )
 
-[node name="trees" type="Spatial" parent="."]
+[node name="trees" type="Node3D" parent="."]
 
 [node name="tree" parent="trees" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.41713, 0, 5.45689 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.41713, 0, 5.45689 )
 
 [node name="tree2" parent="trees" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2851, 0, -6.47208 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2851, 0, -6.47208 )
 
 [node name="tree3" parent="trees" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08178, 0, -6.46033 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08178, 0, -6.46033 )
 
 [node name="tree4" parent="trees" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24.5214, 0, 5.57014 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24.5214, 0, 5.57014 )
 
 [node name="tree5" parent="trees" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 31.6934, 0, -6.94289 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 31.6934, 0, -6.94289 )
 
-[node name="walls" type="Spatial" parent="."]
+[node name="walls" type="Node3D" parent="."]
 
 [node name="entry" parent="walls" instance=ExtResource( 9 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 36, 2.5, 0 )
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 36, 2.5, 0 )
 next_level = "debug3_outside"
 
-[node name="mesh_instance" type="MeshInstance" parent="walls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.5, 10 )
+[node name="mesh_instance" type="MeshInstance3D" parent="walls"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.5, 10 )
 mesh = SubResource( 3 )
 material/0 = ExtResource( 4 )
 
-[node name="static_body" type="StaticBody" parent="walls/mesh_instance"]
+[node name="static_body" type="StaticBody3D" parent="walls/mesh_instance"]
 collision_layer = 2
 collision_mask = 63
 
-[node name="collision_shape" type="CollisionShape" parent="walls/mesh_instance/static_body"]
+[node name="collision_shape" type="CollisionShape3D" parent="walls/mesh_instance/static_body"]
 shape = SubResource( 4 )
 
-[node name="mesh_instance2" type="MeshInstance" parent="walls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.5, -10 )
+[node name="mesh_instance2" type="MeshInstance3D" parent="walls"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.5, -10 )
 mesh = SubResource( 3 )
 material/0 = ExtResource( 4 )
 
-[node name="static_body" type="StaticBody" parent="walls/mesh_instance2"]
+[node name="static_body" type="StaticBody3D" parent="walls/mesh_instance2"]
 collision_layer = 2
 collision_mask = 63
 
-[node name="collision_shape" type="CollisionShape" parent="walls/mesh_instance2/static_body"]
+[node name="collision_shape" type="CollisionShape3D" parent="walls/mesh_instance2/static_body"]
 shape = SubResource( 4 )
 
-[node name="mesh_instance3" type="MeshInstance" parent="walls"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 36, 2.5, -6.5 )
+[node name="mesh_instance3" type="MeshInstance3D" parent="walls"]
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 36, 2.5, -6.5 )
 mesh = SubResource( 5 )
 material/0 = ExtResource( 4 )
 
-[node name="static_body" type="StaticBody" parent="walls/mesh_instance3"]
+[node name="static_body" type="StaticBody3D" parent="walls/mesh_instance3"]
 collision_layer = 2
 collision_mask = 63
 
-[node name="collision_shape" type="CollisionShape" parent="walls/mesh_instance3/static_body"]
+[node name="collision_shape" type="CollisionShape3D" parent="walls/mesh_instance3/static_body"]
 shape = SubResource( 6 )
 
-[node name="mesh_instance4" type="MeshInstance" parent="walls"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 36, 2.5, 6.5 )
+[node name="mesh_instance4" type="MeshInstance3D" parent="walls"]
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 36, 2.5, 6.5 )
 mesh = SubResource( 5 )
 material/0 = ExtResource( 4 )
 
-[node name="static_body" type="StaticBody" parent="walls/mesh_instance4"]
+[node name="static_body" type="StaticBody3D" parent="walls/mesh_instance4"]
 collision_layer = 2
 collision_mask = 63
 
-[node name="collision_shape" type="CollisionShape" parent="walls/mesh_instance4/static_body"]
+[node name="collision_shape" type="CollisionShape3D" parent="walls/mesh_instance4/static_body"]
 shape = SubResource( 6 )
 
-[node name="palace_entry" type="Spatial" parent="."]
+[node name="palace_entry" type="Node3D" parent="."]
 
 [node name="entry" parent="palace_entry" instance=ExtResource( 9 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -30, 5.3, 0 )
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -30, 5.3, 0 )
 next_level = "palace_entry"
 
 [node name="curtain" parent="palace_entry" instance=ExtResource( 7 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 4, 2.5 )
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 4, 2.5 )
 
 [node name="curtain2" parent="palace_entry" instance=ExtResource( 7 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 4, 0.5 )
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 4, 0.5 )
 
 [node name="curtain3" parent="palace_entry" instance=ExtResource( 7 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 4, -1.5 )
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 4, -1.5 )
 
-[node name="wall_r" type="MeshInstance" parent="palace_entry"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5, 5, -6.5 )
+[node name="wall_r" type="MeshInstance3D" parent="palace_entry"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5, 5, -6.5 )
 mesh = SubResource( 7 )
 material/0 = ExtResource( 10 )
 
-[node name="static_body" type="StaticBody" parent="palace_entry/wall_r"]
+[node name="static_body" type="StaticBody3D" parent="palace_entry/wall_r"]
 collision_layer = 2
 collision_mask = 63
 
-[node name="collision_shape" type="CollisionShape" parent="palace_entry/wall_r/static_body"]
+[node name="collision_shape" type="CollisionShape3D" parent="palace_entry/wall_r/static_body"]
 shape = SubResource( 8 )
 
-[node name="statue_r" type="MeshInstance" parent="palace_entry"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -7, 13, -6.5 )
+[node name="statue_r" type="MeshInstance3D" parent="palace_entry"]
+transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -7, 13, -6.5 )
 mesh = SubResource( 9 )
 material/0 = ExtResource( 10 )
 
-[node name="static_body" type="StaticBody" parent="palace_entry/statue_r"]
+[node name="static_body" type="StaticBody3D" parent="palace_entry/statue_r"]
 collision_layer = 2
 collision_mask = 63
 
-[node name="collision_shape" type="CollisionShape" parent="palace_entry/statue_r/static_body"]
+[node name="collision_shape" type="CollisionShape3D" parent="palace_entry/statue_r/static_body"]
 shape = SubResource( 10 )
 
-[node name="statue_l" type="MeshInstance" parent="palace_entry"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -7, 13, 6.5 )
+[node name="statue_l" type="MeshInstance3D" parent="palace_entry"]
+transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -7, 13, 6.5 )
 mesh = SubResource( 9 )
 material/0 = ExtResource( 10 )
 
-[node name="static_body" type="StaticBody" parent="palace_entry/statue_l"]
+[node name="static_body" type="StaticBody3D" parent="palace_entry/statue_l"]
 collision_layer = 2
 collision_mask = 63
 
-[node name="collision_shape" type="CollisionShape" parent="palace_entry/statue_l/static_body"]
+[node name="collision_shape" type="CollisionShape3D" parent="palace_entry/statue_l/static_body"]
 shape = SubResource( 10 )
 
-[node name="walkway" type="MeshInstance" parent="palace_entry"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.946, 2.4, 0 )
+[node name="walkway" type="MeshInstance3D" parent="palace_entry"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.946, 2.4, 0 )
 mesh = SubResource( 11 )
 material/0 = ExtResource( 3 )
 
-[node name="static_body" type="StaticBody" parent="palace_entry/walkway"]
+[node name="static_body" type="StaticBody3D" parent="palace_entry/walkway"]
 collision_layer = 2
 collision_mask = 63
 
-[node name="collision_shape" type="CollisionShape" parent="palace_entry/walkway/static_body"]
+[node name="collision_shape" type="CollisionShape3D" parent="palace_entry/walkway/static_body"]
 shape = SubResource( 12 )
 
-[node name="wall_l" type="MeshInstance" parent="palace_entry"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5, 5, 6.5 )
+[node name="wall_l" type="MeshInstance3D" parent="palace_entry"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5, 5, 6.5 )
 mesh = SubResource( 7 )
 material/0 = ExtResource( 10 )
 
-[node name="static_body" type="StaticBody" parent="palace_entry/wall_l"]
+[node name="static_body" type="StaticBody3D" parent="palace_entry/wall_l"]
 collision_layer = 2
 collision_mask = 63
 
-[node name="collision_shape" type="CollisionShape" parent="palace_entry/wall_l/static_body"]
+[node name="collision_shape" type="CollisionShape3D" parent="palace_entry/wall_l/static_body"]
 shape = SubResource( 8 )
 
-[node name="house_body" type="MeshInstance" parent="palace_entry"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -40, 5, 0 )
+[node name="house_body" type="MeshInstance3D" parent="palace_entry"]
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -40, 5, 0 )
 mesh = SubResource( 13 )
 material/0 = ExtResource( 10 )
 
-[node name="static_body" type="StaticBody" parent="palace_entry/house_body"]
+[node name="static_body" type="StaticBody3D" parent="palace_entry/house_body"]
 collision_layer = 2
 collision_mask = 63
 
-[node name="collision_shape" type="CollisionShape" parent="palace_entry/house_body/static_body"]
+[node name="collision_shape" type="CollisionShape3D" parent="palace_entry/house_body/static_body"]
 shape = SubResource( 14 )
 
-[node name="boxes" type="Spatial" parent="."]
+[node name="boxes" type="Node3D" parent="."]
 
 [node name="box1" parent="boxes" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.5 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.5 )

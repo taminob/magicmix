@@ -33,20 +33,20 @@ func casttime() -> float:
 func cooldown() -> float:
 	return 10.0
 
-func start_effect(pawn: KinematicBody):
-	var new_minion: KinematicBody = game.mgmt.create_character("minion")
+func start_effect(pawn: CharacterBody3D):
+	var new_minion: CharacterBody3D = game.mgmt.create_character("minion")
 	new_minion.remove_from_group("characters")
 	game.levels.current_level.add_child(new_minion)
 	# TODO: (BUG) fix spawning in walls
-	new_minion.global_transform.origin = pawn.global_transform.origin + pawn.global_transform.basis.xform(Vector3.RIGHT + Vector3.FORWARD)
+	new_minion.global_transform.origin = pawn.global_transform.origin + pawn.global_transform.basis * (Vector3.RIGHT + Vector3.FORWARD)
 	new_minion.dialogue.relations = pawn.dialogue.relations
 	new_minion.dialogue.set_relation(pawn.name, +2) # todo: use dialogue_state relations
 	new_minion.inventory.add_spell(fire_ball_spell.id()) # todo: special minion attacks?
 
-func end_effect(_pawn: KinematicBody):
+func end_effect(_pawn: CharacterBody3D):
 	pass
 
-func effect(_pawn: KinematicBody, _delta: float):
+func effect(_pawn: CharacterBody3D, _delta: float):
 	pass
 
 func icon() -> Resource:

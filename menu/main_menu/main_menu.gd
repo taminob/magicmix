@@ -1,11 +1,11 @@
 extends Control
 
-onready var load_popup = $"load_popup"
-onready var save_list = $"load_popup/layout/save_list"
+@onready var load_popup = $"load_popup"
+@onready var save_list = $"load_popup/layout/save_list"
 var current_load_selection = -1
 
 func _enter_tree():
-	$"center_container/v_box_container/continue_button".disabled = saves.get_save_list().empty()
+	$"center_container/v_box_container/continue_button".disabled = saves.get_save_list().is_empty()
 
 func prepare_start_game():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

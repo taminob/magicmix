@@ -2,20 +2,20 @@ extends Control
 
 class_name ui
 
-onready var pain_bar: TextureProgress = $"pain_bar"
-onready var shield_bar: TextureProgress = $"shield_bar"
-onready var shield_element_icon: TextureRect = $"shield_bar/shield_element_icon"
-onready var focus_bar: TextureProgress = $"focus_bar"
-onready var stamina_bar: TextureProgress = $"stamina_bar"
-onready var pos_temperature_bar: TextureProgress = $"pos_temperature_bar"
-onready var neg_temperature_bar: TextureProgress = $"neg_temperature_bar"
-onready var xp_bar: ProgressBar = $"xp_bar"
-onready var cast_bar: TextureProgress = $"cast_bar"
-onready var slots: Control = $"slots"
-onready var skill_slots: Control = $"skill_slots"
-onready var dialogue: ui_dialogue = $"dialogue"
-onready var interaction: Control = $"interaction"
-onready var debug_label: Label = $"debug_info_label"
+@onready var pain_bar: TextureProgressBar = $"pain_bar"
+@onready var shield_bar: TextureProgressBar = $"shield_bar"
+@onready var shield_element_icon: TextureRect = $"shield_bar/shield_element_icon"
+@onready var focus_bar: TextureProgressBar = $"focus_bar"
+@onready var stamina_bar: TextureProgressBar = $"stamina_bar"
+@onready var pos_temperature_bar: TextureProgressBar = $"pos_temperature_bar"
+@onready var neg_temperature_bar: TextureProgressBar = $"neg_temperature_bar"
+@onready var xp_bar: ProgressBar = $"xp_bar"
+@onready var cast_bar: TextureProgressBar = $"cast_bar"
+@onready var slots: Control = $"slots"
+@onready var skill_slots: Control = $"skill_slots"
+@onready var dialogue: ui_dialogue = $"dialogue"
+@onready var interaction: Control = $"interaction"
+@onready var debug_label: Label = $"debug_info_label"
 
 func _ready():
 	game.mgmt.ui = self
@@ -100,7 +100,7 @@ func end_dialogue():
 	dialogue.set_visible(false)
 
 # todo: interaction icon
-func show_interaction(text: String, _icon: Texture):
+func show_interaction(text: String, _icon: Texture2D):
 	interaction.get_node("text").set_bbcode("[center]" + text + "[/center]")
 	interaction.set_visible(true)
 

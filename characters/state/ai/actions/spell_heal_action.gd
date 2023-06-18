@@ -5,7 +5,7 @@ const IMPORTANCE: float = 0.95
 static func _spell_id() -> String:
 	return heal_spell.id()
 
-static func score(pawn: KinematicBody) -> Dictionary:
+static func score(pawn: CharacterBody3D) -> Dictionary:
 	var score: float = 0.0
 	if(!pawn.stats.dead && !pawn.stats.undead):
 		if(pawn.skills.can_cast(_spell_id())):

@@ -1,8 +1,8 @@
-extends Spatial
+extends Node3D
 
-export var spawn_on_ready: bool = false
-export var minion_limit: int = 0
-export var radius: float = 10
+@export var spawn_on_ready: bool = false
+@export var minion_limit: int = 0
+@export var radius: float = 10
 var minion_ids: Array = []
 
 func _ready():
@@ -26,12 +26,12 @@ func spawn(override_limit: bool=false):
 
 	var _next_spawn_position: Vector3 = Vector3.ZERO
 	for i in range(minion_limit - minion_count):
-		var new_minion: KinematicBody = game.mgmt.create_character("minion")
+		var new_minion: CharacterBody3D = game.mgmt.create_character("minion")
 		new_minion.remove_from_group("characters")
 		game.levels.current_level.call_deferred("add_child", new_minion)
 		call_deferred("_set_minion_properties", new_minion, i)
 
-func _set_minion_properties(minion: KinematicBody, minion_id: int):
+func _set_minion_properties(minion: CharacterBody3D, minion_id: int):
 	# TODO: fix targeting
 	minion.dialogue.relations = {game.mgmt.player_id: -2} # todo: dialogue_state.relation.enemy
 	#minion.inventory.add_spell(fire_ball_spell.id()) # todo: special minion attacks?

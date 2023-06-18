@@ -1,6 +1,6 @@
 extends Control
 
-onready var skill_tree_panel: Control = $".."
+@onready var skill_tree_panel: Control = $".."
 
 func clear_tree():
 	for x in get_children():
@@ -8,7 +8,7 @@ func clear_tree():
 
 func update_tree(category: String):
 	clear_tree()
-	if(category.empty()):
+	if(category.is_empty()):
 		return
 	var skills: Array = []
 	for x in skill_data.skills.keys():
@@ -18,7 +18,7 @@ func update_tree(category: String):
 		skills.push_back(x)
 	var nodes: Array = []
 	var level: int = 0
-	while !skills.empty() && level < 10:
+	while !skills.is_empty() && level < 10:
 		skills = create_tree(skills, nodes, level)
 		level += 1
 
@@ -41,31 +41,31 @@ func skill_node(skill_id: String) -> TextureRect:
 	button.texture_normal = skill.icon()
 	button.anchor_right = 1
 	button.anchor_bottom = 1
-	button.connect("pressed", skill_tree_panel, "_on_skill_activated", [skill_id])
+	button.connect("pressed", Callable(skill_tree_panel, "_on_skill_activated").bind(skill_id))
 	frame.add_child(button)
 	return frame
 
-func create_connection(texture: Texture) -> TextureProgress:
-	var line = TextureProgress.new()
+func create_connection(texture: Texture2D) -> TextureProgressBar:
+	var line = TextureProgressBar.new()
 	line.texture_under = texture
 	line.texture_progress = texture
-	line.tint_under = Color.black
+	line.tint_under = Color.BLACK
 	line.tint_progress = Color(0.83, 0.83, 0.83)
 	return line
 
-func straight_connection() -> TextureProgress:
+func straight_connection() -> TextureProgressBar:
 	return create_connection(load("res://ui/panels/skill_tree/straight_connection-4096.png"))
 
-func l_diagonal_connection() -> TextureProgress:
+func l_diagonal_connection() -> TextureProgressBar:
 	return create_connection(load("res://ui/panels/skill_tree/l_diagonal_connection-4096.png"))
 
-func r_diagonal_connection() -> TextureProgress:
+func r_diagonal_connection() -> TextureProgressBar:
 	return create_connection(load("res://ui/panels/skill_tree/r_diagonal_connection-4096.png"))
 
 func connect_nodes(from_node: Control, to_node: Control, progress: float):
 	var from_mid = (from_node.anchor_left + from_node.anchor_right) / 2
 	var to_mid = (to_node.anchor_left + to_node.anchor_right) / 2
-	var connection: TextureProgress
+	var connection: TextureProgressBar
 	if(abs(from_mid - to_mid) < 0.01):
 		connection = straight_connection()
 		connection.anchor_left = from_mid - 0.1
@@ -92,7 +92,7 @@ func create_tree(skill_ids: Array, nodes: Array, level: int) -> Array:
 	nodes.push_back({})
 	for i in range(skill_ids.size()):
 		var skill: abstract_skill = skill_data.skills[skill_ids[i]]
-		if(skill.category().empty()):
+		if(skill.category().is_empty()):
 			continue
 		for x in skill.requirements():
 			if(nodes[max(level - 1, 0)].has(x)):
@@ -102,7 +102,7 @@ func create_tree(skill_ids: Array, nodes: Array, level: int) -> Array:
 					to_connect_skills[skill_ids[i]] = [x]
 			else:
 				unconnected_skills.push_back(skill_ids[i])
-		if(skill.requirements().empty()):
+		if(skill.requirements().is_empty()):
 			to_connect_skills[skill_ids[i]] = []
 
 	var i: int = 0

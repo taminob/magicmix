@@ -53,12 +53,12 @@ func from_dict(dict: Dictionary) -> Object:
 
 func _ready():
 	# TODO: move to static array?
-	var dir: Directory = Directory.new()
-	errors.debug_assert(dir.open("res://scripts/game/levels/") == OK, "unable to find levels directory")
-	errors.error_test(dir.list_dir_begin(true, true))
+	var dir: DirAccess = DirAccess.new()
+	errors.debug_assert(dir.open("res://scripts/game/levels/") == OK) #,"unable to find levels directory")
+	errors.error_test(dir.list_dir_begin() )# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 	while true:
 		var file: String = dir.get_next()
-		if(file.empty()):
+		if(file.is_empty()):
 			break
 		if(file == "debug_level.gd"):
 			continue
@@ -74,7 +74,7 @@ var level_data: Dictionary = {}
 var current_level_data: abstract_level
 var current_level: Node = null
 
-func get_spawn(character_id: String) -> Spatial:
+func get_spawn(character_id: String) -> Node3D:
 	var spawn_name: String
 	if(character_id == game.mgmt.player_id):
 		spawn_name = "player_spawn"
@@ -95,16 +95,16 @@ func _load_callback(new_level: Resource):
 		game.mgmt.unmake_player()
 		world.call_deferred("remove_child", current_level)
 		current_level.call_deferred("free")
-	current_level = new_level.instance()
+	current_level = new_level.instantiate()
 	current_level.name = "level"
 	var new_player = current_level.get_node_or_null(game.mgmt.player_id)
 	if(new_player):
 		game.mgmt.call_deferred("make_player", new_player)
 	else:
 		game.mgmt.create_player()
-		var spawn: Spatial = get_spawn(game.mgmt.player_id)
+		var spawn: Node3D = get_spawn(game.mgmt.player_id)
 		if(spawn):
-			game.mgmt.player.translation = spawn.translation
+			game.mgmt.player.position = spawn.position
 		current_level.call_deferred("add_child", game.mgmt.player)
 	game.mgmt.camera.call_deferred("update_environment")
 	errors.log("change level: " + current_level_data.id())

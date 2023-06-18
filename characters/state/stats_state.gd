@@ -2,13 +2,13 @@ extends Node
 
 class_name stats_state
 
-onready var state: Node = get_parent()
-onready var pawn: KinematicBody = $"../.."
-onready var move: Node = $"../move"
-onready var experience: Node = $"../experience"
-onready var skills: Node = $"../skills"
-onready var dialogue: Node = $"../dialogue"
-onready var look: Node = $"../look"
+@onready var state: Node = get_parent()
+@onready var pawn: CharacterBody3D = $"../.."
+@onready var move: Node = $"../move"
+@onready var experience: Node = $"../experience"
+@onready var skills: Node = $"../skills"
+@onready var dialogue: Node = $"../dialogue"
+@onready var look: Node = $"../look"
 
 const MAX_TEMPERATURE: float = 100.0
 
@@ -77,13 +77,13 @@ func die(save_state: bool=true):
 		else:
 			if(save_state && !state.is_minion):
 				pawn.save_state()
-			var death_shard: Spatial = preload("res://world/objects/death_shard/death_shard.tscn").instance()
+			var death_shard: Node3D = preload("res://world/objects/death_shard/death_shard.tscn").instantiate()
 			death_shard.name = "death_shard_" + pawn.name
 			game.levels.current_level.call_deferred("add_child", death_shard)
 			death_shard.global_transform = pawn.global_transform
 			pawn.queue_free()
 
-func damage(dmg: float, element: int, caused_by: KinematicBody):
+func damage(dmg: float, element: int, caused_by: CharacterBody3D):
 	if(caused_by):
 		# todo: move to dialogue_state
 		var new_relation: int = int(clamp(dialogue.get_relation(caused_by.name) - (1 * sign(dmg)), -2, 2)) # TODO? replace constant by enum

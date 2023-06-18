@@ -1,6 +1,6 @@
-extends Spatial
+extends Node3D
 
-onready var skeleton = $"Armature/Skeleton"
+@onready var skeleton = $"Armature/Skeleton3D"
 
 func _ready():
 	var bones: Array = []

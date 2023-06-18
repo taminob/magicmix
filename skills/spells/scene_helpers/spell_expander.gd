@@ -1,13 +1,13 @@
-extends Area
+extends Area3D
 
 class_name spell_expander
 
 var time: float
 var spell: abstract_spell
-var object: Area = null
+var object: Area3D = null
 var _affected_bodies: Array = []
 # warning-ignore:unused_class_variable
-var caster: KinematicBody
+var caster: CharacterBody3D
 
 func position() -> Vector3:
 	return caster.global_transform.origin
@@ -19,8 +19,8 @@ func do_on_end():
 	pass
 
 func connect_object():
-	errors.error_test(object.connect("body_entered", self, "_object_enter"))
-	errors.error_test(object.connect("body_exited", self, "_object_exit"))
+	errors.error_test(object.connect("body_entered", Callable(self, "_object_enter")))
+	errors.error_test(object.connect("body_exited", Callable(self, "_object_exit")))
 
 func init_object():
 	connect_object()

@@ -14,40 +14,40 @@ __meta__ = {
 }
 
 [node name="layout" type="VBoxContainer" parent="."]
-margin_right = 1920.0
-margin_bottom = 729.0
+offset_right = 1920.0
+offset_bottom = 729.0
 size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="godmode" type="HBoxContainer" parent="layout"]
-margin_right = 1920.0
-margin_bottom = 143.0
+offset_right = 1920.0
+offset_bottom = 143.0
 
 [node name="godmode_check" type="CheckBox" parent="layout/godmode"]
-margin_right = 516.0
-margin_bottom = 143.0
+offset_right = 516.0
+offset_bottom = 143.0
 text = "God Mode"
 
 [node name="console" type="HBoxContainer" parent="layout"]
-margin_top = 293.0
-margin_right = 1920.0
-margin_bottom = 436.0
+offset_top = 293.0
+offset_right = 1920.0
+offset_bottom = 436.0
 
 [node name="console_check" type="CheckBox" parent="layout/console"]
-margin_right = 917.0
-margin_bottom = 143.0
+offset_right = 917.0
+offset_bottom = 143.0
 text = "Developer Console"
 
 [node name="spells_for_everyone" type="HBoxContainer" parent="layout"]
-margin_top = 586.0
-margin_right = 1920.0
-margin_bottom = 729.0
+offset_top = 586.0
+offset_right = 1920.0
+offset_bottom = 729.0
 
 [node name="spells_for_everyone_check" type="CheckBox" parent="layout/spells_for_everyone"]
-margin_right = 1226.0
-margin_bottom = 143.0
+offset_right = 1226.0
+offset_bottom = 143.0
 text = "Everyone has every spell"
 
 [connection signal="toggled" from="layout/godmode/godmode_check" to="." method="_on_godmode_check_toggled"]

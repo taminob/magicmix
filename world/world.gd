@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 var fallen_up_objects: Array = []
 var fallen_down_objects: Array = []
@@ -24,7 +24,7 @@ func _on_fall_area_entered(body: Node, up: bool):
 			body.queue_free() # todo: can cause double free issue with e.g. platform_spell
 
 func _player_fallen(up: bool):
-	var body: KinematicBody = game.mgmt.player
+	var body: CharacterBody3D = game.mgmt.player
 	if(up):
 		if(game.levels.current_level_data.is_in_death_realm()):
 			game.levels.change_level("death_arena")
@@ -39,6 +39,6 @@ func _player_fallen(up: bool):
 func _reset_body(body: Node):
 	var spawn = game.levels.get_spawn(body.name)
 	if(spawn):
-		body.translation = spawn.translation
+		body.position = spawn.position
 	else:
 		errors.debug_output("no spawn found in " + game.levels.current_level_data.id() + " for " + body.name)

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://menu/loading/loading_background_shader.tres" type="Shader" id=1]
 
-[sub_resource type="OpenSimplexNoise" id=2]
+[sub_resource type="FastNoiseLite" id=2]
 
 [sub_resource type="NoiseTexture" id=3]
 seamless = true

@@ -1,9 +1,9 @@
-extends Area
+extends Area3D
 
 var time: float
 var _affected_bodies: Array = []
 var spell: abstract_spell
-var caster: KinematicBody
+var caster: CharacterBody3D
 
 func _ready():
 	time = spell.duration()

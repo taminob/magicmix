@@ -3,8 +3,8 @@ extends abstract_action
 const MAX_DISTANCE: float = 55.0
 const IMPORTANCE: float = 0.90
 
-static func _internal_score(pawn: KinematicBody, event: ai_mind.sight_event) -> float:
-	var target: Spatial = event.body
+static func _internal_score(pawn: CharacterBody3D, event: ai_mind.sight_event) -> float:
+	var target: Node3D = event.body
 	if(!("dialogue" in target) || !(target.dialogue.can_talk())):
 		return 0.0
 	if(!pawn.dialogue.data.wants_to_talk_to.has(target.name)):
@@ -15,9 +15,9 @@ static func _internal_score(pawn: KinematicBody, event: ai_mind.sight_event) -> 
 	var rot: float = _rotate_score(pawn, target, 3.0)
 	return dist * max(rot, 0.5) * IMPORTANCE
 
-static func score(pawn: KinematicBody) -> Dictionary:
+static func score(pawn: CharacterBody3D) -> Dictionary:
 	var score: float
-	var target: KinematicBody
+	var target: CharacterBody3D
 	for x in pawn.ai.brain.sight_events:
 		var new_score: float = _internal_score(pawn, x)
 		if(score < new_score):

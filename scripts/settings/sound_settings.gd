@@ -7,7 +7,7 @@ var options = {
 }
 
 func _set_bus_volume(bus_name: String, value: float):
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(bus_name), linear2db(value))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(bus_name), linear_to_db(value))
 	AudioServer.set_bus_mute(AudioServer.get_bus_index(bus_name), value < 0.01)
 
 func set_options(set: Node):

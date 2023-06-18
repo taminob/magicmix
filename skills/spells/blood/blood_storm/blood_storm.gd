@@ -49,4 +49,4 @@ func icon() -> Resource:
 	return load(SPELL_ICONS_PATH + "blood_storm-512.png")
 
 func scene() -> Node:
-	return preload("scene/blood_storm.tscn").instance()
+	return preload("scene/blood_storm.tscn").instantiate()

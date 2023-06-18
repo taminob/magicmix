@@ -1,6 +1,6 @@
-extends MeshInstance
+extends MeshInstance3D
 
-onready var player_spawn = $"../player_spawn"
+@onready var player_spawn = $"../player_spawn"
 
 func _on_trigger_body_entered(body, name):
 	# todo: make revive mechanic more robust to non-existent entries in dictionaries
@@ -13,7 +13,7 @@ func _on_trigger_body_entered(body, name):
 		game.char_data[name]["stats"]["pain"] = 0.0
 		game.char_data[name]["stats"]["dead"] = false
 		game.char_data[body.name]["move"]["translations"].erase(game.levels.current_level_data.id())
-	body.translation = player_spawn.translation
+	body.position = player_spawn.position
 	game.char_data[name]["move"]["translations"].clear()
 	game.mgmt.player_id = name
 	game.levels.change_level("debug1")

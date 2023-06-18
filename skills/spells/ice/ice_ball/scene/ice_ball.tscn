@@ -2,5 +2,5 @@
 
 [ext_resource path="res://skills/spells/ice/ice_ball/scene/ice_ball.gd" type="Script" id=1]
 
-[node name="ice_ball" type="Spatial"]
+[node name="ice_ball" type="Node3D"]
 script = ExtResource( 1 )

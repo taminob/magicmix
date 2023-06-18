@@ -8,8 +8,8 @@ enum states {
 	active,
 }
 
-onready var ai: Node = $".."
-onready var chooser: Node = $"../ai_chooser"
+@onready var ai: Node = $".."
+@onready var chooser: Node = $"../ai_chooser"
 var state_queue: Array = []
 var action_queue: Array = []
 
@@ -24,7 +24,7 @@ func process_state(delta: float):
 
 func push_state(new_state: int):
 	# todo: good idea?
-	if(new_state == states.idle && !state_queue.empty() && state_queue.back() == new_state):
+	if(new_state == states.idle && !state_queue.is_empty() && state_queue.back() == new_state):
 		return
 	state_queue.push_back(new_state)
 
@@ -34,7 +34,7 @@ func plan_failed():
 
 func consider():
 	action_queue = [] # TODO: get next action
-	if(action_queue.empty()):
+	if(action_queue.is_empty()):
 		action_queue.push_back(ai.behavior.idle_action(ai.pawn))
 		push_state(states.active)
 		#push_state(states.idle) # todo? necessary?
@@ -48,18 +48,18 @@ func idle():
 	push_state(states.active)
 
 func move():
-	if(action_queue.empty()):
+	if(action_queue.is_empty()):
 		return
 	ai.move.current_mode = move_state.move_mode.RUNNING # todo: implement other move modes
 	var current_action = action_queue.front()
-	var current_target: Spatial = current_action.target()
+	var current_target: Node3D = current_action.target()
 	if(!game.is_valid(current_target)):
 		return # todo? check why check is necessary
 	var nav: Navigation = game.levels.current_level.get_node("navigation")
 	var destination = current_target.global_transform.origin
 	if(nav):
-		var path: PoolVector3Array = nav.get_simple_path(ai.pawn.global_transform.origin, destination)
-		if(!path.empty()):
+		var path: PackedVector3Array = nav.get_simple_path(ai.pawn.global_transform.origin, destination)
+		if(!path.is_empty()):
 			# todo: add timeout (unreachable)
 			ai.pawn.face_location(path[1])
 			ai.pawn.move.input_direction = Vector3.FORWARD
@@ -69,7 +69,7 @@ func move():
 			plan_failed()
 
 func active(delta: float):
-	if(action_queue.empty()):
+	if(action_queue.is_empty()):
 		push_state(states.idle)
 		return
 	var current_action: abstract_action = action_queue.front()

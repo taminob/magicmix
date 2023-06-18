@@ -16,7 +16,7 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 bbcode_enabled = true
-bbcode_text = "[center]ACTION[/center]"
+text = "[center]ACTION[/center]"
 text = "ACTION"
 __meta__ = {
 "_edit_use_anchors_": false

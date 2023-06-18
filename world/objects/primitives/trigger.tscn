@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="BoxShape3D" id=1]
 
-[node name="trigger" type="Area"]
+[node name="trigger" type="Area3D"]
 
-[node name="collision" type="CollisionShape" parent="."]
+[node name="collision" type="CollisionShape3D" parent="."]
 shape = SubResource( 1 )

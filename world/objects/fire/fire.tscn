@@ -3,7 +3,7 @@
 [ext_resource path="res://skills/spells/scene_helpers/fire.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world/objects/fire/fire.gd" type="Script" id=2]
 
-[node name="fire" type="Spatial"]
+[node name="fire" type="Node3D"]
 script = ExtResource( 2 )
 
 [node name="fire" parent="." instance=ExtResource( 1 )]

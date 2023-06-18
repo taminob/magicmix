@@ -21,7 +21,7 @@ func mutually_exclusive() -> Array:
 	return ["shield_sprint"]
 
 const EFFECT_FACTOR: float = 0.5
-func effect(pawn: KinematicBody, delta: float):
+func effect(pawn: CharacterBody3D, delta: float):
 	# TODO: increase gain over time when standing still for longer
 	if(pawn.move.velocity.is_equal_approx(Vector3.ZERO)):
 		pawn.stats.add_shield(pawn.stats.max_shield() * EFFECT_FACTOR * delta)

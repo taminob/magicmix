@@ -2,9 +2,9 @@ extends Node
 
 class_name skills_state
 
-onready var pawn: KinematicBody = $"../.."
-onready var stats: Node = $"../stats"
-onready var inventory: Node = $"../inventory"
+@onready var pawn: CharacterBody3D = $"../.."
+@onready var stats: Node = $"../stats"
+@onready var inventory: Node = $"../inventory"
 
 class active_spell:
 	var spell_id: String
@@ -12,7 +12,7 @@ class active_spell:
 	var duration: float
 	var scene: Node
 
-	func _init(new_spell_id: String, new_duration: float, pawn: KinematicBody):
+	func _init(new_spell_id: String, new_duration: float, pawn: CharacterBody3D):
 		spell_id = new_spell_id
 		duration = new_duration
 		spell = skill_data.spells[spell_id]
@@ -27,10 +27,10 @@ class active_spell:
 			game.levels.current_level.call_deferred("add_child", scene)
 		spell.start_effect(pawn)
 
-	func can_tick(pawn: KinematicBody, delta: float) -> bool:
+	func can_tick(pawn: CharacterBody3D, delta: float) -> bool:
 		return duration > 0 && (pawn.stats.focus + spell.self_focus_per_second() * delta >= 0 || game.levels.current_level_data.is_in_death_realm())
 
-	func tick(pawn: KinematicBody, delta: float) -> bool:
+	func tick(pawn: CharacterBody3D, delta: float) -> bool:
 		duration -= delta
 		if(can_tick(pawn, delta)):
 			pawn.stats._self_focus_damage(spell.self_focus_per_second() * delta)
@@ -40,7 +40,7 @@ class active_spell:
 		cancel(pawn)
 		return false
 
-	func cancel(pawn: KinematicBody):
+	func cancel(pawn: CharacterBody3D):
 		spell.end_effect(pawn)
 		if(scene && !scene.is_queued_for_deletion()):
 			scene.queue_free()
@@ -51,7 +51,7 @@ class active_spell:
 			"remaining": duration
 		}
 
-	static func from_dict(dict: Dictionary, pawn: KinematicBody) -> active_spell:
+	static func from_dict(dict: Dictionary, pawn: CharacterBody3D) -> active_spell:
 		# todo? smart to repeat start_effect when restoring?
 		var new_spell: active_spell = active_spell.new(dict["spell_id"], dict["remaining"], pawn)
 		return new_spell

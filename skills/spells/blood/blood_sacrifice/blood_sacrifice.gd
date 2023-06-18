@@ -43,4 +43,4 @@ func icon() -> Resource:
 	return load(SPELL_ICONS_PATH + "self_dark-512.png")
 
 func scene() -> Node:
-	return preload("scene/blood_sacrifice.tscn").instance()
+	return preload("scene/blood_sacrifice.tscn").instantiate()

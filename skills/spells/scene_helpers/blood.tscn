@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[sub_resource type="SpatialMaterial" id=1]
+[sub_resource type="StandardMaterial3D" id=1]
 albedo_color = Color( 0, 0, 0, 1 )
 emission_enabled = true
 emission = Color( 0, 0, 0, 1 )
@@ -22,18 +22,18 @@ void fragment()
 [sub_resource type="ShaderMaterial" id=3]
 shader = SubResource( 2 )
 
-[sub_resource type="SphereShape" id=4]
+[sub_resource type="SphereShape3D" id=4]
 radius = 0.1
 
-[node name="blood" type="Area"]
+[node name="blood" type="Area3D"]
 
-[node name="inner" type="CSGSphere" parent="."]
+[node name="inner" type="CSGSphere3D" parent="."]
 radius = 0.07
 material = SubResource( 1 )
 
-[node name="sphere" type="CSGSphere" parent="."]
+[node name="sphere" type="CSGSphere3D" parent="."]
 radius = 0.1
 material = SubResource( 3 )
 
-[node name="collision" type="CollisionShape" parent="."]
+[node name="collision" type="CollisionShape3D" parent="."]
 shape = SubResource( 4 )

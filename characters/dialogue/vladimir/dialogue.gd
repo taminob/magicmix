@@ -4,7 +4,7 @@ func init_statements():
 	pass
 
 func init_conversations():
-	.init_conversations()
+	super.init_conversations()
 	conversations["want_to_arrest"] = want_to_arrest()
 
 func init_partners():

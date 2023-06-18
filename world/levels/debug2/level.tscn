@@ -6,7 +6,7 @@
 
 [sub_resource type="VisualScript" id=1]
 data = {
-"base_type": "Spatial",
+"base_type": "Node3D",
 "functions": [ {
 "data_connections": [  ],
 "function_id": -1,
@@ -21,14 +21,14 @@ data = {
 "vs_unify": true
 }
 
-[node name="palace_level" type="Spatial"]
+[node name="palace_level" type="Node3D"]
 script = ExtResource( 2 )
 
 [node name="palace" parent="." instance=ExtResource( 1 )]
 script = SubResource( 1 )
 
-[node name="player_spawn" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.183358, 10.5881, 0 )
+[node name="player_spawn" type="Node3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.183358, 10.5881, 0 )
 
 [node name="guard_house_trigger" parent="." instance=ExtResource( 3 )]
 

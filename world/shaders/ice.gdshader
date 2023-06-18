@@ -1,9 +1,9 @@
 shader_type spatial;
 render_mode unshaded;
 
-uniform vec4 base_color: hint_color;
-uniform vec4 secondary_color: hint_color;
-uniform sampler2D base_texture: hint_albedo;
+uniform vec4 base_color: source_color;
+uniform vec4 secondary_color: source_color;
+uniform sampler2D base_texture: source_color;
 
 void fragment()
 {

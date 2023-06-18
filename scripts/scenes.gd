@@ -5,18 +5,18 @@ var game_scene_path: String = "res://main.tscn"
 var game_instance: Node = null
 var current_scene: Node = null
 var previous_scenes: Array = []
-var root: Viewport = null
+var root: SubViewport = null
 
 func _ready():
 	root = get_tree().get_root()
 	current_scene = root.get_child(root.get_child_count() - 1)
 
 func create_game_scene(scene: PackedScene):
-	open_scene(scene.instance(), true)
+	open_scene(scene.instantiate(), true)
 	game_instance = current_scene
 
 func create_scene(scene: PackedScene):
-	open_scene(scene.instance())
+	open_scene(scene.instantiate())
 
 func open_scene(scene: Node, clear_scene_stack: bool=false):
 	if(!scene):
@@ -32,7 +32,7 @@ func open_scene(scene: Node, clear_scene_stack: bool=false):
 	get_tree().call_deferred("set_current_scene", current_scene)
 
 func open_scene_from(scene_path: String, clear_scene_stack: bool=false):
-	var new_scene = load(scene_path).instance()
+	var new_scene = load(scene_path).instantiate()
 	open_scene(new_scene, clear_scene_stack)
 
 func close_scene():
@@ -48,5 +48,5 @@ func close_scene():
 func close_all_scenes():
 	# todo? prevent open_scene in close_scene
 	close_scene()
-	while(!previous_scenes.empty()):
+	while(!previous_scenes.is_empty()):
 		close_scene()

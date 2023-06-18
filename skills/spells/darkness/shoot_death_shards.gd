@@ -33,11 +33,11 @@ func target_pain() -> float:
 func _is_death_shard(body: Node) -> bool:
 	return body.get_parent().get("is_uncollected_death_shard")
 
-func start_effect(pawn: KinematicBody):
-	var shard_collection: Spatial = pawn.get_node_or_null("shards")
+func start_effect(pawn: CharacterBody3D):
+	var shard_collection: Node3D = pawn.get_node_or_null("shards")
 	if(!shard_collection || shard_collection.get_child_count() < 1):
 		return
-	var projectile: Spatial = shard_collection.get_child(0)
+	var projectile: Node3D = shard_collection.get_child(0)
 	shard_collection.remove_child(projectile)
 	game.levels.current_level.add_child(projectile)
 	projectile.shoot()
@@ -47,7 +47,7 @@ func start_effect(pawn: KinematicBody):
 	var distance: float = 0.75
 	var pos: float = -distance / 2 * (shards.size() - 1)
 	for shard in shards:
-		shard.translation = Vector3(pos, 1, 0.6)
+		shard.position = Vector3(pos, 1, 0.6)
 		pos += distance
 
 func casttime() -> float:
@@ -66,4 +66,4 @@ func icon() -> Resource:
 	return load(SPELL_ICONS_PATH + "blood_scratch-512.png")
 
 func scene() -> Node:
-	return null#load("scene/blood_dash.tscn").instance()
+	return null#load("scene/blood_dash.tscn").instantiate()

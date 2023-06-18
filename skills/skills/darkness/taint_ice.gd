@@ -20,10 +20,10 @@ func requirements() -> Array:
 func mutually_exclusive() -> Array:
 	return ["taint_fire", "taint_life"]
 
-func on_allocated(_pawn: KinematicBody):
+func on_allocated(_pawn: CharacterBody3D):
 	pass # TODO: implement taint
 
-func on_retracted(_pawn: KinematicBody):
+func on_retracted(_pawn: CharacterBody3D):
 	pass
 
 func icon() -> Resource:

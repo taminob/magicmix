@@ -55,4 +55,4 @@ func icon() -> Resource:
 	return load(SPELL_ICONS_PATH + "/fire_ring-512.png")
 
 func scene() -> Node:
-	return preload("scene/fire_swirl.tscn").instance()
+	return preload("scene/fire_swirl.tscn").instantiate()

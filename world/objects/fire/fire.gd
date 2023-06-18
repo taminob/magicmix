@@ -1,10 +1,10 @@
-extends Spatial
+extends Node3D
 
 var _affected_bodies: Array = []
-export(abstract_spell.element_type) var damage_element: int = abstract_spell.element_type.fire
-export var initial_damage: float = 10.0
-export var damage_per_second: float = 5.0
-var caster: KinematicBody
+@export var damage_element: int = abstract_spell.element_type.fire # (abstract_spell.element_type)
+@export var initial_damage: float = 10.0
+@export var damage_per_second: float = 5.0
+var caster: CharacterBody3D
 
 func _physics_process(delta: float):
 	for x in _affected_bodies:

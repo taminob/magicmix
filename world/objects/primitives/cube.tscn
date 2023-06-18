@@ -1,14 +1,14 @@
 [gd_scene load_steps=3 format=2]
 
-[sub_resource type="CubeMesh" id=1]
+[sub_resource type="BoxMesh" id=1]
 
-[sub_resource type="BoxShape" id=2]
+[sub_resource type="BoxShape3D" id=2]
 
-[node name="cube" type="MeshInstance"]
+[node name="cube" type="MeshInstance3D"]
 mesh = SubResource( 1 )
 material/0 = null
 
-[node name="static" type="StaticBody" parent="."]
+[node name="static" type="StaticBody3D" parent="."]
 
-[node name="collision" type="CollisionShape" parent="static"]
+[node name="collision" type="CollisionShape3D" parent="static"]
 shape = SubResource( 2 )

@@ -2,16 +2,16 @@ extends Control
 
 class_name ui_dialogue
 
-onready var text: RichTextLabel = $"text"
-onready var name_text: Label = $"name_background/name"
-onready var answer_up: RichTextLabel = $"answer_up"
-onready var answer: RichTextLabel = $"answer"
-onready var answer_down: RichTextLabel = $"answer_down"
+@onready var text: RichTextLabel = $"text"
+@onready var name_text: Label = $"name_background/name"
+@onready var answer_up: RichTextLabel = $"answer_up"
+@onready var answer: RichTextLabel = $"answer"
+@onready var answer_down: RichTextLabel = $"answer_down"
 
 var selected_response: int = 0
 var responses: Array
 
-func _unhandled_key_input(event: InputEventKey):
+func _unhandled_key_input(event: InputEvent):
 	if(!is_visible()):
 		return
 
@@ -20,7 +20,7 @@ func _unhandled_key_input(event: InputEventKey):
 	elif(event.is_action_pressed("ui_up")):
 		change_selected_answer(-1, true)
 	elif(event.is_action_pressed("ui_accept")): # todo? remove/move to character same as skip/choose?
-		if(responses.empty() || text.get_visible_characters() >= 0):
+		if(responses.is_empty() || text.get_visible_characters() >= 0):
 			set_progress(-1)
 	elif(event.is_action_pressed("ui_page_down")):
 		change_selected_answer(responses.size() - 1)
@@ -38,7 +38,7 @@ func change_selected_answer(num: int, offset: bool=false):
 		answer_up.text = "> " + responses[num-1].formatted_text()
 	else:
 		answer_up.text = ""
-	if(!responses.empty()):
+	if(!responses.is_empty()):
 		answer.text = "* " + responses[num].formatted_text()
 	else:
 		answer.text = ""
@@ -61,7 +61,7 @@ func set_dialogue_text(say_text: String, speaker: String, new_responses: Array=[
 	set_progress(0)
 
 func get_current_response() -> abstract_dialogue.statement:
-	if(responses.empty()):
+	if(responses.is_empty()):
 		return null
 	return responses[selected_response]
 

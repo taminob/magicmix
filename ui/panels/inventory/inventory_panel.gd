@@ -1,6 +1,6 @@
 extends Control
 
-onready var list = $"layout/list"
+@onready var list = $"layout/list"
 
 func _on_inventory_panel_visibility_changed():
 	if(is_visible() && game.mgmt.player && game.mgmt.player.inventory): # todo: better solution than checking for null (required for level switching with open inventory)
@@ -10,7 +10,7 @@ func update_inventory(category=""):
 	list.clear()
 	for x in game.mgmt.player.inventory.things:
 		var item = item_data.items[x]
-		if(item.category() == category || category.empty()):
+		if(item.category() == category || category.is_empty()):
 			list.add_item(item.name(), item.icon())
 
 func things_compare(a: String, b: String) -> bool:
@@ -19,7 +19,7 @@ func things_compare(a: String, b: String) -> bool:
 func _on_sort_button_pressed():
 	# todo: sorting is done twice
 	list.sort_items_by_text()
-	game.mgmt.player.inventory.things.sort_custom(self, "things_compare")
+	game.mgmt.player.inventory.things.sort_custom(Callable(self, "things_compare"))
 
 func _on_all_pressed():
 	update_inventory()

@@ -17,7 +17,7 @@ func category() -> String:
 func requirements() -> Array:
 	return []
 
-func on_allocated(pawn: KinematicBody):
+func on_allocated(pawn: CharacterBody3D):
 # warning-ignore:return_value_discarded
 	pawn.inventory.add_spell(ice_ball_spell.id())
 # warning-ignore:return_value_discarded
@@ -27,7 +27,7 @@ func on_allocated(pawn: KinematicBody):
 # warning-ignore:return_value_discarded
 	pawn.inventory.add_spell(ice_push_spell.id())
 
-func on_retracted(pawn: KinematicBody):
+func on_retracted(pawn: CharacterBody3D):
 	pawn.inventory.remove_spell(ice_ball_spell.id())
 	pawn.inventory.remove_spell(ice_wave_spell.id())
 	pawn.inventory.remove_spell(ice_ride_spell.id())

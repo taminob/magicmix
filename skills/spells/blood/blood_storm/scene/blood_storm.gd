@@ -1,14 +1,14 @@
-extends Area
+extends Area3D
 
 var spell: abstract_spell
 var _affected_bodies: Array = []
-onready var caster: KinematicBody
-onready var _collision: CollisionShape = $"collision" # todo: expand collision radius (no pre-processed particles)
+@onready var caster: CharacterBody3D
+@onready var _collision: CollisionShape3D = $"collision" # todo: expand collision radius (no pre-processed particles)
 
 func _ready():
 	_collision.shape.radius = spell.range()
-	errors.error_test(connect("body_entered", self, "_object_enter"))
-	errors.error_test(connect("body_exited", self, "_object_exit"))
+	errors.error_test(connect("body_entered", Callable(self, "_object_enter")))
+	errors.error_test(connect("body_exited", Callable(self, "_object_exit")))
 
 func _physics_process(delta: float):
 	global_transform.origin = caster.global_transform.origin

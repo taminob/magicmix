@@ -10,8 +10,8 @@ func _ready():
 
 func init_screen_selection():
 	var screen_choice = $layout/screen_option/screen_choice
-	for i in range(OS.get_screen_count()):
-		screen_choice.add_item(str(i) + ": " + str(OS.get_screen_size(i)), i)
+	for i in range(DisplayServer.get_screen_count()):
+		screen_choice.add_item(str(i) + ": " + str(DisplayServer.screen_get_size(i)), i)
 	screen_choice.selected = settings.get_setting("display", "screen")
 
 func init_screenmode_selection():

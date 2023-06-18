@@ -3,11 +3,11 @@ extends Node
 
 class_name input_state
 
-onready var state: Node = get_parent()
-onready var move: Node = $"../move"
-onready var skills: Node = $"../skills"
-onready var interaction: Node = $"../interaction"
-onready var dialogue: Node = $"../dialogue"
+@onready var state: Node = get_parent()
+@onready var move: Node = $"../move"
+@onready var skills: Node = $"../skills"
+@onready var interaction: Node = $"../interaction"
+@onready var dialogue: Node = $"../dialogue"
 
 func _input(event: InputEvent):
 	if(state.is_player):

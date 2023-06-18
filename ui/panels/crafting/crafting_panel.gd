@@ -1,14 +1,14 @@
 extends Control
 
-onready var target = $"crafting_layout/component_layout/target"
-onready var type = $"crafting_layout/component_layout/type"
-onready var elements = [$"crafting_layout/component_layout/element_1",
+@onready var target = $"crafting_layout/component_layout/target"
+@onready var type = $"crafting_layout/component_layout/type"
+@onready var elements = [$"crafting_layout/component_layout/element_1",
 	$"crafting_layout/component_layout/element_2",
 	$"crafting_layout/component_layout/element_3"]
-onready var result_popup = $"result_popup"
-onready var popup_timer = $"result_popup/popup_timer"
-onready var result_icon = $"result_popup/popup_layout/result_icon"
-onready var result_label = $"result_popup/popup_layout/result_label"
+@onready var result_popup = $"result_popup"
+@onready var popup_timer = $"result_popup/popup_timer"
+@onready var result_icon = $"result_popup/popup_layout/result_icon"
+@onready var result_label = $"result_popup/popup_layout/result_label"
 
 func get_components() -> Dictionary:
 	var spell = {}
@@ -16,7 +16,7 @@ func get_components() -> Dictionary:
 	spell["type"] = type.selected
 	spell["elements"] = []
 	for element in elements:
-		if(!element.selected.empty()):
+		if(!element.selected.is_empty()):
 			spell["elements"].push_back(element.selected)
 	return spell
 

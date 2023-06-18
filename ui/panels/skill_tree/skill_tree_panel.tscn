@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://ui/icons/empty_slot_frame-512.png" type="Texture" id=1]
+[ext_resource path="res://ui/icons/empty_slot_frame-512.png" type="Texture2D" id=1]
 [ext_resource path="res://themes/ui_theme.tres" type="Theme" id=2]
 [ext_resource path="res://ui/panels/skill_tree/skill_tree_panel.gd" type="Script" id=4]
 [ext_resource path="res://ui/panels/skill_tree/skill_tree.gd" type="Script" id=7]
@@ -22,9 +22,9 @@ __meta__ = {
 }
 
 [node name="life" type="Button" parent="buttons"]
-margin_left = 285.0
-margin_right = 476.0
-margin_bottom = 216.0
+offset_left = 285.0
+offset_right = 476.0
+offset_bottom = 216.0
 size_flags_horizontal = 6
 toggle_mode = true
 text = "Life"
@@ -34,36 +34,36 @@ __meta__ = {
 }
 
 [node name="fire" type="Button" parent="buttons"]
-margin_left = 1061.0
-margin_right = 1239.0
-margin_bottom = 216.0
+offset_left = 1061.0
+offset_right = 1239.0
+offset_bottom = 216.0
 size_flags_horizontal = 6
 toggle_mode = true
 text = "Fire"
 expand_icon = true
 
 [node name="ice" type="Button" parent="buttons"]
-margin_left = 1848.0
-margin_right = 1990.0
-margin_bottom = 216.0
+offset_left = 1848.0
+offset_right = 1990.0
+offset_bottom = 216.0
 size_flags_horizontal = 6
 toggle_mode = true
 text = "Ice"
 expand_icon = true
 
 [node name="darkness" type="Button" parent="buttons"]
-margin_left = 2475.0
-margin_right = 2903.0
-margin_bottom = 216.0
+offset_left = 2475.0
+offset_right = 2903.0
+offset_bottom = 216.0
 size_flags_horizontal = 6
 toggle_mode = true
 text = "Darkness"
 expand_icon = true
 
 [node name="blood" type="Button" parent="buttons"]
-margin_left = 3328.0
-margin_right = 3589.0
-margin_bottom = 216.0
+offset_left = 3328.0
+offset_right = 3589.0
+offset_bottom = 216.0
 size_flags_horizontal = 6
 toggle_mode = true
 text = "Blood"

@@ -9,15 +9,15 @@ static func _spell_id() -> String:
 static func _spell() -> abstract_spell:
 	return skill_data.spells[_spell_id()]
 
-static func _spell_score(pawn: KinematicBody) -> float:
+static func _spell_score(pawn: CharacterBody3D) -> float:
 	var spell: abstract_spell = _spell()
 	var focus_score: float = 1 - (-spell.self_focus() / pawn.stats.focus) if pawn.stats.focus > 0 else 0
 	var pain_score: float = clamp(pawn.stats.pain_percentage(), 0.5, 0.75)
 	return focus_score * pain_score
 
-static func _internal_score(pawn: KinematicBody, event: ai_mind.sight_event) -> float:
-	var target: Spatial = event.body
-	if(!target.has_method("damage") || !(target is KinematicBody || target is RigidBody)):
+static func _internal_score(pawn: CharacterBody3D, event: ai_mind.sight_event) -> float:
+	var target: Node3D = event.body
+	if(!target.has_method("damage") || !(target is CharacterBody3D || target is RigidBody3D)):
 		return 0.0
 	if(!pawn.skills.can_cast(_spell_id())):
 		return 0.0
@@ -34,9 +34,9 @@ static func _internal_score(pawn: KinematicBody, event: ai_mind.sight_event) -> 
 	var score: float = aggression * dist_score * element_score * temperature_score * _spell_score(pawn)
 	return clamp(score, 0.0, 1.0) * IMPORTANCE
 
-static func score(pawn: KinematicBody) -> Dictionary:
+static func score(pawn: CharacterBody3D) -> Dictionary:
 	var score: float
-	var target: KinematicBody
+	var target: CharacterBody3D
 	for x in pawn.ai.brain.sight_events:
 		var new_score: float = _internal_score(pawn, x)
 		if(score < new_score):

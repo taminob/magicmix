@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 
 func _on_palace_trigger_body_entered(body):

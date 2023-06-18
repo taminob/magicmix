@@ -40,7 +40,7 @@ class statement:
 
 	func execute_effects(speak: character=speaker, receiv: character=receiver):
 		for x in effects:
-			errors.debug_assert(x.is_valid(), "object or function of effect \"" + x.get_function() + "\" for text \"" + text + "\" not valid!")
+			errors.debug_assert(x.is_valid()) #,"object or function of effect \"" + x.get_function() + "\" for text \"" + text + "\" not valid!")
 			x.call_func(speak, receiv)
 
 	func speaker_name() -> String:
@@ -78,7 +78,7 @@ func create_statements_from_dict(statement_dict: Dictionary, path: Array) -> Dic
 				new_response.receiver_requires = response_data.get("receiver_requires", 0)
 				new_statement.responses.push_back(new_response)
 				i += 1
-			if(new_statement.responses.empty()):
+			if(new_statement.responses.is_empty()):
 				new_statement.next_statement = _create_next(statement_dict[x], path, x)
 			new_dict[x] = new_statement
 		else:
@@ -97,7 +97,7 @@ func _create_effects(dict: Dictionary) -> Array:
 	elif(new_effects is FuncRef):
 		return [new_effects]
 	else:
-		errors.debug_assert(false, "invalid type for new_effects")
+		errors.debug_assert(false) #,"invalid type for new_effects")
 		return []
 
 func _create_next(dict: Dictionary, path: Array, current_key: String) -> Array:
@@ -238,7 +238,7 @@ func init(new_pawn: character, new_dialogue_status: Dictionary):
 	conversations["unimplemented"] = unimplemented_conversation()
 	init_statements()
 	init_conversations()
-	if(new_dialogue_status.empty()):
+	if(new_dialogue_status.is_empty()):
 		init_partners()
 	else:
 		partners = new_dialogue_status

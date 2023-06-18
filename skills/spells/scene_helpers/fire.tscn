@@ -1,15 +1,15 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://world/textures/smoke/smoke_atlas-12x1-128x128.png" type="Texture" id=1]
+[ext_resource path="res://world/textures/smoke/smoke_atlas-12x1-128x128.png" type="Texture2D" id=1]
 
-[sub_resource type="SphereShape" id=8]
+[sub_resource type="SphereShape3D" id=8]
 radius = 0.5
 
 [sub_resource type="Gradient" id=1]
-offsets = PoolRealArray( 0, 0.397849, 0.541219, 1 )
-colors = PoolColorArray( 0.576471, 0.207843, 0.0627451, 1, 0.792157, 0.419608, 0, 1, 0.352941, 0.160784, 0, 1, 0.752941, 0.203922, 0, 1 )
+offsets = PackedFloat32Array( 0, 0.397849, 0.541219, 1 )
+colors = PackedColorArray( 0.576471, 0.207843, 0.0627451, 1, 0.792157, 0.419608, 0, 1, 0.352941, 0.160784, 0, 1, 0.752941, 0.203922, 0, 1 )
 
-[sub_resource type="GradientTexture" id=2]
+[sub_resource type="GradientTexture2D" id=2]
 gradient = SubResource( 1 )
 
 [sub_resource type="Curve" id=3]
@@ -18,7 +18,7 @@ _data = [ Vector2( 0, 0.827273 ), 0.0, 0.0, 0, 0, Vector2( 0.241722, 0.6 ), 0.0,
 [sub_resource type="CurveTexture" id=4]
 curve = SubResource( 3 )
 
-[sub_resource type="ParticlesMaterial" id=5]
+[sub_resource type="ParticleProcessMaterial" id=5]
 emission_shape = 1
 emission_sphere_radius = 0.4
 direction = Vector3( 0, 1, 0 )
@@ -32,7 +32,7 @@ scale_curve = SubResource( 4 )
 color_ramp = SubResource( 2 )
 anim_speed = 1.0
 
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="StandardMaterial3D" id=6]
 flags_transparent = true
 vertex_color_use_as_albedo = true
 params_billboard_mode = 3
@@ -45,12 +45,12 @@ albedo_texture = ExtResource( 1 )
 material = SubResource( 6 )
 size = Vector2( 0.5, 0.5 )
 
-[node name="fire" type="Area"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+[node name="fire" type="Area3D"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
 collision_layer = 64
 collision_mask = 24
 
-[node name="collision" type="CollisionShape" parent="."]
+[node name="collision" type="CollisionShape3D" parent="."]
 shape = SubResource( 8 )
 
 [node name="particles" type="Particles" parent="."]

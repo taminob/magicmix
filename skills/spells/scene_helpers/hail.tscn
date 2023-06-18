@@ -1,15 +1,15 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://world/textures/smoke/smoke_atlas-12x1-128x128.png" type="Texture" id=1]
+[ext_resource path="res://world/textures/smoke/smoke_atlas-12x1-128x128.png" type="Texture2D" id=1]
 [ext_resource path="res://world/materials/ice.tres" type="Material" id=2]
 
-[sub_resource type="SphereShape" id=1]
+[sub_resource type="SphereShape3D" id=1]
 
 [sub_resource type="Gradient" id=2]
-offsets = PoolRealArray( 0, 0.390681, 0.487455, 1 )
-colors = PoolColorArray( 0, 0.764706, 1, 1, 0.721569, 0.913725, 1, 1, 0.0784314, 0.462745, 0.784314, 1, 0.180392, 0.713726, 1, 1 )
+offsets = PackedFloat32Array( 0, 0.390681, 0.487455, 1 )
+colors = PackedColorArray( 0, 0.764706, 1, 1, 0.721569, 0.913725, 1, 1, 0.0784314, 0.462745, 0.784314, 1, 0.180392, 0.713726, 1, 1 )
 
-[sub_resource type="GradientTexture" id=3]
+[sub_resource type="GradientTexture2D" id=3]
 gradient = SubResource( 2 )
 
 [sub_resource type="Curve" id=4]
@@ -18,7 +18,7 @@ _data = [ Vector2( 0, 0.827273 ), 0.0, 0.0, 0, 0, Vector2( 0.241722, 0.6 ), 0.0,
 [sub_resource type="CurveTexture" id=5]
 curve = SubResource( 4 )
 
-[sub_resource type="ParticlesMaterial" id=6]
+[sub_resource type="ParticleProcessMaterial" id=6]
 emission_shape = 1
 emission_sphere_radius = 0.9
 direction = Vector3( 0, 0, 0 )
@@ -33,7 +33,7 @@ scale_curve = SubResource( 5 )
 color_ramp = SubResource( 3 )
 anim_speed = 1.0
 
-[sub_resource type="SpatialMaterial" id=7]
+[sub_resource type="StandardMaterial3D" id=7]
 flags_transparent = true
 vertex_color_use_as_albedo = true
 params_billboard_mode = 3
@@ -50,14 +50,14 @@ size = Vector2( 0.5, 0.5 )
 radius = 0.9
 height = 1.8
 
-[node name="ice" type="RigidBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+[node name="ice" type="RigidBody3D"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 collision_layer = 64
 collision_mask = 24
-contacts_reported = 10
+max_contacts_reported = 10
 contact_monitor = true
 
-[node name="collision" type="CollisionShape" parent="."]
+[node name="collision" type="CollisionShape3D" parent="."]
 shape = SubResource( 1 )
 
 [node name="particles" type="Particles" parent="."]
@@ -66,6 +66,6 @@ visibility_aabb = AABB( -0.561712, -0.528422, -0.646344, 1.10737, 1.34839, 1.275
 process_material = SubResource( 6 )
 draw_pass_1 = SubResource( 8 )
 
-[node name="mesh_instance" type="MeshInstance" parent="."]
+[node name="mesh_instance" type="MeshInstance3D" parent="."]
 mesh = SubResource( 9 )
 material/0 = ExtResource( 2 )

@@ -2,5 +2,5 @@
 
 [ext_resource path="res://skills/spells/fire/fire_ring/scene/fire_ring.gd" type="Script" id=1]
 
-[node name="fire_ring" type="Spatial"]
+[node name="fire_ring" type="Node3D"]
 script = ExtResource( 1 )

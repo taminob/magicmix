@@ -6,7 +6,7 @@
 [node name="sound_options" type="ScrollContainer"]
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_right = 0.00012207
+offset_right = 0.00012207
 size_flags_horizontal = 3
 theme = ExtResource( 2 )
 script = ExtResource( 1 )
@@ -15,26 +15,26 @@ __meta__ = {
 }
 
 [node name="layout" type="VBoxContainer" parent="."]
-margin_right = 1920.0
-margin_bottom = 404.0
+offset_right = 1920.0
+offset_bottom = 404.0
 size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="master_volume" type="HBoxContainer" parent="layout"]
-margin_right = 1920.0
-margin_bottom = 127.0
+offset_right = 1920.0
+offset_bottom = 127.0
 
 [node name="master_volume_label" type="Label" parent="layout/master_volume"]
-margin_right = 836.0
-margin_bottom = 127.0
+offset_right = 836.0
+offset_bottom = 127.0
 text = "Master Volume     "
 
 [node name="master_volume_slider" type="HSlider" parent="layout/master_volume"]
-margin_left = 844.0
-margin_right = 1920.0
-margin_bottom = 127.0
+offset_left = 844.0
+offset_right = 1920.0
+offset_bottom = 127.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 max_value = 1.0
@@ -43,19 +43,19 @@ value = 1.0
 tick_count = 10
 
 [node name="music_volume" type="HBoxContainer" parent="layout"]
-margin_top = 277.0
-margin_right = 1920.0
-margin_bottom = 404.0
+offset_top = 277.0
+offset_right = 1920.0
+offset_bottom = 404.0
 
 [node name="music_volume_label" type="Label" parent="layout/music_volume"]
-margin_right = 820.0
-margin_bottom = 127.0
+offset_right = 820.0
+offset_bottom = 127.0
 text = "Music Volume       "
 
 [node name="music_volume_slider" type="HSlider" parent="layout/music_volume"]
-margin_left = 828.0
-margin_right = 1920.0
-margin_bottom = 127.0
+offset_left = 828.0
+offset_right = 1920.0
+offset_bottom = 127.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 max_value = 1.0

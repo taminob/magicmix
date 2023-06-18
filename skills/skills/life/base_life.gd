@@ -17,11 +17,11 @@ func category() -> String:
 func requirements() -> Array:
 	return []
 
-func on_allocated(pawn: KinematicBody):
+func on_allocated(pawn: CharacterBody3D):
 # warning-ignore:return_value_discarded
 	pawn.inventory.add_spell(heal_spell.id())
 
-func on_retracted(pawn: KinematicBody):
+func on_retracted(pawn: CharacterBody3D):
 	pawn.inventory.remove_spell(heal_spell.id())
 
 func icon() -> Resource:

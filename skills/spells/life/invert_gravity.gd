@@ -17,10 +17,10 @@ func category() -> String:
 func self_focus_per_second() -> float:
 	return -20.0
 
-func start_effect(pawn: KinematicBody):
+func start_effect(pawn: CharacterBody3D):
 	pawn.move.gravity_direction *= -1
 
-func end_effect(pawn: KinematicBody):
+func end_effect(pawn: CharacterBody3D):
 	pawn.move.gravity_direction *= -1
 
 func casttime() -> float:

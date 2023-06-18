@@ -20,12 +20,12 @@ stream = ExtResource( 6 )
 autoplay = true
 bus = "Music"
 
-[node name="world_container" type="ViewportContainer" parent="."]
-pause_mode = 2
+[node name="world_container" type="SubViewportContainer" parent="."]
+process_mode = 2
 material = ExtResource( 5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 0.000244141
+offset_right = 0.000244141
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -34,8 +34,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="viewport" type="Viewport" parent="world_container"]
-pause_mode = 1
+[node name="viewport" type="SubViewport" parent="world_container"]
+process_mode = 1
 size = Vector2( 3840, 2160 )
 handle_input_locally = false
 msaa = 2

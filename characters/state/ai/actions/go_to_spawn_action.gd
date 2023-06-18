@@ -2,9 +2,9 @@ extends abstract_action
 
 const IMPORTANCE: float = 0.05
 
-static func score(pawn: KinematicBody) -> Dictionary:
+static func score(pawn: CharacterBody3D) -> Dictionary:
 	var score: float = 0.0
-	var target: Spatial = null
+	var target: Node3D = null
 	if(!pawn.dialogue.is_dialogue_active()):
 		target = game.levels.get_spawn(pawn.name)
 		if(target):

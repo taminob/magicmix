@@ -14,7 +14,7 @@ var attributes = {
 
 var base_font = {}
 func _scale_font(font, factor):
-	var font_attributes = ["size", "extra_spacing_top", "extra_spacing_bottom",
+	var font_attributes = ["size", "spacing_top", "spacing_bottom",
 	"extra_spacing_char", "extra_spacing_space", "outline_size"]
 	var font_id = font.get_instance_id()
 	var no_base = !base_font.has(font_id)

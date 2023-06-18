@@ -1,4 +1,4 @@
-extends CollisionObject
+extends CollisionObject3D
 
 const ROTATION_SPEED: float = 2.0
 const Y_OFFSET_SPEED: float = 0.5
@@ -8,7 +8,7 @@ const SHOOT_SPEED: float = 50.0
 var offset_y: float = 0
 var up: bool = true
 
-var pawn: KinematicBody
+var pawn: CharacterBody3D
 var is_uncollected_death_shard: bool = true
 var shooting: bool = false
 
@@ -25,7 +25,7 @@ func _physics_process(delta: float):
 				up = !up
 		translate(Vector3(0, offset_y, 0))
 
-func pick_up(new_pawn: KinematicBody):
+func pick_up(new_pawn: CharacterBody3D):
 	if(is_uncollected_death_shard):
 		pawn = new_pawn
 		is_uncollected_death_shard = false
@@ -36,7 +36,7 @@ func pick_up(new_pawn: KinematicBody):
 func shoot():
 	scale = Vector3.ONE
 	rotation = Vector3.ZERO
-	rotate(pawn.global_transform.basis.x, deg2rad(-90))
+	rotate(pawn.global_transform.basis.x, deg_to_rad(-90))
 	global_transform.origin = pawn.global_body_center() - pawn.global_transform.basis.z * 0.7
 	is_uncollected_death_shard = true
 	collision_layer = game.mgmt.layer.objects

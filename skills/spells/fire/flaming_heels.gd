@@ -29,11 +29,11 @@ func self_focus_per_second() -> float:
 
 const PAIN_PER_SHARD: float = -25.0
 const SPEED_FACTOR_INCREASE: float = 1.5
-func start_effect(pawn: KinematicBody):
+func start_effect(pawn: CharacterBody3D):
 	pawn.move.velocity = -pawn.global_transform.basis.z * 25
 	pawn.move.base_speed_factor += SPEED_FACTOR_INCREASE
 
-func end_effect(pawn: KinematicBody):
+func end_effect(pawn: CharacterBody3D):
 	pawn.move.base_speed_factor = max(pawn.move.base_speed_factor - SPEED_FACTOR_INCREASE, move_state.MIN_SPEED_FACTOR)
 
 func casttime() -> float:

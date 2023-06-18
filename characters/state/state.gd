@@ -2,18 +2,18 @@ extends Node
 
 class_name main_state
 
-onready var pawn: KinematicBody = $".."
-onready var _state: Dictionary = game.get_character_data(pawn.name)
-onready var move: move_state = $"move"
-onready var experience: experience_state = $"experience"
-onready var inventory: inventory_state = $"inventory"
-onready var stats: stats_state = $"stats"
-onready var skills: skills_state = $"skills"
-onready var dialogue: dialogue_state = $"dialogue"
+@onready var pawn: CharacterBody3D = $".."
+@onready var _state: Dictionary = game.get_character_data(pawn.name)
+@onready var move: move_state = $"move"
+@onready var experience: experience_state = $"experience"
+@onready var inventory: inventory_state = $"inventory"
+@onready var stats: stats_state = $"stats"
+@onready var skills: skills_state = $"skills"
+@onready var dialogue: dialogue_state = $"dialogue"
 # warning-ignore:unused_class_variable
-onready var interaction: interaction_state = $"interaction"
-onready var look: look_state = $"look"
-onready var ai: ai_state = $"ai"
+@onready var interaction: interaction_state = $"interaction"
+@onready var look: look_state = $"look"
+@onready var ai: ai_state = $"ai"
 
 # warning-ignore:unused_class_variable
 var is_player: bool = false

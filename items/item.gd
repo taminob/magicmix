@@ -6,15 +6,15 @@ const ITEM_SCENES_PATH: String = "res://items/"
 const ITEM_ANIMS_PATH: String = "res://items/"
 
 func name() -> String:
-	errors.debug_assert(false, "abstract_item name should not be called")
+	errors.debug_assert(false) #,"abstract_item name should not be called")
 	return ""
 
 func description() -> String:
-	errors.debug_assert(false, "abstract_item description should not be called")
+	errors.debug_assert(false) #,"abstract_item description should not be called")
 	return ""
 
 func category() -> String:
-	errors.debug_assert(false, "abstract_item category should not be called")
+	errors.debug_assert(false) #,"abstract_item category should not be called")
 	return ""
 
 func self_pain() -> float:

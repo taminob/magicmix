@@ -1,11 +1,11 @@
-extends Spatial
+extends Node3D
 
-onready var camera: Camera = $"spring_arm/player_camera"
-onready var spring_arm: SpringArm = $"spring_arm"
+@onready var camera: Camera3D = $"spring_arm/player_camera"
+@onready var spring_arm: SpringArm3D = $"spring_arm"
 
 # Control variables
-var max_pitch: float = deg2rad(70.0)
-var min_pitch: float = deg2rad(-80.0)
+var max_pitch: float = deg_to_rad(70.0)
+var min_pitch: float = deg_to_rad(-80.0)
 var default_zoom: float = 1.0
 var default_spring_length: float = -1
 var max_zoom: float = 2.0
@@ -58,17 +58,17 @@ func _input(event: InputEvent):
 
 	if(event is InputEventMouseButton):
 		if(event.is_pressed()):
-			if(event.button_index == BUTTON_WHEEL_UP and _current_zoom > min_zoom):
+			if(event.button_index == MOUSE_BUTTON_WHEEL_UP and _current_zoom > min_zoom):
 				_current_zoom -= zoom_step
 				camera_y_offset -= zoom_y_step
-			if(event.button_index == BUTTON_WHEEL_DOWN and _current_zoom < max_zoom):
+			if(event.button_index == MOUSE_BUTTON_WHEEL_DOWN and _current_zoom < max_zoom):
 				_current_zoom += zoom_step
 				camera_y_offset += zoom_y_step
-			if(event.button_index == BUTTON_MIDDLE):
+			if(event.button_index == MOUSE_BUTTON_MIDDLE):
 				_free_rotate = true
 				_last_rotation = rotation
 		else:
-			if(event.button_index == BUTTON_MIDDLE && _free_rotate):
+			if(event.button_index == MOUSE_BUTTON_MIDDLE && _free_rotate):
 				_free_rotate = false
 				rotation = _last_rotation
 

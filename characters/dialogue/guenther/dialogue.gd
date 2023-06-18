@@ -4,7 +4,7 @@ func init_statements():
 	pass
 
 func init_conversations():
-	.init_conversations()
+	super.init_conversations()
 	conversations["first_meet_filz"] = first_meet_filz()
 
 func init_partners():

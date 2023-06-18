@@ -1,4 +1,4 @@
-extends KinematicBody
+extends CharacterBody3D
 
 var pawn: character
 

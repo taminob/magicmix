@@ -2,15 +2,15 @@ extends Node
 
 class_name ai_state
 
-onready var state: Node = get_parent()
-onready var pawn: KinematicBody = $"../.."
-onready var machine: Node = $"ai_machine"
+@onready var state: Node = get_parent()
+@onready var pawn: CharacterBody3D = $"../.."
+@onready var machine: Node = $"ai_machine"
 # warning-ignore:unused_class_variable
-onready var move: Node = $"../move"
+@onready var move: Node = $"../move"
 # warning-ignore:unused_class_variable
-onready var stats: Node = $"../stats"
+@onready var stats: Node = $"../stats"
 # warning-ignore:unused_class_variable
-onready var dialogue: Node = $"../dialogue"
+@onready var dialogue: Node = $"../dialogue"
 
 const STEPS_BEFORE_RECONSIDER_DURING_PLAN = 500
 const STEPS_BEFORE_RECONSIDER_WITHOUT_PLAN = 30
@@ -31,7 +31,7 @@ func _process(delta: float):
 	brain.process_mind(delta)
 	machine.process_state(delta)
 	_steps_since_consider += 1
-	if(machine.action_queue.empty() && _steps_since_consider >= STEPS_BEFORE_RECONSIDER_WITHOUT_PLAN ||
+	if(machine.action_queue.is_empty() && _steps_since_consider >= STEPS_BEFORE_RECONSIDER_WITHOUT_PLAN ||
 		_steps_since_consider >= STEPS_BEFORE_RECONSIDER_DURING_PLAN):
 		should_reconsider = true
 	if(should_reconsider):

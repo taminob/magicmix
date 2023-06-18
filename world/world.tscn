@@ -2,48 +2,48 @@
 
 [ext_resource path="res://world/world.gd" type="Script" id=1]
 
-[sub_resource type="CubeMesh" id=1]
+[sub_resource type="BoxMesh" id=1]
 size = Vector3( 400, 1, 400 )
 
-[sub_resource type="BoxShape" id=2]
-extents = Vector3( 200, 1, 200 )
+[sub_resource type="BoxShape3D" id=2]
+size = Vector3( 200, 1, 200 )
 
-[sub_resource type="BoxShape" id=3]
-extents = Vector3( 300, 100, 300 )
+[sub_resource type="BoxShape3D" id=3]
+size = Vector3( 300, 100, 300 )
 
-[node name="world" type="Spatial"]
+[node name="world" type="Node3D"]
 script = ExtResource( 1 )
 
-[node name="directional_light" type="DirectionalLight" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 10, 0 )
+[node name="directional_light" type="DirectionalLight3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 10, 0 )
 light_energy = 0.5
 directional_shadow_mode = 1
 
-[node name="ground" type="StaticBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -300, 0 )
+[node name="ground" type="StaticBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -300, 0 )
 
-[node name="CSGMesh" type="MeshInstance" parent="ground"]
+[node name="CSGMesh3D" type="MeshInstance3D" parent="ground"]
 visible = false
 mesh = SubResource( 1 )
 material/0 = null
 
-[node name="CollisionShape" type="CollisionShape" parent="ground"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ground"]
 shape = SubResource( 2 )
 
-[node name="area_down" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -200, 0 )
+[node name="area_down" type="Area3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -200, 0 )
 collision_layer = 2
 collision_mask = 63
 
-[node name="collision" type="CollisionShape" parent="area_down"]
+[node name="collision" type="CollisionShape3D" parent="area_down"]
 shape = SubResource( 3 )
 
-[node name="area_up" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 200, 0 )
+[node name="area_up" type="Area3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 200, 0 )
 collision_layer = 2
 collision_mask = 63
 
-[node name="collision" type="CollisionShape" parent="area_up"]
+[node name="collision" type="CollisionShape3D" parent="area_up"]
 shape = SubResource( 3 )
 
 [connection signal="body_entered" from="area_down" to="." method="_on_fall_area_entered" binds= [ false ]]

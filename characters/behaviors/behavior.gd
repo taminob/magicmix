@@ -1,6 +1,6 @@
 class_name abstract_behavior
 
-func idle_action(pawn: KinematicBody) -> abstract_action:
+func idle_action(pawn: CharacterBody3D) -> abstract_action:
 	var idle_action: abstract_action
 	match pawn.dialogue.job:
 		"thief":
@@ -14,7 +14,7 @@ func idle_action(pawn: KinematicBody) -> abstract_action:
 	idle_action.init(pawn, {"score": 0.0})
 	return idle_action
 
-func actions(_pawn: KinematicBody) -> Array:
+func actions(_pawn: CharacterBody3D) -> Array:
 	return [
 		load("res://characters/state/ai/actions/wait_action.gd"),
 		load("res://characters/state/ai/actions/talk_begin_action.gd"),

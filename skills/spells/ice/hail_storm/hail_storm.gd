@@ -52,4 +52,4 @@ func icon() -> Resource:
 	return load(SPELL_ICONS_PATH + "/star_fall-512.png")
 
 func scene() -> Node:
-	return preload("scene/hail_storm.tscn").instance()
+	return preload("scene/hail_storm.tscn").instantiate()

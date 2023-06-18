@@ -1,25 +1,25 @@
-extends KinematicBody
+extends CharacterBody3D
 
 class_name character
 
 #warning-ignore-all:unused_class_variable
 
-onready var collision: CollisionShape = $"collision"
-onready var detect_zone: Area = $"detect_zone"
-onready var ray: RayCast = $"ray"
+@onready var collision: CollisionShape3D = $"collision"
+@onready var detect_zone: Area3D = $"detect_zone"
+@onready var ray: RayCast3D = $"ray"
 
-var spirit: KinematicBody = null
+var spirit: CharacterBody3D = null
 
-onready var state: Node = $"state"
-onready var move: move_state = state.move
-onready var experience: experience_state = state.experience
-onready var inventory: inventory_state = state.inventory
-onready var stats: stats_state = state.stats
-onready var skills: skills_state = state.skills
-onready var dialogue: Node = state.dialogue # todo? change back to actual type dialogue_state
-onready var interaction: interaction_state = state.interaction
-onready var look: look_state = state.look
-onready var ai: Node = state.ai
+@onready var state: Node = $"state"
+@onready var move: move_state = state.move
+@onready var experience: experience_state = state.experience
+@onready var inventory: inventory_state = state.inventory
+@onready var stats: stats_state = state.stats
+@onready var skills: skills_state = state.skills
+@onready var dialogue: Node = state.dialogue # todo? change back to actual type dialogue_state
+@onready var interaction: interaction_state = state.interaction
+@onready var look: look_state = state.look
+@onready var ai: Node = state.ai
 
 func _ready():
 	init_state()
@@ -63,7 +63,7 @@ func get_interaction() -> String:
 func interact(interactor: Node):
 	dialogue.dialogue_interacted(interactor)
 
-func damage(dmg: float, element: int, caused_by: KinematicBody=null):
+func damage(dmg: float, element: int, caused_by: CharacterBody3D=null):
 	stats.damage(dmg, element, caused_by)
 
 func die():
@@ -83,13 +83,13 @@ func global_body_head() -> Vector3:
 func looking_direction() -> Vector3:
 	return global_transform.basis.z
 
-func distance_squared(target: Spatial) -> float:
+func distance_squared(target: Node3D) -> float:
 	return global_transform.origin.distance_squared_to(target.global_transform.origin)
 
-func distance(target: Spatial) -> float:
+func distance(target: Node3D) -> float:
 	return global_transform.origin.distance_to(target.global_transform.origin)
 
-func face_target(target: Spatial):
+func face_target(target: Node3D):
 	if(target):
 		face_location(target.global_transform.origin)
 
@@ -118,20 +118,20 @@ func _update_ui():
 				debug_output += x.get_script().get_path().get_file() + "; "
 
 			game.mgmt.ui.update_debug(debug_output)
-	var health_bar: MeshInstance = $"health_bar"
+	var health_bar: MeshInstance3D = $"health_bar"
 	if(!health_bar.material_override):
 		health_bar.material_override = health_bar.get_active_material(0).duplicate()
-	health_bar.material_override.set_shader_param("percentage", 1 - stats.pain_percentage())
+	health_bar.material_override.set_shader_parameter("percentage", 1 - stats.pain_percentage())
 	health_bar.look_at(game.mgmt.camera.camera.global_transform.origin, Vector3.UP)
-	var shield_bar: MeshInstance = $"shield_bar"
+	var shield_bar: MeshInstance3D = $"shield_bar"
 	if(!shield_bar.material_override):
 		shield_bar.material_override = shield_bar.get_active_material(0).duplicate()
-	shield_bar.get_active_material(0).set_shader_param("percentage", stats.shield_percentage())
+	shield_bar.get_active_material(0).set_shader_parameter("percentage", stats.shield_percentage())
 	shield_bar.look_at(game.mgmt.camera.camera.global_transform.origin, Vector3.UP)
-	var focus_bar: MeshInstance = $"focus_bar"
+	var focus_bar: MeshInstance3D = $"focus_bar"
 	if(!focus_bar.material_override):
 		focus_bar.material_override = focus_bar.get_active_material(0).duplicate()
-	focus_bar.get_active_material(0).set_shader_param("percentage", stats.focus_percentage())
+	focus_bar.get_active_material(0).set_shader_parameter("percentage", stats.focus_percentage())
 	focus_bar.look_at(game.mgmt.camera.camera.global_transform.origin, Vector3.UP)
-	var quest_symbol: MeshInstance = $"quest_symbol"
+	var quest_symbol: MeshInstance3D = $"quest_symbol"
 	quest_symbol.visible = dialogue.data.wants_to_talk_to.has(game.mgmt.player_id) && !state.is_player

@@ -31,14 +31,14 @@ func _is_death_shard(body: Node) -> bool:
 	return body.get("is_uncollected_death_shard")
 
 const PAIN_PER_SHARD: float = -25.0
-func start_effect(pawn: KinematicBody):
+func start_effect(pawn: CharacterBody3D):
 	var shards: Array = pawn.interaction.get_near_bodies(self.range(), funcref(self, "_is_death_shard"))
-	if(shards.empty()):
+	if(shards.is_empty()):
 		return
 	pawn.damage(shards.size() * PAIN_PER_SHARD, element_type.raw)
-	var shard_collection: Spatial = pawn.get_node_or_null("shards")
+	var shard_collection: Node3D = pawn.get_node_or_null("shards")
 	if(!shard_collection):
-		shard_collection = Spatial.new()
+		shard_collection = Node3D.new()
 		shard_collection.name = "shards"
 		pawn.add_child(shard_collection)
 	else:
@@ -49,7 +49,7 @@ func start_effect(pawn: KinematicBody):
 	for shard in shards:
 		# todo: animate shard consumption
 		shard.get_parent().remove_child(shard)
-		shard.translation = Vector3(pos, 1, 0.6)
+		shard.position = Vector3(pos, 1, 0.6)
 		pos += distance
 		shard.pick_up(pawn)
 		shard_collection.call_deferred("add_child", shard)
@@ -70,4 +70,4 @@ func icon() -> Resource:
 	return load(SPELL_ICONS_PATH + "blood_scratch-512.png")
 
 func scene() -> Node:
-	return null#load("scene/blood_dash.tscn").instance()
+	return null#load("scene/blood_dash.tscn").instantiate()

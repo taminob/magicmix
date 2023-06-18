@@ -1,11 +1,11 @@
 extends Control
 
-onready var head_slot = $"head/slot"
-onready var body_slot = $"body/slot"
-onready var left_shoe_slot = $"left_shoe/slot"
-onready var left_glove_slot = $"left_glove/slot"
-onready var right_shoe_slot = $"right_shoe/slot"
-onready var right_glove_slot = $"right_glove/slot"
+@onready var head_slot = $"head/slot"
+@onready var body_slot = $"body/slot"
+@onready var left_shoe_slot = $"left_shoe/slot"
+@onready var left_glove_slot = $"left_glove/slot"
+@onready var right_shoe_slot = $"right_shoe/slot"
+@onready var right_glove_slot = $"right_glove/slot"
 
 func _on_inventory_panel_visibility_changed():
 	if(is_visible() && game.mgmt.player && game.mgmt.player.inventory): # todo: better solution than checking for null (required for level switching with open inventory)

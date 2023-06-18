@@ -1,12 +1,12 @@
 extends Control
 
-onready var slots: Array = [
+@onready var slots: Array = [
 	$"slot0/slot",
 	$"slot1/slot",
 	$"slot2/slot",
 	$"slot3/slot",
 	$"slot4/slot"]
-onready var cooldowns: Array = [
+@onready var cooldowns: Array = [
 	$"slot0/slot/cooldown",
 	$"slot1/slot/cooldown",
 	$"slot2/slot/cooldown",

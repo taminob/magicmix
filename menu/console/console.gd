@@ -60,7 +60,7 @@ func control_handler(character_id: String):
 			char_data["stats"]["dead"] = is_in_death_realm
 	else:
 		char_data["stats"] = {"dead": is_in_death_realm}
-	var new_player: KinematicBody = game.get_character(character_id)
+	var new_player: CharacterBody3D = game.get_character(character_id)
 	if(new_player):
 		game.mgmt.make_player(new_player)
 	else:
@@ -74,7 +74,7 @@ func inspect_handler(character_id: String=""):
 	settings.set_setting("dev", "debug_target", character_id)
 
 func load_handler(level_id: String=game.levels.current_level_data.id()):
-	errors.debug_assert(game.levels.level_data.has(level_id), "entered invalid level_id in console: " + level_id)
+	errors.debug_assert(game.levels.level_data.has(level_id)) #,"entered invalid level_id in console: " + level_id)
 	if(game.levels.level_data[level_id].is_in_death_realm()):
 		game.mgmt.player.stats.dead = true
 	else:
@@ -93,12 +93,12 @@ func spawn_handler(character_id: String):
 	else:
 		char_data["stats"] = {"dead": is_in_death_realm}
 	var spawn_pos: Vector3 = game.mgmt.player.global_transform.origin + 2.0 * Vector3.FORWARD
-	var new_char: KinematicBody = game.mgmt.create_character(character_id)
+	var new_char: CharacterBody3D = game.mgmt.create_character(character_id)
 	game.levels.current_level.add_child(new_char)
 	new_char.global_transform.origin = spawn_pos
 
 func kill_handler(character_id: String):
-	var target: KinematicBody = game.get_character(character_id)
+	var target: CharacterBody3D = game.get_character(character_id)
 	if(target):
 		target.die()
 	else:
@@ -109,10 +109,10 @@ func respawn_handler():
 	if(spawn):
 		game.mgmt.player.global_transform = spawn.global_transform
 	else:
-		game.mgmt.player.global_transform = Transform.IDENTITY
+		game.mgmt.player.global_transform = Transform3D.IDENTITY
 
 func quit_handler(force: String=""):
-	if(force.empty()):
+	if(force.is_empty()):
 		saves.save()
 		get_tree().quit()
 	elif(force.to_lower() != "force"):
@@ -122,7 +122,7 @@ func quit_handler(force: String=""):
 
 func help_handler(command: String="", clear_output: bool=true):
 	var new_text: String = "" if clear_output else output.get_text() + '\n'
-	if(command.empty()):
+	if(command.is_empty()):
 		new_text += "Available commands:\n" + str(commands.keys())
 	else:
 		var command_entry = commands.get(command)
@@ -147,8 +147,8 @@ func heal_handler():
 	game.mgmt.player.stats.focus = game.mgmt.player.stats.max_focus()
 	game.mgmt.player.stats.stamina = game.mgmt.player.stats.max_stamina()
 
-onready var output = $"output_background/output"
-onready var input = $"command_input"
+@onready var output = $"output_background/output"
+@onready var input = $"command_input"
 
 var hidden: bool = true
 
@@ -179,7 +179,7 @@ func _input(event: InputEvent):
 			pause()
 		else:
 			unpause()
-		get_tree().set_input_as_handled() # todo: watch if this fix is a good solution to prevent the activation character to appear in input field (caused because _gui_input() is called after _input())
+		get_viewport().set_input_as_handled() # todo: watch if this fix is a good solution to prevent the activation character to appear in input field (caused because _gui_input() is called after _input())
 
 func invalid_command():
 	output.set_text("Invalid command! Did you try 'help'?")
@@ -195,8 +195,8 @@ func _on_command_input_text_changed(_new_text: String):
 func _on_command_input_text_entered(new_text: String):
 	# todo: improve parsing and command handling; more robust and allow multiple arguments and complexer commands
 	commands["help"]["possible"] = commands.keys()
-	var input_strings: PoolStringArray = new_text.to_lower().split(' ', false)
-	if(input_strings.empty()):
+	var input_strings: PackedStringArray = new_text.to_lower().split(' ', false)
+	if(input_strings.is_empty()):
 		return
 	var command = commands.get(input_strings[0])
 	if(!command):
@@ -208,7 +208,7 @@ func _on_command_input_text_entered(new_text: String):
 		return
 	var possible_args = command.get("possible")
 	var accept_none = command.get("accept_none")
-	if(input_strings.size() < 2 && (accept_none || !possible_args || possible_args.empty())):
+	if(input_strings.size() < 2 && (accept_none || !possible_args || possible_args.is_empty())):
 		handler.call_func()
 	elif(input_strings.size() > 1 && possible_args.has(input_strings[1])):
 		handler.call_func(input_strings[1])

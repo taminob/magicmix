@@ -5,14 +5,14 @@ const SAVE_PATH = "res://saves/" # todo: change to user://
 #var key = OS.get_unique_id().to_utf8()
 
 func get_latest_save() -> String:
-	var dir: Directory = Directory.new()
+	var dir: DirAccess = DirAccess.new()
 	var file: File = File.new()
 	errors.error_test(dir.open(SAVE_PATH))
-	errors.error_test(dir.list_dir_begin())
+	errors.error_test(dir.list_dir_begin() )# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 	var last_save = ["", 0]
 	while true:
 		var file_name = dir.get_next()
-		if(file_name.empty()):
+		if(file_name.is_empty()):
 			break
 		elif(file_name.begins_with(".")):
 			continue
@@ -23,13 +23,13 @@ func get_latest_save() -> String:
 	return last_save[0]
 
 func get_save_list() -> Array:
-	var dir: Directory = Directory.new()
+	var dir: DirAccess = DirAccess.new()
 	errors.error_test(dir.open(SAVE_PATH))
-	errors.error_test(dir.list_dir_begin())
+	errors.error_test(dir.list_dir_begin() )# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 	var list: Array = []
 	while true:
 		var file = dir.get_next()
-		if(file.empty()):
+		if(file.is_empty()):
 			break
 		elif(!file.begins_with(".")):
 			list.append(file)
@@ -38,9 +38,9 @@ func get_save_list() -> Array:
 
 func new_save(name=""):
 	load_save(name) # todo: good idea?
-	if(name.empty()):
+	if(name.is_empty()):
 		var list: Array = get_save_list()
-		if(!list.empty()):
+		if(!list.is_empty()):
 			var save = 0
 			for x in list:
 				if(int(x) > save):
@@ -83,7 +83,7 @@ func save():
 	for x in game.levels.level_data:
 		save_file.set_value("levels", x, game.levels.level_data[x].data)
 	save_file.set_value("levels", "current_level", game.levels.current_level_data.id())
-	errors.error_test(Directory.new().make_dir_recursive(SAVE_PATH))
+	errors.error_test(DirAccess.new().make_dir_recursive(SAVE_PATH))
 	#var error = save_file.save_encrypted(SAVE_PATH + current_save, key) # todo? encrypted save files
 	var error = save_file.save(SAVE_PATH + current_save)
 	if(error != OK):

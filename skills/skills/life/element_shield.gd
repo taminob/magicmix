@@ -20,11 +20,11 @@ func requirements() -> Array:
 func mutually_exclusive() -> Array:
 	return ["element_embrace"]
 
-func on_allocated(pawn: KinematicBody):
+func on_allocated(pawn: CharacterBody3D):
 # warning-ignore:return_value_discarded
 	pawn.inventory.add_spell(element_shield_spell.id())
 
-func on_retracted(pawn: KinematicBody):
+func on_retracted(pawn: CharacterBody3D):
 	pawn.inventory.remove_spell(element_shield_spell.id())
 
 func icon() -> Resource:

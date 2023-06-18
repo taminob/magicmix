@@ -1,7 +1,7 @@
 extends Control
 
-onready var buttons: VBoxContainer = $"buttons"
-onready var list: RichTextLabel = $"list"
+@onready var buttons: VBoxContainer = $"buttons"
+@onready var list: RichTextLabel = $"list"
 
 func _on_inventory_panel_visibility_changed():
 	if(is_visible()):
@@ -14,10 +14,10 @@ func update_logs(category=""):
 		buttons.add_child(create_name_button(x))
 	var history_entry: String = ""
 	for x in game.mgmt.player_history:
-		if(x == category || category.empty()):
+		if(x == category || category.is_empty()):
 			var char_data: Dictionary = game.get_character_data(x)
 			var dialogue_data: Dictionary = char_data.get("dialogue", {})
-			errors.debug_assert(dialogue_data.has("name") && dialogue_data.has("description") && dialogue_data.has("background"), "character " + x + " has undefined dialogue data")
+			errors.debug_assert(dialogue_data.has("name") && dialogue_data.has("description") && dialogue_data.has("background")) #,"character " + x + " has undefined dialogue data")
 			history_entry += dialogue_data.get("name", "")
 			history_entry += ": "
 			history_entry += dialogue_data.get("description", "")
@@ -33,7 +33,7 @@ func update_logs(category=""):
 func create_name_button(char_id: String) -> Button:
 	var button: Button = Button.new()
 	button.set_text(game.get_character_data(char_id).get("dialogue", {}).get("name", "???"))
-	errors.error_test(button.connect("pressed", self, "_on_name_pressed", [char_id]))
+	errors.error_test(button.connect("pressed", Callable(self, "_on_name_pressed").bind(char_id)))
 	return button
 
 func _on_name_pressed(char_id: String):

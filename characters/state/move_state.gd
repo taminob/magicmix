@@ -2,11 +2,11 @@ extends Node
 
 class_name move_state
 
-onready var state: Node = get_parent()
-onready var pawn: KinematicBody = $"../.."
+@onready var state: Node = get_parent()
+@onready var pawn: CharacterBody3D = $"../.."
 #onready var skills: Node = $"../skills" # TODO! fix cylic include, currently circumvented by pawn.skills
-onready var stats: Node = $"../stats"
-onready var dialogue: Node = $"../dialogue"
+@onready var stats: Node = $"../stats"
+@onready var dialogue: Node = $"../dialogue"
 
 const RUN_SPEED: float = 10.0
 const WALK_SPEED: float = 7.0
@@ -75,9 +75,13 @@ func move_process(delta: float):
 func move_process_dead(delta: float):
 	# gravity and friction even when dead
 	var hv = Vector3(velocity.x, 0, velocity.z)
-	hv = hv.linear_interpolate(Vector3.ZERO, DE_ACCELERATION * delta)
+	hv = hv.lerp(Vector3.ZERO, DE_ACCELERATION * delta)
 	velocity += gravity_direction * GRAVITY * delta
-	velocity = pawn.move_and_slide(Vector3(hv.x, velocity.y, hv.z), Vector3.UP, true)
+	pawn.set_velocity(Vector3(hv.x, velocity.y, hv.z))
+	pawn.set_up_direction(Vector3.UP)
+	pawn.set_floor_stop_on_slope_enabled(true)
+	pawn.move_and_slide()
+	velocity = pawn.velocity
 
 var _move_direction: Vector3 = Vector3.ZERO
 func _move_normal(delta: float):
@@ -91,10 +95,14 @@ func _move_normal(delta: float):
 	var hv = Vector3(velocity.x, 0, velocity.z)
 	var new_pos = _move_direction * max_speed()
 	var accel = ACCELERATION if(_move_direction.dot(hv) > 0) else DE_ACCELERATION
-	hv = hv.linear_interpolate(new_pos, accel * delta)
+	hv = hv.lerp(new_pos, accel * delta)
 
 	velocity += gravity_direction * GRAVITY * delta
-	velocity = pawn.move_and_slide(Vector3(hv.x, velocity.y, hv.z), Vector3.UP, true)
+	pawn.set_velocity(Vector3(hv.x, velocity.y, hv.z))
+	pawn.set_up_direction(Vector3.UP)
+	pawn.set_floor_stop_on_slope_enabled(true)
+	pawn.move_and_slide()
+	velocity = pawn.velocity
 
 func _move_spirit(delta: float):
 	if(jump_requested):
@@ -102,16 +110,20 @@ func _move_spirit(delta: float):
 		spirit_velocity *= 200
 		jump_requested = false
 	else:
-		_move_direction = pawn.spirit.global_transform.basis.xform(input_direction)
+		_move_direction = pawn.spirit.global_transform.basis * (input_direction)
 
 	var hv: Vector3 = Vector3(spirit_velocity.x, spirit_velocity.y, spirit_velocity.z)
 	var new_pos: Vector3 = _move_direction * max_speed()
 	var accel: float = ACCELERATION if(_move_direction.dot(hv) > 0) else DE_ACCELERATION
-	hv = hv.linear_interpolate(new_pos, accel * delta)
+	hv = hv.lerp(new_pos, accel * delta)
 
-	if(pawn.translation.distance_squared_to(pawn.spirit.translation + hv * delta) > SPIRIT_RANGE_SQUARED):
+	if(pawn.position.distance_squared_to(pawn.spirit.position + hv * delta) > SPIRIT_RANGE_SQUARED):
 		hv = Vector3.ZERO
-	spirit_velocity = pawn.spirit.move_and_slide(hv, Vector3.UP, true) # no gravity
+	pawn.spirit.set_velocity(hv)
+	pawn.spirit.set_up_direction(Vector3.UP)
+	pawn.spirit.set_floor_stop_on_slope_enabled(true)
+	pawn.spirit.move_and_slide()
+	spirit_velocity = pawn.spirit.velocity # no gravity
 
 var last_velocity: Vector3 = Vector3.ZERO
 func collide_process(delta: float):
@@ -127,8 +139,8 @@ func collide_process(delta: float):
 			stats._self_raw_damage(dmg)
 		else:
 			errors.debug_output("blood dash active - accel: " + str(total_accel) + "; pain: " + str(dmg))
-		for i in range(pawn.get_slide_count()):
-			var collision: KinematicCollision = pawn.get_slide_collision(i)
+		for i in range(pawn.get_slide_collision_count()):
+			var collision: KinematicCollision3D = pawn.get_slide_collision(i)
 			var target: Object = collision.collider
 			if(collision.collider.has_method("damage")):
 				collision.collider.damage(dmg, abstract_spell.element_type.raw, pawn)
@@ -140,10 +152,10 @@ func collide_process(delta: float):
 func save(state_dict: Dictionary):
 	var _move_state = state_dict.get("move", {"translations": {}})
 	_move_state["velocity"] = velocity
-	_move_state["translations"][game.levels.current_level_data.id()] = pawn.translation
+	_move_state["translations"][game.levels.current_level_data.id()] = pawn.position
 	state_dict["move"] = _move_state
 
 func init(state_dict: Dictionary):
 	var _move_state = state_dict.get("move", {"translations": {}})
 	velocity = _move_state.get("velocity", Vector3.ZERO)
-	pawn.translation = _move_state["translations"].get(game.levels.current_level_data.id(), pawn.translation)
+	pawn.position = _move_state["translations"].get(game.levels.current_level_data.id(), pawn.position)

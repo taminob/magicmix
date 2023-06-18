@@ -30,11 +30,11 @@ func reload_game():
 func get_character_data(id: String) -> Dictionary:
 	if(id.find("minion") >= 0):
 		id = "minion"
-	errors.debug_assert(char_data.has(id), "trying to access character data for " + id + " who does not exist!")
+	errors.debug_assert(char_data.has(id)) #,"trying to access character data for " + id + " who does not exist!")
 	return char_data.get(id, {})
 
-func get_character(id: String) -> KinematicBody:
-	if(!id.empty()):
+func get_character(id: String) -> CharacterBody3D:
+	if(!id.is_empty()):
 		for x in get_tree().get_nodes_in_group("characters"):
 			if(x.name == id):
 				return x

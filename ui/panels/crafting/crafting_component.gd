@@ -1,9 +1,9 @@
 extends VBoxContainer
 
 
-onready var button = $"item"
-onready var label = $"label"
-onready var list = $"label/list"
+@onready var button = $"item"
+@onready var label = $"label"
+@onready var list = $"label/list"
 var category = ""
 var selected = ""
 

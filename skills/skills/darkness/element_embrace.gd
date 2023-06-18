@@ -20,7 +20,7 @@ func requirements() -> Array:
 func mutually_exclusive() -> Array:
 	return ["elment_shield"]
 
-func effect(pawn: KinematicBody, _delta: float):
+func effect(pawn: CharacterBody3D, _delta: float):
 	# TODO: detect incoming damage type, reduce damage? decrease damage resistance for other elements?
 	if(pawn.skills.current_element != abstract_spell.element_type.raw):
 		pawn.stats.set_shield_element(pawn.skills.current_element)

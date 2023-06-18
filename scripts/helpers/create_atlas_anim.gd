@@ -1,7 +1,7 @@
-tool
+@tool
 extends Node2D
 
-onready var particles = $"Particles2D"
+@onready var particles = $"GPUParticles2D"
 
 func _ready():
 	var anim = AnimatedTexture.new()
@@ -12,7 +12,7 @@ func _ready():
 	for i in range(24):
 		var tex = AtlasTexture.new()
 		tex.set_atlas(atlas)
-		tex.set_region(Rect2(x, 0, 32, 32))
+		tex.set_region_enabled(Rect2(x, 0, 32, 32))
 		x += 32
 		anim.set_frame_texture(i, tex)
 	particles.set_texture(anim)

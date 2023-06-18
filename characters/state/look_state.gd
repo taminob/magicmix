@@ -2,10 +2,10 @@ extends Node
 
 class_name look_state
 
-onready var state: Node = get_parent()
-onready var pawn: KinematicBody = $"../.."
-onready var move: Node = $"../move"
-onready var stats: Node = $"../stats"
+@onready var state: Node = get_parent()
+@onready var pawn: CharacterBody3D = $"../.."
+@onready var move: Node = $"../move"
+@onready var stats: Node = $"../stats"
 
 var _default_mesh_path: String
 var mesh: abstract_mesh = null
@@ -32,17 +32,17 @@ func size() -> Vector2:
 func _set_mesh(path: String=_default_mesh_path):
 	if(mesh):
 		mesh.queue_free()
-	mesh = load(path).instance()
+	mesh = load(path).instantiate()
 	pawn.add_child(mesh)
 	animations = mesh.get_node("animations")
 
 func _update_collision():
 	var body_size: Vector2 = mesh.get_size()
-	pawn.collision.shape = CapsuleShape.new()
+	pawn.collision.shape = CapsuleShape3D.new()
 	pawn.collision.shape.radius = body_size.x / 2
 	# todo? rotate collision if width > height
 	pawn.collision.shape.height = body_size.y - body_size.x
-	pawn.collision.translation.y = body_size.y / 2
+	pawn.collision.position.y = body_size.y / 2
 
 func save(state_dict: Dictionary):
 	var _look_state = state_dict.get("look", {})

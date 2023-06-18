@@ -4,7 +4,7 @@ func init_statements():
 	pass
 
 func init_conversations():
-	.init_conversations()
+	super.init_conversations()
 	pass
 
 func init_partners():

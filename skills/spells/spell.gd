@@ -23,19 +23,19 @@ enum spell_type {
 }
 
 static func id() -> String:
-	errors.debug_assert(false, "abstract_spell id should not be called")
+	errors.debug_assert(false) #,"abstract_spell id should not be called")
 	return ""
 
 func name() -> String:
-	errors.debug_assert(false, "abstract_spell name should not be called")
+	errors.debug_assert(false) #,"abstract_spell name should not be called")
 	return ""
 
 func description() -> String:
-	errors.debug_assert(false, "abstract_spell description should not be called")
+	errors.debug_assert(false) #,"abstract_spell description should not be called")
 	return ""
 
 func category() -> String:
-	errors.debug_assert(false, "abstract_spell category should not be called")
+	errors.debug_assert(false) #,"abstract_spell category should not be called")
 	return ""
 
 func base_element() -> int:
@@ -86,13 +86,13 @@ func target_focus() -> float:
 func target_focus_per_second() -> float:
 	return 0.0
 
-func start_effect(_pawn: KinematicBody):
+func start_effect(_pawn: CharacterBody3D):
 	pass
 
-func end_effect(_pawn: KinematicBody):
+func end_effect(_pawn: CharacterBody3D):
 	pass
 
-func effect(_pawn: KinematicBody, _delta: float):
+func effect(_pawn: CharacterBody3D, _delta: float):
 	pass
 
 func casttime() -> float:

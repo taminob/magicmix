@@ -37,8 +37,8 @@ func target_focus() -> float:
 	return -10.0
 
 const EFFECT_FACTOR: float = 20.0
-func effect(pawn: KinematicBody, _delta: float):
-	pawn.move.velocity = pawn.global_transform.basis.xform(Vector3.FORWARD) * EFFECT_FACTOR
+func effect(pawn: CharacterBody3D, _delta: float):
+	pawn.move.velocity = pawn.global_transform.basis * (Vector3.FORWARD) * EFFECT_FACTOR
 
 func duration() -> float:
 	return 10.0
@@ -50,4 +50,4 @@ func icon() -> Resource:
 	return load(SPELL_ICONS_PATH + "/star_fall-512.png")
 
 func scene() -> Node:
-	return preload("scene/ice_ride.tscn").instance()
+	return preload("scene/ice_ride.tscn").instantiate()

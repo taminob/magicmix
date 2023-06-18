@@ -3,131 +3,131 @@
 [ext_resource path="res://world/objects/door_portal/door_portal.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world/materials/simple_stone.tres" type="Material" id=6]
 
-[sub_resource type="CubeMesh" id=1]
+[sub_resource type="BoxMesh" id=1]
 size = Vector3( 4, 5, 0.6 )
 
-[sub_resource type="CubeMesh" id=2]
+[sub_resource type="BoxMesh" id=2]
 size = Vector3( 30, 5, 2 )
 
-[sub_resource type="BoxShape" id=3]
-extents = Vector3( 15, 2.5, 1 )
+[sub_resource type="BoxShape3D" id=3]
+size = Vector3( 15, 2.5, 1 )
 
-[sub_resource type="CubeMesh" id=4]
+[sub_resource type="BoxMesh" id=4]
 size = Vector3( 9, 5, 2 )
 
-[sub_resource type="BoxShape" id=5]
-extents = Vector3( 4.5, 2.5, 1 )
+[sub_resource type="BoxShape3D" id=5]
+size = Vector3( 4.5, 2.5, 1 )
 
-[sub_resource type="CubeMesh" id=6]
+[sub_resource type="BoxMesh" id=6]
 size = Vector3( 22, 5, 2 )
 
-[sub_resource type="BoxShape" id=7]
-extents = Vector3( 11, 2.5, 1 )
+[sub_resource type="BoxShape3D" id=7]
+size = Vector3( 11, 2.5, 1 )
 
-[sub_resource type="CubeMesh" id=8]
+[sub_resource type="BoxMesh" id=8]
 size = Vector3( 34, 1, 22 )
 
-[sub_resource type="BoxShape" id=9]
-extents = Vector3( 17, 0.5, 11 )
+[sub_resource type="BoxShape3D" id=9]
+size = Vector3( 17, 0.5, 11 )
 
 [sub_resource type="PrismMesh" id=10]
 size = Vector3( 22, 30, 34 )
 
-[sub_resource type="ConvexPolygonShape" id=11]
-points = PoolVector3Array( 1, 0, 1, -1, 0.4, 0, 1, 0.4, 0, 1, 0, -1, -1, 0, -1, -1, 0, 1 )
+[sub_resource type="ConvexPolygonShape3D" id=11]
+points = PackedVector3Array( 1, 0, 1, -1, 0.4, 0, 1, 0.4, 0, 1, 0, -1, -1, 0, -1, -1, 0, 1 )
 
-[node name="house_outside" type="Spatial"]
+[node name="house_outside" type="Node3D"]
 
-[node name="walls" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 0 )
+[node name="walls" type="Node3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 0 )
 
 [node name="entry" parent="walls" instance=ExtResource( 1 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16, 2.5, 0 )
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16, 2.5, 0 )
 mesh = SubResource( 1 )
 next_level = "house_inside"
 
-[node name="mesh_instance" type="MeshInstance" parent="walls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 10 )
+[node name="mesh_instance" type="MeshInstance3D" parent="walls"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 10 )
 mesh = SubResource( 2 )
 material/0 = ExtResource( 6 )
 
-[node name="static_body" type="StaticBody" parent="walls/mesh_instance"]
+[node name="static_body" type="StaticBody3D" parent="walls/mesh_instance"]
 collision_layer = 2
 collision_mask = 63
 
-[node name="collision_shape" type="CollisionShape" parent="walls/mesh_instance/static_body"]
+[node name="collision_shape" type="CollisionShape3D" parent="walls/mesh_instance/static_body"]
 shape = SubResource( 3 )
 
-[node name="mesh_instance2" type="MeshInstance" parent="walls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -10 )
+[node name="mesh_instance2" type="MeshInstance3D" parent="walls"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -10 )
 mesh = SubResource( 2 )
 material/0 = ExtResource( 6 )
 
-[node name="static_body" type="StaticBody" parent="walls/mesh_instance2"]
+[node name="static_body" type="StaticBody3D" parent="walls/mesh_instance2"]
 collision_layer = 2
 collision_mask = 63
 
-[node name="collision_shape" type="CollisionShape" parent="walls/mesh_instance2/static_body"]
+[node name="collision_shape" type="CollisionShape3D" parent="walls/mesh_instance2/static_body"]
 shape = SubResource( 3 )
 
-[node name="mesh_instance3" type="MeshInstance" parent="walls"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16, 2.5, -6.5 )
+[node name="mesh_instance3" type="MeshInstance3D" parent="walls"]
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16, 2.5, -6.5 )
 mesh = SubResource( 4 )
 material/0 = ExtResource( 6 )
 
-[node name="static_body" type="StaticBody" parent="walls/mesh_instance3"]
+[node name="static_body" type="StaticBody3D" parent="walls/mesh_instance3"]
 collision_layer = 2
 collision_mask = 63
 
-[node name="collision_shape" type="CollisionShape" parent="walls/mesh_instance3/static_body"]
+[node name="collision_shape" type="CollisionShape3D" parent="walls/mesh_instance3/static_body"]
 shape = SubResource( 5 )
 
-[node name="mesh_instance4" type="MeshInstance" parent="walls"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16, 2.5, 6.5 )
+[node name="mesh_instance4" type="MeshInstance3D" parent="walls"]
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16, 2.5, 6.5 )
 mesh = SubResource( 4 )
 material/0 = ExtResource( 6 )
 
-[node name="static_body" type="StaticBody" parent="walls/mesh_instance4"]
+[node name="static_body" type="StaticBody3D" parent="walls/mesh_instance4"]
 collision_layer = 2
 collision_mask = 63
 
-[node name="collision_shape" type="CollisionShape" parent="walls/mesh_instance4/static_body"]
+[node name="collision_shape" type="CollisionShape3D" parent="walls/mesh_instance4/static_body"]
 shape = SubResource( 5 )
 
-[node name="mesh_instance5" type="MeshInstance" parent="walls"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -16, 2.5, 0 )
+[node name="mesh_instance5" type="MeshInstance3D" parent="walls"]
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -16, 2.5, 0 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 6 )
 
-[node name="static_body" type="StaticBody" parent="walls/mesh_instance5"]
+[node name="static_body" type="StaticBody3D" parent="walls/mesh_instance5"]
 collision_layer = 2
 collision_mask = 63
 
-[node name="collision_shape" type="CollisionShape" parent="walls/mesh_instance5/static_body"]
+[node name="collision_shape" type="CollisionShape3D" parent="walls/mesh_instance5/static_body"]
 shape = SubResource( 7 )
 
-[node name="mesh_instance6" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 5.5, 0 )
+[node name="mesh_instance6" type="MeshInstance3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 5.5, 0 )
 mesh = SubResource( 8 )
 material/0 = ExtResource( 6 )
 
-[node name="static_body" type="StaticBody" parent="mesh_instance6"]
+[node name="static_body" type="StaticBody3D" parent="mesh_instance6"]
 collision_layer = 2
 collision_mask = 63
 
-[node name="collision_shape" type="CollisionShape" parent="mesh_instance6/static_body"]
+[node name="collision_shape" type="CollisionShape3D" parent="mesh_instance6/static_body"]
 shape = SubResource( 9 )
 
-[node name="roof" type="CSGMesh" parent="."]
-transform = Transform( -4.37114e-08, 0, 1, 0, 0.2, 0, -1, 0, -4.37114e-08, -17, 9, 0 )
+[node name="roof" type="CSGMesh3D" parent="."]
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 0.2, 0, -1, 0, -4.37114e-08, -17, 9, 0 )
 mesh = SubResource( 10 )
 material = ExtResource( 6 )
 
-[node name="static_body" type="StaticBody" parent="roof"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 5, 0, 1, 0, -4.37114e-08, 0, -6, 0 )
+[node name="static_body" type="StaticBody3D" parent="roof"]
+transform = Transform3D( -4.37114e-08, 0, -1, 0, 5, 0, 1, 0, -4.37114e-08, 0, -6, 0 )
 collision_layer = 2
 collision_mask = 63
 
-[node name="collision" type="CollisionShape" parent="roof/static_body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+[node name="collision" type="CollisionShape3D" parent="roof/static_body"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 11 )

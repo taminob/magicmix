@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-onready var option_view = $"../../../option_view"
+@onready var option_view = $"../../../option_view"
 
 func back_to_menu():
 	settings.save_settings()

@@ -3,9 +3,9 @@ extends abstract_action
 const MAX_DISTANCE: float = 30.0
 const IMPORTANCE: float = 0.10
 
-static func _internal_score(pawn: KinematicBody, event: ai_mind.sight_event) -> float:
-	var target: Spatial = event.body
-	if(!(target is KinematicBody || target is RigidBody)): # do not check for StaticBody because e.g. GridMap is no StaticBody
+static func _internal_score(pawn: CharacterBody3D, event: ai_mind.sight_event) -> float:
+	var target: Node3D = event.body
+	if(!(target is CharacterBody3D || target is RigidBody3D)): # do not check for StaticBody3D because e.g. GridMap is no StaticBody3D
 		return 0.0 # following a static body doesn't make any sense
 	if(pawn.dialogue.is_dialogue_active()):
 		return 0.0
@@ -20,9 +20,9 @@ static func _internal_score(pawn: KinematicBody, event: ai_mind.sight_event) -> 
 	var score: float = base_score + dist * max(rot, 0.2)
 	return clamp(score, 0.0, 1.0) * IMPORTANCE
 
-static func score(pawn: KinematicBody) -> Dictionary:
+static func score(pawn: CharacterBody3D) -> Dictionary:
 	var score: float
-	var target: Spatial
+	var target: Node3D
 	for x in pawn.ai.brain.sight_events:
 		var new_score: float = _internal_score(pawn, x)
 		if(score < new_score):

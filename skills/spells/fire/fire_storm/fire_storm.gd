@@ -55,4 +55,4 @@ func icon() -> Resource:
 	return load(SPELL_ICONS_PATH + "/magma-512.png")
 
 func scene() -> Node:
-	return preload("scene/fire_storm.tscn").instance()
+	return preload("scene/fire_storm.tscn").instantiate()

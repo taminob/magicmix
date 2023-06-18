@@ -30,4 +30,4 @@ func anim() -> String:
 	return ""#SKILL_ANIMS_PATH
 
 func scene() -> Node:
-	return preload("scene/platform.tscn").instance()
+	return preload("scene/platform.tscn").instantiate()
