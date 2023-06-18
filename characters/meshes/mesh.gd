@@ -13,7 +13,7 @@ var secondary_cull_disabled: bool = false
 
 # has to be called at end of _ready
 func init():
-	errors.debug_assert(primary_mesh != null) #,"primary mesh has to be set!")
+	errors.debug_assert(primary_mesh != null, "primary mesh has to be set!")
 	reset()
 
 	if(!has_node("animations")):

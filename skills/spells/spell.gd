@@ -23,19 +23,19 @@ enum spell_type {
 }
 
 static func id() -> String:
-	errors.debug_assert(false) #,"abstract_spell id should not be called")
+	errors.debug_assert(false, "abstract_spell id should not be called")
 	return ""
 
 func name() -> String:
-	errors.debug_assert(false) #,"abstract_spell name should not be called")
+	errors.debug_assert(false, "abstract_spell name should not be called")
 	return ""
 
 func description() -> String:
-	errors.debug_assert(false) #,"abstract_spell description should not be called")
+	errors.debug_assert(false, "abstract_spell description should not be called")
 	return ""
 
 func category() -> String:
-	errors.debug_assert(false) #,"abstract_spell category should not be called")
+	errors.debug_assert(false, "abstract_spell category should not be called")
 	return ""
 
 func base_element() -> int:

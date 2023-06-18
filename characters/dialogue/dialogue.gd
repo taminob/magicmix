@@ -40,8 +40,8 @@ class statement:
 
 	func execute_effects(speak: character=speaker, receiv: character=receiver):
 		for x in effects:
-			errors.debug_assert(x.is_valid()) #,"object or function of effect \"" + x.get_function() + "\" for text \"" + text + "\" not valid!")
-			x.call_func(speak, receiv)
+			errors.debug_assert(x.is_valid(), "object or function of effect \"" + x.get_function() + "\" for text \"" + text + "\" not valid!")
+			x.call(speak, receiv)
 
 	func speaker_name() -> String:
 		return speaker.dialogue.display_name
@@ -88,16 +88,16 @@ func create_statements_from_dict(statement_dict: Dictionary, path: Array) -> Dic
 func _create_effects(dict: Dictionary) -> Array:
 	var new_effects = dict.get("effects", [])
 	if(new_effects is String):
-		return [funcref(self, new_effects)]
+		return [Callable(self, new_effects)]
 	elif(new_effects is Array):
 		var effects: Array = []
 		for effect in new_effects:
-			effects.push_back(funcref(self, effect))
+			effects.push_back(Callable(self, effect))
 		return effects
-	elif(new_effects is FuncRef):
+	elif(new_effects is Callable):
 		return [new_effects]
 	else:
-		errors.debug_assert(false) #,"invalid type for new_effects")
+		errors.debug_assert(false, "invalid type for new_effects")
 		return []
 
 func _create_next(dict: Dictionary, path: Array, current_key: String) -> Array:

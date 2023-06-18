@@ -53,8 +53,8 @@ func from_dict(dict: Dictionary) -> Object:
 
 func _ready():
 	# TODO: move to static array?
-	var dir: DirAccess = DirAccess.new()
-	errors.debug_assert(dir.open("res://scripts/game/levels/") == OK) #,"unable to find levels directory")
+	var dir: DirAccess = DirAccess.open("res://scripts/game/levels/")
+	errors.debug_assert(dir.get_open_error() == OK, "unable to find levels directory")
 	errors.error_test(dir.list_dir_begin() )# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 	while true:
 		var file: String = dir.get_next()
@@ -86,7 +86,7 @@ func get_spawn(character_id: String) -> Node3D:
 func change_level(level_id: String):
 	game.mgmt.save_characters()
 	current_level_data = level_data[level_id]
-	loader.load_resource(current_level_data.scene_path(), funcref(self, "_load_callback"), true)
+	loader.load_resource(current_level_data.scene_path(), Callable(self, "_load_callback"), true)
 
 func _load_callback(new_level: Resource):
 	var world = scenes.game_instance.get_node("world_container/viewport/world")
@@ -107,6 +107,6 @@ func _load_callback(new_level: Resource):
 			game.mgmt.player.position = spawn.position
 		current_level.call_deferred("add_child", game.mgmt.player)
 	game.mgmt.camera.call_deferred("update_environment")
-	errors.log("change level: " + current_level_data.id())
+	errors.logging("change level: " + current_level_data.id())
 	world.call_deferred("add_child", current_level)
 	game.mgmt.ui.reset()

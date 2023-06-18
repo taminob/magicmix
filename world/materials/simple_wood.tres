@@ -1,17 +1,16 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=2]
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://ct7hpvjqgxwt6"]
 
-[ext_resource path="res://world/shaders/wood.gdshader" type="Shader" id=1]
+[ext_resource type="Shader" path="res://world/shaders/wood.gdshader" id="1"]
 
-[sub_resource type="FastNoiseLite" id=1]
-persistence = 1.0
-lacunarity = 4.0
+[sub_resource type="FastNoiseLite" id="1"]
 
-[sub_resource type="NoiseTexture" id=2]
+[sub_resource type="NoiseTexture2D" id="2"]
 seamless = true
-noise = SubResource( 1 )
+noise = SubResource("1")
 
 [resource]
-shader = ExtResource( 1 )
-shader_param/noise_lod = 1.0
-shader_param/noise_scale = 1.0
-shader_param/noise = SubResource( 2 )
+render_priority = 0
+shader = ExtResource("1")
+shader_parameter/noise_lod = 1.0
+shader_parameter/noise_scale = 1.0
+shader_parameter/noise = SubResource("2")

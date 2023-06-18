@@ -12,9 +12,9 @@ func _on_inventory_panel_visibility_changed():
 		update_character()
 
 func update_character():
-	head_slot.set_normal_texture(load("res://ui/icons/items/head-512.png"))
-	body_slot.set_normal_texture(load("res://ui/icons/items/body-512.png"))
-	left_shoe_slot.set_normal_texture(load("res://ui/icons/items/left_shoe-512.png"))
-	left_glove_slot.set_normal_texture(load("res://ui/icons/items/left_hand-512.png"))
-	right_shoe_slot.set_normal_texture(load("res://ui/icons/items/right_shoe-512.png"))
-	right_glove_slot.set_normal_texture(load("res://ui/icons/items/right_hand-512.png"))
+	head_slot.set_texture_normal(load("res://ui/icons/items/head-512.png"))
+	body_slot.set_texture_normal(load("res://ui/icons/items/body-512.png"))
+	left_shoe_slot.set_texture_normal(load("res://ui/icons/items/left_shoe-512.png"))
+	left_glove_slot.set_texture_normal(load("res://ui/icons/items/left_hand-512.png"))
+	right_shoe_slot.set_texture_normal(load("res://ui/icons/items/right_shoe-512.png"))
+	right_glove_slot.set_texture_normal(load("res://ui/icons/items/right_hand-512.png"))

@@ -37,12 +37,16 @@ func set_screenmode(screenmode: int):
 	get_window().borderless = (screenmode == SCREENMODE_BORDERLESS)
 	# todo: check maximize and size/position
 	get_window().mode = Window.MODE_MAXIMIZED if (screenmode == SCREENMODE_WINDOW) else Window.MODE_WINDOWED
-	OS.center_window()
+	var screen_rect = DisplayServer.screen_get_usable_rect(get_window().current_screen)
+	var window_size = get_window().get_size_with_decorations()
+	get_window().position = screen_rect.position + (screen_rect.size / 2 - window_size / 2)
 	get_window().set_size(DisplayServer.screen_get_size())
 
 func set_resolution(resolution: Vector2):
-	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D, SceneTree.STRETCH_ASPECT_KEEP, resolution)
-	get_viewport().set_size_2d_override(true, resolution)
+	get_tree().root.content_scale_size = resolution
+	get_tree().root.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP
+	get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
+	#get_viewport().set_size_2d_override(true, resolution) # TODO GODOT4: investigate alternative
 	global_scale = min(resolution.x / base_resolution.x, resolution.y / base_resolution.y)
 	emit_signal("global_scale_changed")
 	themes.scale_themes(global_scale)

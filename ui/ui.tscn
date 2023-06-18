@@ -1,222 +1,194 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=10 format=3 uid="uid://benpnrulx3lvu"]
 
-[ext_resource path="res://ui/icons/skills/circle-512.png" type="Texture2D" id=1]
-[ext_resource path="res://ui/ui.gd" type="Script" id=2]
-[ext_resource path="res://themes/ui_theme.tres" type="Theme" id=3]
-[ext_resource path="res://ui/panels/panels.tscn" type="PackedScene" id=4]
-[ext_resource path="res://ui/slots/slots.tscn" type="PackedScene" id=5]
-[ext_resource path="res://ui/dialogue/dialogue.tscn" type="PackedScene" id=6]
-[ext_resource path="res://ui/interaction/interaction.tscn" type="PackedScene" id=7]
-[ext_resource path="res://ui/skill_slots/skill_slots.tscn" type="PackedScene" id=8]
-[ext_resource path="res://ui/icons/white-1.png" type="Texture2D" id=9]
-
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.294118, 0.294118, 0.294118, 1 )
-
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.254902, 0.254902, 0.254902, 0.392157 )
+[ext_resource type="Texture2D" uid="uid://2m3ambfoogg4" path="res://ui/icons/skills/circle-512.png" id="1"]
+[ext_resource type="Script" path="res://ui/ui.gd" id="2"]
+[ext_resource type="Theme" uid="uid://scmq74q2qxlx" path="res://themes/ui_theme.tres" id="3"]
+[ext_resource type="PackedScene" path="res://ui/panels/panels.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://ui/slots/slots.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://ui/dialogue/dialogue.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://ui/interaction/interaction.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://ui/skill_slots/skill_slots.tscn" id="8"]
+[ext_resource type="Texture2D" uid="uid://1r8rqykyfqht" path="res://ui/icons/white-1.png" id="9"]
 
 [node name="ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource( 3 )
-script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+theme = ExtResource("3")
+script = ExtResource("2")
 
 [node name="pain_bar" type="TextureProgressBar" parent="."]
+clip_contents = true
+layout_mode = 0
 anchor_right = 0.133
 anchor_bottom = 0.237
-clip_contents = true
 max_value = 1.001
 step = 0.01
-texture_under = ExtResource( 1 )
-texture_progress = ExtResource( 1 )
 fill_mode = 5
-tint_under = Color( 0, 0, 0, 0.235294 )
-tint_progress = Color( 0, 0, 0, 1 )
 nine_patch_stretch = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture_under = ExtResource("1")
+texture_progress = ExtResource("1")
+tint_under = Color(0, 0, 0, 0.235294)
+tint_progress = Color(0, 0, 0, 1)
 
 [node name="shield_bar" type="TextureProgressBar" parent="."]
+clip_contents = true
+layout_mode = 0
 anchor_left = 0.02
 anchor_top = 0.036
 anchor_right = 0.113
 anchor_bottom = 0.201
-clip_contents = true
 max_value = 1.001
 step = 0.01
-texture_under = ExtResource( 1 )
-texture_progress = ExtResource( 1 )
 fill_mode = 5
-tint_under = Color( 0, 0, 0, 0.235294 )
-tint_progress = Color( 0.862745, 0.890196, 0, 1 )
 nine_patch_stretch = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture_under = ExtResource("1")
+texture_progress = ExtResource("1")
+tint_under = Color(0, 0, 0, 0.235294)
+tint_progress = Color(0.862745, 0.890196, 0, 1)
 
 [node name="shield_element_icon" type="TextureRect" parent="shield_bar"]
+layout_mode = 0
 anchor_left = 0.2
 anchor_top = 0.2
 anchor_right = 0.8
 anchor_bottom = 0.8
-expand = true
+expand_mode = 1
 stretch_mode = 6
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="focus_bar" type="TextureProgressBar" parent="."]
+clip_contents = true
+layout_mode = 0
 anchor_top = 0.25
 anchor_right = 0.133
 anchor_bottom = 0.487
 offset_right = 1.28
 offset_bottom = 0.0799561
-clip_contents = true
 max_value = 1.001
 step = 0.01
-texture_under = ExtResource( 1 )
-texture_progress = ExtResource( 1 )
 fill_mode = 5
-tint_under = Color( 0, 0, 0, 0.235294 )
-tint_progress = Color( 0.207843, 0.364706, 0.772549, 1 )
 nine_patch_stretch = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture_under = ExtResource("1")
+texture_progress = ExtResource("1")
+tint_under = Color(0, 0, 0, 0.235294)
+tint_progress = Color(0.207843, 0.364706, 0.772549, 1)
 
 [node name="stamina_bar" type="TextureProgressBar" parent="."]
+clip_contents = true
+layout_mode = 0
 anchor_left = 0.15
 anchor_right = 0.283
 anchor_bottom = 0.237
 offset_right = 1.28
 offset_bottom = 0.0799561
-clip_contents = true
 max_value = 1.001
 step = 0.01
-texture_under = ExtResource( 1 )
-texture_progress = ExtResource( 1 )
 fill_mode = 5
-tint_under = Color( 0, 0, 0, 0.235294 )
-tint_progress = Color( 0.0313726, 0.54902, 0, 1 )
 nine_patch_stretch = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture_under = ExtResource("1")
+texture_progress = ExtResource("1")
+tint_under = Color(0, 0, 0, 0.235294)
+tint_progress = Color(0.0313726, 0.54902, 0, 1)
 
 [node name="pos_temperature_bar" type="TextureProgressBar" parent="."]
+clip_contents = true
+layout_mode = 0
 anchor_left = 0.2
 anchor_top = 0.05
 anchor_right = 0.233
 anchor_bottom = 0.119
-clip_contents = true
 max_value = 1.0
 step = 0.01
-texture_under = ExtResource( 9 )
-texture_progress = ExtResource( 9 )
 fill_mode = 3
-tint_under = Color( 0, 0, 0, 0.235294 )
-tint_progress = Color( 1, 0.231373, 0.101961, 1 )
 nine_patch_stretch = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture_under = ExtResource("9")
+texture_progress = ExtResource("9")
+tint_under = Color(0, 0, 0, 0.235294)
+tint_progress = Color(1, 0.231373, 0.101961, 1)
 
 [node name="neg_temperature_bar" type="TextureProgressBar" parent="."]
+clip_contents = true
+layout_mode = 0
 anchor_left = 0.2
 anchor_top = 0.119
 anchor_right = 0.233
 anchor_bottom = 0.187
-clip_contents = true
 max_value = 1.0
 step = 0.01
-texture_under = ExtResource( 9 )
-texture_progress = ExtResource( 9 )
 fill_mode = 2
-tint_under = Color( 0, 0, 0, 0.235294 )
-tint_progress = Color( 0, 0.407843, 0.588235, 1 )
 nine_patch_stretch = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture_under = ExtResource("9")
+texture_progress = ExtResource("9")
+tint_under = Color(0, 0, 0, 0.235294)
+tint_progress = Color(0, 0.407843, 0.588235, 1)
 
 [node name="fps_label" type="RichTextLabel" parent="."]
+layout_mode = 0
 anchor_left = 0.8
 anchor_right = 0.9
 anchor_bottom = 0.1
 offset_top = -5.33936
 offset_bottom = -5.33936
 text = "FPS: "
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="xp_bar" type="ProgressBar" parent="."]
+layout_mode = 0
 anchor_top = 0.95
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = 0.000244141
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/fg = SubResource( 2 )
-theme_override_styles/bg = SubResource( 3 )
 max_value = 1.0
-percent_visible = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="menu_button" type="Button" parent="."]
+layout_mode = 0
 anchor_left = 0.924
 anchor_right = 1.0
 anchor_bottom = 0.062
 text = "Menu"
 flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="debug_info_label" type="Label" parent="."]
+layout_mode = 0
 anchor_top = 0.7
 anchor_right = 0.2
 anchor_bottom = 0.805
 offset_bottom = 0.199829
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="cast_bar" type="TextureProgressBar" parent="."]
+layout_mode = 0
 anchor_left = 0.02
 anchor_top = 0.5
 anchor_right = 0.06
 anchor_bottom = 0.85
 max_value = 1.0
 step = 0.01
-texture_progress = ExtResource( 9 )
 fill_mode = 3
-tint_progress = Color( 0.133333, 0.133333, 0.133333, 1 )
 nine_patch_stretch = true
+texture_progress = ExtResource("9")
+tint_progress = Color(0.133333, 0.133333, 0.133333, 1)
 
-[node name="slots" parent="." instance=ExtResource( 5 )]
+[node name="slots" parent="." instance=ExtResource("5")]
+layout_mode = 0
 anchor_top = 0.87
 anchor_bottom = 0.95
 
-[node name="skill_slots" parent="." instance=ExtResource( 8 )]
+[node name="skill_slots" parent="." instance=ExtResource("8")]
+anchors_preset = 0
 anchor_left = 0.78
 anchor_top = 0.5
 anchor_right = 0.98
 anchor_bottom = 0.83
 
-[node name="interaction" parent="." instance=ExtResource( 7 )]
+[node name="interaction" parent="." instance=ExtResource("7")]
+anchors_preset = 0
 
-[node name="dialogue" parent="." instance=ExtResource( 6 )]
+[node name="dialogue" parent="." instance=ExtResource("6")]
 visible = false
+layout_mode = 0
 
-[node name="panels" parent="." instance=ExtResource( 4 )]
-offset_right = 0.0
+[node name="panels" parent="." instance=ExtResource("4")]
 
 [connection signal="pressed" from="menu_button" to="." method="_on_menu_button_pressed"]

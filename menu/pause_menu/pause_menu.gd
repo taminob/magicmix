@@ -41,7 +41,7 @@ func _on_options_button_pressed():
 func _on_titlescreen_button_pressed():
 	prepare_leave()
 	scenes.close_all_scenes()
-	loader.load_resource("res://menu/main_menu/main_menu.tscn", funcref(scenes, "create_scene"), true)
+	loader.load_resource("res://menu/main_menu/main_menu.tscn", Callable(scenes, "create_scene"), true)
 
 func _on_quit_button_pressed():
 	prepare_leave()

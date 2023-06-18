@@ -1,27 +1,27 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://cphg48hwlpqkx"]
 
-[ext_resource path="res://world/materials/simple_wood.tres" type="Material" id=1]
-[ext_resource path="res://world/objects/child_interact.gd" type="Script" id=2]
-[ext_resource path="res://world/objects/door/door.gd" type="Script" id=3]
+[ext_resource type="Material" uid="uid://ct7hpvjqgxwt6" path="res://world/materials/simple_wood.tres" id="1"]
+[ext_resource type="Script" path="res://world/objects/child_interact.gd" id="2"]
+[ext_resource type="Script" path="res://world/objects/door/door.gd" id="3"]
 
-[sub_resource type="BoxMesh" id=1]
-size = Vector3( 4, 5, 0.6 )
+[sub_resource type="BoxMesh" id="1"]
+material = ExtResource("1")
+size = Vector3(4, 5, 0.6)
 
-[sub_resource type="BoxShape3D" id=2]
-size = Vector3( 2, 2.5, 0.3 )
+[sub_resource type="BoxShape3D" id="2"]
+size = Vector3(2, 2.5, 0.3)
 
 [node name="door" type="Node3D"]
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="door_mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
-mesh = SubResource( 1 )
-material/0 = ExtResource( 1 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+mesh = SubResource("1")
 
 [node name="static_body" type="StaticBody3D" parent="door_mesh"]
 collision_layer = 2
 collision_mask = 63
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="collision_shape" type="CollisionShape3D" parent="door_mesh/static_body"]
-shape = SubResource( 2 )
+shape = SubResource("2")

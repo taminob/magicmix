@@ -14,6 +14,7 @@ var attributes = {
 
 var base_font = {}
 func _scale_font(font, factor):
+	return # TODO GODOT4: investigate relevant attributes
 	var font_attributes = ["size", "spacing_top", "spacing_bottom",
 	"extra_spacing_char", "extra_spacing_space", "outline_size"]
 	var font_id = font.get_instance_id()
@@ -26,6 +27,7 @@ func _scale_font(font, factor):
 		font.set(font_attributes[i], base_font[font_id][i] * factor)
 
 func scale_themes(factor):
+	return # TODO GODOT4: investigate relevant attributes
 	for theme in themes:
 		_scale_font(theme.default_font, factor)
 		for type in attributes.keys():

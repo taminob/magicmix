@@ -44,7 +44,7 @@ func _physics_process(delta: float):
 		_objects[i][0] += delta
 		if(_objects[i][0] >= time):
 			_objects[i][1].queue_free()
-			_objects.remove(i)
+			_objects.remove_at(i)
 		else:
 			move_to_next_position(_objects[i][1], i, _objects[i][0], delta)
 			set_object_active(_objects[i][1], can_reach_caster(_objects[i][1]))
@@ -61,7 +61,7 @@ func set_object_active(target: CollisionObject3D, active: bool=true):
 func can_reach_caster(target: CollisionObject3D) -> bool:
 	if(can_spawn_behind_walls):
 		return true
-	var result = get_world_3d().direct_space_state.intersect_ray(target.global_transform.origin, caster.global_body_center())
+	var result = get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(target.global_transform.origin, caster.global_body_center()))
 	return result && result["collider"] == caster
 
 func spawn_object(spawn_time: float=0.0, id: int=_objects.size()):
@@ -91,7 +91,7 @@ func _object_enter(body: Node, collider: CollisionObject3D):
 			collider.queue_free()
 			for i in range(_objects.size()):
 				if(_objects[i][1] == collider):
-					_objects.remove(i)
+					_objects.remove_at(i)
 					break
 
 func _object_exit(body: Node, _collider: CollisionObject3D):

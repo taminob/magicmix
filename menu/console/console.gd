@@ -2,53 +2,53 @@ extends Popup
 
 var commands = {
 	"help": {
-		"handler": funcref(self, "help_handler"),
+		"handler": Callable(self, "help_handler"),
 		"possible": [],
 		"accept_none": true
 	},
 	"load": {
-		"handler": funcref(self, "load_handler"),
+		"handler": Callable(self, "load_handler"),
 		"possible": game.levels.level_data.keys()
 	},
 	"exit": {
-		"handler": funcref(self, "unpause")
+		"handler": Callable(self, "unpause")
 	},
 	"reload": {
-		"handler": funcref(self, "load_handler")
+		"handler": Callable(self, "load_handler")
 	},
 	"save": {
-		"handler": funcref(saves, "save")
+		"handler": Callable(saves, "save")
 	},
 	"quit": {
-		"handler": funcref(self, "quit_handler"),
+		"handler": Callable(self, "quit_handler"),
 		"possible": ["force"],
 		"accept_none": true
 	},
 	"inspect": {
-		"handler": funcref(self, "inspect_handler"),
+		"handler": Callable(self, "inspect_handler"),
 		"possible": game.char_data.keys(),
 		"accept_none": true
 	},
 	"control": {
-		"handler": funcref(self, "control_handler"),
+		"handler": Callable(self, "control_handler"),
 		"possible": game.char_data.keys()
 	},
 	"spawn": {
-		"handler": funcref(self, "spawn_handler"),
+		"handler": Callable(self, "spawn_handler"),
 		"possible": game.char_data.keys()
 	},
 	"respawn": {
-		"handler": funcref(self, "respawn_handler")
+		"handler": Callable(self, "respawn_handler")
 	},
 	"kill": {
-		"handler": funcref(self, "kill_handler"),
+		"handler": Callable(self, "kill_handler"),
 		"possible": game.char_data.keys()
 	},
 	"give_all": {
-		"handler": funcref(self, "give_all_handler")
+		"handler": Callable(self, "give_all_handler")
 	},
 	"heal": {
-		"handler": funcref(self, "heal_handler")
+		"handler": Callable(self, "heal_handler")
 	}
 }
 
@@ -209,9 +209,9 @@ func _on_command_input_text_entered(new_text: String):
 	var possible_args = command.get("possible")
 	var accept_none = command.get("accept_none")
 	if(input_strings.size() < 2 && (accept_none || !possible_args || possible_args.is_empty())):
-		handler.call_func()
+		handler.call()
 	elif(input_strings.size() > 1 && possible_args.has(input_strings[1])):
-		handler.call_func(input_strings[1])
+		handler.call(input_strings[1])
 	else:
 		invalid_argument(input_strings[0])
 		return

@@ -29,7 +29,7 @@ func create_node(highlighted: bool=false) -> TextureRect:
 	frame.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	frame.set_material(CanvasItemMaterial.new())
 	if(!highlighted):
-		frame.material.set_blend_mode(BLEND_MODE_SUB)
+		frame.material.set_blend_mode(CanvasItemMaterial.BLEND_MODE_SUB)
 	return frame
 
 func skill_node(skill_id: String) -> TextureRect:

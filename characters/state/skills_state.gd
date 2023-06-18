@@ -191,7 +191,7 @@ func _active_spells_process(delta: float):
 	var i: int = 0
 	while i < active_spells.size():
 		if(!active_spells[i].tick(pawn, delta)):
-			active_spells.remove(i)
+			active_spells.remove_at(i)
 		else:
 			i += 1
 

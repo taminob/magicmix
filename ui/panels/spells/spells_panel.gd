@@ -5,7 +5,12 @@ extends Control
 @onready var detail_icon = $"layout/list/detail_popup/icon"
 @onready var detail_label = $"layout/list/detail_popup/label"
 
+func _ready():
+	pass
+
 func _on_spells_panel_visibility_changed():
+	if(!detail_popup || !list):
+		return
 	detail_popup.hide()
 	if(is_visible()):
 		update_spells()
@@ -38,7 +43,7 @@ func _on_darkness_pressed():
 
 func _set_slot(num: int):
 	get_node("layout/list/detail_popup/slots/slot" + 
-		str(num)).set_normal_texture(skill_data.spells[game.mgmt.player.inventory.get_spell_slot(skill_data.spells[detail_popup.get_meta("current")].base_element(), num)].icon())
+		str(num)).set_texture_normal(skill_data.spells[game.mgmt.player.inventory.get_spell_slot(skill_data.spells[detail_popup.get_meta("current")].base_element(), num)].icon())
 
 func _on_list_item_activated(index: int):
 	var current = list.get_item_metadata(index)

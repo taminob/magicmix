@@ -5,7 +5,7 @@ var game_scene_path: String = "res://main.tscn"
 var game_instance: Node = null
 var current_scene: Node = null
 var previous_scenes: Array = []
-var root: SubViewport = null
+var root: Window = null
 
 func _ready():
 	root = get_tree().get_root()
@@ -26,7 +26,7 @@ func open_scene(scene: Node, clear_scene_stack: bool=false):
 	if(current_scene):
 		previous_scenes.append(current_scene)
 		root.call_deferred("remove_child", current_scene)
-	errors.log("open scene: " + scene.filename)
+	errors.logging("open scene: " + scene.scene_file_path)
 	current_scene = scene
 	root.call_deferred("add_child", current_scene)
 	get_tree().call_deferred("set_current_scene", current_scene)

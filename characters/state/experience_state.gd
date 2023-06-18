@@ -8,7 +8,7 @@ var endurance: float
 
 # TODO: xp system
 func experience_progress() -> float:
-	return util.max(util.fract(sturdiness), util.fract(concentration), util.fract(endurance))
+	return util.max_of_three(util.fract(sturdiness), util.fract(concentration), util.fract(endurance))
 
 func save(state_dict: Dictionary):
 	var _experience_state = state_dict.get("experience", {})

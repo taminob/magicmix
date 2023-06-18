@@ -30,7 +30,7 @@ func reload_game():
 func get_character_data(id: String) -> Dictionary:
 	if(id.find("minion") >= 0):
 		id = "minion"
-	errors.debug_assert(char_data.has(id)) #,"trying to access character data for " + id + " who does not exist!")
+	errors.debug_assert(char_data.has(id), "trying to access character data for " + id + " who does not exist!")
 	return char_data.get(id, {})
 
 func get_character(id: String) -> CharacterBody3D:
@@ -45,5 +45,5 @@ func is_character(id: String) -> bool:
 		return true
 	return char_data.has(id)
 
-func is_valid(object: Node):
-	return object && !object.is_queued_for_deletion()
+func is_valid(object):
+	return object && is_instance_valid(object) && !object.is_queued_for_deletion()

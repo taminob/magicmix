@@ -55,7 +55,7 @@ func move():
 	var current_target: Node3D = current_action.target()
 	if(!game.is_valid(current_target)):
 		return # todo? check why check is necessary
-	var nav: Navigation = game.levels.current_level.get_node("navigation")
+	var nav: NavigationRegion3D = game.levels.current_level.get_node("navigation")
 	var destination = current_target.global_transform.origin
 	if(nav):
 		var path: PackedVector3Array = nav.get_simple_path(ai.pawn.global_transform.origin, destination)

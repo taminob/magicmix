@@ -34,7 +34,7 @@ func init_state():
 	state.init()
 
 func set_player(is_player: bool):
-	errors.log(name + " is now player-controlled!")
+	errors.logging(name + " is now player-controlled!")
 	# todo? switch between input/ai state
 	state.is_player = is_player
 
@@ -67,11 +67,11 @@ func damage(dmg: float, element: int, caused_by: CharacterBody3D=null):
 	stats.damage(dmg, element, caused_by)
 
 func die():
-	errors.log("died: " + name)
+	errors.logging("died: " + name)
 	stats.die()
 
 func revive():
-	errors.log("revive: " + name)
+	errors.logging("revive: " + name)
 	stats.revive()
 
 func global_body_center() -> Vector3:

@@ -6,8 +6,8 @@ extends Node3D
 func _ready():
 	if(next_character_name.is_empty()):
 		next_character_name = game.mgmt.player_id
-	errors.debug_assert(game.char_data.has(next_character_name)) #,"target character name of portal does not exist")
-	errors.debug_assert(game.levels.level_data.has(next_level)) #,"target level of portal does not exist")
+	errors.debug_assert(game.char_data.has(next_character_name), "target character name of portal does not exist")
+	errors.debug_assert(game.levels.level_data.has(next_level), "target level of portal does not exist")
 	var mesh_path = game.get_character_data(next_character_name).get("look", {}).get("mesh_path", "res://characters/meshes/debug/body.tscn")
 	var mesh = load(mesh_path).instantiate()
 	mesh.rotate_y(PI)
@@ -22,7 +22,7 @@ func interact(_interactor: character):
 func _on_area_body_entered(body):
 	if(body == null || body != game.mgmt.player):
 		return
-	errors.log("revive: " + next_character_name)
+	errors.logging("revive: " + next_character_name)
 	if(body.name == next_character_name):
 		body.revive()
 	else:

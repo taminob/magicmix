@@ -6,7 +6,7 @@ func _on_trigger_body_entered(body, name):
 	# todo: make revive mechanic more robust to non-existent entries in dictionaries
 	if(body == null || body != game.mgmt.player):
 		return
-	errors.log("revive: " + name)
+	errors.logging("revive: " + name)
 	if(body.name == name):
 		body.revive()
 	else: # todo: when character is dead, these changes will be reverted in save_characters in change_level

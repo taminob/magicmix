@@ -41,7 +41,7 @@ func process_mind(delta: float):
 	var i: int = 0
 	while i < sight_events.size():
 		if(!game.is_valid(sight_events[i].body)): # in case e.g. a character dies while in sight
-			sight_events.remove(i)
+			sight_events.remove_at(i)
 			continue
 		if(sight_events[i].in_cone && _check_in_sight(sight_events[i].body)):
 			if(!sight_events[i].is_in_sight()):
@@ -52,16 +52,16 @@ func process_mind(delta: float):
 				sight_events[i].last_seen = sight_events[i].body.global_transform.origin
 			sight_events[i].out_of_sight_time += delta
 			if(!sight_events[i].in_cone && sight_events[i].out_of_sight_time > TIME_UNTIL_FORGOTTON):
-				sight_events.remove(i)
+				sight_events.remove_at(i)
 				continue
 		i += 1
 
 func _check_in_sight(target_body: Node3D) -> bool:
-	var result: Dictionary = pawn.get_world_3d().direct_space_state.intersect_ray(pawn.global_body_head(), target_body.global_transform.origin)
-	if(!result || result["collider"] != target_body):
+	var result: Dictionary = pawn.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(pawn.global_body_head(), target_body.global_transform.origin))
+	if(result.is_empty() || result["collider"] != target_body):
 		if(target_body.has_method("global_body_head")):
-			result = pawn.get_world_3d().direct_space_state.intersect_ray(pawn.global_body_head(), target_body.global_body_head())
-			if(!result || result["collider"] != target_body):
+			result = pawn.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(pawn.global_body_head(), target_body.global_body_head()))
+			if(result.is_empty() || result["collider"] != target_body):
 				return false
 		else:
 			return false
@@ -149,7 +149,7 @@ func _get_body_type(body: Node3D) -> int:
 	return body_type.unknown
 
 func register_in_cone(body: Node3D):
-	errors.debug_assert(body != null) #,"body for in_sight shouldn't be null: " + pawn.name)
+	errors.debug_assert(body != null, "body for in_sight shouldn't be null: " + pawn.name)
 
 	var new_type: int = _get_body_type(body)
 	if(new_type < 0):
@@ -162,7 +162,7 @@ func register_in_cone(body: Node3D):
 	sight_events.push_back(sight_event.new(body, new_type, body.global_transform.origin, 0.0, true))
 
 func unregister_in_cone(body: Node3D):
-	errors.debug_assert(body != null) #,"body for out_of_sight shouldn't be null: " + pawn.name)
+	errors.debug_assert(body != null, "body for out_of_sight shouldn't be null: " + pawn.name)
 	for x in sight_events:
 		if(x.body == body):
 			x.in_cone = false

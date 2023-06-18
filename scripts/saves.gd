@@ -5,9 +5,8 @@ const SAVE_PATH = "res://saves/" # todo: change to user://
 #var key = OS.get_unique_id().to_utf8()
 
 func get_latest_save() -> String:
-	var dir: DirAccess = DirAccess.new()
-	var file: File = File.new()
-	errors.error_test(dir.open(SAVE_PATH))
+	var dir: DirAccess = DirAccess.open(SAVE_PATH)
+	errors.error_test(dir.get_open_error())
 	errors.error_test(dir.list_dir_begin() )# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 	var last_save = ["", 0]
 	while true:
@@ -16,16 +15,16 @@ func get_latest_save() -> String:
 			break
 		elif(file_name.begins_with(".")):
 			continue
-		var last_modified = file.get_modified_time(SAVE_PATH + file_name)
+		var last_modified = FileAccess.get_modified_time(SAVE_PATH + file_name)
 		if(last_save[1] < last_modified):
 			last_save = [file_name, last_modified]
 	dir.list_dir_end()
 	return last_save[0]
 
 func get_save_list() -> Array:
-	var dir: DirAccess = DirAccess.new()
-	errors.error_test(dir.open(SAVE_PATH))
-	errors.error_test(dir.list_dir_begin() )# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+	var dir: DirAccess = DirAccess.open(SAVE_PATH)
+	errors.error_test(dir.get_open_error())
+	errors.error_test(dir.list_dir_begin()) # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 	var list: Array = []
 	while true:
 		var file = dir.get_next()
@@ -67,7 +66,7 @@ func load_save(save=current_save):
 	for x in game.levels.level_data:
 		game.levels.level_data[x].data = save_file.get_value("levels", x, game.levels.level_data[x].data)
 	_next_level = save_file.get_value("levels", "current_level", settings.get_setting("dev", "start_level"))
-	loader.load_resource(scenes.game_scene_path, funcref(self, "_game_scene_loaded"), true)
+	loader.load_resource(scenes.game_scene_path, Callable(self, "_game_scene_loaded"), true)
 
 func _game_scene_loaded(scene: PackedScene):
 	scenes.create_game_scene(scene)
@@ -83,7 +82,7 @@ func save():
 	for x in game.levels.level_data:
 		save_file.set_value("levels", x, game.levels.level_data[x].data)
 	save_file.set_value("levels", "current_level", game.levels.current_level_data.id())
-	errors.error_test(DirAccess.new().make_dir_recursive(SAVE_PATH))
+	errors.error_test(DirAccess.make_dir_recursive_absolute(SAVE_PATH))
 	#var error = save_file.save_encrypted(SAVE_PATH + current_save, key) # todo? encrypted save files
 	var error = save_file.save(SAVE_PATH + current_save)
 	if(error != OK):

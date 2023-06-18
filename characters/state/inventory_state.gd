@@ -98,6 +98,6 @@ func init(state_dict: Dictionary):
 	skill_points = _inventory_state.get("skill_points", 5) # TODO! balance start skill points?
 	things = _inventory_state.get("things", [])
 	spell_slots = _inventory_state.get("spell_slots", DEFAULT_SPELL_SLOTS)
-	errors.debug_assert(spell_slots.size() == 5) #,"invalid spell_slots size")
+	errors.debug_assert(spell_slots.size() == 5, "invalid spell_slots size")
 	skill_slots = _inventory_state.get("skill_slots", ["", ""])
-	errors.debug_assert(skill_slots.size() == 2) #,"invalid skill_slots size")
+	errors.debug_assert(skill_slots.size() == 2, "invalid skill_slots size")

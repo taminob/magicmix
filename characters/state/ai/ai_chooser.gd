@@ -5,8 +5,8 @@ var action_classes: Array
 
 func _ready():
 	# TODO: move to static array?
-	var dir: DirAccess = DirAccess.new()
-	errors.debug_assert(dir.open("res://characters/state/ai/actions/") == OK) #,"unable to find ai actions directory")
+	var dir: DirAccess = DirAccess.open("res://characters/state/ai/actions/")
+	errors.debug_assert(dir.get_open_error() == OK, "unable to find ai actions directory")
 	errors.error_test(dir.list_dir_begin() )# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 	while true:
 		var file: String = dir.get_next()

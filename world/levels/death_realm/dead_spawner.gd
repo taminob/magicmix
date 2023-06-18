@@ -14,7 +14,7 @@ func _ready():
 		if(dead_characters.has(x.name)):
 			spawned_characters.push_back(x.name)
 		else:
-			errors.assert(false) #,"character " + x.name + " in death_realm is not dead!")
+			errors.assert_always(false, "character " + x.name + " in death_realm is not dead!")
 
 	var _next_spawn_position: Vector3 = Vector3.ZERO
 	var i: int = 0

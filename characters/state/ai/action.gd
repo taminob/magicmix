@@ -38,7 +38,7 @@ static func _rotate_score(pawn_char: CharacterBody3D, target: Node3D, exponent: 
 
 # score for target to be in desired_range with peak of sine at mid of desired_range
 static func _distance_range_score(pawn_char: CharacterBody3D, target: Node3D, desired_range: Array, exponent: float=1.0):
-	errors.debug_assert(desired_range.size() == 2 && desired_range[0] < desired_range[1]) #,"invalid range for _distance_range_score for pawn " + pawn_char.name)
+	errors.debug_assert(desired_range.size() == 2 && desired_range[0] < desired_range[1], "invalid range for _distance_range_score for pawn " + pawn_char.name)
 	var dist: float = pawn_char.distance(target)
 	if(dist < desired_range[0] || dist > desired_range[1]):
 		return 0.0

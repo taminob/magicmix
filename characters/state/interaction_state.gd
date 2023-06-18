@@ -57,11 +57,11 @@ func toggle_spirit():
 			get_tree().paused = false
 			pawn.process_mode = PROCESS_MODE_INHERIT
 
-func get_near_bodies(radius: float, is_match: FuncRef, in_sight_only: bool=true) -> Array:
+func get_near_bodies(radius: float, is_match: Callable, in_sight_only: bool=true) -> Array:
 	pawn.detect_zone.get_node("collision").shape.radius = radius
 	var bodies: Array = []
 	for body in pawn.detect_zone.get_overlapping_bodies():
-		if(is_match.call_func(body)):
+		if(is_match.call(body)):
 			if(in_sight_only):
 				# todo? still unreliably! maybe multiple raycasts?
 				pawn.ray.set_target_position(pawn.to_local(body.global_transform.origin))

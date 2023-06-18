@@ -1,5 +1,7 @@
 extends Control
 
+class_name ui_slots
+
 @onready var slots: Array = [
 	$"slot0/slot",
 	$"slot1/slot",
@@ -21,4 +23,4 @@ func update_slots():
 			cooldowns[i].set_value(game.mgmt.player.skills.cooldowns.get(spell_id, 0.0) / spell.cooldown())
 		else:
 			cooldowns[i].set_value(0.0)
-		slots[i].set_normal_texture(spell.icon())
+		slots[i].set_texture_normal(spell.icon())

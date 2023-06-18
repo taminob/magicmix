@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=2]
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://cqkn1387ypdjl"]
 
 [ext_resource path="res://world/shaders/stone.gdshader" type="Shader" id=1]
 
@@ -7,14 +7,15 @@ period = 12.0
 persistence = 1.0
 lacunarity = 2.3
 
-[sub_resource type="NoiseTexture" id=2]
+[sub_resource type="NoiseTexture2D" id="2"]
 width = 128
 height = 128
 seamless = true
-noise = SubResource( 1 )
+noise = SubResource("1")
 
 [resource]
-shader = ExtResource( 1 )
-shader_param/noise_lod = 1.0
-shader_param/base_color = Vector3( 0.1, 0.1, 0.1 )
-shader_param/noise = SubResource( 2 )
+render_priority = 0
+shader = ExtResource("1")
+shader_parameter/noise_lod = 1.0
+shader_parameter/base_color = Vector3(0.1, 0.1, 0.1)
+shader_parameter/noise = SubResource("2")

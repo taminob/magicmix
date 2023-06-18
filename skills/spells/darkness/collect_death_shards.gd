@@ -32,7 +32,7 @@ func _is_death_shard(body: Node) -> bool:
 
 const PAIN_PER_SHARD: float = -25.0
 func start_effect(pawn: CharacterBody3D):
-	var shards: Array = pawn.interaction.get_near_bodies(self.range(), funcref(self, "_is_death_shard"))
+	var shards: Array = pawn.interaction.get_near_bodies(self.range(), Callable(self, "_is_death_shard"))
 	if(shards.is_empty()):
 		return
 	pawn.damage(shards.size() * PAIN_PER_SHARD, element_type.raw)

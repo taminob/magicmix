@@ -1,56 +1,54 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=9 format=3 uid="uid://uufi6fiiu4ba"]
 
-[ext_resource path="res://menu/loading/loading_bar_over.png" type="Texture2D" id=1]
-[ext_resource path="res://menu/loading/loading.gd" type="Script" id=2]
-[ext_resource path="res://menu/loading/loading_background_material.tres" type="Material" id=3]
+[ext_resource type="Texture2D" uid="uid://bab63jdp3vwyr" path="res://menu/loading/loading_bar_over.png" id="1"]
+[ext_resource type="Script" path="res://menu/loading/loading.gd" id="2"]
+[ext_resource type="Material" uid="uid://bfpbyams22rae" path="res://menu/loading/loading_background_material.tres" id="3"]
 
-[sub_resource type="ProxyTexture" id=11]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_kw2jq"]
 
-[sub_resource type="Gradient" id=6]
-colors = PackedColorArray( 0, 0, 0, 1, 0.792157, 0.792157, 0.792157, 1 )
+[sub_resource type="Gradient" id="6"]
+colors = PackedColorArray(0, 0, 0, 1, 0.792157, 0.792157, 0.792157, 1)
 
-[sub_resource type="GradientTexture2D" id=7]
-gradient = SubResource( 6 )
+[sub_resource type="GradientTexture2D" id="7"]
+gradient = SubResource("6")
 
-[sub_resource type="Gradient" id=10]
-offsets = PackedFloat32Array(  )
-colors = PackedColorArray(  )
+[sub_resource type="Gradient" id="10"]
+offsets = PackedFloat32Array()
+colors = PackedColorArray()
 
-[sub_resource type="GradientTexture2D" id=9]
-gradient = SubResource( 10 )
+[sub_resource type="GradientTexture2D" id="9"]
+gradient = SubResource("10")
 width = 1
 
 [node name="loading" type="Control"]
 process_mode = 2
 process_priority = 1
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="background" type="TextureRect" parent="."]
-material = ExtResource( 3 )
+material = ExtResource("3")
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -1.0
 offset_right = -1.0
-texture = SubResource( 11 )
-expand = true
+texture = SubResource("PlaceholderTexture2D_kw2jq")
+expand_mode = 1
 stretch_mode = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="progress" type="TextureProgressBar" parent="."]
+layout_mode = 0
 anchor_top = 0.8
 anchor_right = 1.0
 anchor_bottom = 0.9
 max_value = 1.0
 step = 0.01
-texture_under = SubResource( 7 )
-texture_over = ExtResource( 1 )
-texture_progress = SubResource( 9 )
-tint_progress = Color( 0, 0, 0, 1 )
 nine_patch_stretch = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture_under = SubResource("7")
+texture_over = ExtResource("1")
+texture_progress = SubResource("9")
+tint_progress = Color(0, 0, 0, 1)
