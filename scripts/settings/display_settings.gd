@@ -48,6 +48,8 @@ func set_resolution(resolution: Vector2):
 	get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 	#get_viewport().set_size_2d_override(true, resolution) # TODO GODOT4: investigate alternative
 	global_scale = min(resolution.x / base_resolution.x, resolution.y / base_resolution.y)
+	get_viewport().scaling_3d_scale = global_scale
+	ThemeDB.fallback_base_scale = global_scale
 	emit_signal("global_scale_changed")
 	themes.scale_themes(global_scale)
 

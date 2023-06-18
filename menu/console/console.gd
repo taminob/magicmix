@@ -74,7 +74,7 @@ func inspect_handler(character_id: String=""):
 	settings.set_setting("dev", "debug_target", character_id)
 
 func load_handler(level_id: String=game.levels.current_level_data.id()):
-	errors.debug_assert(game.levels.level_data.has(level_id)) #,"entered invalid level_id in console: " + level_id)
+	errors.debug_assert(game.levels.level_data.has(level_id), "entered invalid level_id in console: " + level_id)
 	if(game.levels.level_data[level_id].is_in_death_realm()):
 		game.mgmt.player.stats.dead = true
 	else:

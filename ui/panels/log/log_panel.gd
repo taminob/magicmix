@@ -17,7 +17,7 @@ func update_logs(category=""):
 		if(x == category || category.is_empty()):
 			var char_data: Dictionary = game.get_character_data(x)
 			var dialogue_data: Dictionary = char_data.get("dialogue", {})
-			errors.debug_assert(dialogue_data.has("name") && dialogue_data.has("description") && dialogue_data.has("background")) #,"character " + x + " has undefined dialogue data")
+			errors.debug_assert(dialogue_data.has("name") && dialogue_data.has("description") && dialogue_data.has("background"), "character " + x + " has undefined dialogue data")
 			history_entry += dialogue_data.get("name", "")
 			history_entry += ": "
 			history_entry += dialogue_data.get("description", "")

@@ -15,8 +15,11 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("3")
 script = ExtResource("2")
+metadata/_edit_vertical_guides_ = []
 
 [node name="pain_bar" type="TextureProgressBar" parent="."]
 clip_contents = true
@@ -173,6 +176,7 @@ tint_progress = Color(0.133333, 0.133333, 0.133333, 1)
 [node name="slots" parent="." instance=ExtResource("5")]
 layout_mode = 0
 anchor_top = 0.87
+anchor_right = 0.0
 anchor_bottom = 0.95
 
 [node name="skill_slots" parent="." instance=ExtResource("8")]
@@ -188,7 +192,13 @@ anchors_preset = 0
 [node name="dialogue" parent="." instance=ExtResource("6")]
 visible = false
 layout_mode = 0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
 
 [node name="panels" parent="." instance=ExtResource("4")]
+initial_position = 2
+size = Vector2i(3072, 2048)
+visible = true
 
 [connection signal="pressed" from="menu_button" to="." method="_on_menu_button_pressed"]
