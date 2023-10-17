@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Reference",
+"class": "abstract_achievement",
+"language": "GDScript",
+"path": "res://scripts/game/achievements/achievement.gd"
+}, {
+"base": "Reference",
 "class": "abstract_action",
 "language": "GDScript",
 "path": "res://characters/state/ai/action.gd"
@@ -465,6 +470,7 @@ _global_script_classes=[ {
 "path": "res://characters/persons/vladimir.gd"
 } ]
 _global_script_class_icons={
+"abstract_achievement": "",
 "abstract_action": "",
 "abstract_behavior": "",
 "abstract_dialogue": "",
